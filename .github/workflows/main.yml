@@ -27,7 +27,7 @@ jobs:
         run: |
           COMMIT_MESSAGE=$(git show -s --format=%s)
           git clone https://$REPOSITORY_OWNER:$HF_TOKEN@huggingface.co/spaces/$REPOSITORY_OWNER/$REPOSITORY_NAME
-          cd $REPOSITORY_NAME
+          pushd $REPOSITORY_NAME
           mv ../Dockerfile .
           git add Dockerfile
           git commit --amend -m "$COMMIT_MESSAGE"
