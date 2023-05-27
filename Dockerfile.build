@@ -1,0 +1,14 @@
+FROM python:slim-buster
+
+WORKDIR /
+
+ENV SERVER_PORT 7860
+
+COPY main.py ./
+COPY requirements.txt ./
+COPY server/ ./server/
+
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "-u", "main.py"]

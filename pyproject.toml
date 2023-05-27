@@ -1,0 +1,20 @@
+[tool.pylint.format]
+good-names = [
+    'x', 'y', 'z', 'id', 'ok'
+]
+
+[tool.pylint.messages_control]
+disable = [
+    'missing-module-docstring',
+    'no-name-in-module',
+    'useless-import-alias',
+    'line-too-long',
+    'too-many-arguments'
+]
+
+[tool.pyright]
+include = ['server']
+reportUnknownVariableType = false
+reportUnknownMemberType = false
+reportUntypedFunctionDecorator = false
+reportMissingTypeStubs = false

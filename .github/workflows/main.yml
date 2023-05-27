@@ -1,0 +1,34 @@
+name: Deploy to Hugging Face Spaces
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/main.yml
+      - Dockerfile
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set Git config
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Push to Hugging Face Spaces
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: |
+          COMMIT_MESSAGE=$(git show -s --format=%s)
+          git clone https://$REPOSITORY_OWNER:$HF_TOKEN@huggingface.co/spaces/$REPOSITORY_OWNER/$REPOSITORY_NAME
+          cd $REPOSITORY_NAME
+          mv ../Dockerfile .
+          git add Dockerfile
+          git commit --amend -m "$COMMIT_MESSAGE"
+          git push --force-with-lease
