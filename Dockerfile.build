@@ -2,8 +2,6 @@ FROM python:slim-buster
 
 WORKDIR /
 
-ENV SERVER_PORT 7860
-
 COPY main.py ./
 COPY requirements.txt ./
 COPY server/ ./server/
