@@ -42,3 +42,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Factory restart API
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: |
+          curl -X POST https://huggingface.co/api/spaces/$REPOSITORY_OWNER/$REPOSITORY_NAME/restart?factory=true \
+               -H 'Authorization: Bearer $HF_TOKEN'
