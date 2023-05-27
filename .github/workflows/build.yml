@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         REGISTRY: ghcr.io
+        REPOSITORY: ${{ github.repository }}
 
     steps:
       - name: Checkout repository
@@ -33,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4.4.0
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -46,8 +47,6 @@ jobs:
       - name: Factory restart API
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
-          REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
-          curl -X POST https://huggingface.co/api/spaces/$REPOSITORY_OWNER/$REPOSITORY_NAME/restart?factory=true \
-               -H 'Authorization: Bearer $HF_TOKEN'
+          curl -X POST https://huggingface.co/api/spaces/$REPOSITORY/restart?factory=true \
+               -H "Authorization: Bearer $HF_TOKEN"
