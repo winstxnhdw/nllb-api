@@ -1,3 +1,7 @@
 fastapi >= 0.95.0
 hypercorn >= 0.14.3
 python-multipart >= 0.0.6
+
+torch >= 2.0.1
+transformers >= 4.29.2
+sentencepiece >= 0.1.99
