@@ -1,5 +1,4 @@
 from asyncio import run
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from hypercorn.asyncio import serve
@@ -24,5 +23,4 @@ def initialise_server():
         allow_headers=['*'],
     )
 
-    server = serve(app, Config()) # type: ignore
-    run(server)
+    run(serve(app, Config()))

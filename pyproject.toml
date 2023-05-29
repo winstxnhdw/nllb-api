@@ -14,6 +14,7 @@ disable = [
 
 [tool.pyright]
 include = ['server']
+stubPath = 'server/typings'
 reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportUntypedFunctionDecorator = false
