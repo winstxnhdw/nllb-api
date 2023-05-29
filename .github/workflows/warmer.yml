@@ -1,6 +1,8 @@
 name: Warm API
 
 on:
+  push:
+    paths: [.github/workflows/warmer.yml]
   schedule:
     #       ┌──────────────── minute (0 - 59)
     #       │ ┌────────────── hour (0 - 23)
