@@ -4,10 +4,10 @@ from starlette.status import HTTP_400_BAD_REQUEST
 
 from server.api.v1 import v1
 from server.features.translator import Translator
-from server.schemas.v1 import Translation
+from server.schemas.v1 import CPUSpecifications, Translation
 
 
-@v1.post('/translate', response_model=str)
+@v1.post('/translate', response_model=CPUSpecifications)
 async def translate(request: Translation):
     """
     Summary
