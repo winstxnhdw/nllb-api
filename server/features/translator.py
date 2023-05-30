@@ -50,4 +50,4 @@ class Translator:
         )
 
         output = translator(text, max_length=1000)[0]  # type: ignore
-        return output.get('translation_text')         # type: ignore
+        return output.get('translation_text')          # type: ignore

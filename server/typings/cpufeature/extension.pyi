@@ -1,0 +1,1 @@
+CPUFeature = dict[str, str]
