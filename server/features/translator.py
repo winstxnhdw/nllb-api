@@ -23,7 +23,7 @@ class Translator:
     """
     model_name = 'facebook/nllb-200-distilled-600M'
     tokeniser: PreTrainedTokenizer = NllbTokenizer.from_pretrained(model_name)
-    model = optimize(AutoModelForSeq2SeqLM.from_pretrained(model_name, torch_dtype=torch.bfloat16))
+    model = optimize(AutoModelForSeq2SeqLM.from_pretrained(model_name))
     optimised_model = torch.compile(model, backend='ipex')
 
 
