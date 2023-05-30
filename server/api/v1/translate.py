@@ -12,9 +12,15 @@ async def translate(request: Translation):
     """
     Summary
     -------
-    the `/translate` route
+    the `/translate` route translates an input from a source language to a target language
     """
-    if not (result := Translator.translate(request.text, request.source, request.target)):
+    try:
+        result = Translator.translate(request.text, request.source, request.target)
+
+    except KeyError as exception:
+        raise HTTPException(HTTP_400_BAD_REQUEST, 'Invalid source or target language!') from exception
+
+    if not result:
         raise HTTPException(HTTP_400_BAD_REQUEST, 'Translation failed!')
 
     return result
