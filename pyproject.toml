@@ -18,5 +18,6 @@ include = ['server']
 stubPath = 'server/typings'
 reportUnknownVariableType = false
 reportUnknownMemberType = false
+reportUnknownArgumentType = false
 reportUntypedFunctionDecorator = false
 reportMissingTypeStubs = false

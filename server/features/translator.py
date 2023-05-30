@@ -1,4 +1,5 @@
-from torch import bfloat16
+import torch
+from intel_extension_for_pytorch import optimize
 from transformers import (AutoModelForSeq2SeqLM, NllbTokenizer,
                           PreTrainedTokenizer, pipeline)
 
@@ -22,7 +23,9 @@ class Translator:
     """
     model_name = 'facebook/nllb-200-distilled-600M'
     tokeniser: PreTrainedTokenizer = NllbTokenizer.from_pretrained(model_name)
-    model = AutoModelForSeq2SeqLM.from_pretrained(model_name, torch_dtype=bfloat16)
+    model = optimize(AutoModelForSeq2SeqLM.from_pretrained(model_name, torch_dtype=torch.bfloat16))
+    optimised_model = torch.compile(model, backend='ipex')
+
 
     @classmethod
     def translate(cls, text: str, source_language: str, target_language: str) -> str | None:
@@ -43,7 +46,7 @@ class Translator:
         """
         translator = pipeline(
             'translation',
-            cls.model,
+            cls.optimised_model,
             tokenizer=cls.tokeniser,
             src_lang=source_language,
             tgt_lang=target_language,
