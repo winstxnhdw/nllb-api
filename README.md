@@ -24,6 +24,8 @@ curl 'https://winstxnhdw-nllb-api.hf.space/v1/translate' \
 
 <summary> List of FLORES-200 Codes </summary>
 
+<br>
+
 Language                           | FLORES-200 Code
 -----------------------------------|----------------
 Acehnese (Arabic script)           | ace_Arab
