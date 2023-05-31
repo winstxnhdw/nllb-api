@@ -1,1 +1,3 @@
-CPUFeature = dict[str, str]
+from server.types import CPUSpecifications
+
+CPUFeature: CPUSpecifications
