@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Translation(BaseModel):
@@ -13,6 +13,6 @@ class Translation(BaseModel):
     source (str) : the source language
     target (str) : the target language
     """
-    text: str
-    source: str
-    target: str
+    text: str = Field(example="Hello, world!")
+    source: str = Field(example="eng_Latn")
+    target: str = Field(example="spa_Latn")
