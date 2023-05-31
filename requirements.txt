@@ -3,7 +3,6 @@ hypercorn >= 0.14.3
 python-multipart >= 0.0.6
 
 torch >= 2.0.1
-intel-extension-for-pytorch >= 2.0.100
 transformers >= 4.29.2
 sentencepiece >= 0.1.99
 cpufeature >= 0.2.1

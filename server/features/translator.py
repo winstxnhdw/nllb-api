@@ -1,6 +1,4 @@
 import torch
-from intel_extension_for_pytorch import optimize
-from numpy import dtype
 from transformers import (AutoModelForSeq2SeqLM, NllbTokenizer,
                           PreTrainedTokenizer, pipeline)
 
@@ -24,8 +22,7 @@ class Translator:
     """
     model_name = 'facebook/nllb-200-distilled-600M'
     tokeniser: PreTrainedTokenizer = NllbTokenizer.from_pretrained(model_name)
-    model = optimize(AutoModelForSeq2SeqLM.from_pretrained(model_name, torch_dtype=torch.bfloat16))
-    # optimised_model = torch.compile(model, backend='ipex')
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_name, torch_dtype=torch.bfloat16)
 
 
     @classmethod
