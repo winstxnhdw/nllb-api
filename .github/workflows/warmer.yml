@@ -22,4 +22,8 @@ jobs:
     steps:
       - name: cURL the API
         run: |
-          [ "$(curl https://winstxnhdw-nllb-api.hf.space/v1/)" = "\"Welcome to v1 of the API!"\" ]
+          healthcheck() {
+            [ "$(curl https://winstxnhdw-nllb-api.hf.space/v1/)" = "\"Welcome to v1 of the API!"\" ]
+          }
+
+          healthcheck || healthcheck || healthcheck
