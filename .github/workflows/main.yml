@@ -23,10 +23,9 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           REPOSITORY_NAME: ${{ github.event.repository.name }}
-          REPOSITORY_OWNER: ${{ github.repository_owner }}
         run: |
           COMMIT_MESSAGE=$(git show -s --format=%s)
-          git clone https://$REPOSITORY_OWNER:$HF_TOKEN@huggingface.co/spaces/$REPOSITORY_OWNER/$REPOSITORY_NAME
+          git clone https://$GITHUB_REPOSITORY_OWNER:$HF_TOKEN@huggingface.co/spaces/$GITHUB_REPOSITORY_OWNER/$REPOSITORY_NAME
           pushd $REPOSITORY_NAME
           mv ../Dockerfile .
           git add Dockerfile
