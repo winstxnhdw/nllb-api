@@ -2,9 +2,6 @@ name: Dependabot
 
 on: pull_request
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,8 +14,10 @@ jobs:
         run: docker build -t nllb-api .
 
   auto-merge:
-    runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Auto-merge Dependabot PRs
