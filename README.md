@@ -233,3 +233,12 @@ Chinese (Traditional)              | zho_Hant
 Standard Malay                     | zsm_Latn
 Zulu                               | zul_Latn
 </details>
+
+## Development
+
+You can spin the server up locally with the following.
+
+```bash
+docker build -f Dockerfile.build -t nllb-api .
+docker run --rm -e SERVER_PORT=5000 -p 5000:5000 nllb-api
+```
