@@ -5,7 +5,7 @@
 [![warmer.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml)
 [![dependabot.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/dependabot.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/dependabot.yml)
 
-A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb), hosted on Hugging Face Spaces.
+A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb) distilled 1.3B 8-bit quantised variant, hosted on Hugging Face Spaces. To achieve faster executions, we are using [CTranslate2](https://github.com/OpenNMT/CTranslate2) as our inference engine.
 
 ## Usage
 
@@ -235,6 +235,12 @@ Zulu                               | zul_Latn
 </details>
 
 ## Development
+
+You can install the required dependencies for your editor with the following.
+
+```bash
+poetry install
+```
 
 You can spin the server up locally with the following.
 
