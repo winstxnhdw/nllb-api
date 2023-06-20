@@ -6,7 +6,8 @@ on:
     paths:
       - .github/workflows/build.yml
       - Dockerfile.build
-      - requirements.txt
+      - poetry.lock
+      - pyproject.toml
       - server/**
 
 permissions:

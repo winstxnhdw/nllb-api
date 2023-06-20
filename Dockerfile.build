@@ -3,10 +3,15 @@ FROM python:slim-buster
 WORKDIR /
 
 COPY main.py ./
-COPY requirements.txt ./
+COPY pyproject.toml ./
+COPY poetry.lock ./
 COPY server/ ./server/
 
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt update
+RUN apt install curl -y
+RUN curl -sSL https://install.python-poetry.org | python -
+
+RUN ~/.local/share/pypoetry/venv/bin/poetry config virtualenvs.create false
+RUN ~/.local/share/pypoetry/venv/bin/poetry install --no-root
 
 CMD ["python", "-u", "main.py"]
