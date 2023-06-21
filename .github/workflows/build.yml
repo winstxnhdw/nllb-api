@@ -23,6 +23,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run linter
+        run: poetry run pylint $(git ls-files '*.py')
+
+      - name: Run type checker
+        run: poetry run pyright
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2.2.0
         with:
