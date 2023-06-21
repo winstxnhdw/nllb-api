@@ -14,6 +14,7 @@ jobs:
         run: docker build -t nllb-api .
 
   auto-merge:
+    needs: build
     if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     permissions:
