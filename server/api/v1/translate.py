@@ -1,14 +1,12 @@
-from typing import Literal
-
 from starlette.exceptions import HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
 
 from server.api.v1 import v1
 from server.features.translator import Translator
-from server.schemas.v1 import Translation
+from server.schemas.v1 import Translated, Translation
 
 
-@v1.post('/translate', response_model=Literal['¡Hola, mundo!'])
+@v1.post('/translate', response_model=Translated)
 async def translate(request: Translation):
     """
     Summary
@@ -24,4 +22,4 @@ async def translate(request: Translation):
     if not result:
         raise HTTPException(HTTP_400_BAD_REQUEST, 'Translation failed!')
 
-    return result
+    return Translated(text=result)
