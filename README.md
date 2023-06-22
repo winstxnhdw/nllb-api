@@ -1,5 +1,6 @@
 # nllb-api
 
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 [![main.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/main.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/main.yml)
 [![build.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml)
 [![warmer.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml)
