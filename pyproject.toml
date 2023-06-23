@@ -29,7 +29,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.97.0"
+fastapi = "^0.98.0"
 hypercorn = "^0.14.3"
 cpufeature = "^0.2.1"
 transformers = "^4.30.2"
