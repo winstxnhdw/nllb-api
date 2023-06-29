@@ -11,7 +11,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run the Docker containers
-        run: docker build -t nllb-api .
+        run: docker build -t $REPOSITORY_NAME .
+        env:
+            REPOSITORY_NAME: ${{ github.event.repository.name }}
 
   auto-merge:
     needs: build
