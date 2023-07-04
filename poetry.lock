@@ -181,35 +181,35 @@ files = [
 
 [[package]]
 name = "ctranslate2"
-version = "3.16.0"
+version = "3.16.1"
 description = "Fast inference engine for Transformer models"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "ctranslate2-3.16.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:dab4ec990914afeb2ecbd5c49c0badc32fdfaddd8b03535a42cb64b963d5d5e7"},
-    {file = "ctranslate2-3.16.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:656825973a4e208803a8bc7963b2a96520c0b3957b0a152fd357807d38f01033"},
-    {file = "ctranslate2-3.16.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4268087e08c3f8da2240e63d5767aadb2fc109cee6e9958ec0926e72ea5d80ce"},
-    {file = "ctranslate2-3.16.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1f2b204a5034b8dc76d0c817135612629fc566ffbd478e2f08ce26869ce6156e"},
-    {file = "ctranslate2-3.16.0-cp310-cp310-win_amd64.whl", hash = "sha256:d7520bb7379fdabc324db00a80fe27bcef3b92c7e24546c5d7b3b5b20806bb4b"},
-    {file = "ctranslate2-3.16.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:e657517fd91548779c9a10e49c08cb79a224bb51318189c09ac7c90564d438c6"},
-    {file = "ctranslate2-3.16.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:e94bece10ce563eb553c57a96957d074fe49a90b751c880486272ffd7f826dc3"},
-    {file = "ctranslate2-3.16.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1ffadda038a6c7da2bb8cd33319c1027314b358510f269b0e3bcc85bc251413f"},
-    {file = "ctranslate2-3.16.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:47b36fdbd3df12edac3acd2bdee2edf49c47d39b446400d16538a530bec009ab"},
-    {file = "ctranslate2-3.16.0-cp311-cp311-win_amd64.whl", hash = "sha256:de3c4449b1e382b6d544b8ec9938d9c08b7c64347d1ad4fa025bec0c13f59872"},
-    {file = "ctranslate2-3.16.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:7739ae6e3d923446ce10518b6970a20e45e6c4e3dc1074f749b4550e6a016349"},
-    {file = "ctranslate2-3.16.0-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0bad956a13bd4f752d6dee0a55a1dcf91d1f4efe103b3fb59e56a11876cad65f"},
-    {file = "ctranslate2-3.16.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5d231c0083d384f6184c8fcae9e3a4d9a1aacee9e6e62c343d2809899d96370d"},
-    {file = "ctranslate2-3.16.0-cp37-cp37m-win_amd64.whl", hash = "sha256:936657316251a989198543feb2ff7a0da6d1a25eb26f6c4ee8603d483b9ee9c3"},
-    {file = "ctranslate2-3.16.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:21e688aee7d4eeefc899b6b81bba3d274cf9e6e34784246b3f2dd90897d0f365"},
-    {file = "ctranslate2-3.16.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:8302c73e1e50549acdcf98dacb12542a5bcc65517eacd5354023e1c40d6f380a"},
-    {file = "ctranslate2-3.16.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:27c83a7ed53208f2c7585340a2b680c8216f0e61e3cf708ccbd47cf908919942"},
-    {file = "ctranslate2-3.16.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d77c44506fc48be3abb13bda6c498105604c2bb8e0621d60270abd8752b4ba07"},
-    {file = "ctranslate2-3.16.0-cp38-cp38-win_amd64.whl", hash = "sha256:7cecef368455d9d3aac19758547e1faf498444628d7755f71eb592b40c0901ea"},
-    {file = "ctranslate2-3.16.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:8687c897ac2b2b319c9d998603e9c8acb78937e1dcf2543443b3e57d4b1130d6"},
-    {file = "ctranslate2-3.16.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:a87b614d02fdecb743db9afaab66d386f72a711072648051386920092950320c"},
-    {file = "ctranslate2-3.16.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d8aefe37b33173f4d44ea7a45cd6ae127d9821b0cf47b650f34769b80277759b"},
-    {file = "ctranslate2-3.16.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dcb515e512cfe07db3c4d9660674eadf4ee275cf7cbd1ec1070999948941a6f1"},
-    {file = "ctranslate2-3.16.0-cp39-cp39-win_amd64.whl", hash = "sha256:196b1dc5ea043c446ed944d12ec6a50efe9d6bcc802a1b29fa7c42f72d476645"},
+    {file = "ctranslate2-3.16.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:545110ab1bfb421baee1c3661432904b3639e7429f4f54f677f59e10c3349144"},
+    {file = "ctranslate2-3.16.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:dc241fad117a680b6859bf2373f2957aa296880db09495ce5fdcb67bb0b8c541"},
+    {file = "ctranslate2-3.16.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6fc846d83a8eca0c763d9dba43e4984f2872efbe2d1a2c3fd79cf2271654f426"},
+    {file = "ctranslate2-3.16.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f99a16e9893b8090a461df672b561cd7d71528eb3e2eaf34f6fc0e8f59258c74"},
+    {file = "ctranslate2-3.16.1-cp310-cp310-win_amd64.whl", hash = "sha256:cb40f4918a0670fa039f740267446694b39904b878190057999324b951b4d822"},
+    {file = "ctranslate2-3.16.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:38cfa707d57ece91c835b0a87156496a1aa6a62691d9f9d4afc429105211fe01"},
+    {file = "ctranslate2-3.16.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:90e476a1f9527b56181eb6add2295a7c7e110d26c8aed32088bd3c8aaf9966d3"},
+    {file = "ctranslate2-3.16.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e742736fb818fe36eccf86f679a84db2f2b1bc31a930e79612abad76c480c147"},
+    {file = "ctranslate2-3.16.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:078214d5cca8fc30584b1ff5412d5967da1c289d1b497b630b3ca8b9800846e0"},
+    {file = "ctranslate2-3.16.1-cp311-cp311-win_amd64.whl", hash = "sha256:50328186da463e3a4b4542b32d9a5ee40d7410bfa218875cdaa33686d6f5e142"},
+    {file = "ctranslate2-3.16.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:5d21d6593f29bea5fe4c7fe578d40525e4f90d30871bf51c7b6135e8ef886868"},
+    {file = "ctranslate2-3.16.1-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:743819b3173ed48232ba6fb7b09ad342f2ff4c52012815302858a28ee023d170"},
+    {file = "ctranslate2-3.16.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7f72ce7ce07246ff694ab2010f96f640b74b64484fb6ac5754de5f536b34507d"},
+    {file = "ctranslate2-3.16.1-cp37-cp37m-win_amd64.whl", hash = "sha256:816961932f574044ed63a589d710c4e8af788ea3b2ad829d9fdb99126ae5a9e5"},
+    {file = "ctranslate2-3.16.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:c64a08ae332ddab203ef4ed8337f99b14fa0b6c434e251282f5565724d84fb85"},
+    {file = "ctranslate2-3.16.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:1458523187d7f485d8631288a3070821cabc49bf46c63ab5f7652d731dbfdbd4"},
+    {file = "ctranslate2-3.16.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:de0439670a4f818d3586805a9c6dcd6a6c4b6757e50645fa9168b35ec3218c4d"},
+    {file = "ctranslate2-3.16.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5b1941eacdc6bacf6684b3f27504e692e3a4fac715acef8b4d50e7b90c69c9d3"},
+    {file = "ctranslate2-3.16.1-cp38-cp38-win_amd64.whl", hash = "sha256:cbfbcecf5353c1873770ab2183fed4e992c14712fc4a330da4788067c82381f7"},
+    {file = "ctranslate2-3.16.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:2dc8becf0213f0bb018b076084ecefac73dc210a3f68d72f90d5c44b4061da41"},
+    {file = "ctranslate2-3.16.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:c4de1702db412bc32fc149cefd6c0f8b7ec9f76bc0313429dd10955750574069"},
+    {file = "ctranslate2-3.16.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:49a686dcde3ab10ea692ebe81dca3d83ce499f6af0d06801fb09a7db2fd8987a"},
+    {file = "ctranslate2-3.16.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9ad5be3986e98a969be59fe4a795c1fae5cfd7b3ebbc40ec7872aa9bb87334d5"},
+    {file = "ctranslate2-3.16.1-cp39-cp39-win_amd64.whl", hash = "sha256:1fe9243296c97e1cb4bdab83494b4215c65085fd69b9bf53126a6674ffff53c0"},
 ]
 
 [package.dependencies]
@@ -1230,4 +1230,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "ae95c362622e58f4777f26f2087857a65cae4f90630cefd128ca88381294a85c"
+content-hash = "b9c319f247e3f458a0bcf7c7a4c91cf0a34d55185f34ad7bea63a39d5535abfe"
