@@ -14,7 +14,9 @@ Simply cURL the endpoint like in the following. The `source` and `target` langua
 
 ```bash
 curl 'https://winstxnhdw-nllb-api.hf.space/v1/translate' \
-  -d '{
+  -H 'Content-Type: application/json' \
+  -d \
+'{
   "text": "Hello world!",
   "source": "eng_Latn",
   "target": "spa_Latn"
