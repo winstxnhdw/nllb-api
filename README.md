@@ -17,10 +17,10 @@ curl 'https://winstxnhdw-nllb-api.hf.space/v1/translate' \
   -H 'Content-Type: application/json' \
   -d \
 '{
-  "text": "Hello world!",
-  "source": "eng_Latn",
-  "target": "spa_Latn"
-}'
+    "text": "Hello world!",
+    "source": "eng_Latn",
+    "target": "spa_Latn"
+ }'
 ```
 
 <details>
