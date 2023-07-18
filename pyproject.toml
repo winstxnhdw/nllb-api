@@ -33,7 +33,7 @@ fastapi = "^0.100.0"
 hypercorn = "^0.14.4"
 cpufeature = "^0.2.1"
 transformers = "^4.30.2"
-ctranslate2 = "^3.16.1"
+ctranslate2 = "^3.17.0"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.317"
