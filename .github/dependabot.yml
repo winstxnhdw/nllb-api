@@ -13,3 +13,6 @@ updates:
       interval: "daily"
       time: "18:00"
       timezone: "Asia/Singapore"
+    groups:
+       dependencies:
+          patterns: ["*"]
