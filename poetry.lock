@@ -181,35 +181,35 @@ files = [
 
 [[package]]
 name = "ctranslate2"
-version = "3.17.0"
+version = "3.17.1"
 description = "Fast inference engine for Transformer models"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "ctranslate2-3.17.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:4280034ec8ada3fed753aa33c5671fcdcb099a3cd8319fa3ec9e14e4130fcbd0"},
-    {file = "ctranslate2-3.17.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:089269787516f98d0156e63957aa0fbdeae172f1ce163dc1b6fd217cc00238d5"},
-    {file = "ctranslate2-3.17.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3db02d5419fff6a355d0e82893917b361ca496bc1f9d69dd4ff08b5e9362e1a0"},
-    {file = "ctranslate2-3.17.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2956397d921b4c0035453ecff12538af623606c5c50709aa8bd98825ad6342c3"},
-    {file = "ctranslate2-3.17.0-cp310-cp310-win_amd64.whl", hash = "sha256:1baa29df84dd8e893a37d89c2f9ca3aa2a9d067cbee3a28800a293777e1a7fe8"},
-    {file = "ctranslate2-3.17.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:0a3fd6b138b202c29a9eb7582cd172595b1e322a4edc429494fb848b885d7698"},
-    {file = "ctranslate2-3.17.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:b8f2195f047fdfe475a1da1ae7e10f7d57344d65e0a23ff47f8be6260efc0433"},
-    {file = "ctranslate2-3.17.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c731b8158a72cccad9a69a380071e7052e6021560412ee3e0eefa644a8b74271"},
-    {file = "ctranslate2-3.17.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e19ab3d67af4234fa5c6052b14ccfa183ba266515cb6bbbac73b1b269f803ff5"},
-    {file = "ctranslate2-3.17.0-cp311-cp311-win_amd64.whl", hash = "sha256:60fc6a42d58c1f5f6f5ed4480dd998337b20100ac29ae1233b2741c61f949a9b"},
-    {file = "ctranslate2-3.17.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:70d1c369c18478b62ac4fdc3cd2af00e7697481e606571d174200a8da73aa1ea"},
-    {file = "ctranslate2-3.17.0-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2b12f4f59cc2f8e69ed5113253ba313b70517fc5731c9ee5969e212c453828ab"},
-    {file = "ctranslate2-3.17.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:11a48ef9e467e66172df4ab991a838adbc3b118492ef218537d1ecea474d1dcd"},
-    {file = "ctranslate2-3.17.0-cp37-cp37m-win_amd64.whl", hash = "sha256:318f25610438f790a6597d56735062e8b1620f3fe2fdb1a1cc28fa1099a17e5c"},
-    {file = "ctranslate2-3.17.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6854baf13726dd456d348fcc129c57e50b3d69fa32be88dbe6867240786163c2"},
-    {file = "ctranslate2-3.17.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:9e890363c3900bac28408b571fcf75864d4feef0745b17e2fe3958b769ce55af"},
-    {file = "ctranslate2-3.17.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:89558835bf5aea615634247e8b40fe090c54b79b6bf51e65f05f4730b97d4802"},
-    {file = "ctranslate2-3.17.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ca3f2bbe8943364197801205d80ba1cd70523de1dd70c8ddaa2604ffb18dddca"},
-    {file = "ctranslate2-3.17.0-cp38-cp38-win_amd64.whl", hash = "sha256:ec6d7112dd925479b275fb553bbad13026bc9368b737bd2d0ff7dee28319f771"},
-    {file = "ctranslate2-3.17.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:ac7fed3184ba22476fe9974a4d475fc3b7da8998359302b3ef3e7a557bdd3ab3"},
-    {file = "ctranslate2-3.17.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:33681e0eab4f527edb77447e9ca1684b6696286344a3731612eab0e83aa1582a"},
-    {file = "ctranslate2-3.17.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b4f8bfe1f0c5ab0b112ff03714f6f3b4ac0f28f7beafc7b4efbbda677b441569"},
-    {file = "ctranslate2-3.17.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bbb61c3091c2b4efc4f04028c29cf5a80f0c6ece3f7b0fcbb7e90409a81157af"},
-    {file = "ctranslate2-3.17.0-cp39-cp39-win_amd64.whl", hash = "sha256:6e2ace6ddba2ad4f627a5acb68220e9c06cc4449c93bbf694679148c3e2c0e68"},
+    {file = "ctranslate2-3.17.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:c64543fa2e592a6687441d9fe5aeca7d103cde315906ec0cdd02d0e6b0c1ba03"},
+    {file = "ctranslate2-3.17.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:07db74dd7a7a880c0879c219d9bee4a9db3c8025704a83bf872c49238a28756c"},
+    {file = "ctranslate2-3.17.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:70f66bd549e36eb81530aa4dc6c242366b96b306c262799b0e6f498ea37bc61c"},
+    {file = "ctranslate2-3.17.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cbed718c97dcf5b7455a3e243882bfacbb2474463f694b8a5f653e324506a063"},
+    {file = "ctranslate2-3.17.1-cp310-cp310-win_amd64.whl", hash = "sha256:3a4f22fe3fe9071c6ab5c76688d00dec5984d38434ebf73c3b6b7633006e9ec8"},
+    {file = "ctranslate2-3.17.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:03b6d0bcfd87995c92df5a754fdaf654767d86753b3b7206d0a066cd14d7211c"},
+    {file = "ctranslate2-3.17.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:da34fcd29f6c142c4ea85b1191c8930afa9b145e21b7b32dc04b4dd203468a26"},
+    {file = "ctranslate2-3.17.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5a866f8ada0af060af055c82e12855f68613bb630ecf93b403f7ee8477b04bc4"},
+    {file = "ctranslate2-3.17.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3bbda04ebc8bf1e0f1ea6de1610f97e5e83ca94cc1915965b67ef1f79e275bf8"},
+    {file = "ctranslate2-3.17.1-cp311-cp311-win_amd64.whl", hash = "sha256:202f10b666149420ff1703ac2058a80ac235d2b5c39c3ba68fb80189b07ec3ac"},
+    {file = "ctranslate2-3.17.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:7128042718425d88f34418bc47dd7eeb5ca2af90a691244476d20765cd3da777"},
+    {file = "ctranslate2-3.17.1-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d5b9865e6a0f38bb2ebb2b5827c2efefc90167cf10b9a1c17b14c8142f266334"},
+    {file = "ctranslate2-3.17.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c1200b698dde769904b54cdc9c42a4216d9fdc720649236af81033a8ca7be41d"},
+    {file = "ctranslate2-3.17.1-cp37-cp37m-win_amd64.whl", hash = "sha256:71b93ea4da6989dd4366f186961e1503a0c0ac03beac686fdac0594cc1f72edc"},
+    {file = "ctranslate2-3.17.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:770255e03975f27d1803dcb92994e50a15d02a28bda97094710a1fc7fac13e75"},
+    {file = "ctranslate2-3.17.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:df4898fbdf558cb3cc748d71e41463d1bd2f857aa0cc93d182466e18a1f52e43"},
+    {file = "ctranslate2-3.17.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:86241ebeb02f1fa3fdd2edc0b2663eb71c314f3c2991b78da7937ee76ac28ee0"},
+    {file = "ctranslate2-3.17.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4ff354b756e379ed05077de1d6b77d852bafcacb49520e47752835da3a1a3b2d"},
+    {file = "ctranslate2-3.17.1-cp38-cp38-win_amd64.whl", hash = "sha256:500e310bfbd428ecad83df2aa1579661104d946b7175abb63bf0eab669109837"},
+    {file = "ctranslate2-3.17.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:51d6ffe882a607d48dab3d381fc44a26e7b9b5f2a95ad03cae0b102af62db3eb"},
+    {file = "ctranslate2-3.17.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:9327f38998cd19839280e5222698b94aeabd36383f00f2571b07077d9ddbd78c"},
+    {file = "ctranslate2-3.17.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:36fdb7ffc56b7af64d4152cf53ce03eace62087bc6326fa5e6b04d2c9c35d83b"},
+    {file = "ctranslate2-3.17.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:360365096d76208d47f4d30556361989b26847f0fec47ef1c44ea9a2ee39af56"},
+    {file = "ctranslate2-3.17.1-cp39-cp39-win_amd64.whl", hash = "sha256:d1308f698789e9dc2ef01c34fbc81de6b1b8790ff81af58b0449374afb35686f"},
 ]
 
 [package.dependencies]
@@ -648,13 +648,13 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pyright"
-version = "1.1.317"
+version = "1.1.318"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.317-py3-none-any.whl", hash = "sha256:9cf24f83fe8f2cf00773068e06ce771f03331590c7d5e771546f81d7f60efaba"},
-    {file = "pyright-1.1.317.tar.gz", hash = "sha256:74da4d3e2dcfe66a2d1d1001e16431ec17aac0ad35b03c0410f7379c2cb5c7f0"},
+    {file = "pyright-1.1.318-py3-none-any.whl", hash = "sha256:056c1b2e711c3526e32919de1684ae599d34b7ec27e94398858a43f56ac9ba9b"},
+    {file = "pyright-1.1.318.tar.gz", hash = "sha256:69dcf9c32d5be27d531750de627e76a7cadc741d333b547c09044278b508db7b"},
 ]
 
 [package.dependencies]
@@ -1218,4 +1218,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "6027c0b9d2cfec44211008a8969e29b0f12a40ed9bfb6feb12470970d23ac572"
+content-hash = "aa79770b44d4d3c70ea47e3a0322675557030d9af7a978d27e2a040cbb280886"
