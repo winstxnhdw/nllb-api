@@ -1,13 +1,14 @@
-from server import initialise
+from server import Server
 
 
 def main():
     """
     Summary
     -------
-    main function to run the server
+    exhaust the initialise generator and run the server
     """
-    initialise()
+    for _ in Server.initialise():
+        pass
 
 
 if __name__ == '__main__':
