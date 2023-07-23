@@ -91,7 +91,7 @@ class Server:
         initialises everything
         """
         self = cls()
-        # self.initialise_routes()
+        self.initialise_routes()
         self.initialise_server()
 
         yield self.app
