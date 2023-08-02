@@ -44,8 +44,11 @@ class Translator:
         translated_text (str) : the translated text
         """
         cls.tokeniser.set_src_lang_special_tokens(source_language)
-        source = cls.tokeniser.convert_ids_to_tokens(cls.tokeniser.encode(text))
-        results = cls.translator.translate_batch([source], target_prefix=[[target_language]])
+
+        if isinstance(tokens := cls.tokeniser.convert_ids_to_tokens(cls.tokeniser.encode(text)), str):
+            tokens = [tokens]
+
+        results = cls.translator.translate_batch([tokens], target_prefix=[[target_language]])
         target: list[str] = results[0].hypotheses[0][1:]
 
         return cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(target))
