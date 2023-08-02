@@ -22,10 +22,11 @@ jobs:
       REPOSITORY_NAME: ${{ github.event.repository.name }}
 
     steps:
+      - name: cURL Swagger
+        run: |
+          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/)" = "{\"detail\":\"Not Found\"}" ]
+
       - name: cURL the API
         run: |
-          healthcheck() {
-            [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/v1/)" = "\"Welcome to v1 of the API!"\" ]
-          }
+          [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/v1/)" = "\"Welcome to v1 of the API!"\" ]
 
-          healthcheck || healthcheck || healthcheck
