@@ -72,7 +72,7 @@ class Server:
         -------
         initialize the server
         """
-        self.app = FastAPI()
+        self.app = FastAPI(docs_url='/')
         self.app.include_router(v1)
         self.app.add_middleware(
             CORSMiddleware,
