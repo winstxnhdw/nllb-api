@@ -1,4 +1,4 @@
-# pylint: disable-all
+# pylint: skip-file
 
 from os import PathLike
 from typing import Any, Self

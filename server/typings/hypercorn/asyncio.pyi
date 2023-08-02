@@ -1,4 +1,4 @@
-# pylint: disable-all
+# pylint: skip-file
 
 from typing import Awaitable, Callable, Literal
 
