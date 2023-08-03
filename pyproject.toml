@@ -36,5 +36,5 @@ transformers = "^4.31.0"
 ctranslate2 = "^3.17.1"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.318"
+pyright = "^1.1.320"
 pylint = "^2.17.5"
