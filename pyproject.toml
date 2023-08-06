@@ -20,6 +20,11 @@ reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false
 
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+
 [tool.poetry]
 name = "nllb-api"
 version = "0.1.0"
@@ -31,10 +36,12 @@ readme = "README.md"
 python = "^3.11"
 fastapi = "^0.100.1"
 hypercorn = "^0.14.4"
-cpufeature = "^0.2.1"
 transformers = "^4.31.0"
 ctranslate2 = "^3.18.0"
+cpufeature = "^0.2.1"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.320"
 pylint = "^2.17.5"
+pytest = "^7.4.0"
+isort = "^5.12.0"

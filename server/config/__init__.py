@@ -11,8 +11,14 @@ class Config(HypercornConfig):
     -------
     the config class for the server
     """
-    if not (SERVER_PORT := env['SERVER_PORT']):
-        raise NoPortFoundError
+    default_port = 49494
+
+    if not (SERVER_PORT := env.get('SERVER_PORT', default_port)):
+        if not isinstance(SERVER_PORT, int):
+            raise NoPortFoundError
+
+    if SERVER_PORT == default_port:
+        print(f'WARNING: using default port {default_port}')
 
     _bind = [f"0.0.0.0:{SERVER_PORT}"]
     access_log_format = '%(s)s "%(R)s" %(h)s "%(a)s"'
