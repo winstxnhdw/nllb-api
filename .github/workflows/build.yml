@@ -29,7 +29,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: 3.11
           cache: poetry
 
       - name: Install dependencies
@@ -40,6 +40,9 @@ jobs:
 
       - name: Run type checker
         run: poetry run pyright
+
+      - name: Test
+        run: poetry run pytest
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2.2.0
