@@ -3,6 +3,7 @@
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 [![main.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/main.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/main.yml)
 [![build.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml)
+[![formatter.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml)
 [![warmer.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml)
 [![dependabot.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/dependabot.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/dependabot.yml)
 
