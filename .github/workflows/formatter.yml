@@ -1,0 +1,41 @@
+name: Format
+
+on:
+  push:
+    paths:
+      - '**.py'
+      - .github/workflows/formatter.yml
+      - tsconfig.json
+      - pyproject.toml
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Sort imports
+        uses: isort/isort-action@master
+        with:
+          configuration: --atomic
+
+      - name: Set Git config
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "style: format scripts" | true
+          git push
