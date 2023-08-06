@@ -20,8 +20,25 @@ class Server:
 
     Attributes
     ----------
+    app (FastAPI) : the FastAPI instance
+    api_directory (str) : the directory where the api files are located
 
+    Methods
+    -------
+    convert_delimiters(string: str, old: str, new: str) -> str
+        convert delimiters in a string
+
+    initialise_routes()
+        dynamically initialise all routes
+
+    initialise_server()
+        initialize the server
+
+    initialise() -> Generator[FastAPI, None, None]
+        initialises everything and yields the FastAPI instance
     """
+    __slots__ = 'app', 'api_directory'
+
     def __init__(self):
 
         self.app: FastAPI
@@ -89,6 +106,10 @@ class Server:
         Summary
         -------
         initialises everything
+
+        Yields
+        ------
+        app (FastAPI) : the FastAPI instance
         """
         self = cls()
         self.initialise_routes()
