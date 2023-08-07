@@ -2,6 +2,12 @@ FROM python:slim-buster
 
 WORKDIR /
 
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV POETRY_VIRTUALENVS_CREATE=false
+ENV POETRY_HOME="/opt/poetry"
+ENV PATH="$POETRY_HOME/bin:$PATH"
+
 COPY main.py ./
 COPY pyproject.toml ./
 COPY poetry.lock ./
@@ -10,8 +16,6 @@ COPY server/ ./server/
 RUN apt update
 RUN apt install curl -y
 RUN curl -sSL https://install.python-poetry.org | python -
+RUN poetry install --no-dev
 
-RUN ~/.local/share/pypoetry/venv/bin/poetry config virtualenvs.create false
-RUN ~/.local/share/pypoetry/venv/bin/poetry install --no-dev
-
-CMD ["python", "-u", "main.py"]
+CMD ["python", "main.py"]
