@@ -14,7 +14,7 @@ COPY poetry.lock ./
 COPY server/ ./server/
 
 RUN apt update
-RUN apt install curl -y
+RUN apt install -y curl
 RUN curl -sSL https://install.python-poetry.org | python -
 RUN poetry install --no-dev
 
