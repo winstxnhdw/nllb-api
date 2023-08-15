@@ -11,13 +11,6 @@ class Translator:
     -------
     a static class for the NLLB translator
 
-    Attributes
-    ----------
-    model_name (str) : the name of the model
-    translator_model_path (str) : the path to the model
-    tokeniser (NllbTokenizerFast) : the tokeniser
-    translator (Translator) : the ctranslate2 translator object
-
     Methods
     -------
     translate(input: str, source_language: str, target_language: str) -> str
