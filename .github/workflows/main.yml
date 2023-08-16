@@ -1,4 +1,4 @@
-name: Deploy to Hugging Face Spaces
+name: Deploy
 
 on:
   push:
