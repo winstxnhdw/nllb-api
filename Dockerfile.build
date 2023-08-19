@@ -8,14 +8,12 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 ENV POETRY_HOME="/opt/poetry"
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
-COPY main.py ./
-COPY pyproject.toml ./
-COPY poetry.lock ./
-COPY server/ ./server/
+COPY . ./
 
-RUN apt update
-RUN apt install -y curl
-RUN curl -sSL https://install.python-poetry.org | python -
-RUN poetry install --no-dev
+RUN apt update && \
+    apt install -y curl && \
+    rm -rf /var/lib/apt/lists/* && \
+    curl -sSL https://install.python-poetry.org | python - && \
+    poetry install --no-dev
 
 CMD ["python", "main.py"]
