@@ -5,3 +5,5 @@ ENV HUGGINGFACE_HUB_CACHE /cache
 
 RUN mkdir /cache && \
     chmod 777 /cache
+
+EXPOSE $SERVER_PORT
