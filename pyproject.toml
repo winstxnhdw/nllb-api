@@ -39,6 +39,7 @@ hypercorn = "^0.14.4"
 transformers = "^4.31.0"
 ctranslate2 = "^3.18.0"
 cpufeature = "^0.2.1"
+typing-extensions = "^4.7.1"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.323"
