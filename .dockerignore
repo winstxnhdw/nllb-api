@@ -1,6 +1,8 @@
 .gitignore
 .dockerignore
 *.md
+*.pyc
+*.toml
 Dockerfile*
 
 .github/
