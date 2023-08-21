@@ -6,7 +6,7 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 ENV POETRY_HOME=/opt/poetry
 ENV PATH=$POETRY_HOME/bin:$PATH
 
-COPY pyproject.toml ./
+COPY pyproject.toml .
 
 RUN apt update && \
     apt install -y curl && \
