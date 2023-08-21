@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: cURL Swagger
         run: |
-          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/)" = "{\"detail\":\"Not Found\"}" ]
+          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/docs)" = "{\"detail\":\"Not Found\"}" ]
 
       - name: cURL the API
         run: |
