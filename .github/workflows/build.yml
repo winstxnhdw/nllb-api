@@ -11,14 +11,9 @@ on:
       - pyproject.toml
       - server/**
 
-permissions:
-  packages: write
-
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    env:
-      REGISTRY: ghcr.io
 
     steps:
       - name: Checkout repository
@@ -45,6 +40,17 @@ jobs:
       - name: Test
         run: poetry run pytest
 
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    env:
+      REGISTRY: ghcr.io
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2.2.0
         with:
@@ -66,9 +72,14 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  restart:
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+    steps:
       - name: Factory restart API
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           curl -X POST https://huggingface.co/api/spaces/$GITHUB_REPOSITORY/restart?factory=true \
                -H "Authorization: Bearer $HF_TOKEN"
