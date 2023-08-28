@@ -34,7 +34,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.101.1"
+fastapi = "^0.103.0"
 hypercorn = "^0.14.4"
 transformers = "^4.32.0"
 ctranslate2 = "^3.18.0"
