@@ -37,7 +37,7 @@ python = "^3.11"
 fastapi = "^0.103.0"
 hypercorn = "^0.14.4"
 transformers = "^4.32.1"
-ctranslate2 = "^3.18.0"
+ctranslate2 = "^3.19.0"
 cpufeature = "^0.2.1"
 typing-extensions = "^4.7.1"
 
