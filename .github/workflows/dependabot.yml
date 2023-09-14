@@ -11,7 +11,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run the Docker containers
-        run: docker build -t ${{ github.event.repository.name }} .
+        run: docker build -t $TAG .
+        env:
+          TAG: ${{ github.event.repository.name }}
 
   auto-merge:
     needs: build
