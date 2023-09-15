@@ -42,7 +42,7 @@ cpufeature = "^0.2.1"
 typing-extensions = "^4.7.1"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.326"
+pyright = "^1.1.327"
 pylint = "^2.17.5"
 pytest = "^7.4.2"
 isort = "^5.12.0"
