@@ -2,7 +2,7 @@ from starlette.exceptions import HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
 
 from server.api.v1 import v1
-from server.features.translator import Translator
+from server.features import Translator
 from server.schemas.v1 import Translated, Translation
 
 
