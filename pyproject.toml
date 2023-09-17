@@ -1,29 +1,24 @@
 [tool.pylint.format]
-good-names = [
-    'x', 'y', 'z', 'id', 'ok'
-]
+good-names = ['x', 'y', 'z', 'id', 'ok']
 
 [tool.pylint.messages_control]
 disable = [
-    'missing-module-docstring',
-    'no-name-in-module',
-    'useless-import-alias',
-    'line-too-long',
-    'too-many-arguments',
-    'too-few-public-methods'
+  'missing-module-docstring',
+  'no-name-in-module',
+  'useless-import-alias',
+  'line-too-long',
+  'too-many-arguments',
+  'too-few-public-methods',
 ]
 
 [tool.pyright]
-include = ['server']
 stubPath = 'server/typings'
 reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false
 
 [tool.pytest.ini_options]
-pythonpath = [
-  "."
-]
+pythonpath = ["."]
 
 [tool.poetry]
 name = "nllb-api"
