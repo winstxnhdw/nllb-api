@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from hypercorn.asyncio import serve
 
-from server.api import v1
+from server.api import v1, v2
 from server.config import Config
 
 
@@ -91,6 +91,7 @@ class Server:
         """
         self.app = FastAPI()
         self.app.include_router(v1)
+        self.app.include_router(v2)
         self.app.add_middleware(
             CORSMiddleware,
             allow_credentials=True,

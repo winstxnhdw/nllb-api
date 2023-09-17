@@ -5,7 +5,7 @@ from server.types import CPUSpecifications
 
 
 @v1.get('/cpu', response_model=CPUSpecifications)
-async def cpu():
+def cpu():
     """
     Summary
     -------

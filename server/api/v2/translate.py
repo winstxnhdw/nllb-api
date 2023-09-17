@@ -1,12 +1,13 @@
+from fastapi.responses import StreamingResponse
 from starlette.exceptions import HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
 
-from server.api.v1 import v1
+from server.api.v2 import v2
 from server.features import Translator
-from server.schemas.v1 import Translated, Translation
+from server.schemas.v1 import Translation
 
 
-@v1.post('/translate', response_model=Translated)
+@v2.post('/translate')
 def translate(request: Translation):
     """
     Summary
@@ -22,4 +23,4 @@ def translate(request: Translation):
     if not result:
         raise HTTPException(HTTP_400_BAD_REQUEST, 'Translation failed!')
 
-    return Translated(text=''.join(result))
+    return StreamingResponse(result, media_type='text/plain')

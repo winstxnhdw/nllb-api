@@ -1,4 +1,4 @@
-from functools import cache
+from typing import Generator
 
 from ctranslate2 import Translator as CTranslator
 from huggingface_hub import snapshot_download
@@ -22,8 +22,7 @@ class Translator:
     translator = CTranslator(translator_model_path, compute_type='auto')
 
     @classmethod
-    @cache
-    def translate(cls, text: str, source_language: str, target_language: str) -> str:
+    def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:
         """
         Summary
         -------
@@ -44,8 +43,9 @@ class Translator:
         if isinstance(tokens := cls.tokeniser.convert_ids_to_tokens(cls.tokeniser.encode(text)), str):
             tokens = [tokens]
 
-        result = cls.translator.translate_batch([tokens], [[target_language]])[0]
+        results = cls.translator.translate_iterable([tokens], [[target_language]])
 
-        return cls.tokeniser.decode(
-            cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
-        )
+        for result in results:
+            yield cls.tokeniser.decode(
+                cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
+            )
