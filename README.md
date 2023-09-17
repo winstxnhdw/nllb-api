@@ -16,17 +16,6 @@ A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co
 
 Simply cURL the endpoint like in the following. The `source` and `target` languages must be specified using FLORES-200 codes.
 
-```bash
-curl 'https://winstxnhdw-nllb-api.hf.space/v1/translate' \
-  -H 'Content-Type: application/json' \
-  -d \
-'{
-    "text": "Hello world!",
-    "source": "eng_Latn",
-    "target": "spa_Latn"
- }'
-```
-
 <details>
 
 <summary> List of FLORES-200 Codes </summary>
@@ -240,6 +229,18 @@ Chinese (Traditional)              | zho_Hant
 Standard Malay                     | zsm_Latn
 Zulu                               | zul_Latn
 </details>
+
+
+```bash
+curl 'https://winstxnhdw-nllb-api.hf.space/v1/translate' \
+  -H 'Content-Type: application/json' \
+  -d \
+'{
+    "text": "Hello world!",
+    "source": "eng_Latn",
+    "target": "spa_Latn"
+ }'
+```
 
 ## Development
 
