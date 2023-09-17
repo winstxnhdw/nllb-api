@@ -38,4 +38,4 @@ jobs:
         run: |
           git add .
           git commit -m "style: format scripts" || true
-          git push
+          git push || true
