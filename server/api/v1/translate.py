@@ -1,25 +1,17 @@
-from starlette.exceptions import HTTPException
-from starlette.status import HTTP_400_BAD_REQUEST
+from typing import Annotated, Generator
+
+from fastapi import Depends
 
 from server.api.v1 import v1
-from server.features import Translator
-from server.schemas.v1 import Translated, Translation
+from server.dependencies import translation
+from server.schemas.v1 import Translated
 
 
 @v1.post('/translate', response_model=Translated)
-def translate(request: Translation):
+def translate(result: Annotated[Generator[str, None, None], Depends(translation)]):
     """
     Summary
     -------
     the `/translate` route translates an input from a source language to a target language
     """
-    try:
-        result = Translator.translate(request.text, request.source, request.target)
-
-    except KeyError as exception:
-        raise HTTPException(HTTP_400_BAD_REQUEST, 'Invalid source or target language!') from exception
-
-    if not result:
-        raise HTTPException(HTTP_400_BAD_REQUEST, 'Translation failed!')
-
     return Translated(text=''.join(result))

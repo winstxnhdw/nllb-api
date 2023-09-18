@@ -40,12 +40,11 @@ class Translator:
         """
         cls.tokeniser.set_src_lang_special_tokens(source_language)
 
-        if isinstance(tokens := cls.tokeniser.convert_ids_to_tokens(cls.tokeniser.encode(text)), str):
-            tokens = [tokens]
+        lines = [line for line in text.splitlines() if line]
+        indices = map(cls.tokeniser.encode, lines)
+        tokens = map(cls.tokeniser.convert_ids_to_tokens, indices)
 
-        results = cls.translator.translate_iterable([tokens], [[target_language]])
-
-        for result in results:
+        for result in cls.translator.translate_iterable(tokens, ([target_language] for _ in lines)):
             yield cls.tokeniser.decode(
                 cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
             )
