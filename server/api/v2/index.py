@@ -1,9 +1,11 @@
 from typing import Literal
 
+from fastapi.responses import PlainTextResponse
+
 from server.api.v2 import v2
 
 
-@v2.get('/', response_model=Literal['Welcome to v2 of the API!'])
+@v2.get('/', response_class=PlainTextResponse)
 def index():
     """
     Summary
