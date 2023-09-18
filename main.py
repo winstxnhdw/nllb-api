@@ -7,7 +7,7 @@ def main():
     """
     Summary
     -------
-    exhaust the initialise generator and run the server
+    programmatically run the server with Hypercorn
     """
     run(Config())
 
