@@ -13,32 +13,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Poetry
-        run: pipx install poetry
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-          cache: poetry
-
-      - name: Install dependencies
-        run: poetry install
-
-      - name: Run linter
-        run: poetry run pylint $(git ls-files '*.py')
-
-      - name: Run type checker
-        run: poetry run pyright
-
-      - name: Test
-        run: poetry run pytest
+    uses: winstxnhdw/nllb-api/.github/workflows/main.yml@main
 
   build:
     runs-on: ubuntu-latest

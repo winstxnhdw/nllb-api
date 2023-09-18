@@ -1,33 +1,32 @@
-name: Deploy
+name: Python
 
-on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/main.yml
-      - Dockerfile
+on: [workflow_call]
 
 jobs:
-  deploy:
+  python:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set Git config
-        run: |
-          git config --global user.email github-actions[bot]@users.noreply.github.com
-          git config --global user.name github-actions[bot]
+      - name: Install Poetry
+        run: pipx install poetry
 
-      - name: Push to Hugging Face Spaces
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
-        run: |
-          git clone https://$GITHUB_REPOSITORY_OWNER:$HF_TOKEN@huggingface.co/spaces/$GITHUB_REPOSITORY_OWNER/$REPOSITORY_NAME
-          pushd $REPOSITORY_NAME
-          mv ../Dockerfile .
-          git add Dockerfile
-          git commit --amend -m "$(git show -s --format=%s)"
-          git push --force-with-lease
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run linter
+        run: poetry run pylint $(git ls-files '*.py')
+
+      - name: Run type checker
+        run: poetry run pyright
+
+      - name: Test
+        run: poetry run pytest

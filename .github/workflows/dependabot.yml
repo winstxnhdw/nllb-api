@@ -3,20 +3,11 @@ name: Dependabot
 on: pull_request
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run the Docker containers
-        run: docker build -t $TAG .
-        env:
-          TAG: ${{ github.event.repository.name }}
+  test:
+    uses: winstxnhdw/nllb-api/.github/workflows/main.yml@main
 
   auto-merge:
-    needs: build
+    needs: test
     if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     permissions:
