@@ -31,10 +31,10 @@ readme = "README.md"
 python = "^3.11"
 fastapi = "^0.103.1"
 hypercorn = "^0.14.4"
-transformers = "^4.33.1"
+transformers = "^4.33.2"
 ctranslate2 = "^3.19.0"
 cpufeature = "^0.2.1"
-typing-extensions = "^4.7.1"
+typing-extensions = "^4.8.0"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.327"
