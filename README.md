@@ -230,16 +230,15 @@ Standard Malay                     | zsm_Latn
 Zulu                               | zul_Latn
 </details>
 
-
 ```bash
-curl 'https://winstxnhdw-nllb-api.hf.space/v1/translate' \
-  -H 'Content-Type: application/json' \
-  -d \
-'{
-    "text": "Hello world!",
-    "source": "eng_Latn",
-    "target": "spa_Latn"
- }'
+curl -N 'https://winstxnhdw-nllb-api.hf.space/v2/translate' \
+     -H 'Content-Type: application/json' \
+     -d \
+     '{
+         "text": "Hello world!",
+         "source": "eng_Latn",
+         "target": "spa_Latn"
+      }'
 ```
 
 ## Development

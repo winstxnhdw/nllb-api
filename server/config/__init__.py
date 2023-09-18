@@ -11,15 +11,21 @@ class Config(HypercornConfig):
     -------
     the config class for the server
     """
-    default_port = 49494
+    def __init__(self, default_port: int = 49494):
 
-    if not (SERVER_PORT := env.get('SERVER_PORT', default_port)):
-        if not isinstance(SERVER_PORT, int):
-            raise NoPortFoundError
+        if not (port := env.get('SERVER_PORT', default_port)):
+            if not isinstance(port, int):
+                raise NoPortFoundError
 
-    if SERVER_PORT == default_port:
-        print(f'WARNING: using default port {default_port}')
+        if port == default_port:
+            print(f'WARNING: using default port {default_port}')
 
-    _bind = [f"0.0.0.0:{SERVER_PORT}"]
-    access_log_format = '%(s)s "%(R)s" %(h)s "%(a)s"'
-    accesslog = '-'
+        self.application_path = 'server:initialise()'
+        self.bind = [f"0.0.0.0:{port}"]
+        self.access_log_format = '%(s)s "%(R)s" %(h)s "%(a)s"'
+        self.accesslog = '-'
+        self.use_reloader = True
+        self.worker_class = 'uvloop'
+        self.workers = 4
+
+        super().__init__()

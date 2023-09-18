@@ -35,6 +35,7 @@ transformers = "^4.33.2"
 ctranslate2 = "^3.19.0"
 cpufeature = "^0.2.1"
 typing-extensions = "^4.8.0"
+uvloop = "^0.17.0"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.327"

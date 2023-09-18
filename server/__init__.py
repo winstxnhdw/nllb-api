@@ -1,26 +1,21 @@
-from asyncio import run
 from importlib import import_module
 from os import sep, walk
 from os.path import join
-from typing import Generator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from hypercorn.asyncio import serve
 
 from server.api import v1, v2
-from server.config import Config
 
 
-class Server:
+class Framework(FastAPI):
     """
     Summary
     -------
-    the server class
+    the FastAPI framework class
 
     Attributes
     ----------
-    app (FastAPI) : the FastAPI instance
     api_directory (str) : the directory where the api files are located
 
     Methods
@@ -30,21 +25,7 @@ class Server:
 
     initialise_routes()
         dynamically initialise all routes
-
-    initialise_server()
-        initialize the server
-
-    initialise() -> Generator[FastAPI, None, None]
-        initialises everything and yields the FastAPI instance
     """
-    __slots__ = 'app', 'api_directory'
-
-    def __init__(self):
-
-        self.app: FastAPI
-        self.api_directory = join('server', 'api')
-
-
     def convert_delimiters(self, string: str, old: str, new: str) -> str:
         """
         Summary
@@ -64,15 +45,19 @@ class Server:
         return new.join(string.split(old))
 
 
-    def initialise_routes(self):
+    def initialise_routes(self, api_directory: str):
         """
         Summary
         -------
         initialise all routes
+
+        Parameters
+        ----------
+        api_directory (str) : the directory where the api files are located
         """
         module_file_names = [
             join(root, file)
-            for root, _, files in walk(self.api_directory)
+            for root, _, files in walk(api_directory)
             for file in files
             if not file.startswith('__') and file.endswith('.py')
         ]
@@ -80,41 +65,29 @@ class Server:
         for file_name in module_file_names:
             converted_file_name = self.convert_delimiters(file_name[:-3], sep, '.')
             module_name = import_module(converted_file_name).__name__
-            print(f" * {self.convert_delimiters(module_name[len(self.api_directory):], '.', sep)} route found!")
+            print(f" * {self.convert_delimiters(module_name[len(api_directory):], '.', sep)} route found!")
 
 
-    def initialise_server(self):
-        """
-        Summary
-        -------
-        initialize the server
-        """
-        self.app = FastAPI()
-        self.app.include_router(v1)
-        self.app.include_router(v2)
-        self.app.add_middleware(
-            CORSMiddleware,
-            allow_credentials=True,
-            allow_origins=['*'],
-            allow_methods=['*'],
-            allow_headers=['*'],
-        )
+def initialise() -> Framework:
+    """
+    Summary
+    -------
+    initialises everything
 
+    Returns
+    ------
+    app (Framework) : an extended FastAPI instance
+    """
+    app = Framework()
+    app.initialise_routes(join('server', 'api'))
+    app.include_router(v1)
+    app.include_router(v2)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_credentials=True,
+        allow_origins=['*'],
+        allow_methods=['*'],
+        allow_headers=['*'],
+    )
 
-    @classmethod
-    def initialise(cls) -> Generator[FastAPI, None, None]:
-        """
-        Summary
-        -------
-        initialises everything
-
-        Yields
-        ------
-        app (FastAPI) : the FastAPI instance
-        """
-        self = cls()
-        self.initialise_routes()
-        self.initialise_server()
-
-        yield self.app
-        run(serve(self.app, Config()))
+    return app
