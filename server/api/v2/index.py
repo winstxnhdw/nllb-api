@@ -1,5 +1,3 @@
-from typing import Literal
-
 from fastapi.responses import PlainTextResponse
 
 from server.api.v2 import v2
