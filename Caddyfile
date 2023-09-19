@@ -1,0 +1,9 @@
+{$BACKEND_URL} {
+	handle_path /api/* {
+		reverse_proxy {$BACKEND_INTERNAL_URL} {
+			transport http {
+				versions h2c
+			}
+		}
+	}
+}

@@ -9,6 +9,8 @@ on:
       - Dockerfile.build
       - poetry.lock
       - pyproject.toml
+      - supervisord.conf
+      - Caddyfile
       - server/**
 
 jobs:

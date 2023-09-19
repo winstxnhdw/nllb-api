@@ -10,6 +10,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      REPOSITORY_NAME: ${{ github.event.repository.name }}
 
     steps:
       - name: Checkout repository
@@ -21,13 +24,11 @@ jobs:
           git config --global user.name github-actions[bot]
 
       - name: Push to Hugging Face Spaces
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
         run: |
+          COMMIT_MESSAGE=$(git show -s --format=%s)
           git clone https://$GITHUB_REPOSITORY_OWNER:$HF_TOKEN@huggingface.co/spaces/$GITHUB_REPOSITORY_OWNER/$REPOSITORY_NAME
           pushd $REPOSITORY_NAME
           mv ../Dockerfile .
           git add Dockerfile
-          git commit --amend -m "$(git show -s --format=%s)"
+          git commit --amend -m "$COMMIT_MESSAGE"
           git push --force-with-lease
