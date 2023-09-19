@@ -249,9 +249,9 @@ You can install the required dependencies for your editor with the following.
 poetry install
 ```
 
-You can spin the server up locally with the following.
+You can spin the server up locally with the following. You can access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs).
 
 ```bash
 docker build -f Dockerfile.build -t nllb-api .
-docker run --rm -e SERVER_PORT=5000 -p 5000:5000 nllb-api
+docker run --rm -e SERVER_PORT=5000 -e APP_PORT=7860 -p 7860:7860 nllb-api
 ```
