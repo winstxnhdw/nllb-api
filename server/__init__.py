@@ -78,7 +78,7 @@ def initialise() -> Framework:
     ------
     app (Framework) : an extended FastAPI instance
     """
-    app = Framework(root_path='/api')
+    app = Framework(root_path="/api")
     app.initialise_routes(join('server', 'api'))
     app.include_router(v1)
     app.include_router(v2)
