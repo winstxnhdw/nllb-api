@@ -45,6 +45,5 @@ class Translator:
         tokens = map(cls.tokeniser.convert_ids_to_tokens, indices)
 
         for result in cls.translator.translate_iterable(tokens, ([target_language] for _ in lines)):
-            yield cls.tokeniser.decode(
-                cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
-            )
+            indices = cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
+            yield f'{cls.tokeniser.decode(indices)}\n'
