@@ -231,7 +231,7 @@ Zulu                               | zul_Latn
 </details>
 
 ```bash
-curl -N 'https://winstxnhdw-nllb-api.hf.space/v2/translate' \
+curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v2/translate' \
      -H 'Content-Type: application/json' \
      -d \
      '{

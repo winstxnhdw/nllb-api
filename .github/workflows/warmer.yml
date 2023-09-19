@@ -24,9 +24,9 @@ jobs:
     steps:
       - name: cURL Swagger
         run: |
-          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/docs)" = "{\"detail\":\"Not Found\"}" ]
+          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/api/docs)" = "{\"detail\":\"Not Found\"}" ]
 
       - name: cURL the API
         run: |
-          [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/v1/)" = "Welcome to v1 of the API!" ]
+          [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/api/v1/)" = "Welcome to v1 of the API!" ]
 
