@@ -12,10 +12,10 @@ def client():
 
 
 def test_generate(client: TestClient):
-    response = client.post('/v1/translate', json={
+    response = client.post('/v2/translate', json={
         'text': 'Hello, world!',
         'source': 'eng_Latn',
         'target': 'spa_Latn'
-    }).json()
+    })
 
-    assert response['text'] == '¡Hola, mundo!'
+    assert response.text == '¡Hola, mundo!'
