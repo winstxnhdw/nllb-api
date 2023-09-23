@@ -7,7 +7,7 @@ from server.dependencies import translation
 from server.schemas.v1 import Translated
 
 
-@v1.post('/translate')
+@v1.post('/translate', deprecated=True)
 def translate(result: Annotated[Generator[str, None, None], Depends(translation)]) -> Translated:
     """
     Summary
