@@ -38,7 +38,7 @@ ctranslate2 = "^3.20.0"
 cpufeature = "^0.2.1"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.327"
+pyright = "^1.1.328"
 pylint = "^2.17.6"
 pytest = "^7.4.2"
 isort = "^5.12.0"
