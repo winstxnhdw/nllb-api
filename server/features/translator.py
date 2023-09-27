@@ -2,7 +2,7 @@ from typing import Generator
 
 from ctranslate2 import Translator as CTranslator
 from huggingface_hub import snapshot_download
-from transformers.models.nllb import NllbTokenizerFast
+from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
 
 class Translator:
@@ -16,10 +16,9 @@ class Translator:
     translate(input: str, source_language: str, target_language: str) -> str
         translate the input from the source language to the target language
     """
-    model_name = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
-    translator_model_path = snapshot_download(model_name, max_workers=16)
-    tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_name)
-    translator = CTranslator(translator_model_path, compute_type='auto', inter_threads=8, intra_threads=1)
+    model_path = snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
+    tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path)
+    translator = CTranslator(model_path, compute_type='auto', inter_threads=8, intra_threads=1)
 
     @classmethod
     def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:
@@ -38,11 +37,11 @@ class Translator:
         -------
         translated_text (str) : the translated text
         """
-        cls.tokeniser.set_src_lang_special_tokens(source_language)
+        cls.tokeniser.src_lang = source_language
 
         lines = [line for line in text.splitlines() if line]
-        indices = map(cls.tokeniser.encode, lines)
-        tokens = map(cls.tokeniser.convert_ids_to_tokens, indices)
+        batches = map(cls.tokeniser, lines)
+        tokens = map(lambda batch: batch.tokens(), batches)
 
         for result in cls.translator.translate_iterable(tokens, ([target_language] for _ in lines), beam_size=1):
             indices = cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
