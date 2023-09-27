@@ -19,7 +19,7 @@ class Translator:
     model_name = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
     translator_model_path = snapshot_download(model_name, max_workers=16)
     tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_name)
-    translator = CTranslator(translator_model_path, compute_type='auto')
+    translator = CTranslator(translator_model_path, compute_type='auto', inter_threads=8, intra_threads=1)
 
     @classmethod
     def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:
@@ -44,6 +44,6 @@ class Translator:
         indices = map(cls.tokeniser.encode, lines)
         tokens = map(cls.tokeniser.convert_ids_to_tokens, indices)
 
-        for result in cls.translator.translate_iterable(tokens, ([target_language] for _ in lines)):
+        for result in cls.translator.translate_iterable(tokens, ([target_language] for _ in lines), beam_size=1):
             indices = cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
             yield f'{cls.tokeniser.decode(indices)}\n'
