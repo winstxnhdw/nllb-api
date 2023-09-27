@@ -24,7 +24,9 @@ class NllbTokenizerFast(PreTrainedTokenizerFast):
 
     def set_src_lang_special_tokens(self, source_language: str) -> None: ...
 
+
     def convert_ids_to_tokens(self, ids: list[int], skip_special_tokens: bool = False) -> list[str]: ...
+
 
     def encode(
         self,
