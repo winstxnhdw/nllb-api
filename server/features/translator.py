@@ -18,7 +18,7 @@ class Translator:
     """
     model_path = snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
     tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path)
-    translator = CTranslator(model_path, compute_type='auto', inter_threads=8, intra_threads=1)
+    translator = CTranslator(model_path, compute_type='auto', inter_threads=2)
 
     @classmethod
     def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:

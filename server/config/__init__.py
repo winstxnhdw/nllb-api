@@ -26,6 +26,6 @@ class Config(HypercornConfig):
         self.accesslog = '-'
         self.use_reloader = True
         self.worker_class = 'uvloop'
-        self.workers = 4
+        self.workers = 2
 
         super().__init__()
