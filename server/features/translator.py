@@ -40,9 +40,12 @@ class Translator:
         cls.tokeniser.src_lang = source_language
 
         lines = [line for line in text.splitlines() if line]
-        batches = map(cls.tokeniser, lines)
-        tokens = map(lambda batch: batch.tokens(), batches)
 
-        for result in cls.translator.translate_iterable(tokens, ([target_language] for _ in lines), beam_size=1):
-            indices = cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:])
-            yield f'{cls.tokeniser.decode(indices)}\n'
+        yield from (
+            f'{cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:]))}\n'
+            for result in cls.translator.translate_iterable(
+                (cls.tokeniser(line).tokens() for line in lines),
+                ([target_language] for _ in lines),
+                beam_size=1
+            )
+        )
