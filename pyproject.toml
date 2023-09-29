@@ -30,7 +30,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 typing-extensions = "^4.8.0"
-fastapi = "^0.103.1"
+fastapi = "^0.103.2"
 hypercorn = "^0.14.4"
 uvloop = "^0.17.0"
 transformers = "^4.33.2"
