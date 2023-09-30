@@ -243,7 +243,7 @@ curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v2/translate' \
 
 ## Self-Hosting
 
-You can self-host the API with the following minimal configuration.
+You can self-host the API and access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs) with the following minimal configuration
 
 ```bash
 docker run --rm \
@@ -292,13 +292,13 @@ docker run --rm \
 
 ## Development
 
-You can install the required dependencies for your editor with the following.
+First, install the required dependencies for your editor with the following.
 
 ```bash
 poetry install
 ```
 
-You can spin the server up locally with the following. You can access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs).
+Now, you can access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs) after spinning the server up locally with the following.
 
 ```bash
 docker build -f Dockerfile.build -t nllb-api .
