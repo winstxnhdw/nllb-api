@@ -241,6 +241,55 @@ curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v2/translate' \
       }'
 ```
 
+## Self-Hosting
+
+You can self-host the API with the following minimal configuration.
+
+```bash
+docker run --rm \
+    -e SERVER_PORT=5000 \
+    -e APP_PORT=7860 \
+    -p 7860:7860 \
+    ghcr.io/winstxnhdw/nllb-api:main
+```
+
+### Model Caching
+
+You can also mount a volume to cache your models locally to speed up subsequent builds.
+
+```bash
+mkdir cache && chmod 775 cache
+```
+
+After creating your permissible cache directory, you can mount it to the container with the following.
+
+```bash
+docker run --rm \
+    -e SERVER_PORT=5000 \
+    -e APP_PORT=7860 \
+    -p 7860:7860 \
+    -v ./cache:/home/user/.cache \
+    ghcr.io/winstxnhdw/nllb-api:main
+```
+
+### Optimisation
+
+You can pass the following environment variables to optimise the API for your own uses. The value of `OMP_NUM_THREADS` increases the number of threads used to translate a given batch of inputs, while `WORKER_COUNT` increases the number of workers used to handle requests in parallel.
+
+> [!IMPORTANT]\
+> `OMP_NUM_THREADS` x `WORKER_COUNT` should not exceed the physical number of cores on your machine.
+
+```bash
+docker run --rm \
+    -e SERVER_PORT=5000 \
+    -e APP_PORT=7860 \
+    -e OMP_NUM_THREADS=6 \
+    -e WORKER_COUNT=1 \
+    -p 7860:7860 \
+    -v ./cache:/home/user/.cache \
+    ghcr.io/winstxnhdw/nllb-api:main
+```
+
 ## Development
 
 You can install the required dependencies for your editor with the following.

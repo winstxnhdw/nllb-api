@@ -4,6 +4,8 @@ from ctranslate2 import Translator as CTranslator
 from huggingface_hub import snapshot_download
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
+from server.config import Config
+
 
 class Translator:
     """
@@ -18,7 +20,7 @@ class Translator:
     """
     model_path = snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
     tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path)
-    translator = CTranslator(model_path, compute_type='auto', inter_threads=2)
+    translator = CTranslator(model_path, compute_type='auto', inter_threads=Config.worker_count)
 
     @classmethod
     def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:
