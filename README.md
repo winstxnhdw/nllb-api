@@ -247,10 +247,10 @@ You can self-host the API with the following minimal configuration.
 
 ```bash
 docker run --rm \
-    -e SERVER_PORT=5000 \
-    -e APP_PORT=7860 \
-    -p 7860:7860 \
-    ghcr.io/winstxnhdw/nllb-api:main
+  -e SERVER_PORT=5000 \
+  -e APP_PORT=7860 \
+  -p 7860:7860 \
+  ghcr.io/winstxnhdw/nllb-api:main
 ```
 
 ### Model Caching
@@ -265,11 +265,11 @@ After creating your permissible cache directory, you can mount it to the contain
 
 ```bash
 docker run --rm \
-    -e SERVER_PORT=5000 \
-    -e APP_PORT=7860 \
-    -p 7860:7860 \
-    -v ./cache:/home/user/.cache \
-    ghcr.io/winstxnhdw/nllb-api:main
+  -e SERVER_PORT=5000 \
+  -e APP_PORT=7860 \
+  -p 7860:7860 \
+  -v ./cache:/home/user/.cache \
+  ghcr.io/winstxnhdw/nllb-api:main
 ```
 
 ### Optimisation
@@ -281,13 +281,13 @@ You can pass the following environment variables to optimise the API for your ow
 
 ```bash
 docker run --rm \
-    -e SERVER_PORT=5000 \
-    -e APP_PORT=7860 \
-    -e OMP_NUM_THREADS=6 \
-    -e WORKER_COUNT=1 \
-    -p 7860:7860 \
-    -v ./cache:/home/user/.cache \
-    ghcr.io/winstxnhdw/nllb-api:main
+  -e SERVER_PORT=5000 \
+  -e APP_PORT=7860 \
+  -e OMP_NUM_THREADS=6 \
+  -e WORKER_COUNT=1 \
+  -p 7860:7860 \
+  -v ./cache:/home/user/.cache \
+  ghcr.io/winstxnhdw/nllb-api:main
 ```
 
 ## Development
