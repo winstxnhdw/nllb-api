@@ -51,7 +51,7 @@ def get_config(
     -------
     value (T) : the value of the environment variable
     """
-    if not(value := try_parse(env.get(key, default), expected_type)):
+    if (value := try_parse(env.get(key, default), expected_type)) is None:
         raise exception
 
     return value
