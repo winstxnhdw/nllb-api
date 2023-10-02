@@ -795,17 +795,17 @@ typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
 name = "pylint"
-version = "2.17.6"
+version = "2.17.7"
 description = "python code static checker"
 optional = false
 python-versions = ">=3.7.2"
 files = [
-    {file = "pylint-2.17.6-py3-none-any.whl", hash = "sha256:18a1412e873caf8ffb56b760ce1b5643675af23e6173a247b502406b24c716af"},
-    {file = "pylint-2.17.6.tar.gz", hash = "sha256:be928cce5c76bf9acdc65ad01447a1e0b1a7bccffc609fb7fc40f2513045bd05"},
+    {file = "pylint-2.17.7-py3-none-any.whl", hash = "sha256:27a8d4c7ddc8c2f8c18aa0050148f89ffc09838142193fdbe98f172781a3ff87"},
+    {file = "pylint-2.17.7.tar.gz", hash = "sha256:f4fcac7ae74cfe36bc8451e931d8438e4a476c20314b1101c458ad0f05191fad"},
 ]
 
 [package.dependencies]
-astroid = ">=2.15.7,<=2.17.0-dev0"
+astroid = ">=2.15.8,<=2.17.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = {version = ">=0.3.6", markers = "python_version >= \"3.11\""}
 isort = ">=4.2.5,<6"
@@ -1499,4 +1499,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "06c880ca64ac571f909966003024d066efc900eed6c5895813b347993fe4933e"
+content-hash = "3ac8c621966e3547401720d9f1861871b157b24a99aa1adaf1b207481f6b8436"
