@@ -9,6 +9,7 @@ disable = [
   'line-too-long',
   'too-many-arguments',
   'too-few-public-methods',
+  'too-many-instance-attributes'
 ]
 
 [tool.pyright]
