@@ -8,7 +8,8 @@ from server import initialise
 
 @fixture()
 def client():
-    return TestClient(initialise())
+    with TestClient(initialise()) as client:
+        yield client
 
 
 def test_generate(client: TestClient):

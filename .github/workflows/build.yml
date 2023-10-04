@@ -12,6 +12,7 @@ on:
       - supervisord.conf
       - Caddyfile
       - server/**
+      - tests/**
 
 jobs:
   test:
