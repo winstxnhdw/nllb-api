@@ -18,9 +18,20 @@ class Translator:
     translate(input: str, source_language: str, target_language: str) -> str
         translate the input from the source language to the target language
     """
-    model_path = snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
-    tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path)
-    translator = CTranslator(model_path, compute_type='auto', inter_threads=Config.worker_count)
+    tokeniser: NllbTokenizerFast
+    translator: CTranslator
+
+    @classmethod
+    def load(cls):
+        """
+        Summary
+        -------
+        download and load the model
+        """
+        model_path = snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
+        cls.translator = CTranslator(model_path, compute_type='auto', inter_threads=Config.worker_count)
+        cls.tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
+
 
     @classmethod
     def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:
@@ -43,7 +54,7 @@ class Translator:
 
         lines = [line for line in text.splitlines() if line]
 
-        yield from (
+        return (
             f'{cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:]))}\n'
             for result in cls.translator.translate_iterable(
                 (cls.tokeniser(line).tokens() for line in lines),
