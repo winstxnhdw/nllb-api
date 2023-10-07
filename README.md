@@ -255,7 +255,7 @@ docker run --rm \
 
 ### Model Caching
 
-You can also mount a volume to cache your models locally to speed up subsequent builds.
+You can consider mounting a volume to cache your models locally to speed up subsequent builds.
 
 ```bash
 mkdir cache && chmod 775 cache
