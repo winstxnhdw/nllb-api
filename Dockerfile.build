@@ -16,7 +16,7 @@ RUN poetry install --only main
 
 FROM caddy:builder-alpine as caddy-builder
 
-RUN xcaddy build --with github.com/caddyserver/cache-handler
+RUN xcaddy build
 
 
 FROM python:3.11.6-slim
