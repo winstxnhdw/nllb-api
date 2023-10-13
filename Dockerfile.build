@@ -11,7 +11,7 @@ COPY pyproject.toml .
 RUN apt update
 RUN apt install -y curl
 RUN curl -sSL https://install.python-poetry.org | python -
-RUN poetry install --no-dev
+RUN poetry install --only main
 
 
 FROM caddy:builder-alpine as caddy-builder
@@ -32,7 +32,8 @@ USER user
 WORKDIR $HOME/app
 
 COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
-COPY --chown=user --from=python-builder /usr/local/    /usr/local/
+COPY --chown=user --from=python-builder /usr/local/bin /usr/local/bin
+COPY --chown=user --from=python-builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --chown=user . $HOME/app
 
 CMD ["supervisord"]
