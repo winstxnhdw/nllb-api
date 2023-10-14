@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "ms-python.pylint",
-    "ms-python.vscode-pylance",
-    "ms-python.python",
-    "charliermarsh.ruff"
-  ]
-}
