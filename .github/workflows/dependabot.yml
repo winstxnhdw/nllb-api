@@ -4,18 +4,12 @@ on: pull_request
 
 jobs:
   test:
-    uses: winstxnhdw/nllb-api/.github/workflows/main.yml@main
+    uses: winstxnhdw/actions/.github/workflows/python.yml@main
 
   auto-merge:
     needs: test
-    if: ${{ github.actor == 'dependabot[bot]' }}
-    runs-on: ubuntu-latest
+    uses: winstxnhdw/actions/.github/workflows/dependabot-public.yml@main
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
-
-    steps:
-      - name: Auto-merge Dependabot PRs
-        run: gh pr merge --auto --rebase $PR_URL
-        env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

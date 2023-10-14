@@ -1,8 +1,6 @@
 name: Warm
 
 on:
-  push:
-    paths: [.github/workflows/warmer.yml]
   schedule:
     #       ┌──────────────── minute (0 - 59)
     #       │ ┌────────────── hour (0 - 23)
@@ -17,16 +15,4 @@ on:
 
 jobs:
   warm:
-    runs-on: ubuntu-latest
-    env:
-      REPOSITORY_NAME: ${{ github.event.repository.name }}
-
-    steps:
-      - name: cURL Swagger
-        run: |
-          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/api/docs)" = "{\"detail\":\"Not Found\"}" ]
-
-      - name: cURL the API
-        run: |
-          [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/api/v1/)" = "Welcome to v1 of the API!" ]
-
+    uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@main

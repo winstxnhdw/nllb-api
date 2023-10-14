@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: main
     paths:
       - .github/workflows/build.yml
       - .dockerignore
@@ -11,53 +11,23 @@ on:
       - pyproject.toml
       - supervisord.conf
       - Caddyfile
-      - server/**
-      - tests/**
+      - '**.py'
 
 jobs:
   test:
-    uses: winstxnhdw/nllb-api/.github/workflows/main.yml@main
+    uses: winstxnhdw/actions/.github/workflows/python.yml@main
 
   build:
-    runs-on: ubuntu-latest
+    uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
+    with:
+      file: Dockerfile.build
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       packages: write
-    env:
-      REGISTRY: ghcr.io
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3.0.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata for Docker
-        uses: docker/metadata-action@v5.0.0
-        id: meta
-        with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          file: Dockerfile.build
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
 
   restart:
     needs: [test, build]
-    runs-on: ubuntu-latest
-    env:
-      HF_TOKEN: ${{ secrets.HF_TOKEN }}
-
-    steps:
-      - name: Factory restart API
-        run: |
-          curl -X POST https://huggingface.co/api/spaces/$GITHUB_REPOSITORY/restart?factory=true \
-               -H "Authorization: Bearer $HF_TOKEN"
+    uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@main
+    secrets:
+      token: ${{ secrets.HF_TOKEN }}
