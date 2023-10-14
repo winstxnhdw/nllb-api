@@ -3,9 +3,12 @@
 from os import PathLike
 from typing import Any, Self
 
-from transformers.tokenization_utils_base import (EncodedInput,
-                                                  PreTokenizedInput, TextInput,
-                                                  TruncationStrategy)
+from transformers.tokenization_utils_base import (
+    EncodedInput,
+    PreTokenizedInput,
+    TextInput,
+    TruncationStrategy,
+)
 from transformers.tokenization_utils_fast import PreTrainedTokenizerFast
 from transformers.utils import PaddingStrategy, TensorType
 

@@ -1,7 +1,10 @@
 from hypercorn import Config as HypercornConfig
 
-from server.config.exceptions import (InvalidPortError, InvalidRootPathError,
-                                      InvalidWorkerCountError)
+from server.config.exceptions import (
+    InvalidPortError,
+    InvalidRootPathError,
+    InvalidWorkerCountError,
+)
 from server.config.get_config import get_config
 
 
