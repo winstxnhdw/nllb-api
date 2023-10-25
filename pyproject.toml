@@ -40,8 +40,8 @@ cpufeature = "^0.2.1"
 supervisor = "^4.2.5"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.332"
+pyright = "^1.1.333"
 pylint = "^3.0.2"
-pytest = "^7.4.2"
-ruff = "^0.1.1"
+pytest = "^7.4.3"
+ruff = "^0.1.2"
 httpx = "^0.25.0"
