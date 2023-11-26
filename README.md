@@ -301,7 +301,7 @@ docker build -f Dockerfile.cuda-build -t nllb-api .
 After building the image, you can run the image with the following.
 
 ```bash
-docker run --rm --runtime=nvidia --gpus all \
+docker run --rm --gpus all \
   -e SERVER_PORT=5000 \
   -e APP_PORT=7860 \
   -p 7860:7860 \
