@@ -290,6 +290,25 @@ docker run --rm \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
 
+### CUDA Support
+
+You can enable CUDA support by building `Dockerfile.cuda-build`.
+
+```bash
+docker build -f Dockerfile.cuda-build -t nllb-api .
+```
+
+After building the image, you can run the image with the following.
+
+```bash
+docker run --rm --runtime=nvidia --gpus all \
+  -e SERVER_PORT=5000 \
+  -e APP_PORT=7860 \
+  -p 7860:7860 \
+  -v ./cache:/home/user/.cache \
+  nllb-api
+```
+
 ## Development
 
 First, install the required dependencies for your editor with the following.

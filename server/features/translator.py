@@ -29,7 +29,9 @@ class Translator:
         download and load the model
         """
         model_path = snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
-        cls.translator = CTranslator(model_path, compute_type='auto', inter_threads=Config.worker_count)
+        device = 'cuda' if Config.use_cuda else 'cpu'
+
+        cls.translator = CTranslator(model_path, device=device, compute_type='auto', inter_threads=Config.worker_count)
         cls.tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
 
 
