@@ -1,6 +1,6 @@
 from hypercorn.run import run
 
-from server.config import Config
+from server.config.hypercorn import ServerConfig
 
 
 def main():
@@ -9,7 +9,7 @@ def main():
     -------
     programmatically run the server with Hypercorn
     """
-    run(Config())
+    run(ServerConfig())
 
 if __name__ == '__main__':
     main()
