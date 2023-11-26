@@ -33,8 +33,8 @@ USER user
 WORKDIR $HOME/app
 
 COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
-COPY --chown=user --from=python-builder /lib/x86_64-linux-gnu/libexpat.so.1 /lib/x86_64-linux-gnu/libexpat.so.1
 COPY --chown=user --from=python-builder /usr/local /usr/local
+COPY --chown=user --from=python-builder /lib/x86_64-linux-gnu/libexpat.so.1 /lib/x86_64-linux-gnu/libexpat.so.1
 COPY --chown=user . $HOME/app
 
 CMD ["supervisord"]

@@ -292,13 +292,13 @@ docker run --rm \
 
 ### CUDA Support
 
-You can enable CUDA support by building `Dockerfile.cuda-build`.
+You can accelerate your inference with CUDA by building and using `Dockerfile.cuda-build` instead.
 
 ```bash
 docker build -f Dockerfile.cuda-build -t nllb-api .
 ```
 
-After building the image, you can run the image with the following.
+After building the image, you can run the image with the following. You will need to create the `cache` directory and set the appropriate permissions as described [above](#model-caching).
 
 ```bash
 docker run --rm --gpus all \
