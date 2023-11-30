@@ -9,7 +9,7 @@ WORKDIR /
 COPY pyproject.toml .
 
 RUN apt update
-RUN apt install -y curl libexpat1
+RUN apt install -y curl
 RUN curl -sSL https://install.python-poetry.org | python -
 RUN poetry install --without=dev --no-root
 
