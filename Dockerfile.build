@@ -1,4 +1,4 @@
-FROM python:3.11.6-slim as python-builder
+FROM python:3.11.7-slim as python-builder
 
 ENV POETRY_VIRTUALENVS_CREATE false
 ENV POETRY_HOME /opt/poetry
@@ -19,7 +19,7 @@ FROM caddy:builder-alpine as caddy-builder
 RUN xcaddy build
 
 
-FROM python:3.11.6-slim
+FROM python:3.11.7-slim
 
 ENV HOME /home/user
 ENV PYTHONUNBUFFERED 1
