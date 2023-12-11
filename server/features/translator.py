@@ -15,6 +15,9 @@ class Translator:
 
     Methods
     -------
+    load() -> None
+        load the model
+
     translate(input: str, source_language: str, target_language: str) -> str
         translate the input from the source language to the target language
     """
