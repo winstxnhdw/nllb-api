@@ -31,7 +31,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 typing-extensions = "^4.9.0"
-fastapi = "^0.105.0"
+fastapi = "^0.106.0"
 pydantic-settings = "^2.1.0"
 hypercorn = "^0.15.0"
 uvloop = "^0.19.0"
@@ -41,7 +41,7 @@ cpufeature = "^0.2.1"
 supervisor = "^4.2.5"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.342"
+pyright = "^1.1.343"
 pylint = "^3.0.3"
 pytest = "^7.4.3"
 ruff = "^0.1.9"
