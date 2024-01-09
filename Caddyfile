@@ -4,14 +4,12 @@
 }
 
 :{$APP_PORT} {
-	handle_path /api/* {
-		handle /v1/translate {
-			cache {
-				allowed_http_verbs POST
-				ttl 24h
-			}
-		}
+	cache {
+		allowed_http_verbs POST
+		ttl 24h
+	}
 
+	handle_path /api/* {
 		reverse_proxy http://localhost:{$SERVER_PORT} {
 			transport http {
 				versions h2c
