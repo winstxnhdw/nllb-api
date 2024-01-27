@@ -16,7 +16,7 @@ RUN poetry install --without=dev --no-root
 
 FROM caddy:builder-alpine as caddy-builder
 
-RUN xcaddy build --with github.com/darkweak/souin/plugins/caddy@ddc819000fa55599f9dad20e150902cfd46322f3 --with github.com/darkweak/souin@ddc819000fa55599f9dad20e150902cfd46322f3
+RUN xcaddy build --with github.com/darkweak/souin/plugins/caddy
 
 
 FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04
