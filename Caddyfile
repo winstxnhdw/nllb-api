@@ -1,4 +1,5 @@
 {
+	order rate_limit before basicauth
 	order cache before rewrite
 	cache
 }
@@ -9,11 +10,15 @@
 		ttl 24h
 	}
 
-	handle_path /api/* {
-		reverse_proxy http://localhost:{$SERVER_PORT} {
-			transport http {
-				versions h2c
-			}
+	rate_limit {
+		zone dynamic_example {
+			key {remote_host}
+			events 30
+			window 60s
 		}
+	}
+
+	handle_path /api/* {
+		reverse_proxy http://localhost:{$SERVER_PORT}
 	}
 }

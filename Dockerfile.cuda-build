@@ -16,7 +16,9 @@ RUN poetry install --without=dev --no-root
 
 FROM caddy:builder-alpine as caddy-builder
 
-RUN xcaddy build --with github.com/caddyserver/cache-handler
+RUN xcaddy build \
+    --with github.com/caddyserver/cache-handler \
+    --with github.com/mholt/caddy-ratelimit
 
 
 FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04

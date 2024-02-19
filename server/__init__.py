@@ -1,5 +1,4 @@
 from importlib import import_module
-from multiprocessing import current_process
 from os import sep, walk
 from os.path import join
 
@@ -70,11 +69,8 @@ class Framework(FastAPI):
             for file_name in module_file_names
         ]
 
-        if not current_process().daemon:
-            return
-
         for module_name in module_names:
-            print(f" * {self.convert_delimiters(module_name[len(api_directory):], '.', sep)} route found!")
+            print(f" * {self.convert_delimiters(module_name[len(api_directory):], '.', sep)} route found!", flush=True)
 
 
 def initialise() -> Framework:
