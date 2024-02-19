@@ -34,8 +34,6 @@ class Config(BaseSettings):
     port (int) : the port to run the server on
     server_root_path (str) : the root path for the server
     worker_count (int) : the number of workers to use
-    document_index_prefix (str) : the prefix for the document index
-    redis_index_name (str) : the name of the Redis index
     use_cuda (bool) : whether to use CUDA for inference
     """
     server_port: int = 49494
