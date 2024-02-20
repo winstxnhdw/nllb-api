@@ -1,8 +1,9 @@
 # pylint: skip-file
 
+from server import initialise
 from server.config import Config
 
-wsgi_app = 'server:initialise()'
+wsgi_app = f'{initialise.__module__}:{initialise.__name__}()'
 reload = False
 accesslog = '-'
 limit_request_fields = 1
