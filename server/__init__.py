@@ -70,7 +70,7 @@ class Framework(FastAPI):
         ]
 
         for module_name in module_names:
-            print(f" * {self.convert_delimiters(module_name[len(api_directory):], '.', sep)} route found!", flush=True)
+            print(f' * {self.convert_delimiters(module_name[len(api_directory):], ".", sep)} route found!')
 
 
 def initialise() -> Framework:
