@@ -1,4 +1,4 @@
-FROM python:3.11.8-slim as python-builder
+FROM python:slim as python-builder
 
 ENV POETRY_VIRTUALENVS_CREATE false
 ENV POETRY_HOME /opt/poetry

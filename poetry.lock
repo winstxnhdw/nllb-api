@@ -163,44 +163,6 @@ files = [
 ]
 
 [[package]]
-name = "cpufeature"
-version = "0.2.1"
-description = "Python CPU Feature Detection"
-optional = false
-python-versions = "*"
-files = [
-    {file = "cpufeature-0.2.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:4c0648b1fec3694b5882c54fe0d84a98777aafb691dffd380ed1e39ff176f340"},
-    {file = "cpufeature-0.2.1-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8f566356ec144b0daec6e75ec03778238fae91bcefb97fb7593f268a98864ee6"},
-    {file = "cpufeature-0.2.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8db44483c76f44b918e913be69e6c68cca06c8b3ac153575c627538fee482aa2"},
-    {file = "cpufeature-0.2.1-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:e3bb3175c864cf12f433910947c8de0e3dd76ba11079acb9c29435ad3daf52fe"},
-    {file = "cpufeature-0.2.1-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:6961089f39cccc6ce2bed0e6fa68e634590b60d89ce04cffbe0e35db501d34c4"},
-    {file = "cpufeature-0.2.1-cp310-cp310-win32.whl", hash = "sha256:213f26a7b2e4a2eb4f2357641e20bf4e699b6afa08d04d1bee1d7a040ba001cf"},
-    {file = "cpufeature-0.2.1-cp310-cp310-win_amd64.whl", hash = "sha256:58067a972be838632dfa8d4bf117d7ab58e8265f807918b1fbf119e8dc68441e"},
-    {file = "cpufeature-0.2.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:8312800e66c306b4b06e8f62839c15924efb7d888358fe9d63278cdd2f718426"},
-    {file = "cpufeature-0.2.1-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:fa5aeaa44cfab10907386bb97deebf3cc92c390f49e20ee02630576ce677fc98"},
-    {file = "cpufeature-0.2.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ce7cae486eef354a41da09a85e0f46a08fc0fd3fd83800ed16246c9f3f51b089"},
-    {file = "cpufeature-0.2.1-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:c1abc996e520838c291486e60763bc7879dbaf61f9c4bac79fd4e3fafc6dbed8"},
-    {file = "cpufeature-0.2.1-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:3e0e87a47484adf8590c94d1ca99ca851e693700f2e442d40eba106f2d1678bb"},
-    {file = "cpufeature-0.2.1-cp311-cp311-win32.whl", hash = "sha256:15764863b3e79c91dea6ce9beefabe056d0dfd31bf32b8d7f0efc2a443610352"},
-    {file = "cpufeature-0.2.1-cp311-cp311-win_amd64.whl", hash = "sha256:a9d97d7578bb4be3e089538f91247d06c36125fad9c6298048397449bbb2b299"},
-    {file = "cpufeature-0.2.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:371dc2d5a03de0a840397043e31e19e50f9be152c27487f0cb858244eb28310e"},
-    {file = "cpufeature-0.2.1-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:713a7d5411d3b50eda185ac1101667bff349ea904a52e342b60a86933bc468ab"},
-    {file = "cpufeature-0.2.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6cf7ee337297edfca758291308b1165fdbdff60432be55a97fb817dba12b18bc"},
-    {file = "cpufeature-0.2.1-cp38-cp38-musllinux_1_1_i686.whl", hash = "sha256:2bbe27c1b3b125d601f3275fd4ff2fe0409163af651aa1513e40a4c22b56461b"},
-    {file = "cpufeature-0.2.1-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:d828bd7877a1f580b8e4553729e2c8c42fbe4cb073b322104cab5a30a554ec0b"},
-    {file = "cpufeature-0.2.1-cp38-cp38-win32.whl", hash = "sha256:a3ad7541b4019b5a1e8c9f952b89d53af80494b11c4c46892601526a83baf952"},
-    {file = "cpufeature-0.2.1-cp38-cp38-win_amd64.whl", hash = "sha256:9583006f14688164a990f40f63e026aa26ce05ba26870e1788b80325bb2ecb37"},
-    {file = "cpufeature-0.2.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:617888149b1c1aa2d4b55d022e7aea4f22819c99f1ee8f44d7ed0421e7ae69da"},
-    {file = "cpufeature-0.2.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:2055a6909a998b882c8b86e28e920b65fc45a184dd62c0c1af389d538bf94188"},
-    {file = "cpufeature-0.2.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:880ae6980857369a3325c844a6151ff7657e1934db01ba2250bc5f3f031d9c3e"},
-    {file = "cpufeature-0.2.1-cp39-cp39-musllinux_1_1_i686.whl", hash = "sha256:580dc640be481936e955e33cbed1bda5ea5af76fd2f88d606609542c2ff99242"},
-    {file = "cpufeature-0.2.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:936b9805d4d856bed306d5d51bcc59a6352b2d6d5888dd1886054516e587cd5e"},
-    {file = "cpufeature-0.2.1-cp39-cp39-win32.whl", hash = "sha256:d8def12d1620de4878fa7db8a249761b7c193544eb79601da4bb9059acf1f224"},
-    {file = "cpufeature-0.2.1-cp39-cp39-win_amd64.whl", hash = "sha256:575f64a095aa0f05598134c2e573230ecbc5f94c63a5022c5607624adf76b70a"},
-    {file = "cpufeature-0.2.1.tar.gz", hash = "sha256:fb05d1c4c0d7a4d4fead0142de6f538e23324b0cc92cab98abcfe93977db5c28"},
-]
-
-[[package]]
 name = "ctranslate2"
 version = "4.0.0"
 description = "Fast inference engine for Transformer models"
@@ -1557,4 +1519,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c83e5108b8c1cb4f780084c1fc24082cc461aa64b2decb67b575315a6bd9f08a"
+content-hash = "b99bf18f8c375570ef54c73c8ca31bab94a35c65da34c5c4464c25372c022eb2"

@@ -16,8 +16,6 @@ on:
 jobs:
   test:
     uses: winstxnhdw/actions/.github/workflows/python.yml@main
-    with:
-      python-version: 3.11
 
   build:
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main

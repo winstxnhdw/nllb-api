@@ -1,4 +1,4 @@
-FROM python:3.11.8-slim as python-builder
+FROM python:slim as python-builder
 
 ENV POETRY_VIRTUALENVS_CREATE false
 ENV POETRY_HOME /opt/poetry
@@ -21,7 +21,7 @@ RUN xcaddy build \
     --with github.com/mholt/caddy-ratelimit
 
 
-FROM python:3.11.8-slim
+FROM python:slim
 
 ENV HOME /home/user
 ENV PYTHONUNBUFFERED 1
@@ -35,7 +35,7 @@ WORKDIR $HOME/app
 
 COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
 COPY --chown=user --from=python-builder /usr/local/bin /usr/local/bin
-COPY --chown=user --from=python-builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --chown=user . $HOME/app
 
 CMD ["supervisord"]
