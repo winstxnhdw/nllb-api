@@ -230,6 +230,9 @@ Standard Malay                     | zsm_Latn
 Zulu                               | zul_Latn
 </details>
 
+> [!TIP]\
+> You can translate multiple texts in a single batch by separating the texts with a `\n` character. See the [tests](tests/test_translate.py) for an example.
+
 ```bash
 curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v2/translate' \
      -H 'Content-Type: application/json' \
