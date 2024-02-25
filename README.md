@@ -246,6 +246,9 @@ curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v2/translate' \
 
 ## Self-Hosting
 
+> [!IMPORTANT]\
+> The internal server is running at port 5000. If you wish to switch the `APP_PORT` to 5000, you will need to set the `SERVER_PORT` environment variable to a different port.
+
 You can self-host the API and access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs) with the following minimal configuration
 
 ```bash
@@ -292,7 +295,7 @@ docker run --rm \
 
 ### Rate Limiting
 
-You can set a rate limit on the number of requests per minute with the following environment variable.
+You can set an IP-based rate limit on the number of requests per minute with the following environment variable.
 
 ```bash
 docker run --rm \
