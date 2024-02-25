@@ -13,7 +13,7 @@
 	rate_limit {
 		zone dynamic_example {
 			key {remote_host}
-			events 15
+			events {$EVENTS_PER_WINDOW}
 			window 60s
 		}
 	}
