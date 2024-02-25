@@ -250,9 +250,7 @@ You can self-host the API and access the Swagger UI at [localhost:7860/api/docs]
 
 ```bash
 docker run --rm \
-  -e SERVER_PORT=5000 \
   -e APP_PORT=7860 \
-  -e EVENTS_PER_WINDOW=100000 \
   -p 7860:7860 \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
@@ -269,9 +267,7 @@ After creating your permissible cache directory, you can mount it to the contain
 
 ```bash
 docker run --rm \
-  -e SERVER_PORT=5000 \
   -e APP_PORT=7860 \
-  -e EVENTS_PER_WINDOW=100000 \
   -p 7860:7860 \
   -v ./cache:/home/user/.cache \
   ghcr.io/winstxnhdw/nllb-api:main
@@ -286,13 +282,23 @@ You can pass the following environment variables to optimise the API for your ow
 
 ```bash
 docker run --rm \
-  -e SERVER_PORT=5000 \
   -e APP_PORT=7860 \
-  -e EVENTS_PER_WINDOW=100000 \
   -e OMP_NUM_THREADS=6 \
   -e WORKER_COUNT=1 \
   -p 7860:7860 \
   -v ./cache:/home/user/.cache \
+  ghcr.io/winstxnhdw/nllb-api:main
+```
+
+### Rate Limiting
+
+You can set a rate limit on the number of requests per minute with the following environment variable.
+
+```bash
+docker run --rm \
+  -e APP_PORT=7860 \
+  -e EVENTS_PER_WINDOW=15 \
+  -p 7860:7860 \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
 
