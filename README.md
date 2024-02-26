@@ -317,7 +317,6 @@ After building the image, you can run the image with the following. You will nee
 
 ```bash
 docker run --rm --gpus all \
-  -e SERVER_PORT=5000 \
   -e APP_PORT=7860 \
   -p 7860:7860 \
   -v ./cache:/home/user/.cache \
