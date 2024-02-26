@@ -336,5 +336,5 @@ Now, you can access the Swagger UI at [localhost:7860/api/docs](http://localhost
 
 ```bash
 docker build -f Dockerfile.build -t nllb-api .
-docker run --rm -e SERVER_PORT=5000 -e APP_PORT=7860 -p 7860:7860 nllb-api
+docker run --rm -e APP_PORT=7860 -p 7860:7860 nllb-api
 ```
