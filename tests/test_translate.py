@@ -1,5 +1,7 @@
 # pylint: disable=missing-function-docstring,redefined-outer-name
 
+from typing import Generator
+
 from fastapi.testclient import TestClient
 from pytest import fixture
 
@@ -7,7 +9,7 @@ from server import initialise
 
 
 @fixture()
-def client():
+def client() -> Generator[TestClient, None, None]:
     with TestClient(initialise()) as client:
         yield client
 
