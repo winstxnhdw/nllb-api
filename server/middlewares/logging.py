@@ -39,21 +39,8 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         self.logger.addHandler(StreamHandler())
 
 
-    async def log_request(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
-        """
-        Summary
-        -------
-        log the request
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
 
-        Parameters
-        ----------
-        request (Request) : the request
-        call_next (RequestResponseEndpoint) : the next endpoint
-
-        Returns
-        -------
-        response (Response) : the response
-        """
         start_process_time = process_time()
         response = await call_next(request)
 
@@ -68,7 +55,3 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         )
 
         return response
-
-
-    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
-        return await self.log_request(request, call_next)
