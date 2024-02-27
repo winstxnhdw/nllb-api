@@ -1,57 +1,86 @@
 from logging import INFO, WARN, StreamHandler, getLogger
 from time import process_time, strftime
+from typing import Awaitable, Callable
 
-from starlette.middleware.base import (
-    BaseHTTPMiddleware,
-    DispatchFunction,
-    RequestResponseEndpoint,
-)
-from starlette.requests import Request
-from starlette.responses import Response
-from starlette.types import ASGIApp
+from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 
-class LoggingMiddleware(BaseHTTPMiddleware):
+class LoggingMiddleware:
     """
     Summary
     -------
-    a middleware to log the requests
+    a middleware to log requests
 
     Attributes
     ----------
     logger (Logger) : a custom logger
-
-    Methods
-    -------
-    log_request(request: Request, call_next: RequestResponseEndpoint) -> Response
-        log the request
-
-    dispatch(request: Request, call_next: RequestResponseEndpoint) -> Response
-        dispatch the request
+    app (ASGIApp) : the ASGI application
     """
-    def __init__(self, app: ASGIApp, dispatch: DispatchFunction | None = None):
-
-        super().__init__(app, dispatch)
+    def __init__(self, app: ASGIApp):
 
         getLogger('uvicorn.access').setLevel(WARN)
         self.logger = getLogger('custom.access')
         self.logger.setLevel(INFO)
         self.logger.addHandler(StreamHandler())
+        self.app = app
 
 
-    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
+    async def inner_send(self, message: Message, send: Send, status_code: list[int]):
+        """
+        Summary
+        -------
+        a function to log the requests
 
+        Parameters
+        ----------
+        message (Message) : the message
+        send (Send) : the send function
+        status_code (list[int]) : the status code
+        """
+        if message['type'] == 'http.response.start':
+            status_code[0] = message['status']
+
+        await send(message)
+
+
+    def inner_send_factory(self, send: Send, status_code: list[int]) -> Callable[[Message], Awaitable[None]]:
+        """
+        Summary
+        -------
+        a factory to create the inner send function
+
+        Parameters
+        ----------
+        send (Send) : the send function
+        status_code (list[int]) : the status code
+
+        Returns
+        -------
+        inner_send (Callable[[Message], Awaitable[None]]) : a custom send function
+        """
+        return lambda message: self.inner_send(message, send, status_code)
+
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send):
+        if scope['type'] != 'http':
+            return await self.app(scope, receive, send)
+
+        status_code = [500]
         start_process_time = process_time()
-        response = await call_next(request)
 
-        self.logger.info('[%s] [INFO] %s "%s %s" %s "%s" in %.4f ms',
-            strftime('%Y-%m-%d %H:%M:%S %z'),
-            response.status_code,
-            request.method,
-            request.url.path,
-            '' if request.client is None else request.client.host,
-            request.headers.get('user-agent', ''),
-            (process_time() - start_process_time) * 1000
-        )
+        try:
+            await self.app(scope, receive, self.inner_send_factory(send, status_code))
 
-        return response
+        finally:
+            user_agents = [v for k, v in scope['headers'] if k.lower() == b'user-agent']
+            user_agent = 'NIL' if not user_agents else user_agents[0].decode()
+
+            self.logger.info('[%s] [INFO] %d "%s %s" %s "%s" in %.4f ms',
+                strftime('%Y-%m-%d %H:%M:%S %z'),
+                status_code[0],
+                scope['method'],
+                scope['path'],
+                scope['client'][0],
+                user_agent,
+                (process_time() - start_process_time) * 1000
+            )

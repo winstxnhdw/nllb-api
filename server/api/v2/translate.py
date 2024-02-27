@@ -1,7 +1,7 @@
 from typing import Annotated, Generator
 
 from fastapi import Depends
-from fastapi.responses import StreamingResponse
+from starlette.responses import StreamingResponse
 
 from server.api.v2 import v2
 from server.dependencies import translation
