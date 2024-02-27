@@ -65,22 +65,23 @@ class LoggingMiddleware:
         if scope['type'] != 'http':
             return await self.app(scope, receive, send)
 
-        status_code = [500]
         start_process_time = process_time()
+        status_code = [500]
+        user_agents = [v for k, v in scope['headers'] if k.lower() == b'user-agent']
+        user_agent = 'NIL' if not user_agents else user_agents[0].decode()
+        client = scope['client']
+        client_ip = 'NIL' if not client else client[0]
 
         try:
             await self.app(scope, receive, self.inner_send_factory(send, status_code))
 
         finally:
-            user_agents = [v for k, v in scope['headers'] if k.lower() == b'user-agent']
-            user_agent = 'NIL' if not user_agents else user_agents[0].decode()
-
             self.logger.info('[%s] [INFO] %d "%s %s" %s "%s" in %.4f ms',
                 strftime('%Y-%m-%d %H:%M:%S %z'),
                 status_code[0],
                 scope['method'],
                 scope['path'],
-                scope['client'][0],
+                client_ip,
                 user_agent,
                 (process_time() - start_process_time) * 1000
             )

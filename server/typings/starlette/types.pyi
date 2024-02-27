@@ -66,7 +66,7 @@ class Scope(TypedDict):
     asgi: Mapping[str, str]
     http_version: str
     server: tuple[str, int]
-    client: tuple[str, int]
+    client: tuple[str, int] | None
     scheme: Literal['http', 'https']
     root_path: str
     headers: list[tuple[bytes, bytes]]
