@@ -44,6 +44,6 @@ supervisor = "^4.2.5"
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.352"
 pylint = "^3.1.0"
-pytest = "^8.0.2"
+pytest = "^8.1.0"
 ruff = "^0.3.0"
 httpx = "^0.27.0"
