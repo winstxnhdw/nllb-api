@@ -179,36 +179,36 @@ files = [
 
 [[package]]
 name = "ctranslate2"
-version = "4.0.0"
+version = "4.1.0"
 description = "Fast inference engine for Transformer models"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "ctranslate2-4.0.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:27ed44e36b61792ff8754a32a2f2f7f705e75359e2fd5d34b95abefa79446ff5"},
-    {file = "ctranslate2-4.0.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:53cfe0103026c83ffa05db14f3f2323af46a93373c210f68035771237f15c3fb"},
-    {file = "ctranslate2-4.0.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:603299092561cbfbd174fb36f68d774ac79fd5fb7c37567692b811f7d646c7ec"},
-    {file = "ctranslate2-4.0.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5dea046b5090e23f8cf7fe28bbb5331a7055d563d809bab0f392411edbdcf641"},
-    {file = "ctranslate2-4.0.0-cp310-cp310-win_amd64.whl", hash = "sha256:983b002b61177d7a935051d27285745f970b8dea5fa03d594c4aee16a8035a80"},
-    {file = "ctranslate2-4.0.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:ea6fb23cc50c82a632ca8be71bd3d56e21a1471e248f8f15070c90e3a28c2f75"},
-    {file = "ctranslate2-4.0.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:e62b3ffc0721635c67b04e2f22f9785cf19c72b1548bf946dd429b216443b839"},
-    {file = "ctranslate2-4.0.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:22a7bff3a9d79e6e26f889ceeb5a8af560d88a07b45ead302ccb8175785aff1a"},
-    {file = "ctranslate2-4.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8c185580ef598c45e343ec3af33bcdb634c723100aef01d26b937da7b2f263dc"},
-    {file = "ctranslate2-4.0.0-cp311-cp311-win_amd64.whl", hash = "sha256:05761ef49e736154a63ace00538584b3d82f636afdaa7fc44ba6c85aedf8ecd4"},
-    {file = "ctranslate2-4.0.0-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:e6984ff27b21fc43726b3006544cea83330b51718a95cc865ff34a4968660e86"},
-    {file = "ctranslate2-4.0.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:8faf28b4dc80ce4231ce735a40ce6c888e4fe8f78bbac8e47ad01dc8438bc551"},
-    {file = "ctranslate2-4.0.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:979ca1a674988c9c93b47b6ec45a77ccdc1a3c813f41b9f4464db32f2c5dfe16"},
-    {file = "ctranslate2-4.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:94115c408cb5eab4f054f13471ac184875591003f20b8ad8c4412686370f3e44"},
-    {file = "ctranslate2-4.0.0-cp312-cp312-win_amd64.whl", hash = "sha256:d8dce18d566f68e2595d0e109373ab426def5101891f6402a8b795ab9c3c2470"},
-    {file = "ctranslate2-4.0.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:dc64ad57983c6b5859af36a63c167ca08d9dc10ad883687f57dfffc99f7143ce"},
-    {file = "ctranslate2-4.0.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:6b4b0e44585fe77bc582166ed51eca3e8d23003a417acef97be53cef362755d7"},
-    {file = "ctranslate2-4.0.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:981f030e1674b0a05eac5faaed330b393e04b1e9be3e4eda6c14a8867d044653"},
-    {file = "ctranslate2-4.0.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3cee1a2bc794a7ad15455b29c33540554b4cd19fc923e447caebbe572f7e0ee5"},
-    {file = "ctranslate2-4.0.0-cp38-cp38-win_amd64.whl", hash = "sha256:1da53f09b564d1142b62e671b8c58019f038b2fc1dcbf9df4e0571ff053e6cee"},
-    {file = "ctranslate2-4.0.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d8f267992f1aa107a7ed24053f5e882eb47a436a94b89d153e1a660885d79708"},
-    {file = "ctranslate2-4.0.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:f7a44bce1b323275fb67aad9a54136a1bef193cf4c2c5be786adbf94ec1b173f"},
-    {file = "ctranslate2-4.0.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e3229a7dd20212c7c68b544eb6be4d32b6670f1788709c29339c408941f1929b"},
-    {file = "ctranslate2-4.0.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1cd1f054381af61bd5dae951e1624ad5efb8f2f5c77c0f3716e1cfaf7a200879"},
-    {file = "ctranslate2-4.0.0-cp39-cp39-win_amd64.whl", hash = "sha256:e546387645bfc2a0dc80c9d6f1b442f7554f342b094a2e443839fb7036b3ac16"},
+    {file = "ctranslate2-4.1.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:8b3154cb8bfd4f320ee6dcc5ec2962c020a649eb2311e0edb90bc720f0eab529"},
+    {file = "ctranslate2-4.1.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:7e06cf9a0c6cf4e91c9edb1bdcb0c78fa9cd3fe5b18d7a380194e82f5881917c"},
+    {file = "ctranslate2-4.1.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1d11878e72dce458e6d30ca6f06b4cfe92a6a0e6d271879de4208100cbac3fa5"},
+    {file = "ctranslate2-4.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1793445fddf1ceea25aaaf7ebfa9adce6d774411fd0e3bae123355c71d122dff"},
+    {file = "ctranslate2-4.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:f22a81138a106e42659d3c8b848f58ea813de8a7f17bf72e5aebbe3bf24cb5b4"},
+    {file = "ctranslate2-4.1.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:6b9580e3b494e8414a2a5f7733e029fd534b1b942ed657c27d413442299c661c"},
+    {file = "ctranslate2-4.1.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:176e2856c2f312d85bc96358cf8c4ef7a377436d789942354b1c3a6d5d32cea1"},
+    {file = "ctranslate2-4.1.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:32d8a25fe1854454f236f02caf3ca819ac63fd3b7f6edd9c1b7dc7f4998451de"},
+    {file = "ctranslate2-4.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:02f92e2831b0ab04d5d2e6e1139f4035db859e7f99fe6a98fb9a385d99ce2d70"},
+    {file = "ctranslate2-4.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:829fd5d8bfc907e48312072aae4470093731c3714e4248abf5034942f240742e"},
+    {file = "ctranslate2-4.1.0-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:48a520d6cc89f7bac491a1445ca1c5d2afd0dd40793ac1970d05d89df0064184"},
+    {file = "ctranslate2-4.1.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:4bdbe25946526ad2f4ed4b9ab23779d106c91d80e996222617e212aa493c13be"},
+    {file = "ctranslate2-4.1.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:040a33118c4b24e6bc73726491785c5f24ac365c1878b04f8772684eaa54ef68"},
+    {file = "ctranslate2-4.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e43be4745ae2c87f9863b7006169b81983749041f085ee62c8858e739f25c255"},
+    {file = "ctranslate2-4.1.0-cp312-cp312-win_amd64.whl", hash = "sha256:737610101b852ffaefa8f5534645cbbbe53d165faa78d587a732ad35ab815f88"},
+    {file = "ctranslate2-4.1.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:df3d923460e92f8641bd76e0592d208bff763226e52ac79e2a7d77ef714bffb1"},
+    {file = "ctranslate2-4.1.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:cafa26a6c55d31081544cacbe222ab0226369ae8a35ddf14b493078601f6825a"},
+    {file = "ctranslate2-4.1.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:190ef37ec43daf56abaf5103d8d9b425cef2d2aa80d5e7dd900d2e30157c5fad"},
+    {file = "ctranslate2-4.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:65e44dfcd88376310fc2b51561550600ec444f62ce9b3469d0e1f98d71d5e844"},
+    {file = "ctranslate2-4.1.0-cp38-cp38-win_amd64.whl", hash = "sha256:72b4719997ee2693fff8d00e0d63046595a5e293c2412941115afdc55791a92f"},
+    {file = "ctranslate2-4.1.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:411c84d8858b65dd05595c659a89a405426bd824788132139f474c48998255de"},
+    {file = "ctranslate2-4.1.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:2f70b696cbb222cb1dfa3b4ab1a385c1c801df7f250ede63b2d30bdb0471f1a5"},
+    {file = "ctranslate2-4.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:cf9f23e7a354024758ff503a9c287986b0b49b363695438ce90056f390f0ac9d"},
+    {file = "ctranslate2-4.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8964d97936950ecd9ec0bc90ceb503156c704901287d52b0129df9d6800dd81b"},
+    {file = "ctranslate2-4.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:4adaeb8fdaa61b881b8e91bbc01b580b07b6581facc3de01844a09dad704b31e"},
 ]
 
 [package.dependencies]
@@ -1533,4 +1533,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "92112fbe5cf0ac1707590a9aac56863e834d2ef741f5810f8ac897d2783171b3"
+content-hash = "3a9e6bd34764251d1326ee86cc8f73e8b4c98a9c5a5ca6a070e9bc73156cdaec"
