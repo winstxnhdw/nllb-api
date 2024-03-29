@@ -37,7 +37,7 @@ gunicorn = "^21.2.0"
 uvicorn = "^0.29.0"
 httptools = "^0.6.1"
 uvloop = "^0.19.0"
-transformers = "^4.39.1"
+transformers = "^4.39.2"
 ctranslate2 = "^4.1.0"
 supervisor = "^4.2.5"
 
