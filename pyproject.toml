@@ -42,7 +42,7 @@ ctranslate2 = "^4.1.0"
 supervisor = "^4.2.5"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.356"
+pyright = "^1.1.357"
 pylint = "^3.1.0"
 pytest = "^8.1.1"
 ruff = "^0.3.5"
