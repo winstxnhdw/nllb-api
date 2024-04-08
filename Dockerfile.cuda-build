@@ -21,7 +21,7 @@ RUN xcaddy build \
     --with github.com/mholt/caddy-ratelimit
 
 
-FROM nvidia/cuda:12.3.2-runtime-ubuntu22.04
+FROM nvidia/cuda:12.4.0-runtime-ubuntu22.04
 
 ENV HOME /home/user
 ENV PYTHONUNBUFFERED 1
