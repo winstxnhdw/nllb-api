@@ -30,7 +30,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-typing-extensions = "^4.10.0"
+typing-extensions = "^4.11.0"
 fastapi = "^0.110.1"
 pydantic-settings = "^2.2.0"
 gunicorn = "^21.2.0"
