@@ -1365,13 +1365,13 @@ telegram = ["requests"]
 
 [[package]]
 name = "transformers"
-version = "4.40.0"
+version = "4.40.1"
 description = "State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow"
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "transformers-4.40.0-py3-none-any.whl", hash = "sha256:92797ec3368ed4476a053529a4039a12ad09167d9e371981dda4afb4bdf590ac"},
-    {file = "transformers-4.40.0.tar.gz", hash = "sha256:fdb01dfe6a492bd34e3fa2aefffa470b1d8a2341db47a932f83ed33839d96b03"},
+    {file = "transformers-4.40.1-py3-none-any.whl", hash = "sha256:9d5ee0c8142a60501faf9e49a0b42f8e9cb8611823bce4f195a9325a6816337e"},
+    {file = "transformers-4.40.1.tar.gz", hash = "sha256:55e1697e6f18b58273e7117bb469cdffc11be28995462d8d5e422fef38d2de36"},
 ]
 
 [package.dependencies]
@@ -1524,4 +1524,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "bb909164e3ecea85edfda4054f0806ca60268fd0e3bc0a64a24a46c721367538"
+content-hash = "09f32daa8e14b27fc435738d8176d7d72da7ebf5d3d93e114b73c8fd876d994e"
