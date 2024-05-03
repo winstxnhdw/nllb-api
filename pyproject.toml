@@ -31,7 +31,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 typing-extensions = "^4.11.0"
-fastapi = "^0.110.3"
+fastapi = "^0.111.0"
 pydantic-settings = "^2.2.0"
 gunicorn = "^22.0.0"
 uvicorn = "^0.29.0"
