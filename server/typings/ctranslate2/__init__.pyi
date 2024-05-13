@@ -49,6 +49,8 @@ class Translator:
         inter_threads: int = 1,
         intra_threads: int = 0,
         max_queued_batches: int = 0,
+        flash_attention: bool = False,
+        tensor_parallel: bool = False,
         files: object = None,
     ) -> None: ...
 

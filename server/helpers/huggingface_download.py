@@ -19,6 +19,5 @@ def huggingface_download(repository: str) -> str:
     """
     return snapshot_download(
         repository,
-        resume_download=True,
         local_files_only=not has_internet_access(repository),
     )

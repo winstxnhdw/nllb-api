@@ -4,6 +4,7 @@ from ctranslate2 import Translator as CTranslator
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
 from server.config import Config
+from server.features.types.translator_options import TranslatorOptions
 from server.helpers import huggingface_download
 
 
@@ -32,9 +33,19 @@ class Translator:
         download and load the model
         """
         model_path = huggingface_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
-        device = 'cuda' if Config.use_cuda else 'cpu'
+        options: TranslatorOptions = {
+            'model_path': model_path,
+            'device': 'cuda' if Config.use_cuda else 'cpu',
+            'compute_type': 'auto',
+            'inter_threads': Config.worker_count,
+        }
 
-        cls.translator = CTranslator(model_path, device=device, compute_type='auto', inter_threads=Config.worker_count)
+        try:
+            cls.translator = CTranslator(**options, flash_attention=True)
+
+        except ValueError:
+            cls.translator = CTranslator(**options)
+
         cls.tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
 
 
