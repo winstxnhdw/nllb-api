@@ -12,6 +12,9 @@
 
 A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb) distilled 1.3B 8-bit quantised variant, hosted on Hugging Face Spaces. To achieve faster executions, we are using [CTranslate2](https://github.com/OpenNMT/CTranslate2) as our inference engine. Requests are cached and then served at the reverse proxy layer to reduce server load.
 
+> [!WARNING]\
+> NLLB has a max input length of 1024 tokens. This limit is imposed by the model's architecture and cannot be changed. If you need to translate longer texts, consider splitting your input into smaller chunks.
+
 ## Usage
 
 Simply cURL the endpoint like in the following. The `source` and `target` languages must be specified using FLORES-200 codes.
@@ -230,11 +233,8 @@ Standard Malay                     | zsm_Latn
 Zulu                               | zul_Latn
 </details>
 
-> [!TIP]\
-> You can translate multiple texts in a single batch by separating the texts with a `\n` character. See the [tests](tests/test_translate.py) for an example.
-
 ```bash
-curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v2/translate' \
+curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v3/translate' \
      -H 'Content-Type: application/json' \
      -d \
      '{

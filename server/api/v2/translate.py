@@ -1,17 +1,21 @@
-from typing import Annotated, Generator
+from asyncio import gather
 
-from fastapi import Depends
-from starlette.responses import StreamingResponse
+from starlette.responses import PlainTextResponse
 
 from server.api.v2 import v2
-from server.dependencies import translation
+from server.features import Translator
+from server.schemas.v1 import Translation
 
 
-@v2.post('/translate')
-def translate(result: Annotated[Generator[str, None, None], Depends(translation)]):
+@v2.post('/translate', deprecated=True)
+async def translate(request: Translation) -> PlainTextResponse:
     """
     Summary
     -------
     the `/translate` route translates an input from a source language to a target language
     """
-    return StreamingResponse(result, media_type='text/event-stream')
+    results = await gather(
+        *(Translator.translate(line, request.source, request.target) for line in request.text.splitlines() if line)
+    )
+
+    return PlainTextResponse('\n'.join(results))

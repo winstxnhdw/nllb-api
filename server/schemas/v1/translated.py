@@ -9,6 +9,6 @@ class Translated(BaseModel):
 
     Attributes
     ----------
-    text (str) : the translated text
+    result (str) : the translated text
     """
-    text: str = Field(examples=['¡Hola, mundo!'])
+    result: str = Field(examples=['¡Hola, mundo!'])

@@ -1,5 +1,3 @@
-from typing import Generator
-
 from ctranslate2 import Translator as CTranslator
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
@@ -50,11 +48,11 @@ class Translator:
 
 
     @classmethod
-    def translate(cls, text: str, source_language: str, target_language: str) -> Generator[str, None, None]:
+    async def translate(cls, text: str, source_language: str, target_language: str) -> str:
         """
         Summary
         -------
-        translate the input from the source language to the target language
+        translate the input from the source language to the target language without the Python GIL
 
         Parameters
         ----------
@@ -68,13 +66,11 @@ class Translator:
         """
         cls.tokeniser.src_lang = source_language
 
-        lines = [line for line in text.splitlines() if line]
+        result = next(cls.translator.translate_iterable(
+            (cls.tokeniser(text).tokens(),),
+            ([target_language],),
+            batch_type='tokens',
+            beam_size=1,
+        ))
 
-        return (
-            f'{cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:]))}\n'
-            for result in cls.translator.translate_iterable(
-                (cls.tokeniser(line).tokens() for line in lines),
-                ([target_language] for _ in lines),
-                beam_size=1
-            )
-        )
+        return cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:]))

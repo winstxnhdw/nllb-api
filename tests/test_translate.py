@@ -15,23 +15,23 @@ def client() -> Generator[TestClient, None, None]:
 
 
 def test_generate(client: TestClient):
-    response = client.post('/v2/translate', json={
+    response = client.post('/v3/translate', json={
         'text': 'Hello, world!',
         'source': 'eng_Latn',
         'target': 'spa_Latn'
     })
 
-    assert response.text == '¡Hola, mundo!\n'
+    assert response.json()['result'] == '¡Hola, mundo!'
 
 
 def test_generate_from_chinese(client: TestClient):
-    response = client.post('/v2/translate', json={
+    response = client.post('/v3/translate', json={
         'text': '我是一名软件工程师！',
         'source': 'zho_Hans',
         'target': 'spa_Latn'
     })
 
-    assert response.text == '¡Soy ingeniero de software!\n'
+    assert response.json()['result'] == '¡Soy ingeniero de software!'
 
 
 def test_generate_stream(client: TestClient):
