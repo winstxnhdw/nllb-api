@@ -12,7 +12,7 @@ RUN curl -sSL https://install.python-poetry.org | python -
 RUN poetry install --without=dev
 
 
-FROM caddy:2.8-builder-alpine as caddy-builder
+FROM caddy:builder-alpine as caddy-builder
 
 RUN xcaddy build master \
     --with github.com/caddyserver/cache-handler \
