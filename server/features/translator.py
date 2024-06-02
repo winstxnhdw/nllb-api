@@ -2,7 +2,7 @@ from ctranslate2 import Translator as CTranslator
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
 from server.config import Config
-from server.features.types.translator_options import TranslatorOptions
+from server.features.types import Languages, TranslatorOptions
 from server.helpers import huggingface_download
 
 
@@ -20,6 +20,7 @@ class Translator:
     translate(input: str, source_language: str, target_language: str) -> str
         translate the input from the source language to the target language
     """
+
     tokeniser: NllbTokenizerFast
     translator: CTranslator
 
@@ -46,9 +47,8 @@ class Translator:
 
         cls.tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
 
-
     @classmethod
-    async def translate(cls, text: str, source_language: str, target_language: str) -> str:
+    async def translate(cls, text: str, source_language: Languages, target_language: Languages) -> str:
         """
         Summary
         -------
@@ -66,11 +66,13 @@ class Translator:
         """
         cls.tokeniser.src_lang = source_language
 
-        result = next(cls.translator.translate_iterable(
-            (cls.tokeniser(text).tokens(),),
-            ([target_language],),
-            batch_type='tokens',
-            beam_size=1,
-        ))
+        result = next(
+            cls.translator.translate_iterable(
+                (cls.tokeniser(text).tokens(),),
+                ([target_language],),
+                batch_type='tokens',
+                beam_size=1,
+            )
+        )
 
         return cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:]))

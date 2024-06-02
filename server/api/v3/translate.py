@@ -1,10 +1,29 @@
+from typing import Annotated
+
+from fastapi import Query
+
 from server.api.v3 import v3
 from server.features import Translator
+from server.features.types import Languages
 from server.schemas.v1 import Translated, Translation
 
 
+@v3.get('/translate')
+async def translate_get(
+    text: Annotated[str, Query(example='Hello, world!')],
+    source: Annotated[Languages, Query(example='eng_Latn')],
+    target: Annotated[Languages, Query(example='spa_Latn')],
+) -> Translated:
+    """
+    Summary
+    -------
+    the `/translate` route translates an input from a source language to a target language
+    """
+    return Translated(result=await Translator.translate(text, source, target))
+
+
 @v3.post('/translate')
-async def translate(request: Translation) -> Translated:
+async def translate_post(request: Translation) -> Translated:
     """
     Summary
     -------

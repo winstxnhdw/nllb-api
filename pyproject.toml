@@ -18,6 +18,12 @@ reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false
 
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+quote-style = 'single'
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 

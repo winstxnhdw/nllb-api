@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 
+from server.features.types import Languages
+
 
 class Translation(BaseModel):
     """
@@ -13,6 +15,7 @@ class Translation(BaseModel):
     source (str) : the source language
     target (str) : the target language
     """
+
     text: str = Field(examples=['Hello, world!'])
-    source: str = Field(examples=['eng_Latn'])
-    target: str = Field(examples=['spa_Latn'])
+    source: Languages = Field(examples=['eng_Latn'])
+    target: Languages = Field(examples=['spa_Latn'])

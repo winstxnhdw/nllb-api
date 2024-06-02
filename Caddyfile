@@ -6,7 +6,7 @@
 
 :{$APP_PORT} {
 	cache {
-		allowed_http_verbs POST
+		allowed_http_verbs GET POST
 		ttl 24h
 		timeout {
 			backend {$CACHE_TIMEOUT}
