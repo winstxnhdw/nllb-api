@@ -12,4 +12,4 @@ def index():
     -------
     the `/` route
     """
-    return PlainTextResponse('Welcome to v2 of the API!')
+    return PlainTextResponse('Welcome to v3 of the API!')

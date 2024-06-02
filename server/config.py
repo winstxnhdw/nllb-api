@@ -36,6 +36,7 @@ class Config(BaseSettings):
     worker_count (int) : the number of workers to use
     use_cuda (bool) : whether to use CUDA for inference
     """
+
     server_port: int = 49494
     server_root_path: str = '/api'
     worker_count: int = 1

@@ -14,22 +14,16 @@ class GenerationStepResult:
     token: str
     token_id: int
 
-
 class TranslationResult:
     attention: list[list[str]]
     hypotheses: list[list[str]]
     scores: list[float]
 
-
 class AsyncTranslationResult:
-
     def done(self) -> bool: ...
-
     def result(self) -> TranslationResult: ...
 
-
 class Translator:
-
     def __init__(
         self,
         model_path: str,
@@ -44,8 +38,6 @@ class Translator:
         tensor_parallel: bool = False,
         files: object = None,
     ) -> None: ...
-
-
     @overload
     def translate_batch(
         self,
@@ -79,10 +71,8 @@ class Translator:
         sampling_topp: float = 1,
         sampling_temperature: float = 1,
         replace_unknowns: bool = False,
-        callback: Callable[[GenerationStepResult], bool] | None = None
+        callback: Callable[[GenerationStepResult], bool] | None = None,
     ) -> list[TranslationResult]: ...
-
-
     @overload
     def translate_batch(
         self,
@@ -116,10 +106,8 @@ class Translator:
         sampling_topp: float = 1,
         sampling_temperature: float = 1,
         replace_unknowns: bool = False,
-        callback: Callable[[GenerationStepResult], bool] | None = None
+        callback: Callable[[GenerationStepResult], bool] | None = None,
     ) -> list[AsyncTranslationResult]: ...
-
-
     def translate_iterable(
         self,
         source: Iterable[list[str]],
@@ -151,5 +139,5 @@ class Translator:
         sampling_topp: float = 1,
         sampling_temperature: float = 1,
         replace_unknowns: bool = False,
-        callback: Callable[[GenerationStepResult], bool] | None = None
+        callback: Callable[[GenerationStepResult], bool] | None = None,
     ) -> Generator[TranslationResult, None, None]: ...

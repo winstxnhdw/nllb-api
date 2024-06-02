@@ -16,14 +16,13 @@ class LoggingMiddleware:
     logger (Logger) : a custom logger
     app (ASGIApp) : the ASGI application
     """
-    def __init__(self, app: ASGIApp):
 
+    def __init__(self, app: ASGIApp):
         getLogger('uvicorn.access').setLevel(WARN)
         self.logger = getLogger('custom.access')
         self.logger.setLevel(INFO)
         self.logger.addHandler(StreamHandler())
         self.app = app
-
 
     async def inner_send(self, message: Message, send: Send, status_code: list[int]):
         """
@@ -42,7 +41,6 @@ class LoggingMiddleware:
 
         await send(message)
 
-
     def inner_send_factory(self, send: Send, status_code: list[int]) -> Callable[[Message], Awaitable[None]]:
         """
         Summary
@@ -60,7 +58,6 @@ class LoggingMiddleware:
         """
         return lambda message: self.inner_send(message, send, status_code)
 
-
     async def __call__(self, scope: Scope, receive: Receive, send: Send):
         if scope['type'] != 'http':
             return await self.app(scope, receive, send)
@@ -76,12 +73,13 @@ class LoggingMiddleware:
             await self.app(scope, receive, self.inner_send_factory(send, status_code))
 
         finally:
-            self.logger.info('[%s] [INFO] %d "%s %s" %s "%s" in %.4f ms',
+            self.logger.info(
+                '[%s] [INFO] %d "%s %s" %s "%s" in %.4f ms',
                 strftime('%Y-%m-%d %H:%M:%S %z'),
                 status_code[0],
                 scope['method'],
                 scope['path'],
                 client_ip,
                 user_agent,
-                (process_time() - start_process_time) * 1000
+                (process_time() - start_process_time) * 1000,
             )

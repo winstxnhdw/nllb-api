@@ -20,10 +20,10 @@ class HttpStartMessage(TypedDict):
     status (int) : the response status code
     headers (list[tuple[bytes, bytes]]) : the request headers
     """
+
     type: Literal['http.response.start']
     status: int
     headers: list[tuple[bytes, bytes]]
-
 
 class HttpBodyMessage(TypedDict):
     """
@@ -36,9 +36,9 @@ class HttpBodyMessage(TypedDict):
     type (Literal['http.response.body']) : the type of the message
     body (bytes) : the message body
     """
+
     type: Literal['http.response.body']
     body: bytes
-
 
 class Scope(TypedDict):
     """
@@ -62,6 +62,7 @@ class Scope(TypedDict):
     query_string (bytes) : the query string parameters
     app (Starlette) : the application object
     """
+
     type: Literal['http', 'websocket', 'lifespan']
     asgi: Mapping[str, str]
     http_version: str
@@ -75,7 +76,6 @@ class Scope(TypedDict):
     raw_path: bytes
     query_string: bytes
     app: Starlette
-
 
 type Message = HttpStartMessage | HttpBodyMessage
 type Send = Callable[[Message], Awaitable[None]]

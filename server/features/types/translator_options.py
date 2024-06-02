@@ -16,6 +16,7 @@ class TranslatorOptions(TypedDict):
     compute_type (ComputeTypes) : the compute type
     inter_threads (int) : the number of inter-threads
     """
+
     model_path: Required[str]
     device: Devices
     compute_type: ComputeTypes
