@@ -12,8 +12,8 @@ class Translation(BaseModel):
     Attributes
     ----------
     text (str) : the text to translate
-    source (str) : the source language
-    target (str) : the target language
+    source (Languages) : the source language
+    target (Languages) : the target language
     """
 
     text: str = Field(examples=['Hello, world!'])

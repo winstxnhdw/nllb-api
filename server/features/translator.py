@@ -57,8 +57,8 @@ class Translator:
         Parameters
         ----------
         input (str) : the input to translate
-        source_language (str) : the source language
-        target_language (str) : the target language
+        source_language (Languages) : the source language
+        target_language (Languages) : the target language
 
         Returns
         -------
