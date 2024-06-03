@@ -47,6 +47,9 @@ transformers = "^4.41.2"
 ctranslate2 = "^4.2.1"
 supervisor = "^4.2.5"
 
+[tool.poetry.group.cuda.dependencies]
+nvidia-cublas-cu12 = "^12.5.2.13"
+
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.364"
 pylint = "^3.2.2"

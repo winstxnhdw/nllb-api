@@ -748,6 +748,17 @@ files = [
 ]
 
 [[package]]
+name = "nvidia-cublas-cu12"
+version = "12.5.2.13"
+description = "CUBLAS native runtime libraries"
+optional = false
+python-versions = ">=3"
+files = [
+    {file = "nvidia_cublas_cu12-12.5.2.13-py3-none-manylinux2014_x86_64.whl", hash = "sha256:c0eaa31c7b62e730e3bdc8ace77f786e6cc142599d2429017b8dfb4bfb3bfcaf"},
+    {file = "nvidia_cublas_cu12-12.5.2.13-py3-none-win_amd64.whl", hash = "sha256:f15ce4887aab1841c7ff13783ff779ab67b8dbcd78920a65973ad2dcb396ecd9"},
+]
+
+[[package]]
 name = "orjson"
 version = "3.10.3"
 description = "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy"
@@ -2072,4 +2083,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "0db17dfe5741e0d0688a6873583b62a3ced93e700b5eb953b8787fd8a55dab81"
+content-hash = "bb0036f8e59a3d126341e95a71c9734170ea469a510e555be6ec70b60c255137"

@@ -19,7 +19,7 @@ RUN xcaddy build master \
     --with github.com/mholt/caddy-ratelimit
 
 
-FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04
+FROM python:slim
 
 ENV HOME /home/user
 ENV PYTHONUNBUFFERED 1
@@ -28,6 +28,7 @@ ENV SERVER_PORT 5000
 ENV CACHE_TIMEOUT 10s
 ENV EVENTS_PER_WINDOW 100000
 ENV USE_CUDA True
+ENV LD_LIBRARY_PATH /usr/local/lib/python3.12/site-packages/nvidia/cublas/lib
 
 RUN useradd -m -u 1000 user
 
@@ -36,8 +37,8 @@ USER user
 WORKDIR $HOME/app
 
 COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
-COPY --chown=user --from=python-builder /usr/local /usr/local
-COPY --chown=user --from=python-builder /lib/x86_64-linux-gnu/libexpat.so.1 /lib/x86_64-linux-gnu/libexpat.so.1
+COPY --chown=user --from=python-builder /usr/local/bin /usr/local/bin
+COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --chown=user . $HOME/app
 
 CMD ["supervisord"]
