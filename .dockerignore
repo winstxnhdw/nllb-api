@@ -7,8 +7,10 @@ Makefile
 Dockerfile*
 
 cache/
-.github/
 tests/
+__pycache__/
+.github/
 .vscode/
 .venv/
+.ruff_cache/
 .pytest_cache/
