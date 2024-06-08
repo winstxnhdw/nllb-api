@@ -286,18 +286,6 @@ docker run --rm \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
 
-### Rate Limiting
-
-You can set an IP-based rate limit on the number of requests per minute with the following environment variable.
-
-```bash
-docker run --rm \
-  -e APP_PORT=7860 \
-  -e EVENTS_PER_WINDOW=15 \
-  -p 7860:7860 \
-  ghcr.io/winstxnhdw/nllb-api:main
-```
-
 ### CUDA Support
 
 You can accelerate your inference with CUDA by building and using `Dockerfile.cuda-build` instead.
