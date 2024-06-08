@@ -1,5 +1,4 @@
 {
-	order rate_limit before basicauth
 	order cache before rewrite
 	cache
 }
@@ -10,14 +9,6 @@
 		ttl 24h
 		timeout {
 			backend {$CACHE_TIMEOUT}
-		}
-	}
-
-	rate_limit {
-		zone dynamic_example {
-			key {remote_host}
-			events {$EVENTS_PER_WINDOW}
-			window 60s
 		}
 	}
 
