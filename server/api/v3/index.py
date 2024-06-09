@@ -6,7 +6,7 @@ from server.api.v3 import v3
 
 
 @v3.get('/', response_model=Literal['Welcome to v3 of the API!'])
-def index():
+def index() -> PlainTextResponse:
     """
     Summary
     -------

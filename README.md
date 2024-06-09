@@ -237,6 +237,12 @@ Zulu                               | zul_Latn
 curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/translate?text=Hello&source=eng_Latn&target=spa_Latn'
 ```
 
+You can also determine the source language by querying the following API.
+
+```bash
+curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/detect_language?text=Hello'
+```
+
 ## Self-Hosting
 
 You can self-host the API and access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs) with the following minimal configuration
