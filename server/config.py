@@ -1,12 +1,10 @@
 from functools import lru_cache
-from typing import Callable, TypeVar
+from typing import Callable
 
 from pydantic_settings import BaseSettings
 
-T = TypeVar('T')
 
-
-def cache(user_function: Callable[[type[T]], T]) -> Callable[[type[T]], T]:
+def cache[T](user_function: Callable[[type[T]], T]) -> Callable[[type[T]], T]:
     """
     Summary
     -------
@@ -24,7 +22,7 @@ def cache(user_function: Callable[[type[T]], T]) -> Callable[[type[T]], T]:
 
 
 @cache
-def singleton(cls: type[T]) -> T:
+def singleton[T](cls: type[T]) -> T:
     """
     Summary
     -------
