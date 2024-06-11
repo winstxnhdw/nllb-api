@@ -10,6 +10,12 @@
 		timeout {
 			backend {$CACHE_TIMEOUT}
 		}
+		badger {
+			configuration {
+				ValueThreshold 16777216
+				ValueLogFileSize 268435456
+			}
+		}
 	}
 
 	handle_path /api/* {
