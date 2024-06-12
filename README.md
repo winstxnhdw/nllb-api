@@ -257,24 +257,6 @@ docker run --rm \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
 
-### Model Caching
-
-You can consider mounting a volume to cache your models locally to speed up subsequent builds.
-
-```bash
-mkdir cache && chmod 775 cache
-```
-
-After creating your permissible cache directory, you can mount it to the container with the following.
-
-```bash
-docker run --rm \
-  -e APP_PORT=7860 \
-  -p 7860:7860 \
-  -v ./cache:/home/user/.cache \
-  ghcr.io/winstxnhdw/nllb-api:main
-```
-
 ### Optimisation
 
 You can pass the following environment variables to optimise the API for your own uses. The value of `OMP_NUM_THREADS` increases the number of threads used to translate a given batch of inputs, while `WORKER_COUNT` increases the number of workers used to handle requests in parallel.
@@ -288,7 +270,6 @@ docker run --rm \
   -e OMP_NUM_THREADS=6 \
   -e WORKER_COUNT=1 \
   -p 7860:7860 \
-  -v ./cache:/home/user/.cache \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
 
@@ -300,13 +281,12 @@ You can accelerate your inference with CUDA by building and using `Dockerfile.cu
 docker build -f Dockerfile.cuda-build -t nllb-api .
 ```
 
-After building the image, you can run the image with the following. You will need to create the `cache` directory and set the appropriate permissions as described [above](#model-caching).
+After building the image, you can run the image with the following.
 
 ```bash
 docker run --rm --gpus all \
   -e APP_PORT=7860 \
   -p 7860:7860 \
-  -v ./cache:/home/user/.cache \
   nllb-api
 ```
 

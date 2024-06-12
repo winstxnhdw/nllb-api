@@ -2,6 +2,7 @@ from fasttext import load_model
 from fasttext.FastText import _FastText  # type: ignore
 from huggingface_hub import hf_hub_download
 
+from server.config import Config
 from server.features.types.languages import Languages
 
 
@@ -29,7 +30,7 @@ class LanguageDetector:
         -------
         download and load the model
         """
-        model_path = hf_hub_download('facebook/fasttext-language-identification', 'model.bin')
+        model_path = hf_hub_download(Config.language_detector_model_name, 'model.bin')
         cls.model: _FastText = load_model(model_path)
 
     @classmethod

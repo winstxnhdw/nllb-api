@@ -10,9 +10,9 @@ from server.schemas.v1 import Translated, Translation
 
 @v3.get('/translate')
 async def translate_get(
-    text: Annotated[str, Query(example='Hello, world!')],
-    source: Annotated[Languages, Query(example='eng_Latn')],
-    target: Annotated[Languages, Query(example='spa_Latn')],
+    text: Annotated[str, Query(examples=['Hello, world!'])],
+    source: Annotated[Languages, Query(examples=['eng_Latn'])],
+    target: Annotated[Languages, Query(examples=['spa_Latn'])],
 ) -> Translated:
     """
     Summary

@@ -8,7 +8,7 @@ from server.schemas.v1 import Language
 
 
 @v3.get('/detect_language')
-async def detect_language(text: Annotated[str, Query(max_length=20, example='Hello, world!')]) -> Language:
+async def detect_language(text: Annotated[str, Query(max_length=20, examples=['Hello, world!'])]) -> Language:
     """
     Summary
     -------

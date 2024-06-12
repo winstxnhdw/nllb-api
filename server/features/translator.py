@@ -31,7 +31,7 @@ class Translator:
         -------
         download and load the model
         """
-        model_path = huggingface_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
+        model_path = huggingface_download(Config.translator_model_name)
         options: TranslatorOptions = {
             'model_path': model_path,
             'device': 'cuda' if Config.use_cuda else 'cpu',

@@ -1,15 +1,25 @@
+ARG TRANSLATOR_MODEL_NAME='winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
+ARG LANGUAGE_DETECTOR_MODEL_NAME='facebook/fasttext-language-identification'
+
+
 FROM python:slim as python-builder
 
+ARG TRANSLATOR_MODEL_NAME
+ARG LANGUAGE_DETECTOR_MODEL_NAME
 ENV POETRY_VIRTUALENVS_CREATE false
 ENV POETRY_HOME /opt/poetry
 ENV PATH $POETRY_HOME/bin:$PATH
 
-COPY pyproject.toml .
+COPY pyproject.toml poetry.lock ./
 
 RUN apt update
 RUN apt install -y curl
 RUN curl -sSL https://install.python-poetry.org | python -
 RUN poetry install --without=dev,cuda
+RUN python -c \
+    "from huggingface_hub import snapshot_download, hf_hub_download; \
+    snapshot_download('$TRANSLATOR_MODEL_NAME'); \
+    hf_hub_download('$LANGUAGE_DETECTOR_MODEL_NAME', 'model.bin')"
 
 
 FROM caddy:builder-alpine as caddy-builder
@@ -19,6 +29,8 @@ RUN xcaddy build master --with github.com/caddyserver/cache-handler
 
 FROM python:slim
 
+ARG TRANSLATOR_MODEL_NAME
+ARG LANGUAGE_DETECTOR_MODEL_NAME
 ENV HOME /home/user
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -34,6 +46,7 @@ WORKDIR $HOME/app
 COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
 COPY --chown=user --from=python-builder /usr/local/bin/gunicorn /usr/local/bin/supervisord /usr/local/bin/
 COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --chown=user --from=python-builder /root/.cache/huggingface $HOME/.cache/huggingface
 COPY --chown=user . $HOME/app
 
 CMD ["supervisord"]
