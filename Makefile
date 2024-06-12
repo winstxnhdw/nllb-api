@@ -1,15 +1,11 @@
-all: cache
+all:
 	docker build -f Dockerfile.build -t nllb-api .
-	docker run --rm -v ./cache:/home/user/.cache -e APP_PORT=7860 -p 7860:7860 nllb-api
+	docker run --rm -e APP_PORT=7860 -p 7860:7860 nllb-api
 
-gpu: cache
+gpu:
 	docker build -f Dockerfile.cuda-build -t nllb-api .
-	docker run --rm --gpus all -e APP_PORT=7860 -p 7860:7860 -v ./cache:/home/user/.cache nllb-api
+	docker run --rm --gpus all -e APP_PORT=7860 -p 7860:7860 nllb-api
 
-hf: cache
+hf:
 	docker build -t nllb-api .
-	docker run --rm -v ./cache:/home/user/.cache -p 7860:7860 nllb-api
-
-cache:
-	mkdir cache
-	chmod 775 cache
+	docker run --rm -p 7860:7860 nllb-api
