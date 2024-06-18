@@ -10,9 +10,8 @@ ENV PATH $POETRY_HOME/bin:$PATH
 
 COPY pyproject.toml poetry.lock ./
 
-RUN apt update
-RUN apt install -y curl
-RUN curl -sSL https://install.python-poetry.org | python -
+RUN python -m venv $POETRY_HOME
+RUN $POETRY_HOME/bin/pip install poetry
 RUN poetry install --without=dev,cuda
 
 
