@@ -18,13 +18,6 @@ env:
 
 jobs:
   warm:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: cURL Swagger
-        run: |
-          [ ! "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/api/docs)" = "{\"detail\":\"Not Found\"}" ]
-
-      - name: cURL the API
-        run: |
-          [ "$(curl https://$GITHUB_REPOSITORY_OWNER-$REPOSITORY_NAME.hf.space/api/v2/)" = "Welcome to v2 of the API!" ]
+    uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@main
+    secrets:
+      token: ${{ secrets.HF_TOKEN }}
