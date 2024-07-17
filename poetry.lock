@@ -1044,13 +1044,13 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pyright"
-version = "1.1.371"
+version = "1.1.372"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.371-py3-none-any.whl", hash = "sha256:cce52e42ff73943243e7e5e24f2a59dee81b97d99f4e3cf97370b27e8a1858cd"},
-    {file = "pyright-1.1.371.tar.gz", hash = "sha256:777b508b92dda2db476214c400ce043aad8d8f3dd0e10d284c96e79f298308b5"},
+    {file = "pyright-1.1.372-py3-none-any.whl", hash = "sha256:25b15fb8967740f0949fd35b963777187f0a0404c0bd753cc966ec139f3eaa0b"},
+    {file = "pyright-1.1.372.tar.gz", hash = "sha256:a9f5e0daa955daaa17e3d1ef76d3623e75f8afd5e37b437d3ff84d5b38c15420"},
 ]
 
 [package.dependencies]
@@ -2016,4 +2016,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9460ab72689f5610759df21d60ab24744e829bcc8e52387fc9230099d6285731"
+content-hash = "2ee60c9adbdb2d02e5933da0e8cb78ac0b73b5090e9f759466198efb63324291"

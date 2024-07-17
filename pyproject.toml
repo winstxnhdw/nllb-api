@@ -52,7 +52,7 @@ fasttext-predict = "^0.9.2.2"
 nvidia-cublas-cu12 = "^12.5.3.2"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.371"
+pyright = "^1.1.372"
 pylint = "^3.2.5"
 pytest = "^8.2.2"
 ruff = "^0.5.2"
