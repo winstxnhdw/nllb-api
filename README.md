@@ -13,7 +13,7 @@
 A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb) distilled 1.3B 8-bit quantised variant, hosted on Hugging Face Spaces. To achieve faster executions, we are using [CTranslate2](https://github.com/OpenNMT/CTranslate2) as our inference engine. Requests are cached and then served at the reverse proxy layer to reduce server load.
 
 > [!WARNING]\
-> NLLB has a max input length of 1024 tokens. This limit is imposed by the model's architecture and cannot be changed. If you need to translate longer texts, consider splitting your input into smaller chunks.
+> NLLB has a max input length of 1024 tokens. This limit is imposed by the model's architecture and cannot be changed. Because larger inputs tend to produce more artefacts, consider splitting your input into smaller chunks.
 
 ## Usage
 
