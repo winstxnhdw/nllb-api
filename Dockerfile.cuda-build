@@ -52,7 +52,7 @@ WORKDIR $HOME/app
 
 COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
 COPY --chown=user --from=model-builder /root/.cache/huggingface $HOME/.cache/huggingface
-COPY --chown=user --from=python-builder /usr/local/bin/gunicorn /usr/local/bin/supervisord /usr/local/bin/
+COPY --chown=user --from=python-builder /usr/local/bin/supervisord /usr/local/bin/
 COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --chown=user . $HOME/app
 

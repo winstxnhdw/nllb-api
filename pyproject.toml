@@ -1,19 +1,19 @@
 [tool.pylint.format]
-good-names = ['x', 'y', 'z', 'id', 'ok']
+good-names = ["x", "y", "z", "id", "ok"]
 
 [tool.pylint.messages_control]
 disable = [
-  'missing-module-docstring',
-  'no-name-in-module',
-  'useless-import-alias',
-  'line-too-long',
-  'too-many-arguments',
-  'too-few-public-methods',
-  'too-many-instance-attributes',
+  "missing-module-docstring",
+  "no-name-in-module",
+  "useless-import-alias",
+  "line-too-long",
+  "too-many-arguments",
+  "too-few-public-methods",
+  "too-many-instance-attributes",
 ]
 
 [tool.pyright]
-stubPath = 'server/typings'
+stubPath = "server/typings"
 reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false
@@ -22,7 +22,7 @@ reportMissingTypeStubs = false
 line-length = 120
 
 [tool.ruff.format]
-quote-style = 'single'
+quote-style = "single"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
@@ -39,14 +39,13 @@ package-mode = false
 python = "^3.11"
 fastapi = "^0.111.1"
 pydantic-settings = "^2.3.4"
-gunicorn = "^22.0.0"
 uvicorn = "^0.30.3"
 httptools = "^0.6.1"
-uvloop = "^0.19.0"
 transformers = "^4.43.2"
 ctranslate2 = "^4.3.1"
 supervisor = "^4.2.5"
 fasttext-predict = "^0.9.2.2"
+uvloop = { version = "^0.19.0", markers = "sys_platform != 'win32'" }
 
 [tool.poetry.group.cuda.dependencies]
 nvidia-cublas-cu12 = "^12.5.3.2"
