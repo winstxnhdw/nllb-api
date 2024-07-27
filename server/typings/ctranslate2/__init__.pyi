@@ -41,8 +41,8 @@ class Translator:
     @overload
     def translate_batch(
         self,
-        source: list[list[str]],
-        target_prefix: list[list[str] | None] | None = None,
+        source: Iterable[list[str]],
+        target_prefix: Iterable[list[str] | None] | None = None,
         *,
         max_batch_size: int = 0,
         batch_type: BatchTypes = 'examples',
@@ -76,8 +76,8 @@ class Translator:
     @overload
     def translate_batch(
         self,
-        source: list[list[str]],
-        target_prefix: list[list[str] | None] | None = None,
+        source: Iterable[list[str]],
+        target_prefix: Iterable[list[str] | None] | None = None,
         *,
         max_batch_size: int = 0,
         batch_type: BatchTypes = 'examples',

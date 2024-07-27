@@ -1,3 +1,7 @@
+from asyncio import sleep, wrap_future
+from concurrent.futures import ThreadPoolExecutor
+from itertools import cycle
+
 from ctranslate2 import Translator as CTranslator
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
@@ -10,27 +14,17 @@ class Translator:
     """
     Summary
     -------
-    a static class for the NLLB translator
+    a class for the NLLB translator
 
     Methods
     -------
-    load() -> None
-        load the model
-
     translate(input: str, source_language: str, target_language: str) -> str
         translate the input from the source language to the target language
     """
 
-    tokeniser: NllbTokenizerFast
-    translator: CTranslator
+    __slots__ = ('translator', 'tokeniser', 'lock')
 
-    @classmethod
-    def load(cls):
-        """
-        Summary
-        -------
-        download and load the model
-        """
+    def __init__(self):
         model_path = huggingface_download(Config.translator_model_name)
         options: TranslatorOptions = {
             'model_path': model_path,
@@ -40,15 +34,21 @@ class Translator:
         }
 
         try:
-            cls.translator = CTranslator(**options, flash_attention=True)
+            self.translator = CTranslator(**options, flash_attention=True)
 
         except ValueError:
-            cls.translator = CTranslator(**options)
+            self.translator = CTranslator(**options)
 
-        cls.tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
+        self.tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
+        self.lock = False
 
-    @classmethod
-    async def translate(cls, text: str, source_language: Languages, target_language: Languages) -> str:
+    def __enter__(self):
+        self.lock = True
+
+    def __exit__(self, *_):
+        self.lock = False
+
+    def translate(self, text: str, source_language: Languages, target_language: Languages) -> str:
         """
         Summary
         -------
@@ -64,15 +64,68 @@ class Translator:
         -------
         translated_text (str) : the translated text
         """
-        cls.tokeniser.src_lang = source_language
+        self.tokeniser.src_lang = source_language
 
-        result = next(
-            cls.translator.translate_iterable(
-                (cls.tokeniser(text).tokens(),),
-                ([target_language],),
-                batch_type='tokens',
-                beam_size=1,
-            )
+        results = self.translator.translate_batch(
+            (self.tokeniser(text).tokens(),),
+            ([target_language],),
+            batch_type='tokens',
+            beam_size=1,
         )
 
-        return cls.tokeniser.decode(cls.tokeniser.convert_tokens_to_ids(result.hypotheses[0][1:]))
+        return self.tokeniser.decode(self.tokeniser.convert_tokens_to_ids(results[0].hypotheses[0][1:]))
+
+
+class TranslatorPool:
+    """
+    Summary
+    -------
+    a static class that encapsulates a pool of translators
+
+    Methods
+    -------
+    load() -> None
+        load the translator pool
+
+    translate(text: str, source_language: Languages, target_language: Languages) -> str
+        translate the input from the source language to the target language using a pool of translators
+    """
+
+    @classmethod
+    def load(cls):
+        """
+        Summary
+        -------
+        load the translator pool
+        """
+        cls.thread_pool = ThreadPoolExecutor()
+        cls.pool = cycle([Translator() for _ in range(Config.worker_count + 1)])
+
+    @classmethod
+    async def translate(cls, text: str, source_language: Languages, target_language: Languages) -> str:
+        """
+        Summary
+        -------
+        translate the input from the source language to the target language using a pool of translators
+
+        Parameters
+        ----------
+        input (str) : the input to translate
+        source_language (Languages) : the source language
+        target_language (Languages) : the target language
+
+        Returns
+        -------
+        translated_text (str) : the translated text
+        """
+        for translator in cls.pool:
+            if translator.lock:
+                await sleep(0.01)
+                continue
+
+            with translator:
+                return await wrap_future(
+                    cls.thread_pool.submit(translator.translate, text, source_language, target_language)
+                )
+
+        return 'You should never see this message'

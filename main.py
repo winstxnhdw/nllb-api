@@ -15,6 +15,7 @@ def main():
         host='0.0.0.0',
         port=Config.server_port,
         reload=False,
+        workers=Config.worker_count,
         loop='uvloop',
         http='httptools',
         use_colors=True,

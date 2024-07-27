@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import Query
 
 from server.api.v3 import v3
-from server.features import Translator
+from server.features import TranslatorPool
 from server.features.types import Languages
 from server.schemas.v1 import Translated, Translation
 
@@ -19,7 +19,7 @@ async def translate_get(
     -------
     the `/translate` route translates an input from a source language to a target language
     """
-    return Translated(result=await Translator.translate(text, source, target))
+    return Translated(result=await TranslatorPool.translate(text, source, target))
 
 
 @v3.post('/translate')
@@ -29,4 +29,4 @@ async def translate_post(request: Translation) -> Translated:
     -------
     the `/translate` route translates an input from a source language to a target language
     """
-    return Translated(result=await Translator.translate(request.text, request.source, request.target))
+    return Translated(result=await TranslatorPool.translate(request.text, request.source, request.target))
