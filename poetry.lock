@@ -878,6 +878,60 @@ files = [
 ]
 
 [[package]]
+name = "picologging"
+version = "0.9.3"
+description = "A fast and lightweight logging library for Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "picologging-0.9.3-cp310-cp310-macosx_10_15_universal2.whl", hash = "sha256:3d3219765be2430c4e434ff66a90147bd29db56cd24be00c5999d9827b08d479"},
+    {file = "picologging-0.9.3-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:1c4755c06c37b53e70ebdc9cd2b39c835221a12c5ef149cfaad9b6073b41ee89"},
+    {file = "picologging-0.9.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b582222a768f2bc28ca4a34aa41a008c6aa3430cf1f128b2440e93f691d0d714"},
+    {file = "picologging-0.9.3-cp310-cp310-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f833de82e5fd9a981f64ebfadc3f4d12fe75ef31897e796ba04f6e28455e42c9"},
+    {file = "picologging-0.9.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b21e46794ef29fda0033a2bcfc38ec7a5fea78a6353a5f74f7a6374c0c0d3d15"},
+    {file = "picologging-0.9.3-cp310-cp310-win32.whl", hash = "sha256:3ef12744c17fb670e5028315019589fe21527d1546463ef9baf9a454dcd3d7c4"},
+    {file = "picologging-0.9.3-cp310-cp310-win_amd64.whl", hash = "sha256:09f27425175ae23cca0fb49bb55622073589cb57f73bdd2c7f72f4cf05419c3e"},
+    {file = "picologging-0.9.3-cp311-cp311-macosx_10_15_universal2.whl", hash = "sha256:fbd88e3dde71d72ac72dfe6a23a52e13fcdf2c9cf033e13a8f2718746fed942b"},
+    {file = "picologging-0.9.3-cp311-cp311-macosx_10_15_x86_64.whl", hash = "sha256:542628ccdc7a1eb321e5a7533803577a943c7d84e62456b681037f7bbc8abe26"},
+    {file = "picologging-0.9.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:78ed29eea9f28d28edb39fa81b448fd27bdf510d4e4c79fe64e08742c782a965"},
+    {file = "picologging-0.9.3-cp311-cp311-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6a38eb07ef48218712ce9f860b4a27e5086a89a89af7c5bcc1eaed6fb1e3eafd"},
+    {file = "picologging-0.9.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3495969c6a8e1e2fa8d2bc89b8478bce10716bb6617f50822667909e79478cb4"},
+    {file = "picologging-0.9.3-cp311-cp311-win32.whl", hash = "sha256:c97f0ab43ee32924b33cadd176c5bfe404e85e2bc6ae5e4c713c6d4cb4c7e6f3"},
+    {file = "picologging-0.9.3-cp311-cp311-win_amd64.whl", hash = "sha256:f8d448e063b8a2cbe3c76d2d7ca2beb523779a31a8b14ee0a452ec1247ce56b8"},
+    {file = "picologging-0.9.3-cp312-cp312-macosx_10_15_universal2.whl", hash = "sha256:70e6957df044af10ff35d293b8ebad3f04bbfa99f88bcf4fd2a8248d1cd46320"},
+    {file = "picologging-0.9.3-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:32d18fb7c089afe9c2a8cb1493021417c872f807d74f3fd6da85e43226664ccd"},
+    {file = "picologging-0.9.3-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:025a6262280374413142648cf5be7944136c54a5cc84b0ff5b2416928d7aec96"},
+    {file = "picologging-0.9.3-cp312-cp312-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:feaf33a2fd8a9431f3f4de9693569952ebce6e4c92cabe642327130a1d378b6c"},
+    {file = "picologging-0.9.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:06d315458ff92a2df6ce07540b390212d179e3ef2d08b48c356df72be8d0ce2d"},
+    {file = "picologging-0.9.3-cp312-cp312-win32.whl", hash = "sha256:502a17cbf7303499e1edcb01b3503caeac204aa5d5f888d4b5ecdb113f0c25ee"},
+    {file = "picologging-0.9.3-cp312-cp312-win_amd64.whl", hash = "sha256:16f111cdf7a210eb07bd06932c9a8ff06dc830e213c8a0efbb769e586d1f3efb"},
+    {file = "picologging-0.9.3-cp37-cp37m-macosx_10_15_x86_64.whl", hash = "sha256:8fee4f2cec14bc9f2da3e77617ab5afeb3cbb1e8a9918445437d0e406abcb152"},
+    {file = "picologging-0.9.3-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:26c7371919d33b18075b395cec454a6577a0a9171b5954735fecfb4d8216d45d"},
+    {file = "picologging-0.9.3-cp37-cp37m-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:40f0999feeb1613719bce3b3ba80ea87e1862c49b60d418d670c14788f47cabe"},
+    {file = "picologging-0.9.3-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2ea40c7b85294c5117bdf0e1f5057f53567ca725bd9a32cbca935ddd4ce59dda"},
+    {file = "picologging-0.9.3-cp37-cp37m-win32.whl", hash = "sha256:d76b7cabc9170a880180756e3b4889f3b94ff5e877ccd3a104affb543310da97"},
+    {file = "picologging-0.9.3-cp37-cp37m-win_amd64.whl", hash = "sha256:cb3c8232421db80d30d2fba149cb5feca1e5aa8fbc8d0301e9cb58e43c5a4add"},
+    {file = "picologging-0.9.3-cp38-cp38-macosx_10_15_universal2.whl", hash = "sha256:6672feda1d95e81694b447c27ce51d0beec86f779ed6803e2b4a522086ac7765"},
+    {file = "picologging-0.9.3-cp38-cp38-macosx_10_15_x86_64.whl", hash = "sha256:94f71cf9a868047db5414f8358c7df51f3c1913a8f1e892f79ad334e63c85860"},
+    {file = "picologging-0.9.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:936a23a8b98fac51a0bfc3ec23dd2c156fc6b8839a522287ca295f59a5c6dfef"},
+    {file = "picologging-0.9.3-cp38-cp38-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:ce7aad1ccc61d65bafcfda7429d902bce53a706cd8b1ade48a4eb80900f0654e"},
+    {file = "picologging-0.9.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:251d69cf4f9d8e7f9cfb113a58d37d493555ee6380af5e4e11599c4f4b60f735"},
+    {file = "picologging-0.9.3-cp38-cp38-win32.whl", hash = "sha256:f66744aa21d4741ba5e6ecc21babaa3b2cb4dc6e944a02cd5d428ebf24992751"},
+    {file = "picologging-0.9.3-cp38-cp38-win_amd64.whl", hash = "sha256:ccc190c6eb8e75fd6ce3e7a34f923731ad5a8c58e26e5a83cbc922174cc79e3b"},
+    {file = "picologging-0.9.3-cp39-cp39-macosx_10_15_universal2.whl", hash = "sha256:b4c7f4bf9a5fa291e0f8f8b669f6ea35943ccf2a962903472591ae377de58825"},
+    {file = "picologging-0.9.3-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:ea5663f5907910405edf75d438c05b24b66fd23cb997d7d28dfaabdea9b78211"},
+    {file = "picologging-0.9.3-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a629db4cbbb96e66d01d34c93d197c04cb71838830c6652033ee8d2ebe76d01f"},
+    {file = "picologging-0.9.3-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:759f21dda1bf9ee52c7fa91c1faf47aa3585f4f604d5d38de02f3bcd32d7369f"},
+    {file = "picologging-0.9.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3d4bb95e708ad973217cc2cbb6e058f777ae2539a5cf131824c66fd701adfe71"},
+    {file = "picologging-0.9.3-cp39-cp39-win32.whl", hash = "sha256:35e11311c71678813112e03649fa8dacad2f4ee5c3a424e515876df96c66b89b"},
+    {file = "picologging-0.9.3-cp39-cp39-win_amd64.whl", hash = "sha256:e1ab2768f4c178df653bd6cc94ca31d9b94c6d4a90012598a185e80ea66f1a8f"},
+    {file = "picologging-0.9.3.tar.gz", hash = "sha256:6921f86ea0875ac85e252188627e9f04b872895327a7028e06c825ddb888a825"},
+]
+
+[package.extras]
+dev = ["black", "flaky", "hypothesis", "pre-commit", "pytest", "pytest-cov", "pytest-memray (>=1.5.0)", "rich"]
+
+[[package]]
 name = "platformdirs"
 version = "4.2.2"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
@@ -1901,4 +1955,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "7a6248f2d8a649df760834dec125a7bc9bb5dacbfee640d86990008eb554e292"
+content-hash = "a2953e5a217427c753f075260dda11a85357093c9b4eac1af7c9ff8d23e3b1d2"

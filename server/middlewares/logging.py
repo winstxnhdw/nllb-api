@@ -1,10 +1,10 @@
-from logging import WARN, StreamHandler, getLogger
 from time import process_time, strftime
 from typing import Awaitable, Callable
 
 from litestar.enums import ScopeType
 from litestar.middleware.base import MiddlewareProtocol
 from litestar.types import ASGIApp, Message, Receive, Scope, Send
+from picologging import getLogger
 
 
 class LoggingMiddleware(MiddlewareProtocol):
@@ -20,10 +20,9 @@ class LoggingMiddleware(MiddlewareProtocol):
     """
 
     logger = getLogger('custom.access')
-    logger.addHandler(StreamHandler())
+    logger.propagate = False
 
     def __init__(self, app: ASGIApp):
-        getLogger('uvicorn.access').setLevel(WARN)
         self.app = app
 
     async def inner_send(self, message: Message, send: Send, status_code: list[int]):
