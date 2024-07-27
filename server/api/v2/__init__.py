@@ -1,3 +1,6 @@
-from fastapi import APIRouter
+from litestar import Router
 
-v2 = APIRouter(prefix='/v2', tags=['v2'])
+from server.api.v2.index import index
+from server.api.v2.translate import TranslateController
+
+v2 = Router('/v2', tags=['v2'], route_handlers=[index, TranslateController])

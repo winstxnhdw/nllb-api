@@ -1,79 +1,34 @@
-from importlib import import_module
-from os import sep, walk
-from os.path import join
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from litestar import Litestar, Response
+from litestar.openapi import OpenAPIConfig
+from litestar.openapi.spec import Server
+from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 
 from server.api import v2, v3
 from server.config import Config
-from server.lifespans import lifespans
+from server.lifespans import load_fasttext_model, load_nllb_model
 from server.middlewares import LoggingMiddleware
 
 
-class Framework(FastAPI):
+def exception_handler(_, exception: Exception):
     """
     Summary
     -------
-    the FastAPI framework class
+    the Litestar exception handler
 
-    Attributes
+    Parameters
     ----------
-    api_directory (str) : the directory where the api files are located
-
-    Methods
-    -------
-    convert_delimiters(string: str, old: str, new: str) -> str
-        convert delimiters in a string
-
-    initialise_routes()
-        dynamically initialise all routes
+    request (Request) : the request
+    exception (Exception) : the exception
     """
+    LoggingMiddleware.logger.error('Application Exception', exc_info=exception)
 
-    def convert_delimiters(self, string: str, old: str, new: str) -> str:
-        """
-        Summary
-        -------
-        convert delimiters in a string
-
-        Parameters
-        ----------
-        string (str) : the string to convert
-        old (str) : the old delimiter
-        new (str) : the new delimiter
-
-        Returns
-        -------
-        string (str) : the converted string
-        """
-        return new.join(string.split(old))
-
-    def initialise_routes(self, api_directory: str):
-        """
-        Summary
-        -------
-        initialise all routes
-
-        Parameters
-        ----------
-        api_directory (str) : the directory where the api files are located
-        """
-        module_file_names = [
-            join(root, file)
-            for root, _, files in walk(api_directory)
-            for file in files
-            if not file.startswith('_') and file.endswith('.py')
-        ]
-
-        module_names = [
-            import_module(self.convert_delimiters(file_name[:-3], sep, '.')).__name__ for file_name in module_file_names
-        ]
-
-        for module_name in module_names:
-            print(f' * {self.convert_delimiters(module_name[len(api_directory):], ".", sep)} route found!')
+    return Response(
+        content={'detail': 'Internal Server Error'},
+        status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+    )
 
 
-def initialise() -> Framework:
+def initialise() -> Litestar:
     """
     Summary
     -------
@@ -83,17 +38,16 @@ def initialise() -> Framework:
     ------
     app (Framework) : an extended FastAPI instance
     """
-    app = Framework(lifespan=lifespans, root_path=Config.server_root_path)
-    app.initialise_routes(join('server', 'api'))
-    app.include_router(v2)
-    app.include_router(v3)
-    app.add_middleware(LoggingMiddleware)
-    app.add_middleware(
-        CORSMiddleware,
-        allow_credentials=True,
-        allow_origins=['*'],
-        allow_methods=['*'],
-        allow_headers=['*'],
+    openapi_config = OpenAPIConfig(
+        title='nllb-api',
+        version='3.0.0',
+        servers=[Server(url=Config.server_root_path)],
     )
 
-    return app
+    return Litestar(
+        openapi_config=openapi_config,
+        exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
+        middleware=[LoggingMiddleware],
+        route_handlers=[v2, v3],
+        lifespan=[load_fasttext_model, load_nllb_model],
+    )

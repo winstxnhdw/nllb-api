@@ -1,11 +1,13 @@
-from logging import INFO, WARN, StreamHandler, getLogger
+from logging import WARN, StreamHandler, getLogger
 from time import process_time, strftime
 from typing import Awaitable, Callable
 
-from starlette.types import ASGIApp, Message, Receive, Scope, Send
+from litestar.enums import ScopeType
+from litestar.middleware.base import MiddlewareProtocol
+from litestar.types import ASGIApp, Message, Receive, Scope, Send
 
 
-class LoggingMiddleware:
+class LoggingMiddleware(MiddlewareProtocol):
     """
     Summary
     -------
@@ -17,11 +19,11 @@ class LoggingMiddleware:
     app (ASGIApp) : the ASGI application
     """
 
+    logger = getLogger('custom.access')
+    logger.addHandler(StreamHandler())
+
     def __init__(self, app: ASGIApp):
         getLogger('uvicorn.access').setLevel(WARN)
-        self.logger = getLogger('custom.access')
-        self.logger.setLevel(INFO)
-        self.logger.addHandler(StreamHandler())
         self.app = app
 
     async def inner_send(self, message: Message, send: Send, status_code: list[int]):
@@ -59,7 +61,7 @@ class LoggingMiddleware:
         return lambda message: self.inner_send(message, send, status_code)
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send):
-        if scope['type'] != 'http':
+        if scope['type'] != ScopeType.HTTP:
             return await self.app(scope, receive, send)
 
         start_process_time = process_time()

@@ -37,7 +37,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.111.1"
+litestar = "^2.10.0"
 pydantic-settings = "^2.3.4"
 uvicorn = "^0.30.3"
 httptools = "^0.6.1"

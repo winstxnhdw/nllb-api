@@ -1,15 +1,13 @@
 from typing import Literal
 
-from starlette.responses import PlainTextResponse
-
-from server.api.v3 import v3
+from litestar import get
 
 
-@v3.get('/', response_model=Literal['Welcome to v3 of the API!'])
-def index() -> PlainTextResponse:
+@get('/', sync_to_thread=False)
+def index() -> Literal['Welcome to v3 of the API!']:
     """
     Summary
     -------
     the `/` route
     """
-    return PlainTextResponse('Welcome to v3 of the API!')
+    return 'Welcome to v3 of the API!'

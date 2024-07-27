@@ -1,9 +1,11 @@
-from pydantic import BaseModel, Field
+from typing import Annotated
+
+from msgspec import Meta, Struct
 
 from server.features.types import Languages
 
 
-class Translation(BaseModel):
+class Translation(Struct):
     """
     Summary
     -------
@@ -16,6 +18,6 @@ class Translation(BaseModel):
     target (Languages) : the target language
     """
 
-    text: str = Field(examples=['Hello, world!'])
-    source: Languages = Field(examples=['eng_Latn'])
-    target: Languages = Field(examples=['spa_Latn'])
+    text: Annotated[str, Meta(examples=['Hello, world!'])]
+    source: Annotated[Languages, Meta(examples=['eng_Latn'])]
+    target: Annotated[Languages, Meta(examples=['spa_Latn'])]

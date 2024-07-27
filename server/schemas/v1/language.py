@@ -1,9 +1,11 @@
-from pydantic import BaseModel, Field
+from typing import Annotated
+
+from msgspec import Meta, Struct
 
 from server.features.types import Languages
 
 
-class Language(BaseModel):
+class Language(Struct):
     """
     Summary
     -------
@@ -14,4 +16,4 @@ class Language(BaseModel):
     language (Languages) : the detected language
     """
 
-    language: Languages = Field(examples=['eng_Latn'])
+    language: Annotated[Languages, Meta(examples=['eng_Latn'])]

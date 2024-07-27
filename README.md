@@ -13,7 +13,7 @@
 A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb) distilled 1.3B 8-bit quantised variant, hosted on Hugging Face Spaces. To achieve faster executions, we are using [CTranslate2](https://github.com/OpenNMT/CTranslate2) as our inference engine. Requests are cached and then served at the reverse proxy layer to reduce server load.
 
 > [!WARNING]\
-> NLLB has a max input length of 1024 tokens. This limit is imposed by the model's architecture and cannot be changed. Because larger inputs tend to produce more artefacts, consider splitting your input into smaller chunks.
+> NLLB has a max input length of 1024 tokens. This limit is imposed by the model's architecture and cannot be changed. Consider splitting your input into smaller chunks if you begin observing artefacts.
 
 ## Usage
 
@@ -245,7 +245,7 @@ curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/detect_language?text=Hello'
 
 ## Self-Hosting
 
-You can self-host the API and access the Swagger UI at [localhost:7860/api/docs](http://localhost:7860/api/docs) with the following minimal configuration
+You can self-host the API and access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) with the following minimal configuration
 
 > [!NOTE]\
 > The internal server is running at port 5000. If you wish to switch the `APP_PORT` to 5000, you will need to set the `SERVER_PORT` environment variable to a different port.

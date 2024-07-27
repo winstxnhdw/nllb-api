@@ -99,7 +99,7 @@ class TranslatorPool:
         load the translator pool
         """
         cls.thread_pool = ThreadPoolExecutor()
-        cls.pool = cycle([Translator() for _ in range(Config.worker_count + 1)])
+        cls.pool = cycle([Translator() for _ in range(Config.translator_pool_count)])
 
     @classmethod
     async def translate(cls, text: str, source_language: Languages, target_language: Languages) -> str:
@@ -128,4 +128,4 @@ class TranslatorPool:
                     cls.thread_pool.submit(translator.translate, text, source_language, target_language)
                 )
 
-        return 'You should never see this message'
+        raise RuntimeError('Translator pool has been exhausted. This should never happen.')

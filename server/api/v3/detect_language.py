@@ -1,14 +1,17 @@
 from typing import Annotated
 
-from fastapi import Query
+from litestar import get
+from litestar.openapi.spec.example import Example
+from litestar.params import Parameter
 
-from server.api.v3 import v3
 from server.features import LanguageDetector
 from server.schemas.v1 import Language
 
 
-@v3.get('/detect_language')
-async def detect_language(text: Annotated[str, Query(max_length=20, examples=['Hello, world!'])]) -> Language:
+@get('/detect_language')
+async def detect_language(
+    text: Annotated[str, Parameter(max_length=20, examples=[Example(value='Hello, world!')])],
+) -> Language:
     """
     Summary
     -------

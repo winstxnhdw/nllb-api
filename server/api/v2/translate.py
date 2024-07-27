@@ -1,21 +1,29 @@
 from asyncio import gather
 
-from starlette.responses import PlainTextResponse
+from litestar import Controller, post
 
-from server.api.v2 import v2
 from server.features import TranslatorPool
 from server.schemas.v1 import Translation
 
 
-@v2.post('/translate', deprecated=True)
-async def translate(request: Translation) -> PlainTextResponse:
+class TranslateController(Controller):
     """
     Summary
     -------
     the `/translate` route translates an input from a source language to a target language
     """
-    results = await gather(
-        *(TranslatorPool.translate(line, request.source, request.target) for line in request.text.splitlines() if line)
-    )
 
-    return PlainTextResponse('\n'.join(results))
+    path = '/translate'
+
+    @post(deprecated=True)
+    async def translate(self, data: Translation) -> str:
+        """
+        Summary
+        -------
+        a deprecated version of the `/translate` route
+        """
+        results = await gather(
+            *(TranslatorPool.translate(line, data.source, data.target) for line in data.text.splitlines() if line)
+        )
+
+        return '\n'.join(results)

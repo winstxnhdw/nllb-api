@@ -1,32 +1,42 @@
 from typing import Annotated
 
-from fastapi import Query
+from litestar import Controller, get, post
+from litestar.openapi.spec.example import Example
+from litestar.params import Parameter
 
-from server.api.v3 import v3
 from server.features import TranslatorPool
 from server.features.types import Languages
 from server.schemas.v1 import Translated, Translation
 
 
-@v3.get('/translate')
-async def translate_get(
-    text: Annotated[str, Query(examples=['Hello, world!'])],
-    source: Annotated[Languages, Query(examples=['eng_Latn'])],
-    target: Annotated[Languages, Query(examples=['spa_Latn'])],
-) -> Translated:
+class TranslateController(Controller):
     """
     Summary
     -------
-    the `/translate` route translates an input from a source language to a target language
+    the `/translate` route translates an input from a source language to a target
     """
-    return Translated(result=await TranslatorPool.translate(text, source, target))
 
+    path = '/translate'
 
-@v3.post('/translate')
-async def translate_post(request: Translation) -> Translated:
-    """
-    Summary
-    -------
-    the `/translate` route translates an input from a source language to a target language
-    """
-    return Translated(result=await TranslatorPool.translate(request.text, request.source, request.target))
+    @get()
+    async def translate_get(
+        self,
+        text: Annotated[str, Parameter(examples=[Example(value='Hello, world!')])],
+        source: Annotated[Languages, Parameter(examples=[Example(value='eng_Latn')])],
+        target: Annotated[Languages, Parameter(examples=[Example(value='spa_Latn')])],
+    ) -> Translated:
+        """
+        Summary
+        -------
+        the GET variant of the `/translate` route
+        """
+        return Translated(result=await TranslatorPool.translate(text, source, target))
+
+    @post()
+    async def translate_post(self, data: Translation) -> Translated:
+        """
+        Summary
+        -------
+        the POST variant of the `/translate` route
+        """
+        return Translated(result=await TranslatorPool.translate(data.text, data.source, data.target))
