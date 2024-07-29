@@ -6,10 +6,10 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import fixture
 
-from server import initialise
+from server import App
 
 
 @fixture(scope='function')
 async def client() -> AsyncIterator[AsyncTestClient[Litestar]]:
-    async with AsyncTestClient(app=initialise()) as client:
+    async with AsyncTestClient(app=App.asgi) as client:
         yield client
