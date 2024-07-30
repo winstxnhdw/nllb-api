@@ -34,7 +34,7 @@ class LanguageDetector:
         cls.model: _FastText = load_model(model_path)
 
     @classmethod
-    async def detect(cls, text: str) -> Languages:
+    def detect(cls, text: str) -> Languages:
         """
         Summary
         -------
