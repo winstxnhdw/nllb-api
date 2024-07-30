@@ -120,7 +120,7 @@ class TranslatorPool:
         """
         for translator in cls.pool:
             if translator.lock:
-                await sleep(0.01)
+                await sleep(0)
                 continue
 
             with translator:
