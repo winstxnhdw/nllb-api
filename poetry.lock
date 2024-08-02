@@ -893,14 +893,13 @@ files = [
 
 [[package]]
 name = "nvidia-cublas-cu12"
-version = "12.5.3.2"
+version = "12.6.0.22"
 description = "CUBLAS native runtime libraries"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "nvidia_cublas_cu12-12.5.3.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:7d0191251180de606023d396b94d66f66470a0ae96d1dbb906c7656ea0f71eda"},
-    {file = "nvidia_cublas_cu12-12.5.3.2-py3-none-manylinux2014_x86_64.whl", hash = "sha256:ca070ad70e9fa6654084575d01bd001f30cc4665e33d4bb9fc8e0f321caa034b"},
-    {file = "nvidia_cublas_cu12-12.5.3.2-py3-none-win_amd64.whl", hash = "sha256:4960f3dc5f39699acadf76fa6d94b10a2a00f2956c2c442efa299fb22b0748f3"},
+    {file = "nvidia_cublas_cu12-12.6.0.22-py3-none-manylinux2014_x86_64.whl", hash = "sha256:1383c8ff44c68da27eb79224d1ce9d6e3c616563adf11cdb468cca3449fdd3e4"},
+    {file = "nvidia_cublas_cu12-12.6.0.22-py3-none-win_amd64.whl", hash = "sha256:6c3620a0477564c777287ac4fa0eec0ce01577467cb5f8b8cfbc201b150c91f9"},
 ]
 
 [[package]]
@@ -1975,4 +1974,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "f2688b1d6f33aed26b03e8677e1196d463abe34e8df5062c551aec2bdb3a2cf6"
+content-hash = "c019f2ab9663bb9b62b2fe837281d0fb6a5c1cc00f2843b735dbe4f8ef510ed9"
