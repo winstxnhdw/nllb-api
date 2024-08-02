@@ -48,7 +48,7 @@ picologging = "^0.9.3"
 granian = "^1.5.2"
 
 [tool.poetry.group.cuda.dependencies]
-nvidia-cublas-cu12 = "^12.5.3.2"
+nvidia-cublas-cu12 = "^12.6.0.22"
 
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.374"
