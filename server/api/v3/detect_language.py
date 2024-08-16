@@ -9,7 +9,7 @@ from server.schemas.v1 import Language
 
 
 @get('/detect_language', sync_to_thread=False)
-async def detect_language(
+def detect_language(
     text: Annotated[str, Parameter(max_length=20, examples=[Example(value='Hello, world!')])],
 ) -> Language:
     """

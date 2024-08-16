@@ -57,7 +57,7 @@ class Config(BaseSettings):
     """
 
     server_port: int = 49494
-    server_root_path: str = '/api'
+    server_root_path: str = '/'
     worker_count: int = 1
     translator_pool_count: int = 2
     use_cuda: bool = False

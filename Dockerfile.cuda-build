@@ -27,11 +27,6 @@ RUN python -c \
     hf_hub_download('$LANGUAGE_DETECTOR_MODEL_NAME', 'model.bin')"
 
 
-FROM caddy:2.8.4-builder-alpine AS caddy-builder
-
-RUN xcaddy build master --with github.com/caddyserver/cache-handler
-
-
 FROM python:slim
 
 ARG TRANSLATOR_MODEL_NAME
@@ -40,7 +35,6 @@ ENV HOME=/home/user
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV SERVER_PORT=5000
-ENV CACHE_TIMEOUT=20s
 ENV USE_CUDA=True
 ENV LD_LIBRARY_PATH=/usr/local/lib/python3.12/site-packages/nvidia/cublas/lib
 
@@ -50,10 +44,8 @@ USER user
 
 WORKDIR $HOME/app
 
-COPY --chown=user --from=caddy-builder  /usr/bin/caddy /usr/bin/caddy
 COPY --chown=user --from=model-builder /root/.cache/huggingface $HOME/.cache/huggingface
-COPY --chown=user --from=python-builder /usr/local/bin/supervisord /usr/local/bin/
 COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --chown=user . $HOME/app
 
-CMD ["supervisord"]
+CMD ["python", "main.py"]
