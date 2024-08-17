@@ -234,18 +234,18 @@ Zulu                               | zul_Latn
 </details>
 
 ```bash
-curl 'https://winstxnhdw-nllb-api.hf.space/v3/translate?text=Hello&source=eng_Latn&target=spa_Latn'
+curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/translate?text=Hello&source=eng_Latn&target=spa_Latn'
 ```
 
 You can also determine the source language by querying the following API.
 
 ```bash
-curl 'https://winstxnhdw-nllb-api.hf.space/v3/detect_language?text=Hello'
+curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/detect_language?text=Hello'
 ```
 
 ## Self-Hosting
 
-You can self-host the API and access the Swagger UI at [localhost:7860/schema/swagger](http://localhost:7860/schema/swagger) with the following minimal configuration
+You can self-host the API and access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) with the following minimal configuration
 
 ```bash
 docker run --rm \
@@ -295,7 +295,7 @@ First, install the required dependencies for your editor with the following.
 poetry install
 ```
 
-Now, you can access the Swagger UI at [localhost:7860/schema/swagger](http://localhost:7860/schema/swagger) after spinning the server up locally with the following.
+Now, you can access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) after spinning the server up locally with the following.
 
 ```bash
 make
