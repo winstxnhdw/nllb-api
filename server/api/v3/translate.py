@@ -18,7 +18,7 @@ class TranslateController(Controller):
 
     path = '/translate'
 
-    @get()
+    @get(cache=True)
     async def translate_get(
         self,
         text: Annotated[str, Parameter(examples=[Example(value='Hello, world!')])],
