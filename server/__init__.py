@@ -5,7 +5,7 @@ from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 from litestar.types import LifeSpanReceive, LifeSpanScope, LifeSpanSend, Receive, Scope, Send
 from picologging import getLogger
 
-from server.api import v2, v3
+from server.api import v3
 from server.config import Config
 from server.lifespans import load_fasttext_model, load_nllb_model
 
@@ -45,7 +45,7 @@ class App:
     asgi = Litestar(
         openapi_config=OpenAPIConfig(title='nllb-api', version='3.0.0', servers=[Server(url=Config.server_root_path)]),
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
-        route_handlers=[v2, v3],
+        route_handlers=[v3],
         lifespan=[load_fasttext_model, load_nllb_model],
     )
 
