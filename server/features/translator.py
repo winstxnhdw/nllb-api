@@ -73,7 +73,10 @@ class Translator:
             beam_size=1,
         )
 
-        return self.tokeniser.decode(self.tokeniser.convert_tokens_to_ids(results[0].hypotheses[0][1:]))
+        return self.tokeniser.decode(
+            self.tokeniser.convert_tokens_to_ids(results[0].hypotheses[0][1:]),
+            clean_up_tokenization_spaces=False,
+        )
 
 
 class TranslatorPool:
