@@ -1,6 +1,9 @@
 name: Warm
 
 on:
+  push:
+    branches: main
+    paths: .github/workflows/warmer.yml
   schedule:
     #       ┌──────────────── minute (0 - 59)
     #       │ ┌────────────── hour (0 - 23)
@@ -19,5 +22,7 @@ env:
 jobs:
   warm:
     uses: winstxnhdw/actions/.github/workflows/spaces-warmer.yml@main
+    with:
+      path: /api/v3
     secrets:
       token: ${{ secrets.HF_TOKEN }}
