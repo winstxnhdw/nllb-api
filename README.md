@@ -247,12 +247,9 @@ curl 'https://winstxnhdw-nllb-api.hf.space/v3/detect_language?text=Hello'
 
 You can self-host the API and access the Swagger UI at [localhost:7860/schema/swagger](http://localhost:7860/schema/swagger) with the following minimal configuration
 
-> [!NOTE]\
-> The internal server is running at port 5000. If you wish to switch the `APP_PORT` to 5000, you will need to set the `SERVER_PORT` environment variable to a different port.
-
 ```bash
 docker run --rm \
-  -e APP_PORT=7860 \
+  -e SERVER_PORT=7860 \
   -p 7860:7860 \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
@@ -266,7 +263,7 @@ You can pass the following environment variables to optimise the API for your ow
 
 ```bash
 docker run --rm \
-  -e APP_PORT=7860 \
+  -e SERVER_PORT=7860 \
   -e OMP_NUM_THREADS=6 \
   -e WORKER_COUNT=1 \
   -p 7860:7860 \
@@ -285,7 +282,7 @@ After building the image, you can run the image with the following.
 
 ```bash
 docker run --rm --gpus all \
-  -e APP_PORT=7860 \
+  -e SERVER_PORT=7860 \
   -p 7860:7860 \
   nllb-api
 ```
@@ -301,6 +298,5 @@ poetry install
 Now, you can access the Swagger UI at [localhost:7860/schema/swagger](http://localhost:7860/schema/swagger) after spinning the server up locally with the following.
 
 ```bash
-docker build -f Dockerfile.build -t nllb-api .
-docker run --rm -e APP_PORT=7860 -p 7860:7860 nllb-api
+make
 ```
