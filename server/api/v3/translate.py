@@ -3,6 +3,7 @@ from typing import Annotated
 from litestar import Controller, get, post
 from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
+from litestar.status_codes import HTTP_200_OK
 
 from server.features import TranslatorPool
 from server.features.types import Languages
@@ -32,7 +33,7 @@ class TranslateController(Controller):
         """
         return Translated(result=await TranslatorPool.translate(text, source, target))
 
-    @post()
+    @post(status_code=HTTP_200_OK)
     async def translate_post(self, data: Translation) -> Translated:
         """
         Summary
