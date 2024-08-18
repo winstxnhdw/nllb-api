@@ -1,9 +1,10 @@
+from logging import getLogger
+
 from litestar import Litestar, Response
 from litestar.openapi import OpenAPIConfig
 from litestar.openapi.spec import Server
 from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 from litestar.types import LifeSpanReceive, LifeSpanScope, LifeSpanSend, Receive, Scope, Send
-from picologging import getLogger
 
 from server.api import v3
 from server.config import Config
