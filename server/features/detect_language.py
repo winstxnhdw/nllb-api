@@ -1,9 +1,9 @@
 from fasttext import load_model
-from fasttext.FastText import _FastText  # type: ignore
-from huggingface_hub import hf_hub_download
+from fasttext.FastText import _FastText as FastText  # type: ignore
 
 from server.config import Config
 from server.features.types.languages import Languages
+from server.helpers import huggingface_file_download
 
 
 class LanguageDetector:
@@ -21,7 +21,7 @@ class LanguageDetector:
         detect the language of the input text
     """
 
-    model: _FastText
+    model: FastText
 
     @classmethod
     def load(cls):
@@ -30,8 +30,8 @@ class LanguageDetector:
         -------
         download and load the model
         """
-        model_path = hf_hub_download(Config.language_detector_model_name, 'model.bin')
-        cls.model: _FastText = load_model(model_path)
+        model_path = huggingface_file_download(Config.language_detector_model_name, 'model.bin')
+        cls.model: FastText = load_model(model_path)
 
     @classmethod
     def detect(cls, text: str) -> Languages:

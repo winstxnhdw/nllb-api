@@ -1,9 +1,9 @@
-from huggingface_hub import snapshot_download
+from huggingface_hub import hf_hub_download
 
 from server.helpers.has_internet_access import has_internet_access
 
 
-def huggingface_download(repository: str) -> str:
+def huggingface_file_download(repository: str, file: str) -> str:
     """
     Summary
     -------
@@ -17,8 +17,9 @@ def huggingface_download(repository: str) -> str:
     -------
     repository_path (str) : local path to the downloaded repository
     """
-    return snapshot_download(
+    return hf_hub_download(
         repository,
+        file,
         local_files_only=not has_internet_access(repository),
         force_download=True,
     )
