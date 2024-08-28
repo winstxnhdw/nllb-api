@@ -493,13 +493,13 @@ trio = ["trio (>=0.22.0,<0.26.0)"]
 
 [[package]]
 name = "httpx"
-version = "0.27.0"
+version = "0.27.2"
 description = "The next generation HTTP client."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "httpx-0.27.0-py3-none-any.whl", hash = "sha256:71d5465162c13681bff01ad59b2cc68dd838ea1f10e51574bac27103f00c91a5"},
-    {file = "httpx-0.27.0.tar.gz", hash = "sha256:a0cb88a46f32dc874e04ee956e4c2764aba2aa228f650b06788ba6bda2962ab5"},
+    {file = "httpx-0.27.2-py3-none-any.whl", hash = "sha256:7bb2708e112d8fdd7829cd4243970f0c223274051cb35ee80c03301ee29a3df0"},
+    {file = "httpx-0.27.2.tar.gz", hash = "sha256:f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2"},
 ]
 
 [package.dependencies]
@@ -514,6 +514,7 @@ brotli = ["brotli", "brotlicffi"]
 cli = ["click (==8.*)", "pygments (==2.*)", "rich (>=10,<14)"]
 http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
+zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "huggingface-hub"
@@ -587,13 +588,13 @@ colors = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "litestar"
-version = "2.10.0"
+version = "2.11.0"
 description = "Litestar - A production-ready, highly performant, extensible ASGI API Framework"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "litestar-2.10.0-py3-none-any.whl", hash = "sha256:a4fbdb108bfb41e07b56aee6dbdd70f94328f4d4265ebfde1662aef320224375"},
-    {file = "litestar-2.10.0.tar.gz", hash = "sha256:c25d5134c6848dfa752494948a644af1fb085143a0bce6d0840fe957b0738432"},
+    {file = "litestar-2.11.0-py3-none-any.whl", hash = "sha256:6d677ccdc00a0b4ce54cff5172531890358a27d6da1a054c8cab6a7e2119823e"},
+    {file = "litestar-2.11.0.tar.gz", hash = "sha256:6c8cf2b60c352e6b8e08e6a995d2a66ddc26ec53bc2f1df7214d26abcc1d00c2"},
 ]
 
 [package.dependencies]
@@ -614,9 +615,9 @@ attrs = ["attrs"]
 brotli = ["brotli"]
 cli = ["jsbeautifier", "uvicorn[standard]", "uvloop (>=0.18.0)"]
 cryptography = ["cryptography"]
-full = ["advanced-alchemy (>=0.2.2)", "annotated-types", "attrs", "brotli", "cryptography", "email-validator", "fast-query-parsers (>=1.0.2)", "jinja2", "jinja2 (>=3.1.2)", "jsbeautifier", "mako (>=1.2.4)", "minijinja (>=1.0.0)", "opentelemetry-instrumentation-asgi", "piccolo", "picologging", "prometheus-client", "pydantic", "pydantic-extra-types", "python-jose", "redis[hiredis] (>=4.4.4)", "structlog", "uvicorn[standard]", "uvloop (>=0.18.0)"]
+full = ["advanced-alchemy (>=0.2.2)", "annotated-types", "attrs", "brotli", "cryptography", "email-validator", "fast-query-parsers (>=1.0.2)", "jinja2", "jinja2 (>=3.1.2)", "jsbeautifier", "mako (>=1.2.4)", "minijinja (>=1.0.0)", "opentelemetry-instrumentation-asgi", "piccolo", "picologging", "prometheus-client", "pydantic", "pydantic-extra-types", "pyjwt (>=2.9.0)", "redis[hiredis] (>=4.4.4)", "structlog", "uvicorn[standard]", "uvloop (>=0.18.0)"]
 jinja = ["jinja2 (>=3.1.2)"]
-jwt = ["cryptography", "python-jose"]
+jwt = ["cryptography", "pyjwt (>=2.9.0)"]
 mako = ["mako (>=1.2.4)"]
 minijinja = ["minijinja (>=1.0.0)"]
 opentelemetry = ["opentelemetry-instrumentation-asgi"]
@@ -1975,4 +1976,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e5abbb36ea6be42b5db6df77530c30778c869d48cdbd843cdd929393b3ba880f"
+content-hash = "77ed7f3f5c260a1e113313676994c489ba1d0d05dcd2acce0983af1b250b3f5f"
