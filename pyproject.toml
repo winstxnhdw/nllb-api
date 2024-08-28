@@ -37,7 +37,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-litestar = "^2.10.0"
+litestar = "^2.11.0"
 pydantic-settings = "^2.4.0"
 transformers = "^4.44.2"
 ctranslate2 = "^4.3.1"
@@ -55,4 +55,4 @@ pyright = "^1.1.377"
 pylint = "^3.2.6"
 pytest = "^8.3.2"
 ruff = "^0.6.2"
-httpx = "^0.27.0"
+httpx = "^0.27.2"
