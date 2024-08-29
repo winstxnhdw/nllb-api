@@ -51,7 +51,7 @@ granian = "^1.5.2"
 nvidia-cublas-cu12 = "^12.6.0.22"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.377"
+pyright = "^1.1.378"
 pylint = "^3.2.6"
 pytest = "^8.3.2"
 ruff = "^0.6.2"
