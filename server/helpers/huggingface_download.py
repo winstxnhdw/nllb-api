@@ -20,5 +20,4 @@ def huggingface_download(repository: str) -> str:
     return snapshot_download(
         repository,
         local_files_only=not has_internet_access(repository),
-        force_download=True,
     )

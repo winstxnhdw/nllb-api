@@ -21,5 +21,4 @@ def huggingface_file_download(repository: str, file: str) -> str:
         repository,
         file,
         local_files_only=not has_internet_access(repository),
-        force_download=True,
     )
