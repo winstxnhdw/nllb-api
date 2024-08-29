@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, get_args
 
 from litestar import Controller, get, post
 from litestar.openapi.spec.example import Example
@@ -22,9 +22,32 @@ class TranslateController(Controller):
     @get(cache=True)
     async def translate_get(
         self,
-        text: Annotated[str, Parameter(examples=[Example(value='Hello, world!')])],
-        source: Annotated[Languages, Parameter(examples=[Example(value='eng_Latn')])],
-        target: Annotated[Languages, Parameter(examples=[Example(value='spa_Latn')])],
+        text: Annotated[
+            str,
+            Parameter(
+                description='source text of a single language',
+                examples=[
+                    Example(summary='English', value='Hello, world!'),
+                    Example(summary='Spanish', value='¡Hola, mundo!'),
+                ],
+            ),
+        ],
+        source: Annotated[
+            Languages,
+            Parameter(
+                description='source language in the FLORES-200 code format',
+                default='eng_Latn',
+                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
+            ),
+        ],
+        target: Annotated[
+            Languages,
+            Parameter(
+                description='source language in the FLORES-200 code format',
+                default='spa_Latn',
+                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
+            ),
+        ],
     ) -> Translated:
         """
         Summary

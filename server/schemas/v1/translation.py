@@ -13,11 +13,19 @@ class Translation(Struct):
 
     Attributes
     ----------
-    text (str) : the text to translate
-    source (Languages) : the source language
-    target (Languages) : the target language
+    text (str) : source text of a single language
+    source (Languages) : source language in the FLORES-200 code format
+    target (Languages) : target language in the FLORES-200 code format
     """
 
-    text: Annotated[str, Meta(examples=['Hello, world!'])]
-    source: Annotated[Languages, Meta(examples=['eng_Latn'])]
-    target: Annotated[Languages, Meta(examples=['spa_Latn'])]
+    text: Annotated[
+        str, Meta(max_length=8192, description='source text of a single language', examples=['Hello, world!'])
+    ]
+
+    source: Annotated[
+        Languages, Meta(description='source language in the FLORES-200 code format', examples=['eng_Latn'])
+    ]
+
+    target: Annotated[
+        Languages, Meta(description='target language in the FLORES-200 code format', examples=['spa_Latn'])
+    ]

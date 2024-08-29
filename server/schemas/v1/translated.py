@@ -14,4 +14,10 @@ class Translated(Struct):
     result (str) : the translated text
     """
 
-    result: Annotated[str, Meta(examples=['¡Hola, mundo!'])]
+    result: Annotated[
+        str,
+        Meta(
+            description='translated text in the language specified within the `target` request field',
+            examples=['¡Hola, mundo!'],
+        ),
+    ]
