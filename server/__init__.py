@@ -51,7 +51,6 @@ class App:
     openapi_config = OpenAPIConfig(
         title='nllb-api',
         version='3.0.0',
-        create_examples=True,
         description=description,
         use_handler_docstrings=True,
         servers=[Server(url=Config.server_root_path)],
