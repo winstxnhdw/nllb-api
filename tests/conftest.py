@@ -6,7 +6,7 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import fixture
 
-from server import App
+from server import app
 
 
 @fixture
@@ -16,5 +16,5 @@ def anyio_backend() -> tuple[Literal['asyncio', 'trio'], dict[str, bool]]:
 
 @fixture(scope='function')
 async def client() -> AsyncIterator[AsyncTestClient[Litestar]]:
-    async with AsyncTestClient(app=App.asgi) as client:
+    async with AsyncTestClient(app=app) as client:
         yield client

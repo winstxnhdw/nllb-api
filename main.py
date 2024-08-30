@@ -1,7 +1,6 @@
 from granian import Granian
 from granian.constants import Interfaces
 
-from server import App
 from server.config import Config
 
 
@@ -12,7 +11,7 @@ def main():
     programmatically run the server with Granian
     """
     granian = Granian(
-        f'{App.__module__}:{App.__name__}',
+        'server:app',
         '0.0.0.0',
         Config.server_port,
         Interfaces.ASGI,

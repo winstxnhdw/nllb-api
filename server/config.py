@@ -1,21 +1,6 @@
 from pydantic_settings import BaseSettings
 
-
-def singleton[T](cls: type[T]) -> T:
-    """
-    Summary
-    -------
-    a decorator to make a class a singleton
-
-    Parameters
-    ----------
-    cls (type[T]) : the class to make a singleton
-
-    Returns
-    -------
-    instance (T) : the singleton instance
-    """
-    return cls()
+from server.singleton import singleton
 
 
 @singleton

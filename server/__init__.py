@@ -4,11 +4,11 @@ from litestar import Litestar, Response
 from litestar.openapi import OpenAPIConfig
 from litestar.openapi.spec import Server
 from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
-from litestar.types import LifeSpanReceive, LifeSpanScope, LifeSpanSend, Receive, Scope, Send
 
 from server.api import v3
 from server.config import Config
 from server.lifespans import load_fasttext_model, load_nllb_model
+from server.singleton import singleton
 
 
 def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
@@ -30,19 +30,13 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
     )
 
 
-class App:
+@singleton
+def app() -> Litestar:
     """
     Summary
     -------
-    the ASGI application wrapper
-
-    Parameters
-    ----------
-    scope (Scope) : the ASGI scope
-    receive (Receive) : the ASGI receive channel
-    send (Send) : the ASGI send channel
+    the Litestar application
     """
-
     description = (
         "A performant high-throughput CPU-based API for Meta's No Language Left Behind (NLLB) using CTranslate2, "
         'hosted on Hugging Face Spaces.'
@@ -56,17 +50,9 @@ class App:
         servers=[Server(url=Config.server_root_path)],
     )
 
-    asgi = Litestar(
+    return Litestar(
         openapi_config=openapi_config,
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
         route_handlers=[v3],
         lifespan=[load_fasttext_model, load_nllb_model],
     )
-
-    async def __new__(  # pylint: disable=invalid-overridden-method
-        cls,
-        scope: Scope | LifeSpanScope,
-        receive: Receive | LifeSpanReceive,
-        send: Send | LifeSpanSend,
-    ):
-        await cls.asgi(scope, receive, send)
