@@ -45,13 +45,13 @@ supervisor = "^4.2.5"
 fasttext-predict = "^0.9.2.2"
 uvloop = { version = "^0.20.0", markers = "sys_platform != 'win32'" }
 picologging = "^0.9.3"
-granian = "^1.5.2"
+granian = "^1.6.0"
 
 [tool.poetry.group.cuda.dependencies]
 nvidia-cublas-cu12 = "^12.6.1.4"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.378"
+pyright = "^1.1.379"
 pylint = "^3.2.7"
 pytest = "^8.3.2"
 ruff = "^0.6.3"
