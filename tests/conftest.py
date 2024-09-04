@@ -16,5 +16,5 @@ def anyio_backend() -> tuple[Literal['asyncio', 'trio'], dict[str, bool]]:
 
 @fixture(scope='function')
 async def client() -> AsyncIterator[AsyncTestClient[Litestar]]:
-    async with AsyncTestClient(app=app) as client:
+    async with AsyncTestClient(app=app()) as client:
         yield client

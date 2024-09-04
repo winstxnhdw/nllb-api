@@ -8,7 +8,6 @@ from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 from server.api import v3
 from server.config import Config
 from server.lifespans import load_fasttext_model, load_nllb_model
-from server.singleton import singleton
 
 
 def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
@@ -30,7 +29,6 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
     )
 
 
-@singleton
 def app() -> Litestar:
     """
     Summary
