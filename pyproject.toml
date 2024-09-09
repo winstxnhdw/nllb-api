@@ -40,7 +40,7 @@ python = "^3.11"
 litestar = "^2.11.0"
 pydantic-settings = "^2.4.0"
 transformers = "^4.44.2"
-ctranslate2 = "^4.3.1"
+ctranslate2 = "^4.4.0"
 supervisor = "^4.2.5"
 fasttext-predict = "^0.9.2.2"
 uvloop = { version = "^0.20.0", markers = "sys_platform != 'win32'" }
