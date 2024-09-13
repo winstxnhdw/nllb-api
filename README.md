@@ -287,6 +287,20 @@ docker run --rm --gpus all \
   nllb-api
 ```
 
+### Docker Compose
+
+You can also use the provided `docker-compose-cpu.yml` to spin up the API with the following.
+
+```bash
+docker compose -f docker-compose-cpu.yml up --build
+```
+
+If you want to use the GPU variant, you can use the provided `docker-compose-gpu.yml` instead.
+
+```bash
+docker compose -f docker-compose-gpu.yml up --build
+```
+
 ## Development
 
 First, install the required dependencies for your editor with the following.

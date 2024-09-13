@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  nllb-api:
+    build:
+      context: https://github.com/winstxnhdw/nllb-api.git
+      dockerfile: Dockerfile.build
+    environment:
+      - SERVER_PORT=7860
+      - OMP_NUM_THREADS=6
+      - WORKER_COUNT=3
+    ports:
+      - "7860:7860"
