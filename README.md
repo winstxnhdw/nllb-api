@@ -314,3 +314,12 @@ Now, you can access the Swagger UI at [localhost:7860/api/schema/swagger](http:/
 ```bash
 make
 ```
+
+### Stress Testing
+
+You can stress test the API with the following code.
+
+```bash
+cd tests
+python3 stress_test.py
+```
