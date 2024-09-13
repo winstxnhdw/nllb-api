@@ -33,12 +33,7 @@ class Translator:
             'inter_threads': Config.worker_count,
         }
 
-        try:
-            self.translator = CTranslator(**options, flash_attention=True)
-
-        except ValueError:
-            self.translator = CTranslator(**options)
-
+        self.translator = CTranslator(**options)
         self.tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
         self.lock = False
 
