@@ -4,12 +4,13 @@ from litestar import get
 from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
 
-from server.features import LanguageDetector
 from server.schemas.v1 import Language
+from server.state import AppState
 
 
 @get('/detect_language', sync_to_thread=False, cache=True)
 def detect_language(
+    state: AppState,
     text: Annotated[
         str,
         Parameter(
@@ -28,4 +29,4 @@ def detect_language(
     -------
     the `/detect_language` route detects the language of the input text
     """
-    return Language(language=LanguageDetector.detect(text))
+    return Language(language=state.language_detector.detect(text))

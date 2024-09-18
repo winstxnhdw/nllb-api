@@ -1,2 +1,2 @@
-from server.features.detect_language import LanguageDetector as LanguageDetector
-from server.features.translator import TranslatorPool as TranslatorPool
+from server.features.language_detector import get_language_detector as get_language_detector
+from server.features.translator import get_translator as get_translator

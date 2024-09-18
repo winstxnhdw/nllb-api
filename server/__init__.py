@@ -7,7 +7,7 @@ from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 
 from server.api import v3
 from server.config import Config
-from server.lifespans import load_fasttext_model, load_nllb_model
+from server.lifespans import load_fasttext_model, load_translator_model
 
 
 def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
@@ -21,7 +21,7 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
     request (Request) : the request
     exception (Exception) : the exception
     """
-    getLogger('custom.access').error('Application Exception', exc_info=exception)
+    getLogger('custom.access').error('', exc_info=exception)
 
     return Response(
         content={'detail': 'Internal Server Error'},
@@ -52,5 +52,5 @@ def app() -> Litestar:
         openapi_config=openapi_config,
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
         route_handlers=[v3],
-        lifespan=[load_fasttext_model, load_nllb_model],
+        lifespan=[load_fasttext_model, load_translator_model],
     )

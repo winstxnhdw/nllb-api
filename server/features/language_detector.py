@@ -2,7 +2,7 @@ from fasttext import load_model
 from fasttext.FastText import _FastText as FastText  # type: ignore
 
 from server.config import Config
-from server.features.types.languages import Languages
+from server.types.languages import Languages
 from server.helpers import huggingface_file_download
 
 
@@ -14,27 +14,16 @@ class LanguageDetector:
 
     Methods
     -------
-    load() -> None
-        load the model
-
     detect(text: str) -> Languages
         detect the language of the input text
     """
 
-    model: FastText
+    __slots__ = ('model',)
 
-    @classmethod
-    def load(cls):
-        """
-        Summary
-        -------
-        download and load the model
-        """
-        model_path = huggingface_file_download(Config.language_detector_model_name, 'model.bin')
-        cls.model: FastText = load_model(model_path)
+    def __init__(self, model: FastText):
+        self.model = model
 
-    @classmethod
-    def detect(cls, text: str) -> Languages:
+    def detect(self, text: str) -> Languages:
         """
         Summary
         -------
@@ -48,4 +37,17 @@ class LanguageDetector:
         -------
         language (Languages) : the detected language
         """
-        return cls.model.predict(text, k=5)[0][0][9:]  # type: ignore
+        return self.model.predict(text, k=5)[0][0][9:]  # type: ignore
+
+
+def get_language_detector() -> LanguageDetector:
+    """
+    Summary
+    -------
+    get the language detector
+
+    Returns
+    -------
+    language_detector (LanguageDetector) : the language detector
+    """
+    return LanguageDetector(load_model(huggingface_file_download(Config.language_detector_model_name, 'model.bin')))

@@ -1,2 +1,2 @@
 from server.lifespans.load_fasttext_model import load_fasttext_model as load_fasttext_model
-from server.lifespans.load_nllb_model import load_nllb_model as load_nllb_model
+from server.lifespans.load_translator_model import load_translator_model as load_translator_model

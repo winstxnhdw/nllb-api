@@ -2,7 +2,7 @@ from typing import Annotated
 
 from msgspec import Meta, Struct
 
-from server.features.types import Languages
+from server.types import Languages
 
 
 class Language(Struct):
