@@ -260,7 +260,7 @@ docker run --rm \
 You can pass the following environment variables to optimise the API for your own uses. The value of `OMP_NUM_THREADS` increases the number of threads used to translate a given batch of inputs, while `TRANSLATOR_THREADS` increases the number of threads used to handle translate requests in parallel. It is recommended to not modify `WORKER_COUNT` as spawning multiple workers can lead to increased memory usage and poorer performance.
 
 > [!IMPORTANT]\
-> `OMP_NUM_THREADS` $\times$ `WORKER_COUNT` should not exceed the physical number of cores on your machine.
+> `OMP_NUM_THREADS` $\times$ `TRANSLATOR_THREADS` should not exceed the physical number of cores on your machine.
 
 ```bash
 docker run --rm \
