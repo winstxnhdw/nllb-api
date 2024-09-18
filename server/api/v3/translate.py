@@ -1,5 +1,3 @@
-from asyncio import wrap_future
-from concurrent.futures import ThreadPoolExecutor
 from typing import Annotated, get_args
 
 from litestar import Controller, get, post
@@ -20,10 +18,9 @@ class TranslateController(Controller):
     """
 
     path = '/translate'
-    thread_pool = ThreadPoolExecutor()
 
-    @get(cache=True)
-    async def translate_get(
+    @get(cache=True, sync_to_thread=True)
+    def translate_get(
         self,
         state: AppState,
         text: Annotated[
@@ -58,15 +55,13 @@ class TranslateController(Controller):
         -------
         the GET variant of the `/translate` route
         """
-        translate_job = self.thread_pool.submit(state.translator.translate, text, source, target)
-        return Translated(result=await wrap_future(translate_job))
+        return Translated(result=state.translator.translate(text, source, target))
 
-    @post(status_code=HTTP_200_OK)
-    async def translate_post(self, state: AppState, data: Translation) -> Translated:
+    @post(status_code=HTTP_200_OK, sync_to_thread=True)
+    def translate_post(self, state: AppState, data: Translation) -> Translated:
         """
         Summary
         -------
         the POST variant of the `/translate` route
         """
-        translate_job = self.thread_pool.submit(state.translator.translate, data.text, data.source, data.target)
-        return Translated(result=await wrap_future(translate_job))
+        return Translated(result=state.translator.translate(data.text, data.source, data.target))

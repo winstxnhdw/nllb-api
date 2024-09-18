@@ -231,6 +231,7 @@ Chinese (Simplified)               | zho_Hans
 Chinese (Traditional)              | zho_Hant
 Standard Malay                     | zsm_Latn
 Zulu                               | zul_Latn
+
 </details>
 
 ```bash
@@ -256,7 +257,7 @@ docker run --rm \
 
 ### Optimisation
 
-You can pass the following environment variables to optimise the API for your own uses. The value of `OMP_NUM_THREADS` increases the number of threads used to translate a given batch of inputs, while `WORKER_COUNT` increases the number of workers used to handle requests in parallel.
+You can pass the following environment variables to optimise the API for your own uses. The value of `OMP_NUM_THREADS` increases the number of threads used to translate a given batch of inputs, while `TRANSLATOR_THREADS` increases the number of threads used to handle translate requests in parallel. It is recommended to not modify `WORKER_COUNT` as spawning multiple workers can lead to increased memory usage and poorer performance.
 
 > [!IMPORTANT]\
 > `OMP_NUM_THREADS` $\times$ `WORKER_COUNT` should not exceed the physical number of cores on your machine.
@@ -265,6 +266,7 @@ You can pass the following environment variables to optimise the API for your ow
 docker run --rm \
   -e SERVER_PORT=7860 \
   -e OMP_NUM_THREADS=6 \
+  -e TRANSLATOR_THREADS=2 \
   -e WORKER_COUNT=1 \
   -p 7860:7860 \
   ghcr.io/winstxnhdw/nllb-api:main

@@ -32,6 +32,8 @@ class Config(BaseSettings):
     server_port (int) : the port to run the server on
     server_root_path (str) : the root path for the server
     worker_count (int) : the number of workers to use
+    translator_threads (int) : the number of threads for the translator
+    translator_beam_size (int) : the beam size for the translator
     use_cuda (bool) : whether to use CUDA for inference
     translator_model_name (str) : the name of the translator model
     language_detector_model_name (str) : the name of the language detector model
@@ -40,6 +42,8 @@ class Config(BaseSettings):
     server_port: int = 49494
     server_root_path: str = '/api'
     worker_count: int = 1
+    translator_threads: int = 1
+    translator_beam_size: int = 1
     use_cuda: bool = False
     translator_model_name: str = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
     language_detector_model_name: str = 'facebook/fasttext-language-identification'

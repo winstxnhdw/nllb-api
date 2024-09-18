@@ -85,17 +85,18 @@ class Translator:
         translate the input from the source language to the target language
     """
 
-    __slots__ = ('tokeniser_pool', 'translator')
+    __slots__ = ('translator', 'tokeniser_pool', 'beam_size')
 
-    def __init__(self, translator: CTranslator, tokeniser_pool: Iterator[Tokeniser]):
+    def __init__(self, translator: CTranslator, tokeniser_pool: Iterator[Tokeniser], beam_size: int):
         self.tokeniser_pool = tokeniser_pool
         self.translator = translator
+        self.beam_size = beam_size
 
     def translate(self, text: str, source_language: Languages, target_language: Languages) -> str:
         """
         Summary
         -------
-        translate the input from the source language to the target language using a tokeniser pool
+        translate the input from the source language to the target language using a pool of tokenisers
 
         Parameters
         ----------
@@ -107,6 +108,7 @@ class Translator:
         -------
         translated_text (str) : the translated text
         """
+
         for tokeniser in self.tokeniser_pool:
             if tokeniser.lock:
                 continue
@@ -116,10 +118,10 @@ class Translator:
                     (tokeniser.encode(text),),
                     ([target_language],),
                     batch_type='tokens',
-                    beam_size=1,
+                    beam_size=self.beam_size,
                 )
 
-                return tokeniser.decode(results[0].hypotheses[0][1:])
+            return tokeniser.decode(results[0].hypotheses[0][1:])
 
         raise RuntimeError('Tokeniser pool has been exhausted. This should never happen.')
 
@@ -135,12 +137,12 @@ def get_translator() -> Translator:
     translator (TranslatorPool) : the translator pool
     """
     model_path = huggingface_download(Config.translator_model_name)
-    tokeniser_pool = cycle([Tokeniser(model_path) for _ in range(Config.worker_count)])
+    tokeniser_pool = cycle([Tokeniser(model_path) for _ in range(Config.translator_threads)])
     translator = CTranslator(
         model_path,
         'cuda' if Config.use_cuda else 'cpu',
         compute_type='auto',
-        inter_threads=Config.worker_count,
+        inter_threads=Config.translator_threads,
     )
 
-    return Translator(translator, tokeniser_pool)
+    return Translator(translator, tokeniser_pool, Config.translator_beam_size)
