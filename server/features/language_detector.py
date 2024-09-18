@@ -2,8 +2,8 @@ from fasttext import load_model
 from fasttext.FastText import _FastText as FastText  # type: ignore
 
 from server.config import Config
-from server.types.languages import Languages
 from server.helpers import huggingface_file_download
+from server.types.languages import Languages
 
 
 class LanguageDetector:
