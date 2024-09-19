@@ -20,6 +20,10 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
     ----------
     request (Request) : the request
     exception (Exception) : the exception
+
+    Returns
+    -------
+    response (Response[dict[str, str]]) : the response
     """
     getLogger('custom.access').error('', exc_info=exception)
 

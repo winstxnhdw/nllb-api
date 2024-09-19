@@ -12,6 +12,10 @@ async def load_translator_model(app: Litestar) -> AsyncIterator[None]:
     Summary
     -------
     download and load the NLLB model
+
+    Parameters
+    ----------
+    app (Litestar) : the application instance
     """
     app.state.translator = get_translator()
 
