@@ -22,4 +22,4 @@ async def load_fasttext_model(app: Litestar) -> AsyncIterator[None]:
     try:
         yield
     finally:
-        del app.state.language_detector.model
+        del app.state.language_detector

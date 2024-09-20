@@ -22,4 +22,4 @@ async def load_translator_model(app: Litestar) -> AsyncIterator[None]:
     try:
         yield
     finally:
-        del app.state.translator.translator
+        del app.state.translator
