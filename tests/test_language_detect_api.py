@@ -16,7 +16,7 @@ def get_confidence(response: Response) -> float | None:
 
 
 async def detect_language(client: AsyncTestClient[Litestar], text: str) -> Response:
-    return await client.get('/v3/detect_language', params={'text': text})
+    return await client.get('/v4/language', params={'text': text})
 
 
 @mark.anyio

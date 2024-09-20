@@ -8,8 +8,8 @@ from server.schemas.v1 import Language
 from server.state import AppState
 
 
-@get('/detect_language', sync_to_thread=False, cache=True, deprecated=True)
-def detect_language(
+@get('/language', sync_to_thread=False, cache=True)
+def language(
     state: AppState,
     text: Annotated[
         str,
@@ -27,6 +27,6 @@ def detect_language(
     """
     Summary
     -------
-    the `/detect_language` route detects the language of the input text
+    the `/language` route detects the language of the input text
     """
     return Language(*state.language_detector.detect(text))

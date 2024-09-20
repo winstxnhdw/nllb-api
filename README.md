@@ -241,7 +241,7 @@ curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/translate?text=Hello&source=en
 You can also determine the source language by querying the following API.
 
 ```bash
-curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/detect_language?text=Hello'
+curl 'https://winstxnhdw-nllb-api.hf.space/api/v4/language?text=Hello'
 ```
 
 ## Self-Hosting
