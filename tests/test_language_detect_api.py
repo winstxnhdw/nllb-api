@@ -11,6 +11,10 @@ def get_language(response: Response) -> str | None:
     return response.json().get('language')
 
 
+def get_confidence(response: Response) -> float | None:
+    return response.json().get('confidence')
+
+
 async def detect_language(client: AsyncTestClient[Litestar], text: str) -> Response:
     return await client.get('/v3/detect_language', params={'text': text})
 
@@ -24,7 +28,10 @@ async def detect_language(client: AsyncTestClient[Litestar], text: str) -> Respo
     ],
 )
 async def test_detect_language_api(client: AsyncTestClient[Litestar], text: str, language: str):
-    assert get_language(await detect_language(client, text)) == language
+    response = await detect_language(client, text)
+
+    assert get_language(response) == language
+    assert isinstance(get_confidence(response), float)
 
 
 @mark.anyio
