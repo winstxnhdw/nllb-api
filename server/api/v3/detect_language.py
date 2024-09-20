@@ -29,4 +29,4 @@ def detect_language(
     -------
     the `/detect_language` route detects the language of the input text
     """
-    return Language(language=state.language_detector.detect(text))
+    return Language(*state.language_detector.detect(text))

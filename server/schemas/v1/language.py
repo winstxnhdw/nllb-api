@@ -17,3 +17,4 @@ class Language(Struct):
     """
 
     language: Annotated[Languages, Meta(description='language code in the FLORES-200 format', examples=['eng_Latn'])]
+    confidence: Annotated[float, Meta(description='confidence score of the detected language')]

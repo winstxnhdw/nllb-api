@@ -23,7 +23,7 @@ class LanguageDetector:
     def __init__(self, model: FastText):
         self.model = model
 
-    def detect(self, text: str) -> Languages:
+    def detect(self, text: str) -> tuple[Languages, float]:
         """
         Summary
         -------
@@ -37,8 +37,8 @@ class LanguageDetector:
         -------
         language (Languages) : the detected language
         """
-        labels, _ = self.model.predict(text, k=5)
-        return labels[0][9:]  # type: ignore
+        labels, scores = self.model.predict(text, k=5)
+        return labels[0][9:], scores[0]  # type: ignore
 
 
 def get_language_detector() -> LanguageDetector:
