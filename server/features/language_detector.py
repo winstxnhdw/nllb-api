@@ -38,7 +38,7 @@ class LanguageDetector:
         language (Languages) : the detected language
         """
         labels, _ = self.model.predict(text, k=5)
-        return labels[0][:9]  # type: ignore
+        return labels[0][9:]  # type: ignore
 
 
 def get_language_detector() -> LanguageDetector:
