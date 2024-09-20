@@ -18,8 +18,8 @@ def detect_language(
             max_length=20,
             min_length=1,
             examples=[
-                Example(summary='English', description='Example text in English (eng_Latn)', value='Hello, world!'),
-                Example(summary='Spanish', description='Example text in Spanish (spa_Latn)', value='¡Hola, mundo!'),
+                Example(summary='English', description='text in English (eng_Latn)', value='She sells seashells!'),
+                Example(summary='Spanish', description='text in Spanish (spa_Latn)', value='Ella vende conchas!'),
             ],
         ),
     ],
