@@ -29,14 +29,14 @@ pythonpath = ["."]
 
 [tool.poetry]
 name = "nllb-api"
-version = "0.1.0"
+version = "3.0.0"
 description = ""
 authors = ["winstxnhdw <you@example.com>"]
 readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 litestar = "^2.11.0"
 pydantic-settings = "^2.5.2"
 transformers = "^4.44.2"
