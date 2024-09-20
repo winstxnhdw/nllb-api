@@ -26,6 +26,7 @@ class TranslateController(Controller):
         text: Annotated[
             str,
             Parameter(
+                min_length=1,
                 description='source text of a single language',
                 examples=[
                     Example(summary='English', value='Hello, world!'),

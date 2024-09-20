@@ -19,7 +19,8 @@ class Translation(Struct):
     """
 
     text: Annotated[
-        str, Meta(max_length=8192, description='source text of a single language', examples=['Hello, world!'])
+        str,
+        Meta(min_length=1, max_length=8192, description='source text of a single language', examples=['Hello, world!']),
     ]
 
     source: Annotated[
