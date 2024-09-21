@@ -1,5 +1,8 @@
 from typing import Any, Literal
 
+from numpy import float32
+from numpy.typing import NDArray
+
 type LanguageLabels = Literal[
     '__label__ace_Arab',
     '__label__ace_Latn',
@@ -215,6 +218,6 @@ class _FastText:
         k: int = 1,
         threshold: float = 0.0,
         on_unicode_error: str = 'strict',
-    ) -> tuple[list[LanguageLabels], list[float]]: ...
+    ) -> tuple[tuple[LanguageLabels, ...], NDArray[float32]]: ...
 
 def load_model(path: str) -> _FastText: ...
