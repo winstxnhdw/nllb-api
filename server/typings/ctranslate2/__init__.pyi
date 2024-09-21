@@ -1,6 +1,6 @@
 # pylint: skip-file
 
-from typing import Callable, Generator, Iterable, Literal, overload
+from typing import Callable, Generator, Iterable, Iterator, Literal, Sequence, overload
 
 from server.types import ComputeTypes, Devices
 
@@ -38,6 +38,25 @@ class Translator:
         tensor_parallel: bool = False,
         files: object = None,
     ) -> None: ...
+    def generate_tokens(
+        self,
+        source: list[str],
+        target_prefix: Sequence[str] | None = None,
+        *,
+        max_decoding_length: int = 256,
+        min_decoding_length: int = 1,
+        sampling_topk: int = 1,
+        sampling_topp: float = 1,
+        sampling_temperature: float = 1,
+        return_log_prob: bool = False,
+        repetition_penalty: float = 1,
+        no_repeat_ngram_size: int = 0,
+        disable_unk: bool = False,
+        suppress_sequences: list[list[str]] | None = None,
+        end_token: str | list[str] | list[int] | None = None,
+        max_input_length: int = 1024,
+        use_vmap: bool = False,
+    ) -> Iterator[GenerationStepResult]: ...
     @overload
     def translate_batch(
         self,

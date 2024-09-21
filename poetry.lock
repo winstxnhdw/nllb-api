@@ -13,13 +13,13 @@ files = [
 
 [[package]]
 name = "anyio"
-version = "4.5.0"
+version = "4.6.0"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "anyio-4.5.0-py3-none-any.whl", hash = "sha256:fdeb095b7cc5a5563175eedd926ec4ae55413bb4be5770c424af0ba46ccb4a78"},
-    {file = "anyio-4.5.0.tar.gz", hash = "sha256:c5a275fe5ca0afd788001f58fca1e69e29ce706d746e317d660e21f70c530ef9"},
+    {file = "anyio-4.6.0-py3-none-any.whl", hash = "sha256:c7d2e9d63e31599eeb636c8c5c03a7e108d73b345f064f1c19fdc87b79036a9a"},
+    {file = "anyio-4.6.0.tar.gz", hash = "sha256:137b4559cbb034c477165047febb6ff83f390fc3b20bf181c1fc0a728cb8beeb"},
 ]
 
 [package.dependencies]
@@ -586,13 +586,13 @@ colors = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "litestar"
-version = "2.11.0"
+version = "2.12.0"
 description = "Litestar - A production-ready, highly performant, extensible ASGI API Framework"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "litestar-2.11.0-py3-none-any.whl", hash = "sha256:6d677ccdc00a0b4ce54cff5172531890358a27d6da1a054c8cab6a7e2119823e"},
-    {file = "litestar-2.11.0.tar.gz", hash = "sha256:6c8cf2b60c352e6b8e08e6a995d2a66ddc26ec53bc2f1df7214d26abcc1d00c2"},
+    {file = "litestar-2.12.0-py3-none-any.whl", hash = "sha256:7b8b5ca7d9112df45e1733d2c3af58c9cda46be18cf141176d320d30b1e7a197"},
+    {file = "litestar-2.12.0.tar.gz", hash = "sha256:0cae5be3c8b4a7c895209237ce7f0d1cea9f08db23fe0e55d805dbcac0a99591"},
 ]
 
 [package.dependencies]

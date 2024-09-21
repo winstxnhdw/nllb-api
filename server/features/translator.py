@@ -1,5 +1,5 @@
 from itertools import cycle
-from typing import Iterator, Self
+from typing import Iterable, Iterator, Self
 
 from ctranslate2 import Translator as CTranslator
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
@@ -56,7 +56,7 @@ class Tokeniser:
         """
         return self.tokeniser(text).tokens()
 
-    def decode(self, tokens: str | list[str]) -> str:
+    def decode(self, tokens: str | Iterable[str]) -> str:
         """
         Summary
         -------
@@ -70,7 +70,11 @@ class Tokeniser:
         -------
         text (str) : the decoded text
         """
-        return self.tokeniser.decode(self.tokeniser.convert_tokens_to_ids(tokens), clean_up_tokenization_spaces=False)
+        return self.tokeniser.decode(
+            self.tokeniser.convert_tokens_to_ids(tokens),  # type: ignore
+            skip_special_tokens=True,
+            clean_up_tokenization_spaces=False,
+        )
 
 
 class Translator:
@@ -85,12 +89,11 @@ class Translator:
         translate the input from the source language to the target language
     """
 
-    __slots__ = ('translator', 'tokeniser_pool', 'beam_size')
+    __slots__ = ('translator', 'tokeniser_pool')
 
-    def __init__(self, translator: CTranslator, tokeniser_pool: Iterator[Tokeniser], beam_size: int):
+    def __init__(self, translator: CTranslator, tokeniser_pool: Iterator[Tokeniser]):
         self.tokeniser_pool = tokeniser_pool
         self.translator = translator
-        self.beam_size = beam_size
 
     def translate(self, text: str, source_language: Languages, target_language: Languages) -> str:
         """
@@ -114,14 +117,12 @@ class Translator:
                 continue
 
             with tokeniser(source_language):
-                results = self.translator.translate_batch(
-                    (tokeniser.encode(text),),
-                    ([target_language],),
-                    batch_type='tokens',
-                    beam_size=self.beam_size,
-                )
+                source_tokens = tokeniser.encode(text)
 
-            return tokeniser.decode(results[0].hypotheses[0][1:])
+            results = self.translator.generate_tokens(source_tokens, (target_language,))
+            next(results)
+
+            return tokeniser.decode(result.token for result in results if not result.is_last)
 
         raise RuntimeError('Tokeniser pool has been exhausted. This should never happen.')
 
@@ -145,4 +146,4 @@ def get_translator() -> Translator:
         inter_threads=Config.translator_threads,
     )
 
-    return Translator(translator, tokeniser_pool, Config.translator_beam_size)
+    return Translator(translator, tokeniser_pool)
