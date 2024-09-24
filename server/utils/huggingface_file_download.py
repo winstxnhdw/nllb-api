@@ -1,6 +1,6 @@
 from huggingface_hub import hf_hub_download
 
-from server.helpers.has_internet_access import has_internet_access
+from server.utils.has_internet_access import has_internet_access
 
 
 def huggingface_file_download(repository: str, file: str) -> str:

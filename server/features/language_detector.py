@@ -2,7 +2,7 @@ from fasttext import load_model
 from fasttext.FastText import _FastText as FastText
 
 from server.config import Config
-from server.helpers import huggingface_file_download
+from server.utils import huggingface_file_download
 from server.types.languages import Languages
 
 
