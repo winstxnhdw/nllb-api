@@ -5,8 +5,8 @@ from ctranslate2 import Translator as CTranslator
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
 from server.config import Config
-from server.utils import huggingface_download
 from server.types import Languages
+from server.utils import huggingface_download
 
 
 class Tokeniser:
