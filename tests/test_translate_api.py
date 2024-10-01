@@ -16,11 +16,15 @@ def get_translation(response: Response) -> str | None:
 
 
 async def translate_post(client: AsyncTestClient[Litestar], text: str, source: str, target: str) -> Response:
-    return await client.post('/v3/translate', json={'text': text, 'source': source, 'target': target})
+    return await client.post('/v4/translator', json={'text': text, 'source': source, 'target': target})
 
 
 async def translate_get(client: AsyncTestClient[Litestar], text: str, source: str, target: str) -> Response:
-    return await client.get('/v3/translate', params={'text': text, 'source': source, 'target': target})
+    return await client.get('/v4/translator', params={'text': text, 'source': source, 'target': target})
+
+
+async def translate_stream(client: AsyncTestClient[Litestar], text: str, source: str, target: str) -> Response:
+    return await client.get('/v4/translator/stream', params={'text': text, 'source': source, 'target': target})
 
 
 @mark.anyio
@@ -45,7 +49,13 @@ async def test_translate_api(
 
 
 @mark.anyio
-@mark.parametrize('translate', [translate_post, translate_get])
+async def test_translate_stream_api(client: AsyncTestClient[Litestar]):
+    response = await translate_stream(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
+    assert response.headers['Content-Type'] == 'text/event-stream; charset=utf-8'
+
+
+@mark.anyio
+@mark.parametrize('translate', [translate_post, translate_get, translate_stream])
 @mark.parametrize(
     'text, source, target',
     [('Hello, world!', '', 'spa_Latn'), ('Hello, world!', 'eng_Latn', ''), ('', 'eng_Latn', 'spa_Latn')],
