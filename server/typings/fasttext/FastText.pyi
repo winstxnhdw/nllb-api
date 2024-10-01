@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from typing import Any, Literal
 
 from numpy import float32

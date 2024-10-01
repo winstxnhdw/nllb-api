@@ -112,19 +112,17 @@ class Translator:
         translated_text (str) : the translated text
         """
 
-        for tokeniser in self.tokeniser_pool:
-            if tokeniser.lock:
+        while True:
+            if (tokeniser := next(self.tokeniser_pool)).lock:
                 continue
 
             with tokeniser(source_language):
                 source_tokens = tokeniser.encode(text)
 
             results = self.translator.generate_tokens(source_tokens, (target_language,))
-            next(results)
+            next(results)  # skip the target language token
 
             return tokeniser.decode(result.token for result in results if not result.is_last)
-
-        raise RuntimeError('Tokeniser pool has been exhausted. This should never happen.')
 
 
 def get_translator() -> Translator:
