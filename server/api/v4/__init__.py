@@ -1,6 +1,3 @@
-from litestar import Router
-
-from server.api.v4.index import index
-from server.api.v4.language import language
-
-v4 = Router('/v4', tags=['v4'], route_handlers=[index, language])
+from server.api.v4.index import index as index
+from server.api.v4.language import language as language
+from server.api.v4.translator import TranslatorController as TranslatorController

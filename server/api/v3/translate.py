@@ -19,7 +19,7 @@ class TranslateController(Controller):
 
     path = '/translate'
 
-    @get(cache=True, sync_to_thread=True)
+    @get(cache=True, sync_to_thread=True, deprecated=True)
     def translate_get(
         self,
         state: AppState,
@@ -45,7 +45,7 @@ class TranslateController(Controller):
         target: Annotated[
             Languages,
             Parameter(
-                description='source language in the FLORES-200 code format',
+                description='target language in the FLORES-200 code format',
                 default='spa_Latn',
                 examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
             ),
@@ -58,7 +58,7 @@ class TranslateController(Controller):
         """
         return Translated(result=state.translator.translate(text, source, target))
 
-    @post(status_code=HTTP_200_OK, sync_to_thread=True)
+    @post(status_code=HTTP_200_OK, sync_to_thread=True, deprecated=True)
     def translate_post(self, state: AppState, data: Translation) -> Translated:
         """
         Summary

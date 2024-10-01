@@ -235,7 +235,13 @@ Zulu                               | zul_Latn
 </details>
 
 ```bash
-curl 'https://winstxnhdw-nllb-api.hf.space/api/v3/translate?text=Hello&source=eng_Latn&target=spa_Latn'
+curl 'https://winstxnhdw-nllb-api.hf.space/api/v4/translator?text=Hello&source=eng_Latn&target=spa_Latn'
+```
+
+To stream translations as Server-Sent Events, you may query the `/translator/stream` endpoint instead.
+
+```bash
+curl -N 'https://winstxnhdw-nllb-api.hf.space/api/v4/translator/stream?text=Hello&source=eng_Latn&target=spa_Latn'
 ```
 
 You can also determine the source language by querying the following API.

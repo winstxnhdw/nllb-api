@@ -85,8 +85,14 @@ class Translator:
 
     Methods
     -------
+    translate_generator(text: str, source_language: Languages, target_language: Languages) -> Iterator[str]
+        translate the input from the source language to the target language tokens using a pool of tokenisers
+
     translate(input: str, source_language: str, target_language: str) -> str
-        translate the input from the source language to the target language
+        translate the input from the source language to the target language using a pool of tokenisers
+
+    translate_stream(input: str, source_language: str, target_language: str) -> Iterator[str]
+        streams the translation input from the source language to the target language using a pool of tokenisers
     """
 
     __slots__ = ('translator', 'tokeniser_pool')
@@ -94,6 +100,35 @@ class Translator:
     def __init__(self, translator: CTranslator, tokeniser_pool: Iterator[Tokeniser]):
         self.tokeniser_pool = tokeniser_pool
         self.translator = translator
+
+    def translate_generator(self, text: str, source_language: Languages, target_language: Languages) -> Iterator[str]:
+        """
+        Summary
+        -------
+        translate the input from the source language to the target language tokens using a pool of tokenisers
+
+        Parameters
+        ----------
+        input (str) : the input to translate
+        source_language (Languages) : the source language
+        target_language (Languages) : the target language
+
+        Returns
+        -------
+        tokens (Iterator[str]) : the translated tokens
+        """
+
+        while True:
+            if (tokeniser := next(self.tokeniser_pool)).lock:
+                continue
+
+            with tokeniser(source_language):
+                source_tokens = tokeniser.encode(text)
+
+            results = self.translator.generate_tokens(source_tokens, (target_language,))
+            next(results)  # skip the target language token
+
+            return (result.token for result in results if not result.is_last)
 
     def translate(self, text: str, source_language: Languages, target_language: Languages) -> str:
         """
@@ -112,17 +147,25 @@ class Translator:
         translated_text (str) : the translated text
         """
 
-        while True:
-            if (tokeniser := next(self.tokeniser_pool)).lock:
-                continue
+        return next(self.tokeniser_pool).decode(self.translate_generator(text, source_language, target_language))
 
-            with tokeniser(source_language):
-                source_tokens = tokeniser.encode(text)
+    def translate_stream(self, text: str, source_language: Languages, target_language: Languages) -> Iterator[str]:
+        """
+        Summary
+        -------
+        streams the translation input from the source language to the target language using a pool of tokenisers
 
-            results = self.translator.generate_tokens(source_tokens, (target_language,))
-            next(results)  # skip the target language token
+        Parameters
+        ----------
+        input (str) : the input to translate
+        source_language (Languages) : the source language
+        target_language (Languages) : the target language
 
-            return tokeniser.decode(result.token for result in results if not result.is_last)
+        Returns
+        -------
+        translated_text (Iterator[str]) : the translated text
+        """
+        return map(next(self.tokeniser_pool).decode, self.translate_generator(text, source_language, target_language))
 
 
 def get_translator() -> Translator:

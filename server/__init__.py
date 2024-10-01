@@ -1,6 +1,7 @@
 from logging import getLogger
 
-from litestar import Litestar, Response
+from litestar import Litestar, Response, Router
+from litestar.middleware.rate_limit import RateLimitConfig
 from litestar.openapi import OpenAPIConfig
 from litestar.openapi.spec import Server
 from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
@@ -46,15 +47,24 @@ def app() -> Litestar:
 
     openapi_config = OpenAPIConfig(
         title='nllb-api',
-        version='4.0.0',
+        version='4.1.0',
         description=description,
         use_handler_docstrings=True,
         servers=[Server(url=Config.server_root_path)],
     )
 
+    v3_router = Router(
+        '/v3',
+        tags=['v3'],
+        route_handlers=[v3.index, v3.detect_language, v3.TranslateController],
+        middleware=[RateLimitConfig(rate_limit=('second', 5)).middleware],
+    )
+
+    v4_router = Router('/v4', tags=['v4'], route_handlers=[v4.index, v4.language, v4.TranslatorController])
+
     return Litestar(
         openapi_config=openapi_config,
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
-        route_handlers=[v3, v4],
+        route_handlers=[v3_router, v4_router],
         lifespan=[load_fasttext_model, load_translator_model],
     )
