@@ -902,14 +902,14 @@ files = [
 
 [[package]]
 name = "nvidia-cublas-cu12"
-version = "12.6.1.4"
+version = "12.6.3.3"
 description = "CUBLAS native runtime libraries"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "nvidia_cublas_cu12-12.6.1.4-py3-none-manylinux2014_aarch64.whl", hash = "sha256:c25ab29026a265d46c1063b5fb3cb9440f5f2eb88041c6b7c6711bcb3361789f"},
-    {file = "nvidia_cublas_cu12-12.6.1.4-py3-none-manylinux2014_x86_64.whl", hash = "sha256:5dd125ece5469dbdceebe2e9536ad8fc4abd38aa394a7ace42fc8a930a1e81e3"},
-    {file = "nvidia_cublas_cu12-12.6.1.4-py3-none-win_amd64.whl", hash = "sha256:5e5d384583d72ac364064ced3dd92a5caa59a8a57568595c9f82e83d255b2481"},
+    {file = "nvidia_cublas_cu12-12.6.3.3-py3-none-manylinux2014_aarch64.whl", hash = "sha256:e531199ca4f1f764fb45bc1dde49a006f6765033f9c89c737e4553b9502ca1f5"},
+    {file = "nvidia_cublas_cu12-12.6.3.3-py3-none-manylinux2014_x86_64.whl", hash = "sha256:f33fb68e101d99470c82d17f92a0dd9f74de2a21685c217f4716cdd63b1316eb"},
+    {file = "nvidia_cublas_cu12-12.6.3.3-py3-none-win_amd64.whl", hash = "sha256:e1f70bee38b964eac1907293b336bceb24498a4243e61eaf91a52977c59aebc4"},
 ]
 
 [[package]]
@@ -1216,13 +1216,13 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pyright"
-version = "1.1.382.post1"
+version = "1.1.383"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.382.post1-py3-none-any.whl", hash = "sha256:21a4749dd1740e209f88d3a601e9f40748670d39481ea32b9d77edf7f3f1fb2e"},
-    {file = "pyright-1.1.382.post1.tar.gz", hash = "sha256:66a5d4e83be9452853d73e9dd9e95ba0ac3061845270e4e331d0070a597d3445"},
+    {file = "pyright-1.1.383-py3-none-any.whl", hash = "sha256:d864d1182a313f45aaf99e9bfc7d2668eeabc99b29a556b5344894fd73cb1959"},
+    {file = "pyright-1.1.383.tar.gz", hash = "sha256:1df7f12407f3710c9c6df938d98ec53f70053e6c6bbf71ce7bcb038d42f10070"},
 ]
 
 [package.dependencies]
@@ -1999,4 +1999,4 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "1d81f45bf01bdc9e80add7ac1e35f5319649c456ee81adcd04e4fc7ad455cf3b"
+content-hash = "70b5baa3003c6dde61ff942c69797e47e6f86d4556c6ed8d45e7fa4efa46f41f"
