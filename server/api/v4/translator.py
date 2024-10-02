@@ -99,10 +99,11 @@ class TranslatorController(Controller):
                 examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
             ),
         ],
+        event_type: Annotated[str | None, Parameter(description='the event that an event listener will listen for')] = None,
     ) -> ServerSentEvent:
         """
         Summary
         -------
         the `/translator/stream` returns a Server-Sent Event stream of the translation
         """
-        return ServerSentEvent(state.translator.translate_stream(text, source, target))
+        return ServerSentEvent(state.translator.translate_stream(text, source, target), event_type=event_type)
