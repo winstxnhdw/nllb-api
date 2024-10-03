@@ -33,7 +33,7 @@ async def translate_stream(client: AsyncTestClient[Litestar], text: str, source:
     'text, source, target, translation',
     [
         ('Hello, world!', 'eng_Latn', 'spa_Latn', '¡Hola, mundo!'),
-        ('我是一名软件工程师！', 'zho_Hans', 'spa_Latn', '¡Soy ingeniero de software!'),
+        ('我是一名软件工程师！', 'zho_Hans', 'spa_Latn', '¡Soy un ingeniero de software!'),
     ],
 )
 async def test_translate_api(

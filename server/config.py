@@ -33,7 +33,6 @@ class Config(BaseSettings):
     server_root_path (str) : the root path for the server
     worker_count (int) : the number of workers to use
     translator_threads (int) : the number of threads for the translator
-    translator_beam_size (int) : the beam size for the translator
     use_cuda (bool) : whether to use CUDA for inference
     translator_model_name (str) : the name of the translator model
     language_detector_model_name (str) : the name of the language detector model
