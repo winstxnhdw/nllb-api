@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Any, Iterator
 
 from ctranslate2 import Translator as CTranslator
 from tokenizers import Encoding
@@ -110,7 +110,7 @@ def get_translator() -> Translator:
     translator (TranslatorPool) : the translator pool
     """
     model_path = huggingface_download(Config.translator_model_name)
-    tokeniser: NllbTokenizerFast = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
+    tokeniser: Any = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
     translator = CTranslator(
         model_path,
         'cuda' if Config.use_cuda else 'cpu',

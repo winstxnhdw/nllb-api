@@ -15,6 +15,7 @@ disable = [
 
 [tool.pyright]
 stubPath = "server/typings"
+typeCheckingMode = "strict"
 reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false

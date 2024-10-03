@@ -1,5 +1,5 @@
 from fasttext import load_model
-from fasttext.FastText import _FastText as FastText
+from fasttext.FastText import _FastText as FastText  # pyright: ignore
 
 from server.config import Config
 from server.types.languages import Languages
