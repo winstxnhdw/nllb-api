@@ -44,7 +44,7 @@ pydantic-settings = "^2.5.2"
 transformers = "^4.45.2"
 ctranslate2 = "^4.4.0"
 fasttext-predict = "^0.9.2.2"
-uvloop = { version = "^0.20.0", markers = "sys_platform != 'win32'" }
+uvloop = { version = "^0.21.0", markers = "sys_platform != 'win32'" }
 picologging = "^0.9.3"
 granian = "^1.6.0"
 
