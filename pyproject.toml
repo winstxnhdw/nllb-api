@@ -19,6 +19,7 @@ typeCheckingMode = "strict"
 reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false
+reportPrivateUsage = false
 
 [tool.ruff]
 line-length = 120

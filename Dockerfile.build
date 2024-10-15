@@ -2,7 +2,7 @@ ARG TRANSLATOR_MODEL_NAME='winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
 ARG LANGUAGE_DETECTOR_MODEL_NAME='facebook/fasttext-language-identification'
 
 
-FROM python:slim AS python-builder
+FROM python:3.12-slim AS python-builder
 
 ENV POETRY_VIRTUALENVS_CREATE=false
 ENV POETRY_HOME=/opt/poetry
@@ -27,7 +27,7 @@ RUN python -c \
     hf_hub_download('$LANGUAGE_DETECTOR_MODEL_NAME', 'model.bin')"
 
 
-FROM python:slim
+FROM python:3.12-slim
 
 ARG TRANSLATOR_MODEL_NAME
 ARG LANGUAGE_DETECTOR_MODEL_NAME

@@ -30,7 +30,9 @@ class Translator:
     __slots__ = ('translator', 'tokeniser')
 
     def __init__(self, translator: CTranslator, tokeniser: NllbTokenizerFast):
-        self.tokeniser = tokeniser
+        tokeniser._switch_to_input_mode = lambda: None  # hack to keep NLLB tokeniser thread-safe
+
+        self.tokeniser: NllbTokenizerFast = tokeniser
         self.translator = translator
 
     def translate_generator(self, text: str, source_language: Languages, target_language: Languages) -> Iterator[str]:
