@@ -1,6 +1,6 @@
 # pylint: disable=missing-function-docstring,redefined-outer-name
 
-
+from asyncio import TaskGroup
 from typing import Awaitable, Callable
 
 from httpx import Response
@@ -69,3 +69,15 @@ async def test_translate_with_empty_fields(
 ):
     response = await translate(client, text, source, target)
     assert response.status_code == 400
+
+
+@mark.anyio
+async def test_parallelism(client: AsyncTestClient[Litestar]):
+    async with TaskGroup() as task_group:
+        tasks = [
+            task_group.create_task(translate_post(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')) for _ in range(3)
+        ]
+
+    for task in tasks:
+        result = await task
+        assert result.status_code == 200
