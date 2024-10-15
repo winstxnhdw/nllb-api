@@ -39,18 +39,16 @@ class TranslatorController(Controller):
             Languages,
             Parameter(
                 description='source language in the FLORES-200 code format',
-                default='eng_Latn',
                 examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
             ),
-        ],
+        ] = 'eng_Latn',
         target: Annotated[
             Languages,
             Parameter(
                 description='target language in the FLORES-200 code format',
-                default='spa_Latn',
                 examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
             ),
-        ],
+        ] = 'spa_Latn',
     ) -> Translated:
         """
         Summary
@@ -87,19 +85,19 @@ class TranslatorController(Controller):
             Languages,
             Parameter(
                 description='source language in the FLORES-200 code format',
-                default='eng_Latn',
                 examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
             ),
-        ],
+        ] = 'eng_Latn',
         target: Annotated[
             Languages,
             Parameter(
                 description='target language in the FLORES-200 code format',
-                default='spa_Latn',
                 examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
             ),
-        ],
-        event_type: Annotated[str | None, Parameter(description='the event that an event listener will listen for')] = None,
+        ] = 'spa_Latn',
+        event_type: Annotated[
+            str | None, Parameter(description='the event that an event listener will listen for')
+        ] = None,
     ) -> ServerSentEvent:
         """
         Summary
