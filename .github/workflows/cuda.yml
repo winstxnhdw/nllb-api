@@ -1,0 +1,33 @@
+name: CUDA
+
+on:
+  push:
+    branches: main
+    paths:
+      - .github/workflows/cuda.yml
+      - .dockerignore
+      - Dockerfile.cuda-build
+      - poetry.lock
+      - pyproject.toml
+      - '**.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          show-progress: false
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3.7.1
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6.9.0
+        with:
+          push: false
+          tags: cuda
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
