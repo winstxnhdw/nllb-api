@@ -9,12 +9,12 @@ from pytest import fixture
 from server import app
 
 
-@fixture
+@fixture()
 def anyio_backend() -> tuple[Literal['asyncio', 'trio'], dict[str, bool]]:
     return 'asyncio', {'use_uvloop': True}
 
 
-@fixture(scope='function')
+@fixture()
 async def client() -> AsyncIterator[AsyncTestClient[Litestar]]:
     async with AsyncTestClient(app=app()) as client:
         yield client
