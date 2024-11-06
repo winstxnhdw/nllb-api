@@ -7,8 +7,7 @@ from litestar.response.sse import ServerSentEvent
 from litestar.status_codes import HTTP_200_OK
 
 from server.schemas.v1 import Translated, Translation
-from server.state import AppState
-from server.types import Languages
+from server.types import AppState, Languages
 
 
 class TranslatorController(Controller):
