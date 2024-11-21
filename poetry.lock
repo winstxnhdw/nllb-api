@@ -562,19 +562,20 @@ files = [
 
 [[package]]
 name = "litestar"
-version = "2.12.1"
+version = "2.13.0"
 description = "Litestar - A production-ready, highly performant, extensible ASGI API Framework"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "litestar-2.12.1-py3-none-any.whl", hash = "sha256:74915e3731c200caa099c416a1c3b3079ffacdd6e6393974e0284f8919606f9c"},
-    {file = "litestar-2.12.1.tar.gz", hash = "sha256:d2cc43157060a06dac8a77e9dc6ba2936238beada61e272e8842c21fca23fcee"},
+    {file = "litestar-2.13.0-py3-none-any.whl", hash = "sha256:a40765644115639015a54e8cd7e7bdbe597a58d3f2d8f6d21afe9f343df43916"},
+    {file = "litestar-2.13.0.tar.gz", hash = "sha256:51a3ab60b7bc8de2c126f3ad907c2ba6f9d22194bdf1be9df52253e57ed80f0e"},
 ]
 
 [package.dependencies]
 anyio = ">=3"
 click = "*"
 httpx = ">=0.22"
+litestar-htmx = ">=0.3.0"
 msgspec = ">=0.18.2"
 multidict = ">=6.0.2"
 polyfactory = ">=2.6.3"
@@ -590,6 +591,7 @@ brotli = ["brotli"]
 cli = ["jsbeautifier", "uvicorn[standard]", "uvloop (>=0.18.0)"]
 cryptography = ["cryptography"]
 full = ["advanced-alchemy (>=0.2.2)", "annotated-types", "attrs", "brotli", "cryptography", "email-validator", "fast-query-parsers (>=1.0.2)", "jinja2", "jinja2 (>=3.1.2)", "jsbeautifier", "mako (>=1.2.4)", "minijinja (>=1.0.0)", "opentelemetry-instrumentation-asgi", "piccolo", "picologging", "prometheus-client", "pydantic", "pydantic-extra-types", "pyjwt (>=2.9.0)", "redis[hiredis] (>=4.4.4)", "structlog", "uvicorn[standard]", "uvloop (>=0.18.0)"]
+htmx = ["litestar-htmx (>=0.3.0)"]
 jinja = ["jinja2 (>=3.1.2)"]
 jwt = ["cryptography", "pyjwt (>=2.9.0)"]
 mako = ["mako (>=1.2.4)"]
@@ -603,6 +605,20 @@ redis = ["redis[hiredis] (>=4.4.4)"]
 sqlalchemy = ["advanced-alchemy (>=0.2.2)"]
 standard = ["fast-query-parsers (>=1.0.2)", "jinja2", "jsbeautifier", "uvicorn[standard]", "uvloop (>=0.18.0)"]
 structlog = ["structlog"]
+
+[[package]]
+name = "litestar-htmx"
+version = "0.3.0"
+description = "HTMX Integration for Litesstar"
+optional = false
+python-versions = "<4.0,>=3.8"
+files = [
+    {file = "litestar_htmx-0.3.0-py3-none-any.whl", hash = "sha256:3cca09314470483c867faffa77b642fba5f39531e105d6ba9c74866a1e8ab0d8"},
+    {file = "litestar_htmx-0.3.0.tar.gz", hash = "sha256:dbdf7b64d7ad71ac5ca1af5663d5fba78a2742bb1056b9c49a82d0e23827b6a7"},
+]
+
+[package.dependencies]
+litestar = "*"
 
 [[package]]
 name = "markdown-it-py"
@@ -869,14 +885,14 @@ files = [
 
 [[package]]
 name = "nvidia-cublas-cu12"
-version = "12.6.3.3"
+version = "12.6.4.1"
 description = "CUBLAS native runtime libraries"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "nvidia_cublas_cu12-12.6.3.3-py3-none-manylinux2014_aarch64.whl", hash = "sha256:e531199ca4f1f764fb45bc1dde49a006f6765033f9c89c737e4553b9502ca1f5"},
-    {file = "nvidia_cublas_cu12-12.6.3.3-py3-none-manylinux2014_x86_64.whl", hash = "sha256:f33fb68e101d99470c82d17f92a0dd9f74de2a21685c217f4716cdd63b1316eb"},
-    {file = "nvidia_cublas_cu12-12.6.3.3-py3-none-win_amd64.whl", hash = "sha256:e1f70bee38b964eac1907293b336bceb24498a4243e61eaf91a52977c59aebc4"},
+    {file = "nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:08ed2686e9875d01b58e3cb379c6896df8e76c75e0d4a7f7dace3d7b6d9ef8eb"},
+    {file = "nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:235f728d6e2a409eddf1df58d5b0921cf80cfa9e72b9f2775ccb7b4a87984668"},
+    {file = "nvidia_cublas_cu12-12.6.4.1-py3-none-win_amd64.whl", hash = "sha256:9e4fa264f4d8a4eb0cdbd34beadc029f453b3bafae02401e999cf3d5a5af75f8"},
 ]
 
 [[package]]
@@ -1935,4 +1951,4 @@ test = ["aiohttp (>=3.10.5)", "flake8 (>=5.0,<6.0)", "mypy (>=0.800)", "psutil",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "dd0a3a802a497d203f48ad9ffd2a84004ee2112b90218999f5c26d081b18f60d"
+content-hash = "86c3f37431b69b5ea394b666f6d379c2ad53551c51aef4e3e3c8fcb602a68e92"
