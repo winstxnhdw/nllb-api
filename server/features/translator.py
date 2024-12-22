@@ -1,4 +1,5 @@
 from typing import Any, Iterator
+from unittest.mock import create_autospec
 
 from ctranslate2 import Translator as CTranslator
 from tokenizers import Encoding
@@ -111,6 +112,9 @@ def get_translator() -> Translator:
     -------
     translator (TranslatorPool) : the translator pool
     """
+    if Config.stub_translator:
+        return create_autospec(Translator)
+
     model_path = huggingface_download(Config.translator_model_name)
     tokeniser: Any = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
     translator = CTranslator(

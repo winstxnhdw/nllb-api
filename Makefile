@@ -9,3 +9,6 @@ gpu:
 hf:
 	docker build -t nllb-api .
 	docker run --init --rm -p 7860:7860 nllb-api
+
+stub:
+	STUB_TRANSLATOR=True STUB_LANGUAGE_DETECTOR=True python main.py

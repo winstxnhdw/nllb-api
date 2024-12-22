@@ -1,3 +1,5 @@
+from unittest.mock import create_autospec
+
 from fasttext import load_model
 from fasttext.FastText import _FastText as FastText  # pyright: ignore
 
@@ -51,4 +53,7 @@ def get_language_detector() -> LanguageDetector:
     -------
     language_detector (LanguageDetector) : the language detector
     """
+    if Config.stub_language_detector:
+        return create_autospec(LanguageDetector)
+
     return LanguageDetector(load_model(huggingface_file_download(Config.language_detector_model_name, 'model.bin')))

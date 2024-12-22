@@ -52,7 +52,7 @@ def app() -> Litestar:
         servers=[Server(url=Config.server_root_path)],
     )
 
-    v4_router = Router('/v4', tags=['v4'], route_handlers=[v4.index, v4.language, v4.TranslatorController])
+    v4_router = Router('/v4', tags=['v4'], route_handlers=[v4.index, v4.schema, v4.language, v4.TranslatorController])
 
     return Litestar(
         openapi_config=openapi_config,
