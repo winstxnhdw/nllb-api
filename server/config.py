@@ -45,3 +45,5 @@ class Config(BaseSettings):
     use_cuda: bool = False
     translator_model_name: str = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
     language_detector_model_name: str = 'facebook/fasttext-language-identification'
+    stub_language_detector: bool = False
+    stub_translator: bool = False
