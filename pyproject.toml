@@ -40,5 +40,5 @@ nvidia-cublas-cu12 = "^12.8.3.14"
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.393"
 pytest = "^8.3.4"
-ruff = "^0.9.5"
+ruff = "^0.9.6"
 httpx = "^0.28.1"
