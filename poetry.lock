@@ -557,13 +557,13 @@ files = [
 
 [[package]]
 name = "litestar"
-version = "2.14.0"
+version = "2.15.0"
 description = "Litestar - A production-ready, highly performant, extensible ASGI API Framework"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "litestar-2.14.0-py3-none-any.whl", hash = "sha256:5602065e263e453ee742aafe38681ba4aa9f5e3df21326cfd2082d1a766ca4fb"},
-    {file = "litestar-2.14.0.tar.gz", hash = "sha256:ac154e46fb74ec4bbce7660f6f437adb7d413ea9bad52cd7954dc1d25e243716"},
+    {file = "litestar-2.15.0-py3-none-any.whl", hash = "sha256:e36851a0a076fa38569dee8eb21b483887fc98618b631a0eb265630f101c29ab"},
+    {file = "litestar-2.15.0.tar.gz", hash = "sha256:81291b6f791775267740aa0587a41b082ae1520907bc7125ff41c39c4360e8b8"},
 ]
 
 [package.dependencies]
@@ -1133,13 +1133,13 @@ typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
 name = "pydantic-settings"
-version = "2.8.0"
+version = "2.8.1"
 description = "Settings management using Pydantic"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pydantic_settings-2.8.0-py3-none-any.whl", hash = "sha256:c782c7dc3fb40e97b238e713c25d26f64314aece2e91abcff592fcac15f71820"},
-    {file = "pydantic_settings-2.8.0.tar.gz", hash = "sha256:88e2ca28f6e68ea102c99c3c401d6c9078e68a5df600e97b43891c34e089500a"},
+    {file = "pydantic_settings-2.8.1-py3-none-any.whl", hash = "sha256:81942d5ac3d905f7f3ee1a70df5dfb62d5569c12f51a5a647defc1c3d9ee2e9c"},
+    {file = "pydantic_settings-2.8.1.tar.gz", hash = "sha256:d5c663dfbe9db9d5e1c646b2e161da12f0d734d422ee56f567d0ea2cee4e8585"},
 ]
 
 [package.dependencies]
@@ -1167,13 +1167,13 @@ windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pyright"
-version = "1.1.394"
+version = "1.1.395"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.394-py3-none-any.whl", hash = "sha256:5f74cce0a795a295fb768759bbeeec62561215dea657edcaab48a932b031ddbb"},
-    {file = "pyright-1.1.394.tar.gz", hash = "sha256:56f2a3ab88c5214a451eb71d8f2792b7700434f841ea219119ade7f42ca93608"},
+    {file = "pyright-1.1.395-py3-none-any.whl", hash = "sha256:f9bc726870e740c6c77c94657734d90563a3e9765bb523b39f5860198ed75eef"},
+    {file = "pyright-1.1.395.tar.gz", hash = "sha256:53703169068c160bfb41e1b44ba3e2512492869c26cfad927e1268cb3fbb1b1c"},
 ]
 
 [package.dependencies]
@@ -1862,4 +1862,4 @@ test = ["aiohttp (>=3.10.5)", "flake8 (>=5.0,<6.0)", "mypy (>=0.800)", "psutil",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "26c0b4f29064df0aaae91cf173084e7504cd11610d557604edb72f4cee6a6d07"
+content-hash = "5ae64c9acb647bf3dc74235c76774bc114b193e54820b87bab8a22a10733db76"
