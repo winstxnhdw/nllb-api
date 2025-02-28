@@ -25,7 +25,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-litestar = "^2.15.0"
+litestar = "^2.15.1"
 pydantic-settings = "^2.8.1"
 transformers = "^4.49.0"
 ctranslate2 = "^4.5.0"
@@ -40,5 +40,5 @@ nvidia-cublas-cu12 = "^12.8.3.14"
 [tool.poetry.group.dev.dependencies]
 pyright = "^1.1.395"
 pytest = "^8.3.4"
-ruff = "^0.9.7"
+ruff = "^0.9.8"
 httpx = "^0.28.1"
