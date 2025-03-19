@@ -19,13 +19,13 @@ class Translator:
     Methods
     -------
     translate_generator(text: str, source_language: Languages, target_language: Languages) -> Iterator[str]
-        translate the input from the source language to the target language tokens using a pool of tokenisers
+        translate the input from the source language to the target language tokens
 
     translate(input: str, source_language: str, target_language: str) -> str
-        translate the input from the source language to the target language using a pool of tokenisers
+        translate the input from the source language to the target language
 
     translate_stream(input: str, source_language: str, target_language: str) -> Iterator[str]
-        streams the translation input from the source language to the target language using a pool of tokenisers
+        streams the translation input from the source language to the target language
     """
 
     __slots__ = ('translator', 'tokeniser')
@@ -40,7 +40,7 @@ class Translator:
         """
         Summary
         -------
-        translate the input from the source language to the target language tokens using a pool of tokenisers
+        translate the input from the source language to the target language tokens
 
         Parameters
         ----------
@@ -63,7 +63,7 @@ class Translator:
         """
         Summary
         -------
-        translate the input from the source language to the target language using a pool of tokenisers
+        translate the input from the source language to the target language
 
         Parameters
         ----------
@@ -83,7 +83,7 @@ class Translator:
         """
         Summary
         -------
-        streams the translation input from the source language to the target language using a pool of tokenisers
+        streams the translation input from the source language to the target language
 
         Parameters
         ----------
@@ -106,11 +106,11 @@ def get_translator() -> Translator:
     """
     Summary
     -------
-    get the translator pool
+    get the translator object
 
     Returns
     -------
-    translator (TranslatorPool) : the translator pool
+    translator (Translator) : the translator
     """
     if Config.stub_translator:
         return create_autospec(Translator)
