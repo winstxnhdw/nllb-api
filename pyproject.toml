@@ -27,18 +27,18 @@ package-mode = false
 python = "^3.12"
 litestar = "^2.15.1"
 pydantic-settings = "^2.8.1"
-transformers = "^4.49.0"
+transformers = "^4.50.0"
 ctranslate2 = "^4.5.0"
 fasttext-predict = "^0.9.2.4"
 uvloop = { version = "^0.21.0", markers = "sys_platform != 'win32'" }
 picologging = "^0.9.3"
-granian = "^1.7.6"
+granian = "^2.2.0"
 
 [tool.poetry.group.cuda.dependencies]
-nvidia-cublas-cu12 = "^12.8.3.14"
+nvidia-cublas-cu12 = "^12.8.4.1"
 
 [tool.poetry.group.dev.dependencies]
-pyright = "^1.1.395"
-pytest = "^8.3.4"
-ruff = "^0.9.8"
+pyright = "^1.1.397"
+pytest = "^8.3.5"
+ruff = "^0.11.2"
 httpx = "^0.28.1"
