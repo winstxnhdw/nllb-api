@@ -1,10 +1,12 @@
-# pylint: disable=missing-function-docstring,redefined-outer-name
+# ruff: noqa: S101
 
 
 from httpx import Response
 from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import mark
+
+from tests.conftest import StatusCode
 
 
 def get_language(response: Response) -> str | None:
@@ -21,13 +23,13 @@ async def detect_language(client: AsyncTestClient[Litestar], text: str) -> Respo
 
 @mark.anyio
 @mark.parametrize(
-    'text, language',
+    ('text', 'language'),
     [
         ('She sells seashells.', 'eng_Latn'),
         ('Ella vende conchas.', 'spa_Latn'),
     ],
 )
-async def test_detect_language_api(client: AsyncTestClient[Litestar], text: str, language: str):
+async def test_detect_language_api(client: AsyncTestClient[Litestar], text: str, language: str) -> None:
     response = await detect_language(client, text)
 
     assert get_language(response) == language
@@ -35,13 +37,13 @@ async def test_detect_language_api(client: AsyncTestClient[Litestar], text: str,
 
 
 @mark.anyio
-async def test_detect_language_with_empty_text(client: AsyncTestClient[Litestar]):
+async def test_detect_language_with_empty_text(client: AsyncTestClient[Litestar]) -> None:
     response = await detect_language(client, '')
-    assert response.status_code == 400
+    assert response.status_code == StatusCode.BAD_REQUEST
 
 
 @mark.anyio
-async def test_detect_language_with_long_text(client: AsyncTestClient[Litestar]):
+async def test_detect_language_with_long_text(client: AsyncTestClient[Litestar]) -> None:
     text = (
         'She sells seashells by the seashore, '
         'The shells she sells are surely seashells. '
@@ -51,4 +53,4 @@ async def test_detect_language_with_long_text(client: AsyncTestClient[Litestar])
 
     response = await detect_language(client, text)
 
-    assert response.status_code == 400
+    assert response.status_code == StatusCode.BAD_REQUEST

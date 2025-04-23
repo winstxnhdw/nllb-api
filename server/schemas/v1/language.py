@@ -5,7 +5,7 @@ from msgspec import Meta, Struct
 from server.types import Languages
 
 
-class Language(Struct):
+class Language(Struct, kw_only=True):
     """
     Summary
     -------
@@ -13,7 +13,11 @@ class Language(Struct):
 
     Attributes
     ----------
-    language (Languages) : the detected language
+    language (Languages)
+        the detected language
+
+    confidence (float)
+        the confidence score of the detected language
     """
 
     language: Annotated[Languages, Meta(description='language code in the FLORES-200 format', examples=['eng_Latn'])]

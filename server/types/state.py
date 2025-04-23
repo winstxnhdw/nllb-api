@@ -12,8 +12,11 @@ class AppState(State):
 
     Attributes
     ----------
-    language_detector (LanguageDetector) : the language detector
-    translator (Translator) : the translator
+    language_detector (LanguageDetector)
+        the language detector
+
+    translator (Translator)
+        the translator
     """
 
     language_detector: LanguageDetector

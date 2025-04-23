@@ -1,7 +1,7 @@
-# pylint: disable=missing-function-docstring,redefined-outer-name
+# ruff: noqa: S101
 
 from asyncio import TaskGroup
-from typing import Awaitable, Callable
+from collections.abc import Awaitable, Callable
 
 from httpx import Response
 from litestar import Litestar
@@ -9,6 +9,7 @@ from litestar.testing import AsyncTestClient
 from pytest import mark
 
 from server.types.languages import Languages
+from tests.conftest import StatusCode
 
 
 def get_translation(response: Response) -> str | None:
@@ -30,10 +31,10 @@ async def translate_stream(client: AsyncTestClient[Litestar], text: str, source:
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get])
 @mark.parametrize(
-    'text, source, target, translation',
+    ('text', 'source', 'target', 'translation'),
     [
         ('Hello, world!', 'eng_Latn', 'spa_Latn', '¡Hola, mundo!'),
-        ('我是一名软件工程师！', 'zho_Hans', 'spa_Latn', '¡Soy un ingeniero de software!'),
+        ('我是一名软件工程师！', 'zho_Hans', 'spa_Latn', '¡Soy un ingeniero de software!'),  # noqa: RUF001
     ],
 )
 async def test_translate_api(
@@ -43,13 +44,13 @@ async def test_translate_api(
     source: Languages,
     target: Languages,
     translation: str,
-):
+) -> None:
     response = await translate(client, text, source, target)
     assert get_translation(response) == translation
 
 
 @mark.anyio
-async def test_translate_stream_api(client: AsyncTestClient[Litestar]):
+async def test_translate_stream_api(client: AsyncTestClient[Litestar]) -> None:
     response = await translate_stream(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
     assert response.headers['Content-Type'] == 'text/event-stream; charset=utf-8'
 
@@ -57,7 +58,7 @@ async def test_translate_stream_api(client: AsyncTestClient[Litestar]):
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get, translate_stream])
 @mark.parametrize(
-    'text, source, target',
+    ('text', 'source', 'target'),
     [('Hello, world!', '', 'spa_Latn'), ('Hello, world!', 'eng_Latn', ''), ('', 'eng_Latn', 'spa_Latn')],
 )
 async def test_translate_with_empty_fields(
@@ -66,13 +67,13 @@ async def test_translate_with_empty_fields(
     text: str,
     source: Languages,
     target: Languages,
-):
+) -> None:
     response = await translate(client, text, source, target)
-    assert response.status_code == 400
+    assert response.status_code == StatusCode.BAD_REQUEST
 
 
 @mark.anyio
-async def test_parallelism(client: AsyncTestClient[Litestar]):
+async def test_parallelism(client: AsyncTestClient[Litestar]) -> None:
     async with TaskGroup() as task_group:
         tasks = [
             task_group.create_task(translate_post(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')) for _ in range(3)
@@ -80,4 +81,4 @@ async def test_parallelism(client: AsyncTestClient[Litestar]):
 
     for task in tasks:
         result = await task
-        assert result.status_code == 200
+        assert result.status_code == StatusCode.OK

@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    uses: winstxnhdw/actions/.github/workflows/python.yml@main
+    uses: winstxnhdw/actions/.github/workflows/uv.yml@main
 
   build:
     if: github.ref != 'refs/heads/main'

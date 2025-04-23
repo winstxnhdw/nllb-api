@@ -1,7 +1,9 @@
 [project]
 name = "nllb-api"
 version = "4.0.0"
-description = ""
+description = "A fast CPU-based API for NLLB"
+readme = "README.md"
+requires-python = "~=3.13"
 dependencies = [
     "ctranslate2>=4.6.0",
     "fasttext>=0.9.3",
@@ -34,7 +36,7 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D", "Q", "TC", "ANN001", "PLC0414", "INP001", "S104", "PYI001", "COM812"]
+ignore = ["D", "Q", "TC", "ANN001", "PLC0414", "INP001", "S104", "PYI001", "COM812", "SLF001", "PT013", "PLR0913"]
 
 [tool.ruff.format]
 quote-style = "single"

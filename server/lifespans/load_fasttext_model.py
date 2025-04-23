@@ -1,5 +1,5 @@
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import AsyncIterator
 
 from litestar import Litestar
 
@@ -15,7 +15,8 @@ async def load_fasttext_model(app: Litestar) -> AsyncIterator[None]:
 
     Parameters
     ----------
-    app (Litestar) : the application instance
+    app (Litestar)
+        the application instance
     """
     app.state.language_detector = get_language_detector()
 

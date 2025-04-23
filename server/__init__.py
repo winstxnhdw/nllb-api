@@ -5,15 +5,15 @@ from server.app import app
 from server.config import Config
 
 
-def main():
+def main() -> None:
     """
     Summary
     -------
     programmatically run the server with Granian
     """
     granian = Server(
-        f"{app.__module__}:{app.__name__}",
-        address="0.0.0.0",
+        f'{app.__module__}:{app.__name__}',
+        address='0.0.0.0',
         port=Config.server_port,
         interface=Interfaces.ASGI,
         workers=Config.worker_count,
@@ -27,5 +27,5 @@ def main():
     granian.serve()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -25,10 +25,10 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
     -------
     response (Response[dict[str, str]]) : the response
     """
-    getLogger("custom.access").error(exception, exc_info=True)
+    getLogger('custom.access').error(exception, exc_info=True)
 
     return Response(
-        content={"detail": "Internal Server Error"},
+        content={'detail': 'Internal Server Error'},
         status_code=HTTP_500_INTERNAL_SERVER_ERROR,
     )
 
@@ -41,20 +41,20 @@ def app() -> Litestar:
     """
     description = (
         "A performant high-throughput CPU-based API for Meta's No Language Left Behind (NLLB) using CTranslate2, "
-        "hosted on Hugging Face Spaces."
+        'hosted on Hugging Face Spaces.'
     )
 
     openapi_config = OpenAPIConfig(
-        title="nllb-api",
-        version="4.1.0",
+        title='nllb-api',
+        version='4.1.0',
         description=description,
         use_handler_docstrings=True,
         servers=[Server(url=Config.server_root_path)],
     )
 
     v4_router = Router(
-        "/v4",
-        tags=["v4"],
+        '/v4',
+        tags=['v4'],
         route_handlers=[v4.index, v4.language, v4.TranslatorController],
     )
 

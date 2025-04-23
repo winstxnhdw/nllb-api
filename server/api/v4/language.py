@@ -29,4 +29,5 @@ def language(
     -------
     the `/language` route detects the language of the input text
     """
-    return Language(*state.language_detector.detect(text))
+    language, score = state.language_detector.detect(text)
+    return Language(language=language, confidence=score)

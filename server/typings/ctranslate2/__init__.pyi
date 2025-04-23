@@ -1,6 +1,5 @@
-# pylint: skip-file
-
-from typing import Callable, Generator, Iterable, Iterator, Literal, Sequence, overload
+from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
+from typing import Literal, overload
 
 from server.types import ComputeTypes, Devices
 
@@ -159,4 +158,4 @@ class Translator:
         sampling_temperature: float = 1,
         replace_unknowns: bool = False,
         callback: Callable[[GenerationStepResult], bool] | None = None,
-    ) -> Generator[TranslationResult, None, None]: ...
+    ) -> Generator[TranslationResult]: ...

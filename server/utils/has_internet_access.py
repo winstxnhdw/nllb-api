@@ -19,10 +19,12 @@ def has_internet_access(repository: str) -> bool:
 
     try:
         connection.request('HEAD', f'/{repository}')
-        return True
 
     except (TimeoutError, OSError):
         return False
+
+    else:
+        return True
 
     finally:
         connection.close()

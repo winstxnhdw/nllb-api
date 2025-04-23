@@ -5,7 +5,7 @@ from msgspec import Meta, Struct
 from server.types import Languages
 
 
-class Translation(Struct):
+class Translation(Struct, kw_only=True):
     """
     Summary
     -------
@@ -13,9 +13,14 @@ class Translation(Struct):
 
     Attributes
     ----------
-    text (str) : source text of a single language
-    source (Languages) : source language in the FLORES-200 code format
-    target (Languages) : target language in the FLORES-200 code format
+    text (str)
+        source text of a single language
+
+    source (Languages)
+        source language in the FLORES-200 code format
+
+    target (Languages)
+        target language in the FLORES-200 code format
     """
 
     text: Annotated[
