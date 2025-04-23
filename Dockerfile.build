@@ -1,49 +1,47 @@
-ARG TRANSLATOR_MODEL_NAME='winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
-ARG LANGUAGE_DETECTOR_MODEL_NAME='facebook/fasttext-language-identification'
-
-
-FROM python:3.12-slim AS python-builder
-
-ENV POETRY_VIRTUALENVS_CREATE=false
-ENV POETRY_HOME=/opt/poetry
-ENV PATH=$POETRY_HOME/bin:$PATH
-
-COPY pyproject.toml poetry.lock ./
-
-RUN python -m venv $POETRY_HOME
-RUN $POETRY_HOME/bin/pip install poetry
-RUN poetry install --without=dev,cuda
-
-
 FROM python:slim AS model-builder
-
-ARG TRANSLATOR_MODEL_NAME
-ARG LANGUAGE_DETECTOR_MODEL_NAME
 
 RUN pip install huggingface_hub
 RUN python -c \
     "from huggingface_hub import snapshot_download, hf_hub_download; \
-    snapshot_download('$TRANSLATOR_MODEL_NAME'); \
-    hf_hub_download('$LANGUAGE_DETECTOR_MODEL_NAME', 'model.bin')"
+    snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'); \
+    hf_hub_download('facebook/fasttext-language-identification', 'model.bin')"
 
 
-FROM python:3.12-slim
+FROM python:slim AS python-builder
 
-ARG TRANSLATOR_MODEL_NAME
-ARG LANGUAGE_DETECTOR_MODEL_NAME
+WORKDIR /home/user
+
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+ENV UV_NO_CACHE=1
+ENV PYTHONOPTIMIZE=2
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+COPY pyproject.toml uv.lock ./
+
+RUN uv sync --frozen --no-dev --no-editable --no-install-project
+
+COPY . .
+
+RUN uv sync --frozen --no-dev --no-editable
+
+
+FROM python:slim
+
 ENV HOME=/home/user
+ENV PATH=$HOME/.venv/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+ENV HF_HUB_OFFLINE=1
 ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
 
 RUN useradd -m -u 1000 user
 
 USER user
 
-WORKDIR $HOME/app
+WORKDIR $HOME
 
 COPY --chown=user --from=model-builder  /root/.cache/huggingface $HOME/.cache/huggingface
-COPY --chown=user --from=python-builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --chown=user . $HOME/app
+COPY --chown=user --from=python-builder $HOME/.venv .venv
 
-CMD ["python", "main.py"]
+CMD ["nllb-api"]

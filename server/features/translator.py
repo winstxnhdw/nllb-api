@@ -1,4 +1,4 @@
-from typing import Any, Iterator
+from typing import Iterator
 from unittest.mock import create_autospec
 
 from ctranslate2 import Translator as CTranslator
@@ -28,15 +28,18 @@ class Translator:
         streams the translation input from the source language to the target language
     """
 
-    __slots__ = ('translator', 'tokeniser')
+    __slots__ = ("translator", "tokeniser")
 
     def __init__(self, translator: CTranslator, tokeniser: NllbTokenizerFast):
-        tokeniser._switch_to_input_mode = lambda: None  # hack to keep NLLB tokeniser thread-safe
+        # hack to keep NLLB tokeniser thread-safe
+        tokeniser._switch_to_input_mode = lambda: None
 
         self.tokeniser: NllbTokenizerFast = tokeniser
         self.translator = translator
 
-    def translate_generator(self, text: str, source_language: Languages, target_language: Languages) -> Iterator[str]:
+    def translate_generator(
+        self, text: str, source_language: Languages, target_language: Languages
+    ) -> Iterator[str]:
         """
         Summary
         -------
@@ -54,12 +57,16 @@ class Translator:
         """
 
         encoding: Encoding = self.tokeniser(text).encodings[0]  # type: ignore
-        results = self.translator.generate_tokens([source_language] + encoding.tokens, (target_language,))
+        results = self.translator.generate_tokens(
+            [source_language] + encoding.tokens, (target_language,)
+        )
         next(results)  # skip the target language token
 
         return (result.token for result in results if not result.is_last)
 
-    def translate(self, text: str, source_language: Languages, target_language: Languages) -> str:
+    def translate(
+        self, text: str, source_language: Languages, target_language: Languages
+    ) -> str:
         """
         Summary
         -------
@@ -79,7 +86,9 @@ class Translator:
             list(self.translate_generator(text, source_language, target_language))
         )
 
-    def translate_stream(self, text: str, source_language: Languages, target_language: Languages) -> Iterator[str]:
+    def translate_stream(
+        self, text: str, source_language: Languages, target_language: Languages
+    ) -> Iterator[str]:
         """
         Summary
         -------
@@ -98,7 +107,9 @@ class Translator:
 
         return (
             self.tokeniser.convert_tokens_to_string((token,))  # type: ignore
-            for token in self.translate_generator(text, source_language, target_language)
+            for token in self.translate_generator(
+                text, source_language, target_language
+            )
         )
 
 
@@ -116,12 +127,12 @@ def get_translator() -> Translator:
         return create_autospec(Translator)
 
     model_path = huggingface_download(Config.translator_model_name)
-    tokeniser: Any = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
+    tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
     translator = CTranslator(
         model_path,
-        'cuda' if Config.use_cuda else 'cpu',
-        compute_type='auto',
+        "cuda" if Config.use_cuda else "cpu",
+        compute_type="auto",
         inter_threads=Config.translator_threads,
     )
 
-    return Translator(translator, tokeniser)
+    return Translator(translator, tokeniser)  # pyright: ignore [reportUnknownArgumentType]

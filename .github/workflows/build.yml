@@ -2,22 +2,20 @@ name: Build
 
 on:
   push:
-    branches: main
     paths:
       - .github/workflows/build.yml
       - .dockerignore
       - Dockerfile.build
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - '**.py'
 
 jobs:
   test:
     uses: winstxnhdw/actions/.github/workflows/python.yml@main
-    with:
-      python-version: 3.12
 
   build:
+    if: github.ref != 'refs/heads/main'
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
     with:
       file: Dockerfile.build
@@ -27,6 +25,7 @@ jobs:
       packages: write
 
   restart:
+    if: github.ref != 'refs/heads/main'
     needs: [test, build]
     uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@main
     secrets:

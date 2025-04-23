@@ -7,7 +7,7 @@ on:
       - .github/workflows/cuda.yml
       - .dockerignore
       - Dockerfile.cuda-build
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - '**.py'
 

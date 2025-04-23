@@ -5,7 +5,6 @@
 [![cuda.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/cuda.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/cuda.yml)
 [![formatter.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml)
 [![warmer.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/warmer.yml)
-[![dependabot.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/dependabot.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/dependabot.yml)
 
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/winstxnhdw/nllb-api)
 [![Open a Pull Request](https://huggingface.co/datasets/huggingface/badges/raw/main/open-a-pr-md-dark.svg)](https://github.com/winstxnhdw/nllb-api/compare)
@@ -300,7 +299,7 @@ docker run --rm --gpus all \
 First, install the required dependencies for your editor with the following.
 
 ```bash
-poetry install
+uv sync
 ```
 
 Now, you can access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) after spinning the server up locally with the following.

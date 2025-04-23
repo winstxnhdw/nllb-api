@@ -1,62 +1,31 @@
-from logging import getLogger
+from granian.constants import Interfaces
+from granian.server import Server
 
-from litestar import Litestar, Response, Router
-from litestar.openapi import OpenAPIConfig
-from litestar.openapi.spec import Server
-from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
-
-from server.api import v4
+from server.app import app
 from server.config import Config
-from server.lifespans import load_fasttext_model, load_translator_model
 
 
-def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
+def main():
     """
     Summary
     -------
-    the Litestar exception handler
-
-    Parameters
-    ----------
-    request (Request) : the request
-    exception (Exception) : the exception
-
-    Returns
-    -------
-    response (Response[dict[str, str]]) : the response
+    programmatically run the server with Granian
     """
-    getLogger('custom.access').error('', exc_info=exception)
-
-    return Response(
-        content={'detail': 'Internal Server Error'},
-        status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+    granian = Server(
+        f"{app.__module__}:{app.__name__}",
+        address="0.0.0.0",
+        port=Config.server_port,
+        interface=Interfaces.ASGI,
+        workers=Config.worker_count,
+        log_access=True,
+        log_access_format='[%(time)s] %(status)d "%(method)s %(path)s %(protocol)s" %(addr)s in %(dt_ms).2f ms',
+        url_path_prefix=Config.server_root_path,
+        factory=True,
+        reload=False,
     )
 
+    granian.serve()
 
-def app() -> Litestar:
-    """
-    Summary
-    -------
-    the Litestar application
-    """
-    description = (
-        "A performant high-throughput CPU-based API for Meta's No Language Left Behind (NLLB) using CTranslate2, "
-        'hosted on Hugging Face Spaces.'
-    )
 
-    openapi_config = OpenAPIConfig(
-        title='nllb-api',
-        version='4.1.0',
-        description=description,
-        use_handler_docstrings=True,
-        servers=[Server(url=Config.server_root_path)],
-    )
-
-    v4_router = Router('/v4', tags=['v4'], route_handlers=[v4.index, v4.language, v4.TranslatorController])
-
-    return Litestar(
-        openapi_config=openapi_config,
-        exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
-        route_handlers=[v4_router],
-        lifespan=[load_fasttext_model, load_translator_model],
-    )
+if __name__ == "__main__":
+    main()
