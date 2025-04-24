@@ -46,11 +46,11 @@ class LanguageDetector:
         score (Score)
             the confidence score of the detected language
         """
-        labels, scores = self.model.predict(text)
+        labels, scores = next(zip(*self.model.predict([text]), strict=True))
 
         return (
             labels[0][9:],  # pyright: ignore [reportReturnType]
-            scores[0],
+            float(scores[0]),
         )
 
 

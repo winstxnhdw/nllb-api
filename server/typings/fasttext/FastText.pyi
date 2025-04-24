@@ -1,4 +1,4 @@
-from typing import Any, Literal
+from typing import Any, Literal, overload
 
 from numpy import float32
 from numpy.typing import NDArray
@@ -212,12 +212,31 @@ type LanguageLabels = Literal[
 
 class _FastText:
     def __init__(self, model_path: str | None = None, args: dict[str, Any] | None = None) -> None: ...
+    @overload
+    def predict(
+        self,
+        text: list[str],
+        k: int = 1,
+        threshold: float = 0.0,
+        on_unicode_error: str = 'strict',
+    ) -> tuple[list[tuple[LanguageLabels, ...]], list[NDArray[float32]]]: ...
+    @overload
+    def predict(
+        self,
+        text: str,
+        k: int = 1,
+        threshold: float = 0.0,
+        on_unicode_error: str = 'strict',
+    ) -> tuple[tuple[LanguageLabels, ...], NDArray[float32]]: ...
     def predict(
         self,
         text: str | list[str],
         k: int = 1,
         threshold: float = 0.0,
         on_unicode_error: str = 'strict',
-    ) -> tuple[tuple[LanguageLabels, ...], NDArray[float32]]: ...
+    ) -> (
+        tuple[tuple[LanguageLabels, ...], NDArray[float32]]
+        | tuple[list[tuple[LanguageLabels, ...]], list[NDArray[float32]]]
+    ): ...
 
 def load_model(path: str) -> _FastText: ...
