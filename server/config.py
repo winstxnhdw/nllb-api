@@ -68,7 +68,7 @@ class Config(BaseSettings):
     access_control_allow_method_patch: bool = True
     access_control_allow_method_head: bool = True
     access_control_allow_method_trace: bool = True
-    access_control_allow_credentials: bool = False
+    access_control_allow_credentials: bool = True
     access_control_allow_headers: str = '*'
     access_control_expose_headers: str = '*'
     access_control_max_age: int = 600

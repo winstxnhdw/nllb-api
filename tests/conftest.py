@@ -7,7 +7,6 @@ from litestar.testing import AsyncTestClient
 from pytest import fixture
 
 from server.app import app
-from server.config import Config
 
 
 class StatusCode(IntEnum):
@@ -23,8 +22,5 @@ def anyio_backend() -> tuple[Literal['asyncio', 'trio'], dict[str, bool]]:
 
 @fixture
 async def client() -> AsyncIterator[AsyncTestClient[Litestar]]:
-    Config.stub_language_detector = False
-    Config.stub_translator = False
-
-    async with AsyncTestClient(app=app()) as client:
+    async with AsyncTestClient(app=app(), backend_options={'use_uvloop': True}) as client:
         yield client
