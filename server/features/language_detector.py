@@ -4,7 +4,7 @@ from fasttext import load_model
 from fasttext.FastText import _FastText as FastText
 
 from server.config import Config
-from server.types.languages import Languages
+from server.typedefs.languages import Languages
 from server.utils import huggingface_file_download
 
 type Score = float
@@ -68,4 +68,6 @@ def get_language_detector() -> LanguageDetector:
     if Config.stub_language_detector:
         return create_autospec(LanguageDetector)
 
-    return LanguageDetector(load_model(huggingface_file_download(Config.language_detector_model_name, 'model.bin')))
+    return LanguageDetector(
+        load_model(huggingface_file_download('facebook/fasttext-language-identification', 'model.bin'))
+    )

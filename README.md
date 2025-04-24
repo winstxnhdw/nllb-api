@@ -260,6 +260,30 @@ docker run --rm \
   ghcr.io/winstxnhdw/nllb-api:main
 ```
 
+### Cross-Origin Resource Sharing
+
+You can configure CORS by passing the following environment variables.
+
+```bash
+docker run --rm \
+  -e SERVER_PORT=7860 \
+  -e ACCESS_CONTROL_ALLOW_ORIGIN=localhost,example.com \
+  -e ACCESS_CONTROL_ALLOW_CREDENTIALS=true \
+  -e ACCESS_CONTROL_ALLOW_HEADERS=X-Custom-Header,Upgrade-Insecure-Requests \
+  -e ACCESS_CONTROL_EXPOSE_HEADERS=Content-Encoding,Kuma-Revision \
+  -e ACCESS_CONTROL_MAX_AGE=3600 \
+  -e ACCESS_CONTROL_ALLOW_METHOD_GET=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_POST=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_OPTIONS=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_PUT=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_DELETE=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_PATCH=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_HEAD=true \
+  -e ACCESS_CONTROL_ALLOW_METHOD_TRACE=true \
+  -p 7860:7860 \
+  ghcr.io/winstxnhdw/nllb-api:main
+```
+
 ### Optimisation
 
 You can pass the following environment variables to optimise the API for your own uses. The value of `OMP_NUM_THREADS` increases the number of threads used to translate a given batch of inputs, while `TRANSLATOR_THREADS` increases the number of threads used to handle translate requests in parallel. It is recommended to not modify `WORKER_COUNT` as spawning multiple workers can lead to increased memory usage and poorer performance.

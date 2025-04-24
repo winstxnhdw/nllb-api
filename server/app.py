@@ -7,6 +7,7 @@ from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 
 from server.api import v4
 from server.config import Config
+from server.cors import cors
 from server.lifespans import load_fasttext_model, load_translator_model
 
 
@@ -60,6 +61,7 @@ def app() -> Litestar:
 
     return Litestar(
         openapi_config=openapi_config,
+        cors_config=cors(),
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
         route_handlers=[v4_router],
         lifespan=[load_fasttext_model, load_translator_model],

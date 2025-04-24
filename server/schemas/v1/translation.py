@@ -2,7 +2,7 @@ from typing import Annotated
 
 from msgspec import Meta, Struct
 
-from server.types import Languages
+from server.typedefs import Languages
 
 
 class Translation(Struct, kw_only=True):

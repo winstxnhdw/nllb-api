@@ -5,7 +5,7 @@ from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
 
 from server.schemas.v1 import Language
-from server.types import AppState
+from server.typedefs import AppState
 
 
 @get('/language', sync_to_thread=False, cache=True)

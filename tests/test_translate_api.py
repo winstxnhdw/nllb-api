@@ -8,7 +8,7 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
-from server.types.languages import Languages
+from server.typedefs.languages import Languages
 from tests.conftest import StatusCode
 
 

@@ -1,7 +1,7 @@
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Literal, overload
 
-from server.types import ComputeTypes, Devices
+from server.typedefs import ComputeTypes, Devices
 
 type BatchTypes = Literal['examples', 'tokens']
 

@@ -6,7 +6,7 @@ from tokenizers import Encoding
 from transformers.models.nllb.tokenization_nllb_fast import NllbTokenizerFast
 
 from server.config import Config
-from server.types import Languages
+from server.typedefs import Languages
 from server.utils import huggingface_download
 
 
@@ -134,7 +134,7 @@ def get_translator() -> Translator:
     if Config.stub_translator:
         return create_autospec(Translator)
 
-    model_path = huggingface_download(Config.translator_model_name)
+    model_path = huggingface_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
     tokeniser = NllbTokenizerFast.from_pretrained(model_path, local_files_only=True)
     translator = CTranslator(
         model_path,
