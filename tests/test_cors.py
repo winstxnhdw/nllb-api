@@ -1,25 +1,11 @@
 # ruff: noqa: S101
 
 
-from httpx import Response
-from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
 from server.app import app, extract_cors_values
 from server.config import Config
-
-
-def get_language(response: Response) -> str | None:
-    return response.json().get('language')
-
-
-def get_confidence(response: Response) -> float | None:
-    return response.json().get('confidence')
-
-
-async def detect_language(client: AsyncTestClient[Litestar], text: str) -> Response:
-    return await client.get('/v4/language', params={'text': text})
 
 
 @mark.anyio
