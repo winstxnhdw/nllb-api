@@ -7,7 +7,7 @@ RUN python -c \
     hf_hub_download('facebook/fasttext-language-identification', 'model.bin')"
 
 
-FROM python:slim AS python-builder
+FROM python AS python-builder
 
 WORKDIR /home/user
 

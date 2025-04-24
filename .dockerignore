@@ -2,16 +2,14 @@
 .dockerignore
 Makefile
 
-*.md
-*.pyc
-Dockerfile*
+**/*.md
+**/*.pyc
+**/Dockerfile*
+**/typings
 
-**/typings/
-cache/
-tests/
 __pycache__/
+tests/
 .github/
-.vscode/
 .venv/
 .ruff_cache/
 .pytest_cache/

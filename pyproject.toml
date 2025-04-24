@@ -2,7 +2,6 @@
 name = "nllb-api"
 version = "4.0.0"
 description = "A fast CPU-based API for NLLB"
-readme = "README.md"
 requires-python = "~=3.13"
 dependencies = [
     "ctranslate2>=4.6.0",
