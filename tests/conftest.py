@@ -6,7 +6,7 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import fixture
 
-from server import app
+from server.app import app
 
 
 class StatusCode(IntEnum):
