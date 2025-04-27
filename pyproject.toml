@@ -21,7 +21,7 @@ cuda = ["nvidia-cublas-cu12>=12.8.4.1"]
 nllb-api = "server:main"
 
 [dependency-groups]
-dev = ["httpx>=0.28.1", "nodejs-wheel-binaries>=22.15.0", "pyright>=1.1.399", "pytest>=8.3.5", "ruff>=0.11.6"]
+dev = ["httpx>=0.28.1", "nodejs-wheel-binaries>=22.15.0", "pyright>=1.1.400", "pytest>=8.3.5", "ruff>=0.11.7"]
 
 [build-system]
 requires = ["hatchling"]
