@@ -2,7 +2,7 @@ from typing import Annotated
 
 from msgspec import Meta, Struct
 
-from server.typedefs import Languages
+from server.typedefs import Languages, Score
 
 
 class Language(Struct, kw_only=True):
@@ -16,9 +16,9 @@ class Language(Struct, kw_only=True):
     language (Languages)
         the detected language
 
-    confidence (float)
+    confidence (Score)
         the confidence score of the detected language
     """
 
     language: Annotated[Languages, Meta(description='language code in the FLORES-200 format', examples=['eng_Latn'])]
-    confidence: Annotated[float, Meta(description='confidence score of the detected language')]
+    confidence: Annotated[Score, Meta(description='confidence score of the detected language')]

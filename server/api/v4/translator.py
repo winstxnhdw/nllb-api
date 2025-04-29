@@ -38,14 +38,14 @@ class TranslatorController(Controller):
             Languages,
             Parameter(
                 description='source language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
+                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
             ),
         ] = 'eng_Latn',
         target: Annotated[
             Languages,
             Parameter(
                 description='target language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
+                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
             ),
         ] = 'spa_Latn',
     ) -> Translated:
@@ -84,14 +84,14 @@ class TranslatorController(Controller):
             Languages,
             Parameter(
                 description='source language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
+                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
             ),
         ] = 'eng_Latn',
         target: Annotated[
             Languages,
             Parameter(
                 description='target language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],  # pylint: disable=no-member
+                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
             ),
         ] = 'spa_Latn',
         event_type: Annotated[
