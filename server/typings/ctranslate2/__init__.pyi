@@ -39,7 +39,7 @@ class Translator:
     ) -> None: ...
     def generate_tokens(
         self,
-        source: list[str],
+        source: Sequence[str],
         target_prefix: Sequence[str] | None = None,
         *,
         max_decoding_length: int = 256,
@@ -51,7 +51,7 @@ class Translator:
         repetition_penalty: float = 1,
         no_repeat_ngram_size: int = 0,
         disable_unk: bool = False,
-        suppress_sequences: list[list[str]] | None = None,
+        suppress_sequences: Sequence[Sequence[str]] | None = None,
         end_token: str | list[str] | list[int] | None = None,
         max_input_length: int = 1024,
         use_vmap: bool = False,

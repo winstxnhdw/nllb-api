@@ -4,7 +4,7 @@ from litestar import get
 from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
 
-from server.schemas.v1 import Language
+from server.schemas.v1 import LanguageResult
 from server.typedefs import AppState
 
 
@@ -23,11 +23,11 @@ def language(
             ],
         ),
     ],
-) -> Language:
+) -> LanguageResult:
     """
     Summary
     -------
     the `/language` route detects the language of the input text
     """
     language, score = state.language_detector.detect(text)
-    return Language(language=language, confidence=score)
+    return LanguageResult(language=language, confidence=score)

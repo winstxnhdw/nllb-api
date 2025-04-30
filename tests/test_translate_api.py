@@ -8,7 +8,7 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
-from server.typedefs.languages import Languages
+from server.typedefs.language import Language
 from tests.conftest import StatusCode
 
 
@@ -41,8 +41,8 @@ async def test_translate_api(
     client: AsyncTestClient[Litestar],
     translate: Callable[[AsyncTestClient[Litestar], str, str, str], Awaitable[Response]],
     text: str,
-    source: Languages,
-    target: Languages,
+    source: Language,
+    target: Language,
     translation: str,
 ) -> None:
     response = await translate(client, text, source, target)
@@ -65,8 +65,8 @@ async def test_translate_with_empty_fields(
     client: AsyncTestClient[Litestar],
     translate: Callable[[AsyncTestClient[Litestar], str, str, str], Awaitable[Response]],
     text: str,
-    source: Languages,
-    target: Languages,
+    source: Language,
+    target: Language,
 ) -> None:
     response = await translate(client, text, source, target)
     assert response.status_code == StatusCode.BAD_REQUEST

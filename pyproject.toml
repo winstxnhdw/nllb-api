@@ -9,9 +9,9 @@ dependencies = [
     "granian>=2.2.5",
     "litestar>=2.15.2",
     "pydantic-settings>=2.9.1",
-    "transformers>=4.51.3",
     "uvloop>=0.21.0; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
+    "tokenizers>=0.21.1",
 ]
 
 [project.optional-dependencies]

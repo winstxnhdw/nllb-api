@@ -7,7 +7,7 @@ from litestar.response.sse import ServerSentEvent
 from litestar.status_codes import HTTP_200_OK
 
 from server.schemas.v1 import Translated, Translation
-from server.typedefs import AppState, Languages
+from server.typedefs import AppState, Language
 
 
 class TranslatorController(Controller):
@@ -35,17 +35,17 @@ class TranslatorController(Controller):
             ),
         ],
         source: Annotated[
-            Languages,
+            Language,
             Parameter(
                 description='source language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
+                examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
         ] = 'eng_Latn',
         target: Annotated[
-            Languages,
+            Language,
             Parameter(
                 description='target language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
+                examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
         ] = 'spa_Latn',
     ) -> Translated:
@@ -81,17 +81,17 @@ class TranslatorController(Controller):
             ),
         ],
         source: Annotated[
-            Languages,
+            Language,
             Parameter(
                 description='source language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
+                examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
         ] = 'eng_Latn',
         target: Annotated[
-            Languages,
+            Language,
             Parameter(
                 description='target language in the FLORES-200 code format',
-                examples=[Example(summary=code, value=code) for code in get_args(Languages.__value__)],
+                examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
         ] = 'spa_Latn',
         event_type: Annotated[

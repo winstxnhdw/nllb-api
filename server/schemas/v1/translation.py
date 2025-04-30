@@ -2,7 +2,7 @@ from typing import Annotated
 
 from msgspec import Meta, Struct
 
-from server.typedefs import Languages
+from server.typedefs import Language
 
 
 class Translation(Struct, kw_only=True):
@@ -16,10 +16,10 @@ class Translation(Struct, kw_only=True):
     text (str)
         source text of a single language
 
-    source (Languages)
+    source (Language)
         source language in the FLORES-200 code format
 
-    target (Languages)
+    target (Language)
         target language in the FLORES-200 code format
     """
 
@@ -29,9 +29,9 @@ class Translation(Struct, kw_only=True):
     ]
 
     source: Annotated[
-        Languages, Meta(description='source language in the FLORES-200 code format', examples=['eng_Latn'])
+        Language, Meta(description='source language in the FLORES-200 code format', examples=['eng_Latn'])
     ]
 
     target: Annotated[
-        Languages, Meta(description='target language in the FLORES-200 code format', examples=['spa_Latn'])
+        Language, Meta(description='target language in the FLORES-200 code format', examples=['spa_Latn'])
     ]

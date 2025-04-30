@@ -4,7 +4,7 @@ from fasttext import load_model
 from fasttext.FastText import _FastText as FastText
 
 from server.config import Config
-from server.typedefs.languages import Languages
+from server.typedefs.language import Language
 from server.utils import huggingface_file_download
 
 type Score = float
@@ -18,7 +18,7 @@ class LanguageDetector:
 
     Methods
     -------
-    detect(text: str) -> tuple[Languages, Score]
+    detect(text: str) -> tuple[Language, Score]
         detect the language of the input text
     """
 
@@ -27,7 +27,7 @@ class LanguageDetector:
     def __init__(self, model: FastText) -> None:
         self.model = model
 
-    def detect(self, text: str) -> tuple[Languages, Score]:
+    def detect(self, text: str) -> tuple[Language, Score]:
         """
         Summary
         -------
@@ -40,7 +40,7 @@ class LanguageDetector:
 
         Returns
         -------
-        language (Languages)
+        language (Language)
             the detected language
 
         score (Score)
