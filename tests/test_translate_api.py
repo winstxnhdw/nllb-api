@@ -5,11 +5,11 @@ from collections.abc import Awaitable, Callable
 
 from httpx import Response
 from litestar import Litestar
+from litestar.status_codes import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_304_NOT_MODIFIED, HTTP_400_BAD_REQUEST
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
 from server.typedefs.language import Language
-from tests.conftest import StatusCode
 
 
 def get_translation(response: Response) -> str | None:
@@ -26,6 +26,26 @@ async def translate_get(client: AsyncTestClient[Litestar], text: str, source: st
 
 async def translate_stream(client: AsyncTestClient[Litestar], text: str, source: str, target: str) -> Response:
     return await client.get('/v4/translator/stream', params={'text': text, 'source': source, 'target': target})
+
+
+async def load_model(client: AsyncTestClient[Litestar], *, keep_cache: bool) -> Response:
+    return await client.post('/v4/translator/load', params={'keep_cache': keep_cache})
+
+
+async def unload_model(client: AsyncTestClient[Litestar], *, to_cpu: bool) -> Response:
+    return await client.post('/v4/translator/unload', params={'to_cpu': to_cpu})
+
+
+@mark.anyio
+async def test_model_loading(client: AsyncTestClient[Litestar]) -> None:
+    response = await load_model(client, keep_cache=False)
+    assert response.status_code == HTTP_304_NOT_MODIFIED
+    response = await unload_model(client, to_cpu=False)
+    assert response.status_code == HTTP_204_NO_CONTENT
+    response = await unload_model(client, to_cpu=False)
+    assert response.status_code == HTTP_304_NOT_MODIFIED
+    response = await load_model(client, keep_cache=False)
+    assert response.status_code == HTTP_204_NO_CONTENT
 
 
 @mark.anyio
@@ -69,7 +89,7 @@ async def test_translate_with_empty_fields(
     target: Language,
 ) -> None:
     response = await translate(client, text, source, target)
-    assert response.status_code == StatusCode.BAD_REQUEST
+    assert response.status_code == HTTP_400_BAD_REQUEST
 
 
 @mark.anyio
@@ -81,4 +101,4 @@ async def test_parallelism(client: AsyncTestClient[Litestar]) -> None:
 
     for task in tasks:
         result = await task
-        assert result.status_code == StatusCode.OK
+        assert result.status_code == HTTP_200_OK

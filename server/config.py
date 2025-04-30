@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from uuid import uuid4
 
 from pydantic_settings import BaseSettings
 
@@ -55,11 +56,15 @@ class Config(BaseSettings):
 
     translator_repository (str)
         the repository to download the translator from
+
+    auth_token (str)
+        the auth token to use for the server
     """
 
     server_port: int = 49494
     server_root_path: str = '/api'
     worker_count: int = 1
+    auth_token: str = str(uuid4())
 
     translator_repository: str = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
     translator_threads: int = 1

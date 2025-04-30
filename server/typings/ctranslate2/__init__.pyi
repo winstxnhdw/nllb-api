@@ -23,6 +23,8 @@ class AsyncTranslationResult:
     def result(self) -> TranslationResult: ...
 
 class Translator:
+    model_is_loaded: bool
+
     def __init__(
         self,
         model_path: str,
@@ -37,6 +39,8 @@ class Translator:
         tensor_parallel: bool = False,
         files: object = None,
     ) -> None: ...
+    def unload_model(self, to_cpu: bool = False) -> None: ...
+    def load_model(self, keep_cache: bool = False) -> None: ...
     def generate_tokens(
         self,
         source: Sequence[str],

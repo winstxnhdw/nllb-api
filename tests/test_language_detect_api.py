@@ -3,10 +3,9 @@
 
 from httpx import Response
 from litestar import Litestar
+from litestar.status_codes import HTTP_400_BAD_REQUEST
 from litestar.testing import AsyncTestClient
 from pytest import mark
-
-from tests.conftest import StatusCode
 
 
 def get_language(response: Response) -> str | None:
@@ -39,7 +38,7 @@ async def test_detect_language_api(client: AsyncTestClient[Litestar], text: str,
 @mark.anyio
 async def test_detect_language_with_empty_text(client: AsyncTestClient[Litestar]) -> None:
     response = await detect_language(client, '')
-    assert response.status_code == StatusCode.BAD_REQUEST
+    assert response.status_code == HTTP_400_BAD_REQUEST
 
 
 @mark.anyio
@@ -53,4 +52,4 @@ async def test_detect_language_with_long_text(client: AsyncTestClient[Litestar])
 
     response = await detect_language(client, text)
 
-    assert response.status_code == StatusCode.BAD_REQUEST
+    assert response.status_code == HTTP_400_BAD_REQUEST

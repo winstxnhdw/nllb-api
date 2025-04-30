@@ -1,11 +1,12 @@
 from typing import Annotated, get_args
 
-from litestar import Controller, get, post
+from litestar import Controller, Response, get, post
 from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
 from litestar.response.sse import ServerSentEvent
-from litestar.status_codes import HTTP_200_OK
+from litestar.status_codes import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_304_NOT_MODIFIED
 
+from server.guards import requires_secret
 from server.schemas.v1 import Translated, Translation
 from server.typedefs import AppState, Language
 
@@ -18,6 +19,40 @@ class TranslatorController(Controller):
     """
 
     path = '/translator'
+
+    @post('/unload', guards=[requires_secret], sync_to_thread=True)
+    def unload_model(
+        self,
+        state: AppState,
+        to_cpu: Annotated[bool, Parameter(default=False, description='whether to unload the model to CPU')],
+    ) -> Response[None]:
+        """
+        Summary
+        -------
+        unload the model from the current device
+        """
+        return Response(
+            content=None,
+            status_code=HTTP_204_NO_CONTENT if state.translator.unload_model(to_cpu=to_cpu) else HTTP_304_NOT_MODIFIED,
+        )
+
+    @post('/load', guards=[requires_secret], sync_to_thread=True)
+    def load_model(
+        self,
+        state: AppState,
+        keep_cache: Annotated[bool, Parameter(default=False, description='whether to keep the model cache in RAM')],
+    ) -> Response[None]:
+        """
+        Summary
+        -------
+        load the model back to the initial device
+        """
+        return Response(
+            content=None,
+            status_code=HTTP_204_NO_CONTENT
+            if state.translator.load_model(keep_cache=keep_cache)
+            else HTTP_304_NOT_MODIFIED,
+        )
 
     @get(cache=True, sync_to_thread=True)
     def translator_get(
