@@ -24,7 +24,8 @@ class TranslatorController(Controller):
     def unload_model(
         self,
         state: AppState,
-        to_cpu: Annotated[bool, Parameter(default=False, description='whether to unload the model to CPU')],
+        *,
+        to_cpu: Annotated[bool, Parameter(description='whether to unload the model to CPU')] = False,
     ) -> Response[None]:
         """
         Summary
@@ -40,7 +41,8 @@ class TranslatorController(Controller):
     def load_model(
         self,
         state: AppState,
-        keep_cache: Annotated[bool, Parameter(default=False, description='whether to keep the model cache in RAM')],
+        *,
+        keep_cache: Annotated[bool, Parameter(description='whether to keep the model cache in RAM')] = False,
     ) -> Response[None]:
         """
         Summary
