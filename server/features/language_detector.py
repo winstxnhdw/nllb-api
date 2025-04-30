@@ -3,10 +3,9 @@ from unittest.mock import create_autospec
 from fasttext import load_model
 from fasttext.FastText import _FastText as FastText
 
+from server.typedefs import Score
 from server.typedefs.language import Language
 from server.utils import huggingface_file_download
-
-type Score = float
 
 
 class LanguageDetector:
