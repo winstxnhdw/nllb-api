@@ -49,15 +49,25 @@ class Config(BaseSettings):
 
     stub_translator (bool)
         whether to use a stub for the translator
+
+    language_detector_repository (str)
+        the repository to download the language detector from
+
+    translator_repository (str)
+        the repository to download the translator from
     """
 
     server_port: int = 49494
     server_root_path: str = '/api'
     worker_count: int = 1
+
+    translator_repository: str = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
     translator_threads: int = 1
-    use_cuda: bool = False
-    stub_language_detector: bool = False
     stub_translator: bool = False
+    use_cuda: bool = False
+
+    language_detector_repository: str = 'facebook/fasttext-language-identification'
+    stub_language_detector: bool = False
 
     access_control_allow_origin: str = '*'
     access_control_allow_method_get: bool = True

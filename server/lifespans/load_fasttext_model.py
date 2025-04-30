@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from litestar import Litestar
 
+from server.config import Config
 from server.features import get_language_detector
 
 
@@ -18,7 +19,10 @@ async def load_fasttext_model(app: Litestar) -> AsyncIterator[None]:
     app (Litestar)
         the application instance
     """
-    app.state.language_detector = get_language_detector()
+    app.state.language_detector = get_language_detector(
+        Config.language_detector_repository,
+        stub=Config.stub_language_detector,
+    )
 
     try:
         yield

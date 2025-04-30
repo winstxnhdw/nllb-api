@@ -5,7 +5,6 @@ from unittest.mock import create_autospec
 from ctranslate2 import Translator as CTranslator
 from tokenizers import Tokenizer
 
-from server.config import Config
 from server.typedefs import Language
 from server.utils import huggingface_download
 
@@ -119,27 +118,41 @@ class Translator:
         )
 
 
-def get_translator() -> Translator:
+def get_translator(repository: str, *, translator_threads: int, stub: bool, use_cuda: bool) -> Translator:
     """
     Summary
     -------
     get the translator object
+
+    Parameters
+    ----------
+    repository (str)
+        the repository to download the model from
+
+    translator_threads (int)
+        the number of threads to use for the translator
+
+    stub (bool)
+        whether to return a stub object
+
+    use_cuda (bool)
+        whether to use CUDA for inference
 
     Returns
     -------
     translator (Translator)
         the translator
     """
-    if Config.stub_translator:
+    if stub:
         return create_autospec(Translator)
 
-    model_path = huggingface_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')
+    model_path = huggingface_download(repository)
     tokeniser = Tokenizer.from_file(str(Path(model_path) / 'tokenizer.json'))
     translator = CTranslator(
         model_path,
-        'cuda' if Config.use_cuda else 'cpu',
+        'cuda' if use_cuda else 'cpu',
         compute_type='auto',
-        inter_threads=Config.translator_threads,
+        inter_threads=translator_threads,
     )
 
     return Translator(translator, tokeniser)

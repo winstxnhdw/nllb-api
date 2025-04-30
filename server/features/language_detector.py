@@ -3,7 +3,6 @@ from unittest.mock import create_autospec
 from fasttext import load_model
 from fasttext.FastText import _FastText as FastText
 
-from server.config import Config
 from server.typedefs.language import Language
 from server.utils import huggingface_file_download
 
@@ -54,20 +53,26 @@ class LanguageDetector:
         )
 
 
-def get_language_detector() -> LanguageDetector:
+def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
     """
     Summary
     -------
     get the language detector
+
+    Parameters
+    ----------
+    repository (str)
+        the repository to download the model from
+
+    stub (bool)
+        whether to return a stub object
 
     Returns
     -------
     language_detector (LanguageDetector)
         the language detector
     """
-    if Config.stub_language_detector:
+    if stub:
         return create_autospec(LanguageDetector)
 
-    return LanguageDetector(
-        load_model(huggingface_file_download('facebook/fasttext-language-identification', 'model.bin'))
-    )
+    return LanguageDetector(load_model(huggingface_file_download(repository, 'model.bin')))
