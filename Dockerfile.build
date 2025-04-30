@@ -1,6 +1,6 @@
 FROM python:slim AS model-builder
 
-RUN pip install huggingface_hub
+RUN pip install huggingface-hub hf-xet
 RUN python -c \
     "from huggingface_hub import snapshot_download, hf_hub_download; \
     snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'); \
