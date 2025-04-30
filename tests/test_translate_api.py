@@ -9,6 +9,7 @@ from litestar.status_codes import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_304_NOT
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
+from server.config import Config
 from server.typedefs.language import Language
 
 
@@ -29,11 +30,19 @@ async def translate_stream(client: AsyncTestClient[Litestar], text: str, source:
 
 
 async def load_model(client: AsyncTestClient[Litestar], *, keep_cache: bool) -> Response:
-    return await client.post('/v4/translator/load', params={'keep_cache': keep_cache})
+    return await client.post(
+        '/v4/translator/load',
+        params={'keep_cache': keep_cache},
+        headers={'Authorization': Config.auth_token},
+    )
 
 
 async def unload_model(client: AsyncTestClient[Litestar], *, to_cpu: bool) -> Response:
-    return await client.post('/v4/translator/unload', params={'to_cpu': to_cpu})
+    return await client.post(
+        '/v4/translator/unload',
+        params={'to_cpu': to_cpu},
+        headers={'Authorization': Config.auth_token},
+    )
 
 
 @mark.anyio
