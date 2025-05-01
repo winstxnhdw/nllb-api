@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-cuda = ["nvidia-cublas-cu12>=12.8.4.1"]
+cuda = ["nvidia-cublas-cu12>=12.9.0.13"]
 
 [project.scripts]
 nllb-api = "server:main"
