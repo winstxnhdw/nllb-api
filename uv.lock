@@ -390,7 +390,7 @@ requires-dist = [
     { name = "fasttext", specifier = ">=0.9.3" },
     { name = "granian", specifier = ">=2.2.5" },
     { name = "litestar", specifier = ">=2.15.2" },
-    { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.8.4.1" },
+    { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.0.13" },
     { name = "picologging", marker = "python_full_version < '3.13'", specifier = ">=0.9.3" },
     { name = "pydantic-settings", specifier = ">=2.9.1" },
     { name = "tokenizers", specifier = ">=0.21.1" },
@@ -462,12 +462,12 @@ wheels = [
 
 [[package]]
 name = "nvidia-cublas-cu12"
-version = "12.8.4.1"
+version = "12.9.0.13"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/29/99/db44d685f0e257ff0e213ade1964fc459b4a690a73293220e98feb3307cf/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:b86f6dd8935884615a0683b663891d43781b819ac4f2ba2b0c9604676af346d0", size = 590537124, upload-time = "2025-03-07T01:43:53.556Z" },
-    { url = "https://files.pythonhosted.org/packages/dc/61/e24b560ab2e2eaeb3c839129175fb330dfcfc29e5203196e5541a4c44682/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:8ac4e771d5a348c551b2a426eda6193c19aa630236b418086020df5ba9667142", size = 594346921, upload-time = "2025-03-07T01:44:31.254Z" },
-    { url = "https://files.pythonhosted.org/packages/70/61/7d7b3c70186fb651d0fbd35b01dbfc8e755f69fd58f817f3d0f642df20c3/nvidia_cublas_cu12-12.8.4.1-py3-none-win_amd64.whl", hash = "sha256:47e9b82132fa8d2b4944e708049229601448aaad7e6f296f630f2d1a32de35af", size = 567544208, upload-time = "2025-03-07T01:53:30.535Z" },
+    { url = "https://files.pythonhosted.org/packages/b3/bb/03d1ad7162859beb0078645a39230a469603e5110175beb377821fdd1b1f/nvidia_cublas_cu12-12.9.0.13-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:752ba5830d4cad93ba49dfe9a5c724cfd864c23073bc5139f56b4d8b44cb82ee", size = 574394588, upload-time = "2025-05-01T19:36:41.307Z" },
+    { url = "https://files.pythonhosted.org/packages/0d/77/503d17375b1ddbf455a9b4fada9b389b218b905d9160b04288049f11cb9d/nvidia_cublas_cu12-12.9.0.13-py3-none-manylinux_2_27_x86_64.whl", hash = "sha256:1a2ca56324acaccb0c9ca8fb40647f04a8c4defd076c6230182805324204765c", size = 580744785, upload-time = "2025-05-01T19:37:23.43Z" },
+    { url = "https://files.pythonhosted.org/packages/08/79/0cf1ed0ccea47067cc2140ab9bd38100de574824a6dc9e12151fb9b39c59/nvidia_cublas_cu12-12.9.0.13-py3-none-win_amd64.whl", hash = "sha256:a525014e22b8adb79d04b70f69fd53d09c7b851002b3d332cd601da3a37276fd", size = 552611067, upload-time = "2025-05-01T19:48:05.162Z" },
 ]
 
 [[package]]
