@@ -29,6 +29,10 @@ async def translate_stream(client: AsyncTestClient[Litestar], text: str, source:
     return await client.get('/v4/translator/stream', params={'text': text, 'source': source, 'target': target})
 
 
+async def count_tokens(client: AsyncTestClient[Litestar], text: str, source: str, target: str) -> Response:
+    return await client.post('/v4/translator/tokens', json={'text': text, 'source': source, 'target': target})
+
+
 async def load_model(client: AsyncTestClient[Litestar], *, keep_cache: bool) -> Response:
     return await client.put(
         '/v4/translator',
@@ -43,6 +47,13 @@ async def unload_model(client: AsyncTestClient[Litestar], *, to_cpu: bool) -> Re
         params={'to_cpu': to_cpu},
         headers={'Authorization': Config.auth_token},
     )
+
+
+@mark.anyio
+async def test_token_count(client: AsyncTestClient[Litestar]) -> None:
+    response = await count_tokens(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
+    assert response.status_code == HTTP_200_OK
+    assert response.json() == {'length': 7}
 
 
 @mark.anyio

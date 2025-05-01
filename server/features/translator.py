@@ -78,6 +78,24 @@ class Translator:
         self.translator.load_model(keep_cache=self.use_cuda and keep_cache)
         return True
 
+    def count_tokens(self, text: str) -> int:
+        """
+        Summary
+        -------
+        count the number of tokens in the input text
+
+        Parameters
+        ----------
+        text (str)
+            the input text
+
+        Returns
+        -------
+        token_count (int)
+            the number of tokens that will be sent to the translator
+        """
+        return len(self.tokeniser.encode(text)) + 1
+
     def translate_generator(self, text: str, source_language: Language, target_language: Language) -> Iterator[int]:
         """
         Summary

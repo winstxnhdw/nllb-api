@@ -1,7 +1,7 @@
-from collections.abc import Sequence
+from collections.abc import Sequence, Sized
 from typing import Self
 
-class Encoding:
+class Encoding(Sized):
     tokens: list[str]
 
 class Tokenizer:
