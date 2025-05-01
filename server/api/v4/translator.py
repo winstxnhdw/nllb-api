@@ -1,6 +1,6 @@
 from typing import Annotated, get_args
 
-from litestar import Controller, Response, get, post
+from litestar import Controller, Response, delete, get, post, put
 from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
 from litestar.response.sse import ServerSentEvent
@@ -20,7 +20,7 @@ class TranslatorController(Controller):
 
     path = '/translator'
 
-    @post('/unload', guards=[requires_secret], sync_to_thread=True)
+    @delete(guards=[requires_secret], sync_to_thread=True)
     def unload_model(
         self,
         state: AppState,
@@ -37,7 +37,7 @@ class TranslatorController(Controller):
             status_code=HTTP_204_NO_CONTENT if state.translator.unload_model(to_cpu=to_cpu) else HTTP_304_NOT_MODIFIED,
         )
 
-    @post('/load', guards=[requires_secret], sync_to_thread=True)
+    @put(guards=[requires_secret], sync_to_thread=True)
     def load_model(
         self,
         state: AppState,

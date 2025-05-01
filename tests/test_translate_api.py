@@ -30,16 +30,16 @@ async def translate_stream(client: AsyncTestClient[Litestar], text: str, source:
 
 
 async def load_model(client: AsyncTestClient[Litestar], *, keep_cache: bool) -> Response:
-    return await client.post(
-        '/v4/translator/load',
+    return await client.put(
+        '/v4/translator',
         params={'keep_cache': keep_cache},
         headers={'Authorization': Config.auth_token},
     )
 
 
 async def unload_model(client: AsyncTestClient[Litestar], *, to_cpu: bool) -> Response:
-    return await client.post(
-        '/v4/translator/unload',
+    return await client.delete(
+        '/v4/translator',
         params={'to_cpu': to_cpu},
         headers={'Authorization': Config.auth_token},
     )
