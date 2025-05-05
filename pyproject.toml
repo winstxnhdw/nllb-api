@@ -14,21 +14,17 @@ dependencies = [
     "tokenizers>=0.21.1",
 ]
 
+[dependency-groups]
+dev = ["httpx>=0.28.1", "nodejs-wheel-binaries>=22.15.0", "pyright>=1.1.400", "pytest>=8.3.5", "ruff>=0.11.8"]
+
 [project.optional-dependencies]
 cuda = ["nvidia-cublas-cu12>=12.9.0.13"]
 
 [project.scripts]
 nllb-api = "server:main"
 
-[dependency-groups]
-dev = ["httpx>=0.28.1", "nodejs-wheel-binaries>=22.15.0", "pyright>=1.1.400", "pytest>=8.3.5", "ruff>=0.11.8"]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.build.targets.wheel]
-packages = ["server"]
+[tool.uv]
+package = true
 
 [tool.ruff]
 line-length = 120
