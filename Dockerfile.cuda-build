@@ -1,4 +1,6 @@
-FROM python:slim AS model-builder
+ARG PYTHON_VERSION=3.13
+
+FROM python:$PYTHON_VERSION-slim AS model-builder
 
 RUN pip install huggingface-hub hf-xet
 RUN python -c \
@@ -7,33 +9,35 @@ RUN python -c \
     hf_hub_download('facebook/fasttext-language-identification', 'model.bin')"
 
 
-FROM python AS python-builder
+FROM python:$PYTHON_VERSION AS python-builder
 
 WORKDIR /home/user
 
-ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
+ENV UV_COMPILE_BYTECODE=1
 ENV UV_NO_CACHE=1
+ENV UV_LOCKED=1
+ENV UV_NO_EDITABLE=1
 ENV PYTHONOPTIMIZE=2
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --frozen --no-dev --extra cuda --no-editable --no-install-project
+RUN uv sync --no-dev --extra cuda --no-install-project
 
 COPY . .
 
-RUN uv sync --frozen --no-dev --extra cuda --no-editable
+RUN uv sync --no-dev --extra cuda
 
 
-FROM python:slim
+FROM python:$PYTHON_VERSION-slim
 
 ENV HOME=/home/user
 ENV PATH=$HOME/.venv/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV USE_CUDA=True
-ENV LD_LIBRARY_PATH=$HOME/.venv/lib/python3.13/site-packages/nvidia/cublas/lib
+ENV LD_LIBRARY_PATH=$HOME/.venv/lib/python$PYTHON_VERSION/site-packages/nvidia/cublas/lib
 ENV HF_HUB_OFFLINE=1
 ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
 
