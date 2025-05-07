@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION=3.13
+ARG PYTHON_VERSION_TAG=3.13
 
-FROM python:$PYTHON_VERSION-slim AS model-builder
+FROM python:$PYTHON_VERSION_TAG-slim AS model-builder
 
 RUN pip install huggingface-hub hf-xet
 RUN python -c \
@@ -9,7 +9,7 @@ RUN python -c \
     hf_hub_download('facebook/fasttext-language-identification', 'model.bin')"
 
 
-FROM python:$PYTHON_VERSION AS python-builder
+FROM python:$PYTHON_VERSION_TAG AS python-builder
 
 WORKDIR /home/user
 
@@ -30,14 +30,16 @@ COPY . .
 RUN uv sync --no-dev --extra cuda
 
 
-FROM python:$PYTHON_VERSION-slim
+FROM python:$PYTHON_VERSION_TAG-slim
+
+ARG PYTHON_VERSION_TAG
 
 ENV HOME=/home/user
 ENV PATH=$HOME/.venv/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV USE_CUDA=True
-ENV LD_LIBRARY_PATH=$HOME/.venv/lib/python$PYTHON_VERSION/site-packages/nvidia/cublas/lib
+ENV LD_LIBRARY_PATH=$HOME/.venv/lib/python$PYTHON_VERSION_TAG/site-packages/nvidia/cublas/lib
 ENV HF_HUB_OFFLINE=1
 ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
 
