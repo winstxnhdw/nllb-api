@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["httpx>=0.28.1", "nodejs-wheel-binaries>=22.16.0", "pyright>=1.1.401", "pytest>=8.3.5", "ruff>=0.11.10"]
+dev = ["httpx>=0.28.1", "nodejs-wheel-binaries>=22.16.0", "pyright>=1.1.401", "pytest>=8.3.5", "ruff>=0.11.11"]
 
 [project.optional-dependencies]
 cuda = ["nvidia-cublas-cu12>=12.9.0.13"]
