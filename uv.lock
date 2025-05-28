@@ -374,7 +374,7 @@ wheels = [
 
 [[package]]
 name = "nllb-api"
-version = "4.0.0"
+version = "4.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "ctranslate2" },
