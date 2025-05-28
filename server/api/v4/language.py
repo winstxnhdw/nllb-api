@@ -15,7 +15,7 @@ def language(
         str,
         Parameter(
             description='Sample text for language detection',
-            max_length=20,
+            max_length=512,
             min_length=1,
             examples=[
                 Example(summary='English', description='text in English (eng_Latn)', value='She sells seashells!'),
