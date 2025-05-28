@@ -47,9 +47,9 @@ async def test_detect_language_with_long_text(client: AsyncTestClient[Litestar])
         'She sells seashells by the seashore, '
         'The shells she sells are surely seashells. '
         'So if she sells shells on the seashore, '
-        "I'm sure she sells seashore shells."
+        "I'm sure she sells seashore shells. "
     )
 
-    response = await detect_language(client, text)
+    response = await detect_language(client, text * 100)
 
     assert response.status_code == HTTP_400_BAD_REQUEST
