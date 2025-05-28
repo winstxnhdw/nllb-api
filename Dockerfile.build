@@ -1,4 +1,4 @@
-ARG USE_CUDA=False
+ARG USE_CUDA=""
 ARG PYTHON_VERSION_TAG=3.13
 
 FROM python:$PYTHON_VERSION_TAG-slim AS model-builder

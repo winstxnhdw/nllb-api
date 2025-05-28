@@ -5,6 +5,7 @@ from litestar import Litestar, Response, Router
 from litestar.config.cors import CORSConfig
 from litestar.openapi import OpenAPIConfig
 from litestar.openapi.spec import Server
+from litestar.plugins.prometheus import PrometheusConfig, PrometheusController
 from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 from litestar.types import Method
 
@@ -67,7 +68,7 @@ def app() -> Litestar:
     )
 
     openapi_config = OpenAPIConfig(
-        title='nllb-api',
+        title=Config.app_name,
         version='4.1.0',
         description=description,
         use_handler_docstrings=True,
@@ -77,7 +78,7 @@ def app() -> Litestar:
     v4_router = Router(
         '/v4',
         tags=['v4'],
-        route_handlers=[v4.index, v4.language, v4.TranslatorController],
+        route_handlers=[v4.language, v4.TranslatorController],
     )
 
     allow_methods_dict: dict[Method | Literal['*'], bool] = {
@@ -104,6 +105,7 @@ def app() -> Litestar:
         openapi_config=openapi_config,
         cors_config=cors_config,
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
-        route_handlers=[v4_router],
+        route_handlers=[PrometheusController, v4_router],
         lifespan=[load_fasttext_model, load_translator_model],
+        middleware=[PrometheusConfig(app_name=Config.app_name).middleware],
     )

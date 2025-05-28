@@ -61,6 +61,7 @@ class Config(BaseSettings):
         the auth token to use for the server
     """
 
+    app_name: str = 'nllb-api'
     server_port: int = 49494
     server_root_path: str = '/api'
     worker_count: int = 1
