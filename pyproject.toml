@@ -1,6 +1,6 @@
 [project]
 name = "nllb-api"
-version = "4.0.0"
+version = "4.2.0"
 description = "A fast CPU-based API for NLLB"
 requires-python = "~=3.13"
 dependencies = [

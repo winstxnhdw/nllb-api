@@ -69,7 +69,7 @@ def app() -> Litestar:
 
     openapi_config = OpenAPIConfig(
         title=Config.app_name,
-        version='4.1.0',
+        version='4.2.0',
         description=description,
         use_handler_docstrings=True,
         servers=[Server(url=Config.server_root_path)],
