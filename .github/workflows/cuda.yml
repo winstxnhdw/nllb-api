@@ -2,11 +2,10 @@ name: CUDA
 
 on:
   push:
-    branches: main
+    branches: [main]
     paths:
       - .github/workflows/cuda.yml
       - .dockerignore
-      - Dockerfile.cuda-build
       - uv.lock
       - pyproject.toml
       - '**.py'
@@ -27,7 +26,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6.18.0
         with:
+          file: Dockerfile.build
           push: false
-          tags: cuda
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            USE_CUDA=1

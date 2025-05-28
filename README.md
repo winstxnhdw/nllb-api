@@ -303,17 +303,21 @@ docker run --rm \
 
 ### CUDA Support
 
-You can accelerate your inference with CUDA by building and using `Dockerfile.cuda-build` instead.
+You can accelerate your inference with CUDA by building with the `USE_CUDA` build argument.
 
 ```bash
-docker build -f Dockerfile.cuda-build -t nllb-api .
+docker build --build-arg USE_CUDA=1 -f Dockerfile.build -t nllb-api .
 ```
 
 After building the image, you can run the image with the following.
 
+> [!NOTE]\
+> `OMP_NUM_THREADS` and `TRANSLATOR_THREADS` has no effect when CUDA is enabled.
+
 ```bash
 docker run --rm --gpus all \
   -e SERVER_PORT=7860 \
+  -e WORKER_COUNT=1 \
   -p 7860:7860 \
   nllb-api
 ```
