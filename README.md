@@ -11,7 +11,7 @@
 
 A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb) distilled 1.3B 8-bit quantised variant, hosted on Hugging Face Spaces. To achieve faster executions, we are using [CTranslate2](https://github.com/OpenNMT/CTranslate2) as our inference engine.
 
-> [!WARNING]\
+> [!IMPORTANT]\
 > NLLB was trained with input lengths not exceeding 512 tokens. Translating longer sequences might result in quality degradation. Consider splitting your input into smaller chunks if you begin observing artefacts.
 
 ## Usage
