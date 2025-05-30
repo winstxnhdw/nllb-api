@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/cuda.yml
       - .dockerignore
+      - Dockerfile.build
       - uv.lock
       - pyproject.toml
       - '**.py'
