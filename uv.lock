@@ -382,6 +382,7 @@ dependencies = [
     { name = "granian" },
     { name = "litestar" },
     { name = "prometheus-client" },
+    { name = "py-consul" },
     { name = "pydantic-settings" },
     { name = "tokenizers" },
     { name = "uvloop", marker = "sys_platform != 'win32'" },
@@ -410,6 +411,7 @@ requires-dist = [
     { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.1.4" },
     { name = "picologging", marker = "python_full_version < '3.13'", specifier = ">=0.9.3" },
     { name = "prometheus-client", specifier = ">=0.22.1" },
+    { name = "py-consul", specifier = ">=1.6.0" },
     { name = "pydantic-settings", specifier = ">=2.9.1" },
     { name = "tokenizers", specifier = ">=0.21.1" },
     { name = "uvloop", marker = "sys_platform != 'win32'", specifier = ">=0.21.0" },
@@ -526,6 +528,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5e/cf/40dde0a2be27cc1eb41e333d1a674a74ce8b8b0457269cc640fd42b07cf7/prometheus_client-0.22.1.tar.gz", hash = "sha256:190f1331e783cf21eb60bca559354e0a4d4378facecf78f5428c39b675d20d28", size = 69746, upload-time = "2025-06-02T14:29:01.152Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/32/ae/ec06af4fe3ee72d16973474f122541746196aaa16cea6f66d18b963c6177/prometheus_client-0.22.1-py3-none-any.whl", hash = "sha256:cca895342e308174341b2cbf99a56bef291fbc0ef7b9e5412a0f26d653ba7094", size = 58694, upload-time = "2025-06-02T14:29:00.068Z" },
+]
+
+[[package]]
+name = "py-consul"
+version = "1.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/00/c2/dbab1b7dc4e09f28001de0785e553caf4ea5844c68e29a08806b26e230c5/py_consul-1.6.0.tar.gz", hash = "sha256:a5ba8347178b0172aa1388e6584ae34ad0d14e22ae7bc8ee53071c24de5c8712", size = 35420, upload-time = "2025-04-10T14:43:39.192Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1b/db/20523e1d191a8199a56167d61c277ec4874abe26ac6c461e6cf166850b12/py_consul-1.6.0-py2.py3-none-any.whl", hash = "sha256:2ffd6b9dd794da99393b75ff78fd786917c3afbfe71ac46292f7099457e68fdf", size = 37245, upload-time = "2025-04-10T14:43:37.84Z" },
 ]
 
 [[package]]

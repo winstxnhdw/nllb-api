@@ -13,6 +13,7 @@ dependencies = [
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.21.1",
     "prometheus-client>=0.22.1",
+    "py-consul>=1.6.0",
 ]
 
 [dependency-groups]

@@ -9,9 +9,9 @@ from litestar.plugins.prometheus import PrometheusConfig, PrometheusController
 from litestar.status_codes import HTTP_500_INTERNAL_SERVER_ERROR
 from litestar.types import Method
 
-from server.api import v4
+from server.api import health, v4
 from server.config import Config
-from server.lifespans import load_fasttext_model, load_translator_model
+from server.lifespans import consul_register, load_fasttext_model, load_translator_model
 
 
 def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
@@ -105,7 +105,7 @@ def app() -> Litestar:
         openapi_config=openapi_config,
         cors_config=cors_config,
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
-        route_handlers=[PrometheusController, v4_router],
-        lifespan=[load_fasttext_model, load_translator_model],
+        route_handlers=[PrometheusController, v4_router, health],
+        lifespan=[load_fasttext_model, load_translator_model, consul_register],
         middleware=[PrometheusConfig(app_name=Config.app_name).middleware],
     )

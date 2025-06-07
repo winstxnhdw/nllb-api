@@ -30,6 +30,9 @@ class Config(BaseSettings):
 
     Attributes
     ----------
+    app_name (str)
+        the name of the application
+
     server_port (int)
         the port to run the server on
 
@@ -39,26 +42,83 @@ class Config(BaseSettings):
     worker_count (int)
         the number of workers to use
 
-    translator_threads (int)
-        the number of threads for the translator
-
-    use_cuda (bool)
-        whether to use CUDA for inference
-
-    stub_language_detector (bool)
-        whether to use a stub for the language detector
-
-    stub_translator (bool)
-        whether to use a stub for the translator
-
-    language_detector_repository (str)
-        the repository to download the language detector from
+    auth_token (str)
+        the auth token to use for the server
 
     translator_repository (str)
         the repository to download the translator from
 
-    auth_token (str)
-        the auth token to use for the server
+    translator_threads (int)
+        the number of threads for the translator
+
+    stub_translator (bool)
+        whether to use a stub for the translator
+
+    use_cuda (bool)
+        whether to use CUDA for inference
+
+    language_detector_repository (str)
+        the repository to download the language detector from
+
+    stub_language_detector (bool)
+        whether to use a stub for the language detector
+
+    access_control_allow_origin (str)
+        the allowed origins for CORS
+
+    access_control_allow_method_get (bool)
+        whether to allow GET requests for CORS
+
+    access_control_allow_method_post (bool)
+        whether to allow POST requests for CORS
+
+    access_control_allow_method_options (bool)
+        whether to allow OPTIONS requests for CORS
+
+    access_control_allow_method_delete (bool)
+        whether to allow DELETE requests for CORS
+
+    access_control_allow_method_put (bool)
+        whether to allow PUT requests for CORS
+
+    access_control_allow_method_patch (bool)
+        whether to allow PATCH requests for CORS
+
+    access_control_allow_method_head (bool)
+        whether to allow HEAD requests for CORS
+
+    access_control_allow_method_trace (bool)
+        whether to allow TRACE requests for CORS
+
+    access_control_allow_credentials (bool)
+        whether to allow credentials for CORS
+
+    access_control_allow_headers (str)
+        the allowed headers for CORS
+
+    access_control_expose_headers (str)
+        the exposed headers for CORS
+
+    access_control_max_age (int)
+        the maximum age for CORS preflight requests
+
+    consul_auth_token (str?)
+        the auth token for Consul
+
+    consul_service_name (str)
+        the name of the Consul service
+
+    consul_service_address (str?)
+        the address of the Consul service
+
+    consul_service_port (int)
+        the port of the Consul service
+
+    consul_service_scheme (str)
+        the scheme for the Consul service (http or https)
+
+    consul_service_token (str?)
+        the token for the Consul service
     """
 
     app_name: str = 'nllb-api'
@@ -88,3 +148,10 @@ class Config(BaseSettings):
     access_control_allow_headers: str = '*'
     access_control_expose_headers: str = '*'
     access_control_max_age: int = 600
+
+    consul_auth_token: str | None = None
+    consul_service_name: str = 'nllb-api'
+    consul_service_address: str | None = None
+    consul_service_port: int = 443
+    consul_service_scheme: str = 'https'
+    consul_service_token: str | None = None
