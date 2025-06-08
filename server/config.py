@@ -105,9 +105,6 @@ class Config(BaseSettings):
     consul_auth_token (str?)
         the auth token for Consul
 
-    consul_service_name (str)
-        the name of the Consul service
-
     consul_service_address (str?)
         the address of the Consul service
 
@@ -150,7 +147,6 @@ class Config(BaseSettings):
     access_control_max_age: int = 600
 
     consul_auth_token: str | None = None
-    consul_service_name: str = 'nllb-api'
     consul_service_address: str | None = None
     consul_service_port: int = 443
     consul_service_scheme: str = 'https'
