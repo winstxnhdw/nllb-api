@@ -25,6 +25,15 @@ class Translator:
 
     translate_stream(text: str, source_language: Language, target_language: Language) -> Iterator[str]
         streams the translation input from the source language to the target language
+
+    unload_model(to_cpu: bool) -> bool
+        unload the model from the current device
+
+    load_model(keep_cache: bool) -> bool
+        load the model back to the initial device
+
+    count_tokens(text: str) -> int
+        count the number of tokens in the input text
     """
 
     __slots__ = ('tokeniser', 'translator', 'use_cuda')
