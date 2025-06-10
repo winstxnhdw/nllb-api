@@ -13,10 +13,6 @@ from server.config import Config
 from server.typedefs.language import Language
 
 
-def get_translation(response: Response) -> str | None:
-    return response.json().get('result')
-
-
 async def translate_post(client: AsyncTestClient[Litestar], text: str, source: str, target: str) -> Response:
     return await client.post('/v4/translator', json={'text': text, 'source': source, 'target': target})
 
@@ -86,7 +82,7 @@ async def test_translate_api(
     translation: str,
 ) -> None:
     response = await translate(client, text, source, target)
-    assert get_translation(response) == translation
+    assert response.json().get('result') == translation
 
 
 @mark.anyio
@@ -119,6 +115,4 @@ async def test_parallelism(client: AsyncTestClient[Litestar]) -> None:
             task_group.create_task(translate_post(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')) for _ in range(3)
         ]
 
-    for task in tasks:
-        result = await task
-        assert result.status_code == HTTP_200_OK
+    assert all(task.result().status_code == HTTP_200_OK for task in tasks)
