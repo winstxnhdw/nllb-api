@@ -7,6 +7,6 @@ def health() -> None:
     """
     Summary
     -------
-    the `/health` will only return a 204 status code
+    the `/health` endpoint will only return a 204 status code
     """
     return
