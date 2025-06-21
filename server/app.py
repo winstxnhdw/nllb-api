@@ -1,4 +1,3 @@
-from logging import getLogger
 from typing import Literal
 
 from litestar import Litestar, Response, Router
@@ -12,6 +11,7 @@ from litestar.types import Method
 from server.api import health, v4
 from server.config import Config
 from server.lifespans import consul_register, load_fasttext_model, load_translator_model
+from server.logger import AppLogger
 
 
 def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
@@ -29,10 +29,11 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
     -------
     response (Response[dict[str, str]]) : the response
     """
-    getLogger('custom.access').error(exception, exc_info=True)
+    error_message = 'Internal Server Error'
+    AppLogger.error(error_message, exc_info=exception)
 
     return Response(
-        content={'detail': 'Internal Server Error'},
+        content={'detail': error_message},
         status_code=HTTP_500_INTERNAL_SERVER_ERROR,
     )
 
