@@ -8,7 +8,7 @@ on:
       - Dockerfile.build
       - uv.lock
       - pyproject.toml
-      - '**.py'
+      - server/**
 
 jobs:
   test:
@@ -16,6 +16,12 @@ jobs:
 
   build:
     if: github.ref == 'refs/heads/main'
+    uses: winstxnhdw/actions/.github/workflows/docker-build.yml@main
+    with:
+      file: Dockerfile.build
+
+  push:
+    needs: [test, build]
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
     with:
       file: Dockerfile.build

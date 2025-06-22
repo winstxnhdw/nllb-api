@@ -9,7 +9,7 @@ on:
       - Dockerfile.build
       - uv.lock
       - pyproject.toml
-      - '**.py'
+      - server/**
 
 jobs:
   build:

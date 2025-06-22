@@ -2,8 +2,8 @@ name: Deploy
 
 on:
   push:
-    branches: main
-    paths: Dockerfile
+    branches: [main]
+    paths: [Dockerfile]
 
 jobs:
   deploy:
