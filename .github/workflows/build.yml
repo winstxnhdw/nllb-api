@@ -15,12 +15,12 @@ jobs:
     uses: winstxnhdw/actions/.github/workflows/uv.yml@main
 
   build:
-    if: github.ref == 'refs/heads/main'
     uses: winstxnhdw/actions/.github/workflows/docker-build.yml@main
     with:
       file: Dockerfile.build
 
   push:
+    if: github.ref == 'refs/heads/main'
     needs: [test, build]
     uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
     with:
