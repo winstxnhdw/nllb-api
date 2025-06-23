@@ -1,7 +1,7 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from consul import Consul
+from aiohttp import ClientSession
 
 from server.api import health
 from server.config import Config
@@ -19,39 +19,50 @@ async def consul_register(_) -> AsyncIterator[None]:
     app (Litestar)
         the application instance
     """
-    if not Config.consul_service_address:
+    if not Config.consul_http_addr or not Config.consul_service_address:
         yield
         return
 
-    consul = Consul()
-
-    if Config.consul_auth_token:
-        consul.http.session.headers.update({'Authorization': Config.consul_auth_token})  # pyright: ignore [reportAttributeAccessIssue]
+    headers: dict[str, str] = {}
+    consul_server = f'https://{Config.consul_http_addr}/v1/agent/service'
 
     health_endpoint = (
         f'{Config.consul_service_scheme}://{Config.consul_service_address}:{Config.consul_service_port}'
         f'{Config.server_root_path}{health.paths.pop()}'
     )
 
-    consul_service_check = {
-        'http': health_endpoint,
-        'interval': '10s',
-        'timeout': '5s',
+    health_check = {
+        'HTTP': health_endpoint,
+        'Interval': '10s',
+        'Timeout': '5s',
     }
 
-    consul.agent.service.register(
-        name=Config.app_name,
-        address=Config.consul_service_address,
-        port=Config.consul_service_port,
-        check=consul_service_check,
-        token=Config.consul_service_token,
-    )
+    payload = {
+        'Name': Config.app_name,
+        'Tags': ['prometheus'],
+        'Address': Config.consul_service_address,
+        'Port': Config.consul_service_port,
+        'Check': health_check,
+        'Meta': {
+            'metrics_port': f'{Config.consul_service_port}',
+            'metrics_path': '/metrics',
+        },
+    }
 
-    try:
-        yield
+    if Config.consul_auth_token:
+        headers['Authorization'] = f'Bearer {Config.consul_auth_token}'
 
-    finally:
-        consul.agent.service.deregister(
-            service_id=Config.app_name,
-            token=Config.consul_service_token,
-        )
+    async with ClientSession(headers=headers) as session:
+        async with session.put(
+            f'{consul_server}/register',
+            json=payload,
+            params={'replace-existing-checks': 'true'},
+        ) as response:
+            response.raise_for_status()
+
+        try:
+            yield
+
+        finally:
+            async with session.put(f'{consul_server}/deregister/{Config.app_name}'):
+                pass

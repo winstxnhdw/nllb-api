@@ -146,8 +146,8 @@ class Config(BaseSettings):
     access_control_expose_headers: str = '*'
     access_control_max_age: int = 600
 
+    consul_http_addr: str | None = None
     consul_auth_token: str | None = None
     consul_service_address: str | None = None
     consul_service_port: int = 443
     consul_service_scheme: str = 'https'
-    consul_service_token: str | None = None
