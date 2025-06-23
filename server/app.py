@@ -1,3 +1,5 @@
+from functools import partial
+from logging import Logger, getLogger
 from typing import Literal
 
 from litestar import Litestar, Response, Router
@@ -11,10 +13,9 @@ from litestar.types import Method
 from server.api import health, v4
 from server.config import Config
 from server.lifespans import consul_register, load_fasttext_model, load_translator_model
-from server.logger import AppLogger
 
 
-def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
+def exception_handler(logger: Logger, _, exception: Exception) -> Response[dict[str, str]]:
     """
     Summary
     -------
@@ -22,15 +23,21 @@ def exception_handler(_, exception: Exception) -> Response[dict[str, str]]:
 
     Parameters
     ----------
-    request (Request) : the request
-    exception (Exception) : the exception
+    logger (Logger)
+        the logger instance
+
+    request (Request)
+        the request
+
+    exception (Exception)
+        the exception
 
     Returns
     -------
     response (Response[dict[str, str]]) : the response
     """
     error_message = 'Internal Server Error'
-    AppLogger.error(error_message, exc_info=exception)
+    logger.error(error_message, exc_info=exception)
 
     return Response(
         content={'detail': error_message},
@@ -63,6 +70,7 @@ def app() -> Litestar:
     -------
     the Litestar application
     """
+    logger = getLogger('custom.access')
     description = (
         "A performant high-throughput CPU-based API for Meta's No Language Left Behind (NLLB) using CTranslate2, "
         'hosted on Hugging Face Spaces.'
@@ -105,7 +113,7 @@ def app() -> Litestar:
     return Litestar(
         openapi_config=openapi_config,
         cors_config=cors_config,
-        exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: exception_handler},
+        exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: partial(exception_handler, logger)},
         route_handlers=[PrometheusController, v4_router, health],
         lifespan=[load_fasttext_model, load_translator_model, consul_register],
         middleware=[PrometheusConfig(app_name=Config.app_name).middleware],
