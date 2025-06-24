@@ -167,5 +167,5 @@ def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
 
     return LanguageDetector(
         load_model(huggingface_file_download(repository, 'model.bin')),
-        LanguageDetectorBuilder().from_all_languages_without(LinguaLanguage.LATIN).build(),
+        LanguageDetectorBuilder.from_all_languages_without(LinguaLanguage.LATIN).build(),
     )
