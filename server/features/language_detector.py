@@ -184,5 +184,5 @@ def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
         load_model(huggingface_file_download(repository, 'model.bin')),
         lingua_model,
         fast_threshold=0.85,
-        lingua_threshold=0.85,
+        lingua_threshold=0.15,
     )
