@@ -75,8 +75,8 @@ class TranslatorController(Controller):
                 min_length=1,
                 description='source text of a single language',
                 examples=[
-                    Example(summary='English', value='Hello, world!'),
-                    Example(summary='Spanish', value='¡Hola, mundo!'),
+                    Example(summary='English', description='text in English (eng_Latn)', value='Hello, world!'),
+                    Example(summary='Spanish', description='text in Spanish (spa_Latn)', value='¡Hola, mundo!'),
                 ],
             ),
         ],
@@ -121,8 +121,8 @@ class TranslatorController(Controller):
                 min_length=1,
                 description='source text of a single language',
                 examples=[
-                    Example(summary='English', value='Hello, world!'),
-                    Example(summary='Spanish', value='¡Hola, mundo!'),
+                    Example(summary='English', description='text in English (eng_Latn)', value='Hello, world!'),
+                    Example(summary='Spanish', description='text in Spanish (spa_Latn)', value='¡Hola, mundo!'),
                 ],
             ),
         ],

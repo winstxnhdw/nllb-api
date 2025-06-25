@@ -15,7 +15,7 @@ def language(
     text: Annotated[
         str,
         Parameter(
-            description='Sample text for language detection',
+            description='sample text for language detection',
             max_length=512,
             min_length=1,
             examples=[
@@ -24,6 +24,33 @@ def language(
             ],
         ),
     ],
+    fast_model_confidence_threshold: Annotated[
+        float,
+        Parameter(
+            query='fast-model-confidence-threshold',
+            description='minimum acceptable confidence before using the accurate model results',
+            ge=0.0,
+            le=1.1,
+            examples=[
+                Example(summary='Default', description='hand-tuned threshold for general use', value=0.85),
+                Example(summary='Max Accuracy', description='use the limited but accurate model', value=1.1),
+                Example(summary='Max Throughput', description='use the fast but less accurate model', value=0.0),
+            ],
+        ),
+    ] = 0.85,
+    accurate_model_confidence_threshold: Annotated[
+        float,
+        Parameter(
+            query='accurate-model-confidence-threshold',
+            description='minimum acceptable confidence before falling back to the faster model results',
+            ge=0.0,
+            le=1.0,
+            examples=[
+                Example(summary='Default', description='hand-tuned threshold for general use', value=0.15),
+                Example(summary='Max Accuracy', description='use the limited but accurate model', value=0.0),
+            ],
+        ),
+    ] = 0.35,
 ) -> LanguageResult:
     """
     Summary
@@ -31,7 +58,12 @@ def language(
     the `/language` route detects the language of the input text
     """
     try:
-        language, confidence = state.language_detector.detect(text)
+        language, confidence = state.language_detector.detect(
+            text,
+            fast_model_confidence_threshold=fast_model_confidence_threshold,
+            accurate_model_confidence_threshold=accurate_model_confidence_threshold,
+        )
+
         return LanguageResult(language=language, confidence=confidence)
 
     except ValueError as error:

@@ -19,13 +19,9 @@ async def load_fasttext_model(app: Litestar) -> AsyncIterator[None]:
     app (Litestar)
         the application instance
     """
-    app.state.language_detector = get_language_detector(
+    with get_language_detector(
         Config.language_detector_repository,
         stub=Config.stub_language_detector,
-    )
-
-    try:
+    ) as language_detector:
+        app.state.language_detector = language_detector
         yield
-
-    finally:
-        del app.state.language_detector

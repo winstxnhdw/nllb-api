@@ -1,3 +1,4 @@
+from typing import Self
 from unittest.mock import create_autospec
 
 from fasttext import load_model
@@ -22,22 +23,16 @@ class LanguageDetector:
         detect the language of the input text
     """
 
-    __slots__ = ('fast_model', 'fast_threshold', 'lingua_languages', 'lingua_model', 'lingua_threshold')
+    __slots__ = ('fast_model', 'lingua_languages', 'lingua_model')
 
     def __init__(
         self,
         fast_model: FastText,
         lingua_model: LinguaLanguageDetector,
-        *,
-        fast_threshold: float,
-        lingua_threshold: float,
     ) -> None:
-        self.fast_threshold = fast_threshold
-        self.lingua_threshold = lingua_threshold
         self.fast_model = fast_model
         self.lingua_model = lingua_model
         self.lingua_languages = [
-            None,  # Padding
             'afr_Latn',
             'als_Latn',
             'arb_Latn',
@@ -115,7 +110,21 @@ class LanguageDetector:
             'zul_Latn',
         ]
 
-    def detect(self, text: str) -> tuple[Language, Confidence]:
+    def __enter__(self) -> Self:
+        return self
+
+    def __exit__(self, *_) -> None:
+        self.lingua_model.unload_language_models()
+        del self.fast_model
+        del self.lingua_model
+
+    def detect(
+        self,
+        text: str,
+        *,
+        fast_model_confidence_threshold: float,
+        accurate_model_confidence_threshold: float,
+    ) -> tuple[Language, Confidence]:
         """
         Summary
         -------
@@ -125,6 +134,12 @@ class LanguageDetector:
         ----------
         text (str)
             the input to detect the language of
+
+        fast_model_confidence_threshold (float)
+            the confidence threshold for the faster model
+
+        accurate_model_confidence_threshold (float)
+            the confidence threshold for the accurate model
 
         Returns
         -------
@@ -138,16 +153,16 @@ class LanguageDetector:
         fast_label: Language = labels[0][9:]  # pyright: ignore [reportAssignmentType]
         fast_confidence = float(scores[0])
 
-        if fast_confidence >= self.fast_threshold:
+        if fast_confidence >= fast_model_confidence_threshold:
             return fast_label, fast_confidence
 
         confidence_value = self.lingua_model.compute_language_confidence_values(text)[0]
 
-        if (confidence := confidence_value.value) <= self.lingua_threshold:
+        if (confidence := confidence_value.value) <= accurate_model_confidence_threshold:
             return fast_label, fast_confidence
 
         return (
-            self.lingua_languages[confidence_value.language.value],  # pyright: ignore [reportReturnType]
+            self.lingua_languages[int(confidence_value.language)],  # pyright: ignore [reportReturnType, reportArgumentType]
             confidence,
         )
 
@@ -183,6 +198,4 @@ def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
     return LanguageDetector(
         load_model(huggingface_file_download(repository, 'model.bin')),
         lingua_model,
-        fast_threshold=0.85,
-        lingua_threshold=0.15,
     )
