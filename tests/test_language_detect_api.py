@@ -23,10 +23,7 @@ async def detect_language(client: AsyncTestClient[Litestar], text: str) -> Respo
 @mark.anyio
 @mark.parametrize(
     ('text', 'language'),
-    [
-        ('She sells seashells.', 'eng_Latn'),
-        ('Ella vende conchas.', 'spa_Latn'),
-    ],
+    [('She sells seashells.', 'eng_Latn'), ('Ella vende conchas.', 'spa_Latn')],
 )
 async def test_detect_language_api(client: AsyncTestClient[Litestar], text: str, language: str) -> None:
     response = await detect_language(client, text)
@@ -52,4 +49,14 @@ async def test_detect_language_with_long_text(client: AsyncTestClient[Litestar])
 
     response = await detect_language(client, text * 100)
 
+    assert response.status_code == HTTP_400_BAD_REQUEST
+
+
+@mark.anyio
+@mark.parametrize(
+    'text',
+    ['She sells seashells\n', 'She sells seashells\r\n'],
+)
+async def test_detect_language_with_newline(client: AsyncTestClient[Litestar], text: str) -> None:
+    response = await detect_language(client, text)
     assert response.status_code == HTTP_400_BAD_REQUEST

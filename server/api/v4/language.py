@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from litestar import get
+from litestar.exceptions import ClientException
 from litestar.openapi.spec.example import Example
 from litestar.params import Parameter
 
@@ -29,5 +30,12 @@ def language(
     -------
     the `/language` route detects the language of the input text
     """
-    language, score = state.language_detector.detect(text)
-    return LanguageResult(language=language, confidence=score)
+    try:
+        language, confidence = state.language_detector.detect(text)
+        return LanguageResult(language=language, confidence=confidence)
+
+    except ValueError as error:
+        raise ClientException(
+            status_code=400,
+            detail='Invalid input text. No newline character(s) are allowed!',
+        ) from error

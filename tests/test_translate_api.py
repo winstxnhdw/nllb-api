@@ -64,6 +64,7 @@ async def test_model_loading(client: AsyncTestClient[Litestar]) -> None:
     assert response.status_code == HTTP_204_NO_CONTENT
 
 
+@mark.slow
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get])
 @mark.parametrize(
@@ -85,12 +86,14 @@ async def test_translate_api(
     assert response.json().get('result') == translation
 
 
+@mark.slow
 @mark.anyio
 async def test_translate_stream_api(client: AsyncTestClient[Litestar]) -> None:
     response = await translate_stream(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
     assert response.headers['Content-Type'] == 'text/event-stream; charset=utf-8'
 
 
+@mark.slow
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get, translate_stream])
 @mark.parametrize(
@@ -108,6 +111,7 @@ async def test_translate_with_empty_fields(
     assert response.status_code == HTTP_400_BAD_REQUEST
 
 
+@mark.slow
 @mark.anyio
 async def test_parallelism(client: AsyncTestClient[Litestar]) -> None:
     async with TaskGroup() as task_group:

@@ -6,7 +6,7 @@ from lingua import Language as LinguaLanguage
 from lingua import LanguageDetector as LinguaLanguageDetector
 from lingua import LanguageDetectorBuilder
 
-from server.typedefs import Language, Score
+from server.typedefs import Confidence, Language
 from server.utils import huggingface_file_download
 
 
@@ -115,7 +115,7 @@ class LanguageDetector:
             'zul_Latn',
         ]
 
-    def detect(self, text: str) -> tuple[Language, Score]:
+    def detect(self, text: str) -> tuple[Language, Confidence]:
         """
         Summary
         -------
@@ -131,20 +131,20 @@ class LanguageDetector:
         language (Language)
             the detected language
 
-        score (Score)
+        confidence (Confidence)
             the confidence score of the detected language
         """
         labels, scores = next(zip(*self.fast_model.predict([text]), strict=True))
         fast_label: Language = labels[0][9:]  # pyright: ignore [reportAssignmentType]
-        fast_score = float(scores[0])
+        fast_confidence = float(scores[0])
 
-        if fast_score >= self.fast_threshold:
-            return fast_label, fast_score
+        if fast_confidence >= self.fast_threshold:
+            return fast_label, fast_confidence
 
         confidence_value = self.lingua_model.compute_language_confidence_values(text)[0]
 
         if (confidence := confidence_value.value) <= self.lingua_threshold:
-            return fast_label, fast_score
+            return fast_label, fast_confidence
 
         return (
             self.lingua_languages[confidence_value.language.value],  # pyright: ignore [reportReturnType]
