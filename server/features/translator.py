@@ -1,5 +1,6 @@
 from collections.abc import Iterator
 from pathlib import Path
+from typing import Self
 from unittest.mock import create_autospec
 
 from ctranslate2 import Translator as CTranslator
@@ -42,6 +43,13 @@ class Translator:
         self.tokeniser = tokeniser
         self.translator = translator
         self.use_cuda = use_cuda
+
+    def __enter__(self) -> Self:
+        return self
+
+    def __exit__(self, *_) -> None:
+        del self.tokeniser
+        del self.translator
 
     def unload_model(self, *, to_cpu: bool) -> bool:
         """
