@@ -46,8 +46,8 @@ async def unload_model(client: AsyncTestClient[Litestar], *, to_cpu: bool) -> Re
 
 
 @mark.anyio
-async def test_token_count(client: AsyncTestClient[Litestar]) -> None:
-    response = await count_tokens(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
+async def test_token_count(session_client: AsyncTestClient[Litestar]) -> None:
+    response = await count_tokens(session_client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
     assert response.status_code == HTTP_200_OK
     assert response.json() == {'length': 7}
 
@@ -64,7 +64,6 @@ async def test_model_loading(client: AsyncTestClient[Litestar]) -> None:
     assert response.status_code == HTTP_204_NO_CONTENT
 
 
-@mark.slow
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get])
 @mark.parametrize(
@@ -75,25 +74,23 @@ async def test_model_loading(client: AsyncTestClient[Litestar]) -> None:
     ],
 )
 async def test_translate_api(
-    client: AsyncTestClient[Litestar],
+    session_client: AsyncTestClient[Litestar],
     translate: Callable[[AsyncTestClient[Litestar], str, str, str], Awaitable[Response]],
     text: str,
     source: Language,
     target: Language,
     translation: str,
 ) -> None:
-    response = await translate(client, text, source, target)
+    response = await translate(session_client, text, source, target)
     assert response.json().get('result') == translation
 
 
-@mark.slow
 @mark.anyio
-async def test_translate_stream_api(client: AsyncTestClient[Litestar]) -> None:
-    response = await translate_stream(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
+async def test_translate_stream_api(session_client: AsyncTestClient[Litestar]) -> None:
+    response = await translate_stream(session_client, 'Hello, world!', 'eng_Latn', 'spa_Latn')
     assert response.headers['Content-Type'] == 'text/event-stream; charset=utf-8'
 
 
-@mark.slow
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get, translate_stream])
 @mark.parametrize(
@@ -101,22 +98,22 @@ async def test_translate_stream_api(client: AsyncTestClient[Litestar]) -> None:
     [('Hello, world!', '', 'spa_Latn'), ('Hello, world!', 'eng_Latn', ''), ('', 'eng_Latn', 'spa_Latn')],
 )
 async def test_translate_with_empty_fields(
-    client: AsyncTestClient[Litestar],
+    session_client: AsyncTestClient[Litestar],
     translate: Callable[[AsyncTestClient[Litestar], str, str, str], Awaitable[Response]],
     text: str,
     source: Language,
     target: Language,
 ) -> None:
-    response = await translate(client, text, source, target)
+    response = await translate(session_client, text, source, target)
     assert response.status_code == HTTP_400_BAD_REQUEST
 
 
-@mark.slow
 @mark.anyio
-async def test_parallelism(client: AsyncTestClient[Litestar]) -> None:
+async def test_parallelism(session_client: AsyncTestClient[Litestar]) -> None:
     async with TaskGroup() as task_group:
         tasks = [
-            task_group.create_task(translate_post(client, 'Hello, world!', 'eng_Latn', 'spa_Latn')) for _ in range(3)
+            task_group.create_task(translate_post(session_client, 'Hello, world!', 'eng_Latn', 'spa_Latn'))
+            for _ in range(3)
         ]
 
     assert all(task.result().status_code == HTTP_200_OK for task in tasks)

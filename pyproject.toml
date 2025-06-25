@@ -34,7 +34,21 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D", "Q", "TC", "ANN001", "PLC0414", "INP001", "S104", "PYI001", "COM812", "SLF001", "PT013", "PLR0913"]
+ignore = [
+    "D",
+    "Q",
+    "TC",
+    "ANN001",
+    "ANN002",
+    "PLC0414",
+    "INP001",
+    "S104",
+    "PYI001",
+    "COM812",
+    "SLF001",
+    "PT013",
+    "PLR0913",
+]
 
 [tool.ruff.format]
 quote-style = "single"
