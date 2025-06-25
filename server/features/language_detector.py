@@ -22,13 +22,22 @@ class LanguageDetector:
         detect the language of the input text
     """
 
-    __slots__ = ('fast_model', 'lingua_languages', 'lingua_model')
+    __slots__ = ('fast_model', 'fast_threshold', 'lingua_languages', 'lingua_model', 'lingua_threshold')
 
-    def __init__(self, fast_model: FastText, lingua_model: LinguaLanguageDetector) -> None:
+    def __init__(
+        self,
+        fast_model: FastText,
+        lingua_model: LinguaLanguageDetector,
+        *,
+        fast_threshold: float,
+        lingua_threshold: float,
+    ) -> None:
+        self.fast_threshold = fast_threshold
+        self.lingua_threshold = lingua_threshold
         self.fast_model = fast_model
         self.lingua_model = lingua_model
         self.lingua_languages = [
-            None,
+            None,  # Padding
             'afr_Latn',
             'als_Latn',
             'arb_Latn',
@@ -66,7 +75,7 @@ class LanguageDetector:
             'jpn_Jpan',
             'kaz_Cyrl',
             'kor_Hang',
-            None,
+            None,  # Latin is not supported by NLLB
             'lvs_Latn',
             'lit_Latn',
             'mkd_Cyrl',
@@ -129,12 +138,12 @@ class LanguageDetector:
         fast_label: Language = labels[0][9:]  # pyright: ignore [reportAssignmentType]
         fast_score = float(scores[0])
 
-        if fast_score >= 0.85:  # noqa: PLR2004
+        if fast_score >= self.fast_threshold:
             return fast_label, fast_score
 
         confidence_value = self.lingua_model.compute_language_confidence_values(text)[0]
 
-        if (confidence := confidence_value.value) <= 0.1:  # noqa: PLR2004
+        if (confidence := confidence_value.value) <= self.lingua_threshold:
             return fast_label, fast_score
 
         return (
@@ -165,7 +174,15 @@ def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
     if stub:
         return create_autospec(LanguageDetector)
 
+    lingua_model = (
+        LanguageDetectorBuilder.from_all_languages_without(LinguaLanguage.LATIN)
+        .with_preloaded_language_models()
+        .build()
+    )
+
     return LanguageDetector(
         load_model(huggingface_file_download(repository, 'model.bin')),
-        LanguageDetectorBuilder.from_all_languages_without(LinguaLanguage.LATIN).build(),
+        lingua_model,
+        fast_threshold=0.85,
+        lingua_threshold=0.85,
     )
