@@ -150,7 +150,6 @@ class LanguageDetector:
         return self
 
     def __exit__(self, *_) -> None:
-        self.lingua_model.unload_language_models()
         del self.fast_model
         del self.lingua_model
 
