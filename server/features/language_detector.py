@@ -184,13 +184,12 @@ class LanguageDetector:
         confidence (Confidence)
             the confidence score of the detected language
         """
-        fast_confidence, label = next(
-            (confidence, label)
+        fast_label: Language
+        fast_confidence, fast_label = next(
+            (confidence, label[9:])  # pyright: ignore [reportAssignmentType]
             for confidence, label in self.fast_model.predict(text, self.fast_k, 0.0, 'strict')
             if label not in self.fast_extra_labels
         )
-
-        fast_label: Language = label[9:]  # pyright: ignore [reportAssignmentType]
 
         if fast_confidence >= fast_model_confidence_threshold:
             return fast_label, fast_confidence
