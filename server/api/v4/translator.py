@@ -7,7 +7,7 @@ from litestar.response.sse import ServerSentEvent
 from litestar.status_codes import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_304_NOT_MODIFIED
 
 from server.guards import requires_secret
-from server.schemas.v1 import Tokens, Translated, Translation
+from server.schemas.v1 import Text, Tokens, Translated, Translation
 from server.typedefs import AppState, Language
 
 
@@ -57,7 +57,11 @@ class TranslatorController(Controller):
         )
 
     @post('/tokens', status_code=HTTP_200_OK, sync_to_thread=True)
-    def token_count(self, state: AppState, data: Translation) -> Tokens:
+    def token_count(
+        self,
+        state: AppState,
+        data: Text,
+    ) -> Tokens:
         """
         Summary
         -------

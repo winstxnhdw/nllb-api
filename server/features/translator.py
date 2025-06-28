@@ -138,7 +138,7 @@ class Translator:
         results = self.translator.generate_tokens(
             (source_language, *self.tokeniser.encode(text).tokens),
             target_prefix,
-            max_decoding_length=1024,
+            max_decoding_length=4096,
             sampling_temperature=0,
             no_repeat_ngram_size=3,
             max_input_length=0,

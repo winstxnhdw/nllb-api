@@ -12,13 +12,7 @@ from server.utils import huggingface_file_download
 
 class FastTextProtocol(Protocol):
     def loadModel(self, model_path: str) -> None: ...  # noqa: N802
-    def predict(
-        self,
-        text: str,
-        k: int,
-        threshold: float,
-        on_unicode_error: str,
-    ) -> list[tuple[float, str]]: ...
+    def predict(self, text: str, k: int, threshold: float, on_unicode_error: str) -> list[tuple[float, str]]: ...
 
 
 class LanguageDetector:
@@ -31,6 +25,7 @@ class LanguageDetector:
     -------
     detect(
         text: str,
+        *,
         fast_model_confidence_threshold: float,
         accurate_model_confidence_threshold: float
     ) -> tuple[Language, Confidence]
@@ -45,6 +40,33 @@ class LanguageDetector:
         lingua_model: LinguaLanguageDetector,
     ) -> None:
         self.fast_model = fast_model
+        self.fast_extra_labels = {
+            '__label__ton_Latn',
+            '__label__oss_Cyrl',
+            '__label__che_Cyrl',
+            '__label__ady_Cyrl',
+            '__label__tah_Latn',
+            '__label__diq_Latn',
+            '__label__nia_Latn',
+            '__label__nav_Latn',
+            '__label__abk_Cyrl',
+            '__label__bxr_Cyrl',
+            '__label__wes_Latn',
+            '__label__gom_Deva',
+            '__label__udm_Cyrl',
+            '__label__roh_Latn',
+            '__label__alt_Cyrl',
+            '__label__arn_Latn',
+            '__label__ewo_Latn',
+            '__label__xmf_Geor',
+            '__label__pcm_Latn',
+            '__label__bis_Latn',
+            '__label__krc_Cyrl',
+            '__label__chv_Cyrl',
+            '__label__kal_Latn',
+        }
+
+        self.fast_k = len(self.fast_extra_labels) + 1
         self.lingua_model = lingua_model
         self.lingua_languages = [
             'afr_Latn',
@@ -123,33 +145,6 @@ class LanguageDetector:
             'yor_Latn',
             'zul_Latn',
         ]
-
-        self.fast_extra_labels = {
-            '__label__ton_Latn',
-            '__label__oss_Cyrl',
-            '__label__che_Cyrl',
-            '__label__ady_Cyrl',
-            '__label__tah_Latn',
-            '__label__diq_Latn',
-            '__label__nia_Latn',
-            '__label__nav_Latn',
-            '__label__abk_Cyrl',
-            '__label__bxr_Cyrl',
-            '__label__wes_Latn',
-            '__label__gom_Deva',
-            '__label__udm_Cyrl',
-            '__label__roh_Latn',
-            '__label__alt_Cyrl',
-            '__label__arn_Latn',
-            '__label__ewo_Latn',
-            '__label__xmf_Geor',
-            '__label__pcm_Latn',
-            '__label__bis_Latn',
-            '__label__krc_Cyrl',
-            '__label__chv_Cyrl',
-            '__label__kal_Latn',
-        }
-        self.fast_k = len(self.fast_extra_labels) + 1
 
     def __enter__(self) -> Self:
         return self
