@@ -64,5 +64,4 @@ async def consul_register(_) -> AsyncIterator[None]:
             yield
 
         finally:
-            async with session.put(f'{consul_server}/deregister/{Config.app_name}'):
-                pass
+            pass
