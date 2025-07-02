@@ -1,0 +1,19 @@
+class Language:
+    language: str
+    confidence: float
+
+class TranslatorClient:
+    def __init__(
+        self,
+        base_url: str = 'https://winstxnhdw-nllb-api.hf.space',
+        *,
+        auth_token: str | None = None,
+        http_proxy: str | None = None,
+        https_proxy: str | None = None,
+        no_proxy: str | None = None,
+    ) -> None: ...
+    async def load_model(self, *, keep_cache: bool = False) -> bool: ...
+    async def unload_model(self, *, to_cpu: bool = False) -> bool: ...
+    async def detect_language(self, text: str) -> Language: ...
+    async def translate(self, text: str, *, source: str, target: str) -> str: ...
+    async def count_tokens(self, text: str) -> int: ...

@@ -4,3 +4,4 @@
 cache/
 .vscode/
 *.egg-info/
+**/target

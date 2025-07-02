@@ -9,6 +9,7 @@ Makefile
 
 __pycache__/
 tests/
+client/
 .github/
 .venv/
 .ruff_cache/
