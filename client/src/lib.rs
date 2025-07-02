@@ -10,7 +10,6 @@ use pyo3::types::PyString;
 use pyo3_async_runtimes::tokio::future_into_py;
 use reqwest::header;
 use reqwest::Client;
-use reqwest::NoProxy;
 use reqwest::Proxy;
 use serde::Deserialize;
 use serde::Serialize;
@@ -85,8 +84,11 @@ impl TranslatorClient {
     ) -> PyResult<Self> {
         let mut headers = header::HeaderMap::new();
 
-        let auth_token_header =
-            auth_token.and_then(|token| header::HeaderValue::from_str(token).ok());
+        let auth_token_header = auth_token.and_then(|token| {
+            let mut header = header::HeaderValue::try_from(token).ok()?;
+            header.set_sensitive(true);
+            Some(header)
+        });
 
         if let Some(header) = auth_token_header {
             headers.insert(header::AUTHORIZATION, header);
@@ -98,7 +100,7 @@ impl TranslatorClient {
 
         let no_proxy_maybe = no_proxy
             .or(env::var("NO_PROXY").ok().as_deref())
-            .and_then(NoProxy::from_string);
+            .and_then(reqwest::NoProxy::from_string);
 
         let http_proxy_maybe = http_proxy
             .or(env::var("HTTP_PROXY").ok().as_deref())
@@ -117,7 +119,6 @@ impl TranslatorClient {
         }
 
         let client = client_builder.build().map_err(python_error)?;
-
         let translator_client = TranslatorClient {
             client: Arc::new(client),
             base_url: Arc::new(format!("{}/api", base_url)),
@@ -166,14 +167,16 @@ impl TranslatorClient {
         future_into_py(py, async move {
             let url = format!("{}/v4/translator", base_url);
             let request = LoadQuery { keep_cache };
-            let response = client
+            let success = client
                 .put(url)
                 .query(&request)
                 .send()
                 .await
-                .map_err(python_error)?;
+                .map_err(python_error)?
+                .status()
+                .is_success();
 
-            Ok(response.status().is_success())
+            Ok(success)
         })
     }
 
@@ -185,14 +188,16 @@ impl TranslatorClient {
         future_into_py(py, async move {
             let url = format!("{}/v4/translator", base_url);
             let request = UnloadQuery { to_cpu };
-            let response = client
+            let success = client
                 .delete(url)
                 .query(&request)
                 .send()
                 .await
-                .map_err(python_error)?;
+                .map_err(python_error)?
+                .status()
+                .is_success();
 
-            Ok(response.status().is_success())
+            Ok(success)
         })
     }
 
@@ -227,9 +232,10 @@ impl TranslatorClient {
                 .map_err(python_error)?
                 .json::<TranslateResponse>()
                 .await
-                .map_err(python_error)?;
+                .map_err(python_error)?
+                .result;
 
-            Ok(response.result)
+            Ok(response)
         })
     }
 
@@ -255,9 +261,10 @@ impl TranslatorClient {
                 .map_err(python_error)?
                 .json::<TokenResponse>()
                 .await
-                .map_err(python_error)?;
+                .map_err(python_error)?
+                .length;
 
-            Ok(response.length)
+            Ok(response)
         })
     }
 }
