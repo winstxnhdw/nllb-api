@@ -49,7 +49,7 @@ struct LanguageQuery<'a> {
 
 #[derive(Deserialize)]
 struct TokenResponse {
-    length: usize,
+    length: u32,
 }
 
 #[derive(Serialize)]
