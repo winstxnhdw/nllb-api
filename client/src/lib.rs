@@ -119,7 +119,7 @@ impl TranslatorClient {
         }
 
         let client = client_builder.build().map_err(python_error)?;
-        let translator_client = TranslatorClient {
+        let translator_client = Self {
             client: Arc::new(client),
             base_url: Arc::new(format!("{}/api", base_url)),
         };
