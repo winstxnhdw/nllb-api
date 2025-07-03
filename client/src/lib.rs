@@ -16,6 +16,8 @@ use serde::Serialize;
 use std::env;
 use std::sync::Arc;
 
+const DEFAULT_BASE_URL: &str = "https://winstxnhdw-nllb-api.hf.space";
+
 #[pyclass(frozen, immutable_type)]
 struct TranslatorClient {
     client: Arc<Client>,
@@ -74,9 +76,9 @@ fn python_error<E: std::fmt::Display>(error: E) -> pyo3::PyErr {
 #[pymethods]
 impl TranslatorClient {
     #[new]
-    #[pyo3(signature = (base_url = "https://winstxnhdw-nllb-api.hf.space", *, auth_token = None, http_proxy = None, https_proxy = None, no_proxy = None))]
+    #[pyo3(signature = (base_url = DEFAULT_BASE_URL.to_string(), *, auth_token = None, http_proxy = None, https_proxy = None, no_proxy = None))]
     fn new(
-        base_url: &str,
+        base_url: String,
         auth_token: Option<&str>,
         http_proxy: Option<&str>,
         https_proxy: Option<&str>,
