@@ -4,6 +4,7 @@
 [![deploy.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/deploy.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/deploy.yml)
 [![build.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml)
 [![cuda.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/cuda.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/cuda.yml)
+[![client.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/client.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/client.yml)
 [![formatter.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml)
 
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/winstxnhdw/nllb-api)
@@ -233,6 +234,8 @@ Zulu                               | zul_Latn
 
 </details>
 
+### cURL
+
 ```bash
 curl 'https://winstxnhdw-nllb-api.hf.space/api/v4/translator?text=Hello&source=eng_Latn&target=spa_Latn'
 ```
@@ -247,6 +250,28 @@ You can also determine the source language by querying the following API.
 
 ```bash
 curl 'https://winstxnhdw-nllb-api.hf.space/api/v4/language?text=Hello'
+```
+
+### Python
+
+Install the `nllb` Rust client library.
+
+```bash
+pip install "nllb @ git+https://git@github.com/winstxnhdw/nllb-api.git#subdirectory=client"
+```
+
+Then, you can use the `TranslatorClient` to interact with the API.
+
+```python
+from nllb import TranslatorClient
+
+async def main():
+    text = "Hello, world!"
+    client = TranslatorClient("https://winstxnhdw-nllb-api.hf.space")
+    source_language_response = await client.detect_language(text)
+    response = await client.translate(text, source=source_language_response.language, target="spa_Latn")
+
+asyncio.run(main())
 ```
 
 ## Self-Hosting
