@@ -1,9 +1,15 @@
 {
-	"extends": ["github>winstxnhdw/renovate"],
+	"extends": [
+		"github>winstxnhdw/renovate"
+	],
 	"packageRules": [
 		{
-			"matchPaths": ["client/**"],
-			"matchPackageNames": ["python"],
+			"matchFileNames": [
+				"client/**"
+			],
+			"matchPackageNames": [
+				"python"
+			],
 			"enabled": false
 		}
 	]
