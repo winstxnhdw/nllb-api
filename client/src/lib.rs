@@ -16,17 +16,14 @@ use serde::Serialize;
 use std::env;
 use std::sync::Arc;
 
-#[cfg_attr(any(not(Py_3_8), not(Py_3_9)), pyclass(frozen, immutable_type))]
+#[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(frozen, immutable_type))]
 #[cfg_attr(any(Py_3_8, Py_3_9), pyclass(frozen))]
 struct TranslatorClient {
     client: Arc<Client>,
     base_url: Arc<String>,
 }
 
-#[cfg_attr(
-    any(not(Py_3_8), not(Py_3_9)),
-    pyclass(frozen, get_all, immutable_type)
-)]
+#[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(frozen, get_all, immutable_type))]
 #[cfg_attr(any(Py_3_8, Py_3_9), pyclass(frozen, get_all))]
 #[allow(dead_code)]
 #[derive(Deserialize)]
