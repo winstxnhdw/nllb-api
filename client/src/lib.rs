@@ -28,7 +28,7 @@ struct TranslateResponse {
 }
 
 #[derive(Serialize)]
-struct TranslateRequest<'a> {
+struct TranslateQuery<'a> {
     text: &'a str,
     source: &'a str,
     target: &'a str,
@@ -69,6 +69,21 @@ struct UnloadQuery {
 
 fn python_error<E: std::fmt::Display>(error: E) -> pyo3::PyErr {
     pyo3::exceptions::PyRuntimeError::new_err(error.to_string())
+}
+
+trait WithGIL: Sized {
+    fn with_gil<F>(f: F) -> PyResult<Self>
+    where
+        F: for<'py> FnOnce(Python<'py>) -> PyResult<Self>;
+}
+
+impl<T> WithGIL for T {
+    fn with_gil<F>(f: F) -> PyResult<Self>
+    where
+        F: for<'py> FnOnce(Python<'py>) -> PyResult<Self>,
+    {
+        Python::with_gil(f)
+    }
 }
 
 #[pymethods]
@@ -137,17 +152,17 @@ impl TranslatorClient {
 
         future_into_py(py, async move {
             let url = format!("{}/v4/language", base_url);
-            let request = Python::with_gil(|py| -> PyResult<LanguageQuery> {
-                let request = LanguageQuery {
+            let query = LanguageQuery::with_gil(|py| {
+                let query = LanguageQuery {
                     text: text.to_str(py)?,
                 };
 
-                Ok(request)
+                Ok(query)
             })?;
 
             let response = client
                 .get(url)
-                .query(&request)
+                .query(&query)
                 .send()
                 .await
                 .map_err(python_error)?
@@ -214,8 +229,8 @@ impl TranslatorClient {
 
         future_into_py(py, async move {
             let url = format!("{}/v4/translator", base_url);
-            let request = Python::with_gil(|py| -> PyResult<TranslateRequest> {
-                let request = TranslateRequest {
+            let request = TranslateQuery::with_gil(|py| {
+                let request = TranslateQuery {
                     text: text.to_str(py)?,
                     source: source.to_str(py)?,
                     target: target.to_str(py)?,
@@ -245,7 +260,7 @@ impl TranslatorClient {
 
         future_into_py(py, async move {
             let url = format!("{}/v4/translator/tokens", base_url);
-            let request = Python::with_gil(|py| -> PyResult<TokenRequest> {
+            let request = TokenRequest::with_gil(|py| {
                 let request = TokenRequest {
                     text: text.to_str(py)?,
                 };
