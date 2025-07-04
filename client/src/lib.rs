@@ -289,7 +289,7 @@ impl TranslatorClient {
     }
 }
 
-#[pyo3::prelude::pymodule(name = "nllb")]
+#[pyo3::prelude::pymodule()]
 fn nllb(m: &Bound<'_, pyo3::prelude::PyModule>) -> PyResult<()> {
     m.add_class::<TranslatorClient>()?;
     m.add_class::<Language>()?;
