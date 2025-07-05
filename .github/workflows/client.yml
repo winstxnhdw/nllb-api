@@ -61,6 +61,7 @@ jobs:
             python-version: ${{ matrix.python-version }}
             activate-environment: true
             working-directory: client
+            cache-dependency-glob: '**/uv.lock'
 
       - name: Install client for nllb-api
         run: uv pip install .
