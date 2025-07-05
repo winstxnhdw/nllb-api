@@ -260,16 +260,16 @@ Install the `nllb` Rust client library.
 pip install "nllb @ git+https://git@github.com/winstxnhdw/nllb-api.git#subdirectory=client"
 ```
 
-Then, you can use the `TranslatorClient` to interact with the API.
+Then, you can use the `AsyncTranslatorClient` to interact with the API.
 
 ```python
-from nllb import TranslatorClient
+from nllb import AsyncTranslatorClient
 
 async def main():
     text = "Hello, world!"
-    client = TranslatorClient("https://winstxnhdw-nllb-api.hf.space")
-    source_language_response = await client.detect_language(text)
-    response = await client.translate(text, source=source_language_response.language, target="spa_Latn")
+    client = AsyncTranslatorClient("http://localhost:7860")
+    language_prediction = await client.detect_language(text)
+    response = await client.translate(text, source=language_prediction.language, target="spa_Latn")
 
 asyncio.run(main())
 ```
