@@ -147,38 +147,6 @@ impl TranslatorClient {
         Ok(translator_client)
     }
 
-    fn detect_language<'a>(
-        &self,
-        py: Python<'a>,
-        text: Py<PyString>,
-    ) -> PyResult<Bound<'a, PyAny>> {
-        let client = self.client.clone();
-        let base_url = self.base_url.clone();
-
-        future_into_py(py, async move {
-            let url = format!("{}/v4/language", base_url);
-            let query = LanguageQuery::with_gil(|py| {
-                let query = LanguageQuery {
-                    text: text.to_str(py)?,
-                };
-
-                Ok(query)
-            })?;
-
-            let response = client
-                .get(url)
-                .query(&query)
-                .send()
-                .await
-                .map_err(python_error)?
-                .json::<Language>()
-                .await
-                .map_err(python_error)?;
-
-            Ok(response)
-        })
-    }
-
     #[pyo3(signature = (*, keep_cache = false))]
     fn load_model<'a>(&self, py: Python<'a>, keep_cache: bool) -> PyResult<Bound<'a, PyAny>> {
         let client = self.client.clone();
@@ -218,6 +186,38 @@ impl TranslatorClient {
                 .is_success();
 
             Ok(success)
+        })
+    }
+
+    fn detect_language<'a>(
+        &self,
+        py: Python<'a>,
+        text: Py<PyString>,
+    ) -> PyResult<Bound<'a, PyAny>> {
+        let client = self.client.clone();
+        let base_url = self.base_url.clone();
+
+        future_into_py(py, async move {
+            let url = format!("{}/v4/language", base_url);
+            let query = LanguageQuery::with_gil(|py| {
+                let query = LanguageQuery {
+                    text: text.to_str(py)?,
+                };
+
+                Ok(query)
+            })?;
+
+            let response = client
+                .get(url)
+                .query(&query)
+                .send()
+                .await
+                .map_err(python_error)?
+                .json::<Language>()
+                .await
+                .map_err(python_error)?;
+
+            Ok(response)
         })
     }
 
@@ -274,8 +274,8 @@ impl TranslatorClient {
             })?;
 
             let response = client
-                .post(url)
-                .json(&request)
+                .get(url)
+                .query(&request)
                 .send()
                 .await
                 .map_err(python_error)?
