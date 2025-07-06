@@ -166,11 +166,13 @@ impl AsyncPyTranslatorClient {
         let client = self.client.clone();
 
         future_into_py(py, async move {
-            let (text_str, source_str, target_str) =
-                Python::with_gil(|py| -> PyResult<(&str, &str, &str)> {
-                    let query = (text.to_str(py)?, source.to_str(py)?, target.to_str(py)?);
-                    Ok(query)
-                })?;
+            let (text_str, source_str, target_str) = Python::with_gil(|py| -> PyResult<_> {
+                let text = text.to_str(py)?;
+                let source = source.to_str(py)?;
+                let target = target.to_str(py)?;
+
+                Ok((text, source, target))
+            })?;
 
             let response = client
                 .translate(text_str, source_str, target_str)
