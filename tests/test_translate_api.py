@@ -5,7 +5,13 @@ from collections.abc import Awaitable, Callable
 
 from httpx import Response
 from litestar import Litestar
-from litestar.status_codes import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_304_NOT_MODIFIED, HTTP_400_BAD_REQUEST
+from litestar.status_codes import (
+    HTTP_200_OK,
+    HTTP_204_NO_CONTENT,
+    HTTP_304_NOT_MODIFIED,
+    HTTP_400_BAD_REQUEST,
+    HTTP_401_UNAUTHORIZED,
+)
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
@@ -61,6 +67,10 @@ async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str)
     assert response.status_code == HTTP_304_NOT_MODIFIED
     response = await load_model(client, auth_token=auth_token, keep_cache=False)
     assert response.status_code == HTTP_204_NO_CONTENT
+    response = await unload_model(client, auth_token=f'{auth_token}+', to_cpu=True)
+    assert response.status_code == HTTP_401_UNAUTHORIZED
+    response = await load_model(client, auth_token=f'{auth_token}+', keep_cache=True)
+    assert response.status_code == HTTP_401_UNAUTHORIZED
 
 
 @mark.anyio

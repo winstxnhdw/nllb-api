@@ -121,4 +121,5 @@ def app(config: Config | None = None) -> Litestar:
         lifespan=[load_fasttext_model, load_translator_model, consul_register],
         middleware=[PrometheusConfig(app_name).middleware],
         state=State({'config': config}),
+        opt={'auth_token': config.auth_token},
     )
