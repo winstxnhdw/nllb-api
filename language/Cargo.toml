@@ -1,0 +1,96 @@
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[package]
+name = "language"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "language"
+crate-type = ["cdylib"]
+
+[dependencies]
+lingua = { version = "1.7.2", default-features = false, features = [
+    "afrikaans",
+    "albanian",
+    "arabic",
+    "armenian",
+    "azerbaijani",
+    "basque",
+    "belarusian",
+    "bengali",
+    "bokmal",
+    "bosnian",
+    "bulgarian",
+    "catalan",
+    "chinese",
+    "croatian",
+    "czech",
+    "danish",
+    "dutch",
+    "english",
+    "esperanto",
+    "estonian",
+    "finnish",
+    "french",
+    "ganda",
+    "georgian",
+    "german",
+    "greek",
+    "gujarati",
+    "hebrew",
+    "hindi",
+    "hungarian",
+    "icelandic",
+    "indonesian",
+    "irish",
+    "italian",
+    "japanese",
+    "kazakh",
+    "korean",
+    "latvian",
+    "lithuanian",
+    "macedonian",
+    "malay",
+    "maori",
+    "marathi",
+    "mongolian",
+    "nynorsk",
+    "persian",
+    "polish",
+    "portuguese",
+    "punjabi",
+    "romanian",
+    "russian",
+    "serbian",
+    "shona",
+    "slovak",
+    "slovene",
+    "somali",
+    "sotho",
+    "spanish",
+    "swahili",
+    "swedish",
+    "tagalog",
+    "tamil",
+    "telugu",
+    "thai",
+    "tsonga",
+    "tswana",
+    "turkish",
+    "ukrainian",
+    "urdu",
+    "vietnamese",
+    "welsh",
+    "xhosa",
+    "yoruba",
+    "zulu",
+] }
+pyo3 = "0.25.1"
+pyo3-async-runtimes = { version = "0.25.0", features = ["tokio-runtime"] }
+
+[build-dependencies]
+pyo3-build-config = { version = "0.25.1", features = ["resolve-config"] }

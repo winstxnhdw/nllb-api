@@ -56,10 +56,10 @@ def language(
     -------
     the `/language` route detects the language of the input text
     """
-    language, confidence = state.language_detector.detect(
+    prediction = state.language_detector.detect(
         text,
-        fast_model_confidence_threshold=fast_model_confidence_threshold,
-        accurate_model_confidence_threshold=accurate_model_confidence_threshold,
+        fasttext_confidence_threshold=fast_model_confidence_threshold,
+        lingua_confidence_threshold=accurate_model_confidence_threshold,
     )
 
-    return LanguageResult(language=language, confidence=confidence)
+    return LanguageResult(language=prediction.language, confidence=prediction.confidence)

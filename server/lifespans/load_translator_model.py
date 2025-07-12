@@ -18,6 +18,9 @@ async def load_translator_model(_, state: AppState) -> AsyncIterator[None]:
     ----------
     app (Litestar)
         the application instance
+
+    state (AppState)
+        the application state
     """
     config = state.config
 

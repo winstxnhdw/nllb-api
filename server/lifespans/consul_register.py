@@ -22,6 +22,9 @@ async def consul_register(_, state: AppState) -> AsyncIterator[None]:
     ----------
     app (Litestar)
         the application instance
+
+    state (AppState)
+        the application state
     """
     config = state.config
 

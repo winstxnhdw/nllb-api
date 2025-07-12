@@ -24,6 +24,7 @@ ENV PYTHONOPTIMIZE=2
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock ./
+COPY language language
 
 RUN uv sync --no-dev --no-install-project ${USE_CUDA:+--extra cuda}
 

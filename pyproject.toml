@@ -14,7 +14,7 @@ dependencies = [
     "tokenizers>=0.21.2",
     "prometheus-client>=0.22.1",
     "aiohttp>=3.12.14",
-    "lingua-language-detector>=2.1.1",
+    "language",
 ]
 
 [dependency-groups]
@@ -37,6 +37,9 @@ package = true
 module-root = ""
 module-name = "server"
 source-exclude = ["**/typings"]
+
+[tool.uv.sources]
+language = { path = "language" }
 
 [tool.ruff]
 line-length = 120
