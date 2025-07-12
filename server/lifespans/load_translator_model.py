@@ -1,14 +1,14 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from litestar import Litestar
-
-from server.config import Config
 from server.features import get_translator
+from server.lifespans.inject_state import inject_state
+from server.typedefs import AppState
 
 
+@inject_state
 @asynccontextmanager
-async def load_translator_model(app: Litestar) -> AsyncIterator[None]:
+async def load_translator_model(_, state: AppState) -> AsyncIterator[None]:
     """
     Summary
     -------
@@ -19,11 +19,13 @@ async def load_translator_model(app: Litestar) -> AsyncIterator[None]:
     app (Litestar)
         the application instance
     """
+    config = state.config
+
     with get_translator(
-        Config.translator_repository,
-        translator_threads=Config.translator_threads,
-        stub=Config.stub_translator,
-        use_cuda=Config.use_cuda,
+        config.translator_repository,
+        translator_threads=config.translator_threads,
+        stub=config.stub_translator,
+        use_cuda=config.use_cuda,
     ) as translator:
-        app.state.translator = translator
+        state.translator = translator
         yield

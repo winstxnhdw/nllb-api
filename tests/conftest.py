@@ -1,4 +1,4 @@
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Callable
 from typing import Literal
 
 from litestar import Litestar
@@ -6,6 +6,12 @@ from litestar.testing import AsyncTestClient
 from pytest import fixture
 
 from server.app import app
+from server.config import Config
+
+
+@fixture(scope='session')
+def auth_token() -> str:
+    return 'test_token'
 
 
 @fixture(scope='session')
@@ -14,12 +20,23 @@ def anyio_backend() -> tuple[Literal['asyncio', 'trio'], dict[str, bool]]:
 
 
 @fixture
-async def client() -> AsyncIterator[AsyncTestClient[Litestar]]:
-    async with AsyncTestClient(app=app(), backend_options={'use_uvloop': True}) as client:
+async def client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
+    config = Config()
+    config.auth_token = auth_token
+
+    async with AsyncTestClient(app=app(config), backend_options={'use_uvloop': True}) as client:
         yield client
 
 
+@fixture
+async def client_factory() -> Callable[[Config], AsyncTestClient[Litestar]]:
+    return lambda config: AsyncTestClient(app=app(config), backend_options={'use_uvloop': True})
+
+
 @fixture(scope='session')
-async def session_client() -> AsyncIterator[AsyncTestClient[Litestar]]:
-    async with AsyncTestClient(app=app(), backend_options={'use_uvloop': True}) as client:
+async def session_client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
+    config = Config()
+    config.auth_token = auth_token
+
+    async with AsyncTestClient(app=app(config), backend_options={'use_uvloop': True}) as client:
         yield client

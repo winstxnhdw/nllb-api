@@ -1,14 +1,14 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from litestar import Litestar
-
-from server.config import Config
 from server.features import get_language_detector
+from server.lifespans.inject_state import inject_state
+from server.typedefs import AppState
 
 
+@inject_state
 @asynccontextmanager
-async def load_fasttext_model(app: Litestar) -> AsyncIterator[None]:
+async def load_fasttext_model(_, state: AppState) -> AsyncIterator[None]:
     """
     Summary
     -------
@@ -19,9 +19,11 @@ async def load_fasttext_model(app: Litestar) -> AsyncIterator[None]:
     app (Litestar)
         the application instance
     """
+    config = state.config
+
     with get_language_detector(
-        Config.language_detector_repository,
-        stub=Config.stub_language_detector,
+        config.language_detector_repository,
+        stub=config.stub_language_detector,
     ) as language_detector:
-        app.state.language_detector = language_detector
+        state.language_detector = language_detector
         yield

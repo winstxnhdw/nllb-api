@@ -11,15 +11,16 @@ def main() -> None:
     -------
     programmatically run the server with Granian
     """
+    config = Config()
     granian = Server(
         f'{app.__module__}:{app.__name__}',
         address='0.0.0.0',
-        port=Config.server_port,
+        port=config.server_port,
         interface=Interfaces.ASGI,
-        workers=Config.worker_count,
+        workers=config.worker_count,
         log_access=True,
         log_access_format='[%(time)s] %(status)d "%(method)s %(path)s %(protocol)s" %(addr)s in %(dt_ms).2f ms',
-        url_path_prefix=Config.server_root_path,
+        url_path_prefix=config.server_root_path,
         factory=True,
         reload=False,
     )

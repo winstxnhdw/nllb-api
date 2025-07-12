@@ -6,11 +6,13 @@ from string import ascii_letters, digits
 from aiohttp import ClientSession
 
 from server.api import health
-from server.config import Config
+from server.lifespans.inject_state import inject_state
+from server.typedefs import AppState
 
 
+@inject_state
 @asynccontextmanager
-async def consul_register(_) -> AsyncIterator[None]:
+async def consul_register(_, state: AppState) -> AsyncIterator[None]:
     """
     Summary
     -------
@@ -21,16 +23,18 @@ async def consul_register(_) -> AsyncIterator[None]:
     app (Litestar)
         the application instance
     """
-    if not Config.consul_http_addr or not Config.consul_service_address:
+    config = state.config
+
+    if not config.consul_http_addr or not config.consul_service_address:
         yield
         return
 
     headers: dict[str, str] = {}
-    consul_server = f'https://{Config.consul_http_addr}/v1/agent/service'
+    consul_server = f'https://{config.consul_http_addr}/v1/agent/service'
 
     health_endpoint = (
-        f'{Config.consul_service_scheme}://{Config.consul_service_address}:{Config.consul_service_port}'
-        f'{Config.server_root_path}{health.paths.pop()}'
+        f'{config.consul_service_scheme}://{config.consul_service_address}:{config.consul_service_port}'
+        f'{config.server_root_path}{health.paths.pop()}'
     )
 
     health_check = {
@@ -41,20 +45,20 @@ async def consul_register(_) -> AsyncIterator[None]:
 
     ascii_letters_with_digits = f'{ascii_letters}{digits}'
     payload = {
-        'Name': Config.app_name,
-        'ID': f'{Config.app_name}-{"".join(choice(ascii_letters_with_digits) for _ in range(4))}',  # noqa: S311
+        'Name': config.app_name,
+        'ID': f'{config.app_name}-{"".join(choice(ascii_letters_with_digits) for _ in range(4))}',  # noqa: S311
         'Tags': ['prometheus'],
-        'Address': Config.consul_service_address,
-        'Port': Config.consul_service_port,
+        'Address': config.consul_service_address,
+        'Port': config.consul_service_port,
         'Check': health_check,
         'Meta': {
-            'metrics_port': f'{Config.consul_service_port}',
+            'metrics_port': f'{config.consul_service_port}',
             'metrics_path': '/metrics',
         },
     }
 
-    if Config.consul_auth_token:
-        headers['Authorization'] = f'Bearer {Config.consul_auth_token}'
+    if config.consul_auth_token:
+        headers['Authorization'] = f'Bearer {config.consul_auth_token}'
 
     async with ClientSession(headers=headers) as session:
         async with session.put(

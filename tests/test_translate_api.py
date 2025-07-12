@@ -9,7 +9,6 @@ from litestar.status_codes import HTTP_200_OK, HTTP_204_NO_CONTENT, HTTP_304_NOT
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
-from server.config import Config
 from server.typedefs.language import Language
 
 
@@ -29,19 +28,19 @@ async def count_tokens(client: AsyncTestClient[Litestar], text: str) -> Response
     return await client.get('/v4/translator/tokens', params={'text': text})
 
 
-async def load_model(client: AsyncTestClient[Litestar], *, keep_cache: bool) -> Response:
+async def load_model(client: AsyncTestClient[Litestar], *, auth_token: str, keep_cache: bool) -> Response:
     return await client.put(
         '/v4/translator',
         params={'keep_cache': keep_cache},
-        headers={'Authorization': Config.auth_token},
+        headers={'Authorization': auth_token},
     )
 
 
-async def unload_model(client: AsyncTestClient[Litestar], *, to_cpu: bool) -> Response:
+async def unload_model(client: AsyncTestClient[Litestar], *, auth_token: str, to_cpu: bool) -> Response:
     return await client.delete(
         '/v4/translator',
         params={'to_cpu': to_cpu},
-        headers={'Authorization': Config.auth_token},
+        headers={'Authorization': auth_token},
     )
 
 
@@ -53,14 +52,14 @@ async def test_token_count(session_client: AsyncTestClient[Litestar]) -> None:
 
 
 @mark.anyio
-async def test_model_loading(client: AsyncTestClient[Litestar]) -> None:
-    response = await load_model(client, keep_cache=False)
+async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str) -> None:
+    response = await load_model(client, auth_token=auth_token, keep_cache=False)
     assert response.status_code == HTTP_304_NOT_MODIFIED
-    response = await unload_model(client, to_cpu=False)
+    response = await unload_model(client, auth_token=auth_token, to_cpu=False)
     assert response.status_code == HTTP_204_NO_CONTENT
-    response = await unload_model(client, to_cpu=False)
+    response = await unload_model(client, auth_token=auth_token, to_cpu=False)
     assert response.status_code == HTTP_304_NOT_MODIFIED
-    response = await load_model(client, keep_cache=False)
+    response = await load_model(client, auth_token=auth_token, keep_cache=False)
     assert response.status_code == HTTP_204_NO_CONTENT
 
 
