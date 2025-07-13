@@ -90,7 +90,3 @@ lingua = { version = "1.7.2", default-features = false, features = [
     "zulu",
 ] }
 pyo3 = "0.25.1"
-pyo3-async-runtimes = { version = "0.25.0", features = ["tokio-runtime"] }
-
-[build-dependencies]
-pyo3-build-config = { version = "0.25.1", features = ["resolve-config"] }
