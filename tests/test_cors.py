@@ -50,9 +50,9 @@ async def test_cors(
         response = await client.get('/v4/', headers={'Origin': origin})
 
     assert response.headers['Access-Control-Allow-Origin'] == origin
-    assert response.headers['Access-Control-Allow-Credentials'] == str(is_allowed).lower()
     assert response.headers['Access-Control-Allow-Headers'] == 'upgrade-insecure-requests, x-custom-header'
     assert response.headers['Access-Control-Expose-Headers'] == 'Content-Encoding, Kuma-Revision'
+    assert response.headers.get('Access-Control-Allow-Credentials') == str(is_allowed).lower() if is_allowed else None
     assert set(extract_cors_values(response.headers['Access-Control-Allow-Methods'])) == (
         methods if is_allowed else {}
     )
