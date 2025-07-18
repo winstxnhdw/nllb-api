@@ -1,9 +1,9 @@
 # ruff: noqa: S101
 
-
 from collections.abc import Callable
 
 from litestar import Litestar
+from litestar.status_codes import HTTP_204_NO_CONTENT
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
@@ -14,7 +14,7 @@ from server.config import Config
 @mark.anyio
 @mark.parametrize('is_allowed', [True, False])
 async def test_cors(
-    client_factory: Callable[[Config], AsyncTestClient[Litestar]],
+    client_factory_without_lifespans: Callable[[Config], AsyncTestClient[Litestar]],
     *,
     is_allowed: bool,
 ) -> None:
@@ -33,38 +33,30 @@ async def test_cors(
     config.access_control_expose_headers = 'Content-Encoding,Kuma-Revision'
     config.access_control_max_age = 3600
 
-    methods = {
-        'GET',
-        'POST',
-        'PUT',
-        'DELETE',
-        'OPTIONS',
-        'PATCH',
-        'HEAD',
-        'TRACE',
-    }
-
     origin = 'http://localhost:3000'
 
-    async with client_factory(config) as client:
-        response = await client.get('/v4/', headers={'Origin': origin})
+    async with client_factory_without_lifespans(config) as client:
+        response = await client.get('/health', headers={'Origin': origin})
 
+    methods = set() if not is_allowed else {'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD', 'TRACE'}
+    allow_credentials_header = response.headers.get('Access-Control-Allow-Credentials', 'false')
+    allow_methods_header = response.headers.get('Access-Control-Allow-Methods', '')
+
+    assert allow_credentials_header == str(is_allowed).lower()
+    assert set(extract_cors_values(allow_methods_header)) == methods
+    assert response.status_code == HTTP_204_NO_CONTENT
     assert response.headers['Access-Control-Allow-Origin'] == origin
     assert response.headers['Access-Control-Allow-Headers'] == 'upgrade-insecure-requests, x-custom-header'
     assert response.headers['Access-Control-Expose-Headers'] == 'Content-Encoding, Kuma-Revision'
-    assert response.headers.get('Access-Control-Allow-Credentials') == str(is_allowed).lower() if is_allowed else None
-    assert set(extract_cors_values(response.headers['Access-Control-Allow-Methods'])) == (
-        methods if is_allowed else {}
-    )
 
 
 @mark.anyio
-async def test_cors_max_age(client_factory: Callable[[Config], AsyncTestClient[Litestar]]) -> None:
+async def test_cors_max_age(client_factory_without_lifespans: Callable[[Config], AsyncTestClient[Litestar]]) -> None:
     config = Config()
     config.access_control_allow_origin = '*'
     config.access_control_max_age = 3600
 
-    async with client_factory(config) as client:
-        response = await client.options('/v4/', headers={'Origin': 'http://localhost:3000'})
+    async with client_factory_without_lifespans(config) as client:
+        response = await client.options('/health', headers={'Origin': 'http://localhost:3000'})
 
     assert response.headers['Access-Control-Max-Age'] == '3600'
