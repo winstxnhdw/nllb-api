@@ -12,31 +12,35 @@ from server.config import Config
 
 
 @mark.anyio
-async def test_cors(client_factory: Callable[[Config], AsyncTestClient[Litestar]]) -> None:
+@mark.parametrize('is_allowed', [True, False])
+async def test_cors(
+    client_factory: Callable[[Config], AsyncTestClient[Litestar]],
+    is_allowed: bool
+) -> None:
     config = Config()
     config.access_control_allow_origin = 'http://localhost:3000, example.com'
-    config.access_control_allow_method_get = False
-    config.access_control_allow_method_post = False
-    config.access_control_allow_method_options = True
-    config.access_control_allow_method_delete = False
-    config.access_control_allow_method_put = True
-    config.access_control_allow_method_patch = True
-    config.access_control_allow_method_head = True
-    config.access_control_allow_method_trace = True
-    config.access_control_allow_credentials = True
+    config.access_control_allow_method_get = is_allowed
+    config.access_control_allow_method_post = is_allowed
+    config.access_control_allow_method_options = is_allowed
+    config.access_control_allow_method_delete = is_allowed
+    config.access_control_allow_method_put = is_allowed
+    config.access_control_allow_method_patch = is_allowed
+    config.access_control_allow_method_head = is_allowed
+    config.access_control_allow_method_trace = is_allowed
+    config.access_control_allow_credentials = is_allowed
     config.access_control_allow_headers = 'X-Custom-Header,Upgrade-Insecure-Requests'
     config.access_control_expose_headers = 'Content-Encoding,Kuma-Revision'
     config.access_control_max_age = 3600
 
-    allow_methods_dict = {
-        'GET': config.access_control_allow_method_get,
-        'POST': config.access_control_allow_method_post,
-        'PUT': config.access_control_allow_method_put,
-        'DELETE': config.access_control_allow_method_delete,
-        'OPTIONS': config.access_control_allow_method_options,
-        'PATCH': config.access_control_allow_method_patch,
-        'HEAD': config.access_control_allow_method_head,
-        'TRACE': config.access_control_allow_method_trace,
+    methods = {
+        'GET',
+        'POST',
+        'PUT',
+        'DELETE',
+        'OPTIONS',
+        'PATCH',
+        'HEAD',
+        'TRACE',
     }
 
     origin = 'http://localhost:3000'
@@ -45,12 +49,12 @@ async def test_cors(client_factory: Callable[[Config], AsyncTestClient[Litestar]
         response = await client.get('/v4/', headers={'Origin': origin})
 
     assert response.headers['Access-Control-Allow-Origin'] == origin
-    assert response.headers['Access-Control-Allow-Credentials'] == 'true'
+    assert response.headers['Access-Control-Allow-Credentials'] == str(is_allowed).lower()
     assert response.headers['Access-Control-Allow-Headers'] == 'upgrade-insecure-requests, x-custom-header'
     assert response.headers['Access-Control-Expose-Headers'] == 'Content-Encoding, Kuma-Revision'
-    assert set(extract_cors_values(response.headers['Access-Control-Allow-Methods'])) == {
-        method for method, is_allowed in allow_methods_dict.items() if is_allowed
-    }
+    assert set(extract_cors_values(response.headers['Access-Control-Allow-Methods'])) == (
+        methods if is_allowed else {}
+    )
 
 
 @mark.anyio
