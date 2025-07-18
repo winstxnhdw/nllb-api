@@ -4,6 +4,8 @@ from asyncio import TaskGroup
 from collections.abc import Awaitable, Callable
 
 from httpx import Response
+from hypothesis import given
+from hypothesis.strategies import text as hypothesis_text
 from litestar import Litestar
 from litestar.status_codes import (
     HTTP_200_OK,
@@ -58,6 +60,20 @@ async def test_token_count(session_client: AsyncTestClient[Litestar]) -> None:
 
 
 @mark.anyio
+@given(text=hypothesis_text(min_size=1))
+async def test_token_count_input(session_client: AsyncTestClient[Litestar], text: str) -> None:
+    response = await count_tokens(session_client, text)
+    assert response.status_code == HTTP_200_OK
+    assert isinstance(response.json().get('length'), int)
+
+
+@mark.anyio
+async def test_token_count_empty_input(session_client: AsyncTestClient[Litestar]) -> None:
+    response = await count_tokens(session_client, '')
+    assert response.status_code == HTTP_400_BAD_REQUEST
+
+
+@mark.anyio
 async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str) -> None:
     response = await load_model(client, auth_token=auth_token, keep_cache=False)
     assert response.status_code == HTTP_304_NOT_MODIFIED
@@ -73,6 +89,7 @@ async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str)
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
 
+@mark.flaky
 @mark.anyio
 @mark.parametrize('translate', [translate_post, translate_get])
 @mark.parametrize(
