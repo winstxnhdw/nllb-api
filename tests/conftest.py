@@ -9,6 +9,15 @@ from server.app import app
 from server.config import Config
 
 
+def client_factory(config: Config, *, no_lifespans: bool) -> AsyncTestClient[Litestar]:
+    litestar = app(config)
+
+    if no_lifespans:
+        litestar._lifespan_managers.clear()
+
+    return AsyncTestClient(app=litestar, backend_options={'use_uvloop': True})
+
+
 @fixture(scope='session')
 def auth_token() -> str:
     return 'test_token'
@@ -29,8 +38,8 @@ async def client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
 
 
 @fixture
-async def client_factory() -> Callable[[Config], AsyncTestClient[Litestar]]:
-    return lambda config: AsyncTestClient(app=app(config), backend_options={'use_uvloop': True})
+async def client_factory_without_lifespans() -> Callable[[Config], AsyncTestClient[Litestar]]:
+    return lambda config: client_factory(config, no_lifespans=True)
 
 
 @fixture(scope='session')
