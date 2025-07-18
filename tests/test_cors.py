@@ -15,7 +15,8 @@ from server.config import Config
 @mark.parametrize('is_allowed', [True, False])
 async def test_cors(
     client_factory: Callable[[Config], AsyncTestClient[Litestar]],
-    is_allowed: bool
+    *,
+    is_allowed: bool,
 ) -> None:
     config = Config()
     config.access_control_allow_origin = 'http://localhost:3000, example.com'
