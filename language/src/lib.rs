@@ -66,7 +66,7 @@ struct Detector {
 impl Detector {
     #[new]
     fn new(fasttext_model: Py<PyAny>) -> PyResult<Self> {
-        let fasttext_map = HashMap::from([
+        let fasttext_map = HashMap::from_iter([
             ("__label__ace_Arab", "ace_Arab"),
             ("__label__ace_Latn", "ace_Latn"),
             ("__label__acm_Arab", "acm_Arab"),
