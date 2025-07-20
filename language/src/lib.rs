@@ -1,5 +1,4 @@
-use std::collections::HashMap;
-
+use gxhash::HashMap;
 use lingua::LanguageDetector;
 use lingua::LanguageDetectorBuilder;
 use pyo3::intern;

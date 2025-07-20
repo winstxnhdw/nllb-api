@@ -1,7 +1,8 @@
 [profile.release]
-lto = "fat"
 codegen-units = 1
+lto = "fat"
 panic = "abort"
+strip = "symbols"
 
 [package]
 name = "nllb"
