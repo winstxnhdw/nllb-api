@@ -69,13 +69,13 @@ impl TranslatorClient {
         let client = client_builder.build()?;
         let translator_client = Self {
             client,
-            base_url: format!("{}/api", base_url),
+            base_url: format!("{base_url}/api"),
         };
 
         Ok(translator_client)
     }
 
-    pub async fn load_model<'a>(&self, keep_cache: bool) -> Result<bool, Error> {
+    pub async fn load_model(&self, keep_cache: bool) -> Result<bool, Error> {
         let url = format!("{}/v4/translator", self.base_url);
         let request = LoadQuery { keep_cache };
         let success = self
@@ -105,7 +105,7 @@ impl TranslatorClient {
         Ok(success)
     }
 
-    pub async fn detect_language<'a>(&self, text: &str) -> Result<LanguageResponse, Error> {
+    pub async fn detect_language(&self, text: &str) -> Result<LanguageResponse, Error> {
         let url = format!("{}/v4/language", self.base_url);
         let query = LanguageQuery { text };
         let response = self

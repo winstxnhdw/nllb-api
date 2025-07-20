@@ -69,7 +69,7 @@ impl TranslatorBlockingClient {
         let client = client_builder.build()?;
         let translator_client = Self {
             client,
-            base_url: format!("{}/api", base_url),
+            base_url: format!("{base_url}/api"),
         };
 
         Ok(translator_client)
