@@ -10,6 +10,7 @@ on:
       - uv.lock
       - pyproject.toml
       - server/**
+      - language/**
 
 jobs:
   build:
