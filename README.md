@@ -2,7 +2,7 @@
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![deploy.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/deploy.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/deploy.yml)
-[![build.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/build.yml)
+[![main.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/main.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/main.yml)
 [![cuda.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/cuda.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/cuda.yml)
 [![client.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/client.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/client.yml)
 [![formatter.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml)

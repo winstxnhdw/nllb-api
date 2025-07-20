@@ -34,7 +34,7 @@ jobs:
 
   restart:
     if: github.ref == 'refs/heads/main'
-    needs: [test, build]
+    needs: push
     uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@main
     secrets:
       token: ${{ secrets.HF_TOKEN }}
