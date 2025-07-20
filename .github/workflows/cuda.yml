@@ -29,7 +29,5 @@ jobs:
         with:
           file: Dockerfile.build
           tags: cuda
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           build-args: |
             USE_CUDA=1
