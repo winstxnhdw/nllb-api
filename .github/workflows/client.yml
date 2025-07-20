@@ -41,13 +41,14 @@ jobs:
         run: cargo clippy
 
   build:
-    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: client
     strategy:
       matrix:
         python-version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
+        runs-on: [ubuntu, macos, windows]
+    runs-on: ${{ matrix.runs-on }}-latest
 
     steps:
       - name: Checkout repository
