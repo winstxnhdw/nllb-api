@@ -44,18 +44,18 @@ impl TranslatorBlockingClient {
             .http2_adaptive_window(true);
 
         let no_proxy_maybe = no_proxy
-            .or(env::var("NO_PROXY").ok().as_deref())
-            .or(env::var("no_proxy").ok().as_deref())
+            .or_else(|| env::var("NO_PROXY").ok().as_deref())
+            .or_else(|| env::var("no_proxy").ok().as_deref())
             .and_then(reqwest::NoProxy::from_string);
 
         let http_proxy_maybe = http_proxy
-            .or(env::var("HTTP_PROXY").ok().as_deref())
-            .or(env::var("http_proxy").ok().as_deref())
+            .or_else(|| env::var("HTTP_PROXY").ok().as_deref())
+            .or_else(|| env::var("http_proxy").ok().as_deref())
             .and_then(|proxy| Proxy::http(proxy).ok());
 
         let https_proxy_maybe = https_proxy
-            .or(env::var("HTTPS_PROXY").ok().as_deref())
-            .or(env::var("https_proxy").ok().as_deref())
+            .or_else(|| env::var("HTTPS_PROXY").ok().as_deref())
+            .or_else(|| env::var("https_proxy").ok().as_deref())
             .and_then(|proxy| Proxy::http(proxy).ok());
 
         if let Some(proxy) = http_proxy_maybe {
