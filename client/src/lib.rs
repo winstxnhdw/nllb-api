@@ -38,9 +38,9 @@ impl PyTranslatorClient {
     fn new(
         base_url: &str,
         auth_token: Option<&str>,
-        http_proxy: Option<&str>,
-        https_proxy: Option<&str>,
-        no_proxy: Option<&str>,
+        http_proxy: Option<String>,
+        https_proxy: Option<String>,
+        no_proxy: Option<String>,
     ) -> PyResult<Self> {
         let blocking_client =
             TranslatorBlockingClient::new(base_url, auth_token, http_proxy, https_proxy, no_proxy)
@@ -102,9 +102,9 @@ impl AsyncPyTranslatorClient {
     fn new(
         base_url: &str,
         auth_token: Option<&str>,
-        http_proxy: Option<&str>,
-        https_proxy: Option<&str>,
-        no_proxy: Option<&str>,
+        http_proxy: Option<String>,
+        https_proxy: Option<String>,
+        no_proxy: Option<String>,
     ) -> PyResult<Self> {
         let translator_client =
             TranslatorClient::new(base_url, auth_token, http_proxy, https_proxy, no_proxy)

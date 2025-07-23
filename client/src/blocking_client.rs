@@ -23,9 +23,9 @@ impl TranslatorBlockingClient {
     pub fn new(
         base_url: &str,
         auth_token: Option<&str>,
-        http_proxy: Option<&str>,
-        https_proxy: Option<&str>,
-        no_proxy: Option<&str>,
+        http_proxy: Option<String>,
+        https_proxy: Option<String>,
+        no_proxy: Option<String>,
     ) -> Result<Self, Error> {
         let mut headers = header::HeaderMap::new();
 
@@ -44,18 +44,18 @@ impl TranslatorBlockingClient {
             .http2_adaptive_window(true);
 
         let no_proxy_maybe = no_proxy
-            .or_else(|| env::var("NO_PROXY").ok().as_deref())
-            .or_else(|| env::var("no_proxy").ok().as_deref())
-            .and_then(reqwest::NoProxy::from_string);
+            .or_else(|| env::var("NO_PROXY").ok())
+            .or_else(|| env::var("no_proxy").ok())
+            .and_then(|proxy| reqwest::NoProxy::from_string(proxy.as_str()));
 
         let http_proxy_maybe = http_proxy
-            .or_else(|| env::var("HTTP_PROXY").ok().as_deref())
-            .or_else(|| env::var("http_proxy").ok().as_deref())
+            .or_else(|| env::var("HTTP_PROXY").ok())
+            .or_else(|| env::var("http_proxy").ok())
             .and_then(|proxy| Proxy::http(proxy).ok());
 
         let https_proxy_maybe = https_proxy
-            .or_else(|| env::var("HTTPS_PROXY").ok().as_deref())
-            .or_else(|| env::var("https_proxy").ok().as_deref())
+            .or_else(|| env::var("HTTPS_PROXY").ok())
+            .or_else(|| env::var("https_proxy").ok())
             .and_then(|proxy| Proxy::http(proxy).ok());
 
         if let Some(proxy) = http_proxy_maybe {
