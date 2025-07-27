@@ -556,7 +556,7 @@ provides-extras = ["cuda"]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "hypothesis", specifier = ">=6.136.4" },
-    { name = "nodejs-wheel-binaries", specifier = ">=22.17.0" },
+    { name = "nodejs-wheel-binaries", specifier = ">=22.17.1" },
     { name = "pyright", specifier = ">=1.1.403" },
     { name = "pytest", specifier = ">=8.4.1" },
     { name = "ruff", specifier = ">=0.12.5" },
