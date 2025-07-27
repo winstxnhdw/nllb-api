@@ -145,7 +145,7 @@ impl AsyncPyTranslatorClient {
         let client = self.client.clone();
 
         future_into_py(py, async move {
-            let text_str = Python::with_gil(|py| text.to_str(py))?;
+            let text_str = Python::with_gil(text.to_str)?;
             let language = client
                 .detect_language(text_str)
                 .await
@@ -187,7 +187,7 @@ impl AsyncPyTranslatorClient {
         let client = self.client.clone();
 
         future_into_py(py, async move {
-            let text_str = Python::with_gil(|py| text.to_str(py))?;
+            let text_str = Python::with_gil(text.to_str)?;
             let tokens = client.count_tokens(text_str).await.map_err(python_error)?;
             Ok(tokens)
         })
