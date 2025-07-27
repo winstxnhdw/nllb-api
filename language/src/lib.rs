@@ -331,17 +331,17 @@ impl Detector {
         }
 
         let lingua_confidence_values = self.lingua_model.compute_language_confidence_values(text);
-        let (lingua_language, lingua_confidence) = lingua_confidence_values
+        let &(lingua_language, lingua_confidence) = lingua_confidence_values
             .first()
             .ok_or_else(|| python_error("Failed to compute language confidence values!"))?;
 
-        if *lingua_confidence <= lingua_confidence_threshold {
+        if lingua_confidence <= lingua_confidence_threshold {
             return Ok(fasttext_prediction);
         }
 
         let lingua_prediction = Prediction {
-            confidence: *lingua_confidence,
-            language: self.lingua_languages[*lingua_language as usize],
+            confidence: lingua_confidence,
+            language: self.lingua_languages[lingua_language as usize],
         };
 
         Ok(lingua_prediction)

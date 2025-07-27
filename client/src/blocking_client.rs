@@ -138,7 +138,6 @@ impl TranslatorBlockingClient {
     pub fn count_tokens(&self, text: &str) -> Result<u32, Error> {
         let url = format!("{}/v4/translator/tokens", self.base_url);
         let request = TokenQuery { text };
-
         let response = self
             .client
             .get(url)

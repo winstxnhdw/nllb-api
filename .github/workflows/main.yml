@@ -20,6 +20,7 @@ jobs:
     uses: winstxnhdw/actions/.github/workflows/docker-build.yml@main
     with:
       file: Dockerfile.build
+      cache-mode: min
 
   push:
     if: github.ref == 'refs/heads/main'
