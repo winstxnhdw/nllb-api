@@ -343,15 +343,15 @@ wheels = [
 
 [[package]]
 name = "hypothesis"
-version = "6.136.4"
+version = "6.136.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "sortedcontainers" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8a/e2/ebee1678151e8f06f84f10e74229060b5db9f16fd4cac35b44a8286aa669/hypothesis-6.136.4.tar.gz", hash = "sha256:56bf16ba20d39ad7c5f8d3c42a5a7503844a7892dbf6f6e6e79b2188319a56d8", size = 457805, upload-time = "2025-07-25T02:38:14.341Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ee/ec/83b5a33cef752a883048c1b1a3c3416abd0fdec0d11f3517ef82283873ef/hypothesis-6.136.5.tar.gz", hash = "sha256:590e9b986882d145c84490b64318d07439e81b06bd150164e197e1eb6a09bf7e", size = 457866, upload-time = "2025-07-28T04:30:17.591Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8a/95/bcdf24ac537b46d49b73c6a7e9f3b0d66016958299d36c41636afa9187cd/hypothesis-6.136.4-py3-none-any.whl", hash = "sha256:488156d3603a9db6218ab2bf68d75e0fd967671a676ecc478c6b44eb153a7527", size = 524759, upload-time = "2025-07-25T02:38:10.278Z" },
+    { url = "https://files.pythonhosted.org/packages/22/ce/3a7a8b22e16b767aa7861d0cf57ac12d21fef31c10cbb492a48c873dd962/hypothesis-6.136.5-py3-none-any.whl", hash = "sha256:101ff06e31f5f97c82a7829bc7682093c06b964a17779fa8c4ae9c72d7a860af", size = 524756, upload-time = "2025-07-28T04:30:13.858Z" },
 ]
 
 [[package]]
@@ -379,7 +379,7 @@ source = { directory = "language" }
 [package.metadata]
 
 [package.metadata.requires-dev]
-dev = [{ name = "maturin", specifier = ">=1.9.1" }]
+dev = [{ name = "maturin", specifier = ">=1.9.2" }]
 
 [[package]]
 name = "litestar"
@@ -555,7 +555,7 @@ provides-extras = ["cuda"]
 [package.metadata.requires-dev]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "hypothesis", specifier = ">=6.136.4" },
+    { name = "hypothesis", specifier = ">=6.136.5" },
     { name = "nodejs-wheel-binaries", specifier = ">=22.17.1" },
     { name = "pyright", specifier = ">=1.1.403" },
     { name = "pytest", specifier = ">=8.4.1" },

@@ -9,10 +9,10 @@ classifiers = [
 ]
 
 [dependency-groups]
-dev = ["maturin>=1.9.1"]
+dev = ["maturin>=1.9.2"]
 
 [build-system]
-requires = ["maturin>=1.9.1,<2.0"]
+requires = ["maturin>=1.9.2,<2.0"]
 build-backend = "maturin"
 
 [tool.maturin]
