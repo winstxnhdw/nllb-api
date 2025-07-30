@@ -17,6 +17,12 @@ dependencies = [
     "language",
 ]
 
+[project.optional-dependencies]
+cuda = ["nvidia-cublas-cu12>=12.9.1.4"]
+
+[project.scripts]
+nllb-api = "server:main"
+
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
@@ -30,12 +36,6 @@ dev = [
 [build-system]
 requires = ["uv_build"]
 build-backend = "uv_build"
-
-[project.optional-dependencies]
-cuda = ["nvidia-cublas-cu12>=12.9.1.4"]
-
-[project.scripts]
-nllb-api = "server:main"
 
 [tool.uv]
 package = true
@@ -72,9 +72,6 @@ ignore = [
 [tool.ruff.format]
 quote-style = "single"
 
-[tool.pytest.ini_options]
-pythonpath = ["."]
-
 [tool.pyright]
 stubPath = "server/typings"
 typeCheckingMode = "strict"
@@ -82,3 +79,7 @@ reportUnknownVariableType = false
 reportUnknownMemberType = false
 reportMissingTypeStubs = false
 reportPrivateUsage = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
