@@ -1,21 +1,19 @@
 use gxhash::HashMap;
 use lingua::LanguageDetector;
 use lingua::LanguageDetectorBuilder;
-use pyo3::intern;
-use pyo3::prelude::pyclass;
-use pyo3::prelude::pymethods;
+use pyo3::PyErr;
 use pyo3::prelude::Bound;
 use pyo3::prelude::Py;
 use pyo3::prelude::PyAny;
 use pyo3::prelude::PyResult;
 use pyo3::prelude::Python;
+use pyo3::prelude::pyclass;
+use pyo3::prelude::pymethods;
 use pyo3::types::PyAnyMethods;
-use pyo3::types::PyList;
 use pyo3::types::PyListMethods;
 use pyo3::types::PyModuleMethods;
 use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
-use pyo3::PyErr;
 
 fn python_error<E: std::fmt::Display>(error: E) -> PyErr {
     pyo3::exceptions::PyRuntimeError::new_err(error.to_string())
@@ -57,7 +55,7 @@ struct Prediction {
 struct Detector {
     lingua_languages: [&'static str; 74],
     fasttext_map: HashMap<&'static str, &'static str>,
-    fasttext_model: Py<PyAny>,
+    fasttext_model_call: Py<PyAny>,
     lingua_model: LanguageDetector,
     fasttext_k: u8,
 }
@@ -65,7 +63,7 @@ struct Detector {
 #[pymethods]
 impl Detector {
     #[new]
-    fn new(fasttext_model: Py<PyAny>) -> PyResult<Self> {
+    fn new(py: Python, fasttext_model: Py<PyAny>) -> PyResult<Self> {
         let fasttext_map = HashMap::from_iter([
             ("__label__ace_Arab", "ace_Arab"),
             ("__label__ace_Latn", "ace_Latn"),
@@ -288,9 +286,9 @@ impl Detector {
         ];
 
         let detector = Self {
-            fasttext_model,
             fasttext_map,
             lingua_model: LanguageDetectorBuilder::from_all_languages().build(),
+            fasttext_model_call: fasttext_model.getattr(py, "predict")?,
             fasttext_k: 24,
             lingua_languages,
         };
@@ -301,16 +299,16 @@ impl Detector {
     #[pyo3(signature = (text, *, fasttext_confidence_threshold, lingua_confidence_threshold))]
     fn detect(
         &self,
-        py: Python<'_>,
+        py: Python,
         text: &str,
         fasttext_confidence_threshold: f64,
         lingua_confidence_threshold: f64,
     ) -> PyResult<Prediction> {
-        let fasttext_arguments = (text, self.fasttext_k, 0.0, intern!(py, "strict"));
+        let fasttext_arguments = (text, self.fasttext_k, 0.0, pyo3::intern!(py, "strict"));
         let (fasttext_confidence, fasttext_label) = self
-            .fasttext_model
-            .call_method1(py, intern!(py, "predict"), fasttext_arguments)?
-            .downcast_bound::<PyList>(py)?
+            .fasttext_model_call
+            .call1(py, fasttext_arguments)?
+            .downcast_bound::<pyo3::types::PyList>(py)?
             .iter()
             .filter_map(|item| item.extract::<(f64, Bound<'_, PyString>)>().ok())
             .find(|(_, label)| !is_redundant_label(label))
