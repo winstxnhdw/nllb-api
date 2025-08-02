@@ -328,8 +328,9 @@ impl Detector {
             return Ok(fasttext_prediction);
         }
 
-        let lingua_confidence_values = self.lingua_model.compute_language_confidence_values(text);
-        let &(lingua_language, lingua_confidence) = lingua_confidence_values
+        let &(lingua_language, lingua_confidence) = self
+            .lingua_model
+            .compute_language_confidence_values(text)
             .first()
             .ok_or_else(|| python_error("Failed to compute language confidence values!"))?;
 
