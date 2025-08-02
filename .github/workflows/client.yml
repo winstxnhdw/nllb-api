@@ -9,60 +9,18 @@ on:
       - client/**
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: client
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-        with:
-          show-progress: false
-
-      - name: Cache Cargo
-        uses: actions/cache@v4.2.3
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            client/target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('client/Cargo.lock') }}
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-
-      - name: Lint
-        run: cargo clippy
-
-  build:
-    defaults:
-      run:
-        working-directory: client
+  install:
     strategy:
       matrix:
         python-version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
         runs-on: [ubuntu, macos, windows]
-    runs-on: ${{ matrix.runs-on }}-latest
+    uses: winstxnhdw/actions/.github/workflows/uv.yml@main
+    with:
+      working-directory: client
+      python-version: ${{ matrix.python-version }}
+      runs-on: ${{ matrix.runs-on }}-latest
+      disable-lint: true
+      disable-type-check: true
+      disable-test: true
+      install-project: true
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-        with:
-          show-progress: false
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6.4.3
-        with:
-            python-version: ${{ matrix.python-version }}
-            activate-environment: true
-            working-directory: client
-            cache-dependency-glob: '**/uv.lock'
-
-      - name: Install client for nllb-api
-        run: uv pip install .

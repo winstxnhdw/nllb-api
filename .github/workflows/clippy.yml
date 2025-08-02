@@ -1,0 +1,45 @@
+name: Clippy
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/clippy.yml
+      - client/**
+      - language/**
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        working-directory: [client, language]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ matrix.working-directory }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          show-progress: false
+
+      - name: Cache Cargo
+        uses: actions/cache@v4.2.3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            ${{ matrix.working-directory }}/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: Lint
+        run: cargo clippy
