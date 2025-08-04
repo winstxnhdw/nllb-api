@@ -26,7 +26,7 @@ nllb-api = "server:main"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
-    "hypothesis>=6.136.7",
+    "hypothesis>=6.136.8",
     "nodejs-wheel-binaries>=22.18.0",
     "pyright>=1.1.403",
     "pytest>=8.4.1",
