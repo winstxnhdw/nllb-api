@@ -343,15 +343,15 @@ wheels = [
 
 [[package]]
 name = "hypothesis"
-version = "6.136.9"
+version = "6.137.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "sortedcontainers" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/62/fe/f872b3f29d5b59179c2b9c51e594703ab21e07dd22a354091b130cb863f2/hypothesis-6.136.9.tar.gz", hash = "sha256:8cc3c75a57cf3706249e3f7055b194648aa04a537deaa2099e28dc70d88da129", size = 459298, upload-time = "2025-08-04T21:54:48.774Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3a/2e/0a19f447db97ec06a2e1457242c096c556e2d770133ec4824321bb9e209a/hypothesis-6.137.0.tar.gz", hash = "sha256:48823bd3bb67c9017cf008d5ad0346ceaac8b7d48f8978bfed75aef4f236762e", size = 460621, upload-time = "2025-08-05T04:12:06.35Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fb/3b/cfdc2e2f13decd9be1fb32ba58473b974f953e996e1466ae65a0cd9dd2d0/hypothesis-6.136.9-py3-none-any.whl", hash = "sha256:c052412bb8b8b5090fb00eff0a7c80bfaeab9f0364e65fd3f4d08a002e478346", size = 526167, upload-time = "2025-08-04T21:54:44.718Z" },
+    { url = "https://files.pythonhosted.org/packages/39/7d/a09be60cfe379e6ed79e7247d906f05f5d6dcf2f780ed31a75d97c4fd486/hypothesis-6.137.0-py3-none-any.whl", hash = "sha256:969973668d69fb3d7c4f6c46d8345d57380d479e53998f4a49423677f73f877a", size = 527532, upload-time = "2025-08-05T04:12:03.395Z" },
 ]
 
 [[package]]
@@ -555,7 +555,7 @@ provides-extras = ["cuda"]
 [package.metadata.requires-dev]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "hypothesis", specifier = ">=6.136.9" },
+    { name = "hypothesis", specifier = ">=6.137.0" },
     { name = "nodejs-wheel-binaries", specifier = ">=22.18.0" },
     { name = "pyright", specifier = ">=1.1.403" },
     { name = "pytest", specifier = ">=8.4.1" },
