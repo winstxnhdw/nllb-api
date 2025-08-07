@@ -1,6 +1,6 @@
 [project]
 name = "language"
-requires-python = ">=3.13.5, <3.14"
+requires-python = ">=3.13.6, <3.14"
 dynamic = ["version"]
 classifiers = [
     "Programming Language :: Rust",
