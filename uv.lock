@@ -540,7 +540,7 @@ requires-dist = [
     { name = "fasttext", specifier = ">=0.9.3" },
     { name = "granian", specifier = ">=2.5.0" },
     { name = "language", directory = "language" },
-    { name = "litestar", specifier = ">=2.16.0" },
+    { name = "litestar", specifier = ">=2.17.0" },
     { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.1.4" },
     { name = "picologging", marker = "python_full_version < '3.13'", specifier = ">=0.9.3" },
     { name = "prometheus-client", specifier = ">=0.22.1" },
