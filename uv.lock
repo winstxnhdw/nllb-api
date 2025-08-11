@@ -553,7 +553,7 @@ provides-extras = ["cuda"]
 [package.metadata.requires-dev]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "hypothesis", specifier = ">=6.137.2" },
+    { name = "hypothesis", specifier = ">=6.137.3" },
     { name = "nodejs-wheel-binaries", specifier = ">=22.18.0" },
     { name = "pyright", specifier = ">=1.1.403" },
     { name = "pytest", specifier = ">=8.4.1" },
