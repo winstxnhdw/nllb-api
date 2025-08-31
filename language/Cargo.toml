@@ -91,4 +91,4 @@ lingua = { version = "1.7.2", default-features = false, features = [
     "yoruba",
     "zulu",
 ] }
-pyo3 = "0.25.1"
+pyo3 = "0.26.0"
