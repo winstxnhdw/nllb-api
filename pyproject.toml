@@ -6,7 +6,7 @@ requires-python = ">=3.13.7, <3.14"
 dependencies = [
     "ctranslate2>=4.6.0",
     "fasttext>=0.9.3",
-    "granian>=2.5.1",
+    "granian>=2.5.2",
     "litestar>=2.17.0",
     "pydantic-settings>=2.10.1",
     "uvloop>=0.21.0; sys_platform != 'win32'",
@@ -26,7 +26,7 @@ nllb-api = "server:main"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
-    "hypothesis>=6.138.10",
+    "hypothesis>=6.138.14",
     "nodejs-wheel-binaries>=22.18.0",
     "pyright>=1.1.404",
     "pytest>=8.4.1",
