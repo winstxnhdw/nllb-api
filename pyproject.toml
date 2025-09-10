@@ -22,6 +22,10 @@ cuda = ["nvidia-cublas-cu12>=12.9.1.4"]
 
 [project.scripts]
 nllb-api = "server:main"
+nllb-api-stub = "server:stub"
+docker-cpu = "server:cpu"
+docker-gpu = "server:gpu"
+docker-hf = "server:huggingface"
 
 [dependency-groups]
 dev = [
@@ -62,6 +66,7 @@ ignore = [
     "PLC0414",
     "INP001",
     "S104",
+    "S603",
     "PYI001",
     "COM812",
     "SLF001",

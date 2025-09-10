@@ -1,3 +1,6 @@
+from os import environ as env
+from subprocess import run
+
 from granian.constants import Interfaces
 from granian.server import Server
 
@@ -26,6 +29,62 @@ def main() -> None:
     )
 
     granian.serve()
+
+
+def stub() -> None:
+    env['STUB_TRANSLATOR'] = 'True'
+    env['STUB_LANGUAGE_DETECTOR'] = 'True'
+    main()
+
+
+def cpu() -> None:
+    docker_build = ['docker', 'build', '-t', 'nllb-api', '.']
+    docker_run = [
+        'docker',
+        'run',
+        '--init',
+        '--rm',
+        '-e',
+        'TRANSLATOR_THREADS=4',
+        '-e',
+        'AUTH_TOKEN=Test',
+        '-p',
+        '7860:7860',
+        'nllb-api',
+    ]
+
+    run(docker_build, check=True)
+    run(docker_run, check=True)
+
+
+def gpu() -> None:
+    docker_build = ['docker', 'build', '--build-arg', 'USE_CUDA=1', '-f', 'Dockerfile.build', '-t', 'nllb-api', '.']
+    docker_run = [
+        'docker',
+        'run',
+        '--init',
+        '--rm',
+        '--gpus',
+        'all',
+        '-e',
+        'TRANSLATOR_THREADS=4',
+        '-e',
+        'AUTH_TOKEN=Test',
+        '-p',
+        '7860:7860',
+        'nllb-api',
+    ]
+
+    run(docker_build, check=True)
+    run(docker_run, check=True)
+
+
+def huggingface() -> None:
+    docker_build = ['docker', 'build', '-t', 'nllb-api', '.']
+    docker_run = ['docker', 'run', '--init', '--rm', '-p', '7860:7860', 'nllb-api']
+
+    run(docker_build, check=True)
+    run(docker_run, check=True)
 
 
 if __name__ == '__main__':

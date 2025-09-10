@@ -340,7 +340,7 @@ docker build --build-arg USE_CUDA=1 -f Dockerfile.build -t nllb-api .
 After building the image, you can run the image with the following.
 
 > [!NOTE]\
-> `OMP_NUM_THREADS` and `TRANSLATOR_THREADS` has no effect when CUDA is enabled.
+> `OMP_NUM_THREADS` has no effect when CUDA is enabled.
 
 ```bash
 docker run --rm --gpus all \
@@ -361,5 +361,5 @@ uv sync
 Now, you can access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) after spinning the server up locally with the following.
 
 ```bash
-make
+uv run docker-cpu
 ```
