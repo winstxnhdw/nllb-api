@@ -1,3 +1,4 @@
+server/scripts.py
 .gitignore
 .dockerignore
 Makefile

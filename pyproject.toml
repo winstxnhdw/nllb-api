@@ -22,10 +22,10 @@ cuda = ["nvidia-cublas-cu12>=12.9.1.4"]
 
 [project.scripts]
 nllb-api = "server:main"
-nllb-api-stub = "server:stub"
-docker-cpu = "server:cpu"
-docker-gpu = "server:gpu"
-docker-hf = "server:huggingface"
+nllb-api-stub = "server.scripts:stub"
+docker-cpu = "server.scripts:cpu"
+docker-gpu = "server.scripts:gpu"
+docker-hf = "server.scripts:huggingface"
 
 [dependency-groups]
 dev = [
