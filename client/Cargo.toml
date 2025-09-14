@@ -17,7 +17,7 @@ crate-type = ["cdylib"]
 pyo3 = "0.26.0"
 pyo3-async-runtimes = { version = "0.26.0", features = ["tokio-runtime"] }
 reqwest = { version = "0.12.23", features = ["http2", "json", "blocking"] }
-serde = { version = "1.0.219", features = ["derive"] }
+serde = { version = "1.0.221", features = ["derive"] }
 
 [build-dependencies]
 pyo3-build-config = { version = "0.26.0", features = ["resolve-config"] }
