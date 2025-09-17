@@ -1,5 +1,6 @@
 from os import environ as env
 from random import randint
+from shutil import which
 from socket import AF_INET, SOCK_STREAM, socket
 from subprocess import run
 
@@ -7,7 +8,7 @@ from server import main
 
 
 def get_oci() -> str:
-    return 'docker'
+    return next(runtime for runtime in ('docker', 'podman', 'nerdctl') if which(runtime))
 
 
 def get_unused_port() -> int:
