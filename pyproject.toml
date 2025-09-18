@@ -34,7 +34,7 @@ dev = [
     "nodejs-wheel-binaries>=22.19.0",
     "pyright>=1.1.405",
     "pytest>=8.4.2",
-    "ruff>=0.13.0",
+    "ruff>=0.13.1",
 ]
 
 [build-system]
