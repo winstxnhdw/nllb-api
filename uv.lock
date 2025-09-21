@@ -119,14 +119,14 @@ wheels = [
 
 [[package]]
 name = "click"
-version = "8.2.1"
+version = "8.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/60/6c/8ca2efa64cf75a977a0d7fac081354553ebe483345c734fb6b6515d96bbc/click-8.2.1.tar.gz", hash = "sha256:27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202", size = 286342, upload-time = "2025-05-20T23:19:49.832Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/46/61/de6cd827efad202d7057d93e0fed9294b96952e188f7384832791c7b2254/click-8.3.0.tar.gz", hash = "sha256:e7b8232224eba16f4ebe410c25ced9f7875cb5f3263ffc93cc3e8da705e229c4", size = 276943, upload-time = "2025-09-18T17:32:23.696Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/85/32/10bb5764d90a8eee674e9dc6f4db6a0ab47c8c4d0d83c27f7c39ac415a4d/click-8.2.1-py3-none-any.whl", hash = "sha256:61a3265b914e850b85317d0b3109c7f8cd35a670f963866005d6ef1d5175a12b", size = 102215, upload-time = "2025-05-20T23:19:47.796Z" },
+    { url = "https://files.pythonhosted.org/packages/db/d3/9dcc0f5797f070ec8edf30fbadfb200e71d9db6b84d211e3b2085a7589a0/click-8.3.0-py3-none-any.whl", hash = "sha256:9b9f285302c6e3064f4330c05f05b81945b2a39544279343e6e7c5f27a9baddc", size = 107295, upload-time = "2025-09-18T17:32:22.42Z" },
 ]
 
 [[package]]
@@ -157,14 +157,14 @@ wheels = [
 
 [[package]]
 name = "faker"
-version = "37.6.0"
+version = "37.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "tzdata" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/24/cd/f7679c20f07d9e2013123b7f7e13809a3450a18d938d58e86081a486ea15/faker-37.6.0.tar.gz", hash = "sha256:0f8cc34f30095184adf87c3c24c45b38b33ad81c35ef6eb0a3118f301143012c", size = 1907960, upload-time = "2025-08-26T15:56:27.419Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3a/da/1336008d39e5d4076dddb4e0f3a52ada41429274bf558a3cc28030d324a3/faker-37.8.0.tar.gz", hash = "sha256:090bb5abbec2b30949a95ce1ba6b20d1d0ed222883d63483a0d4be4a970d6fb8", size = 1912113, upload-time = "2025-09-15T20:24:13.592Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/61/7d/8b50e4ac772719777be33661f4bde320793400a706f5eb214e4de46f093c/faker-37.6.0-py3-none-any.whl", hash = "sha256:3c5209b23d7049d596a51db5d76403a0ccfea6fc294ffa2ecfef6a8843b1e6a7", size = 1949837, upload-time = "2025-08-26T15:56:25.33Z" },
+    { url = "https://files.pythonhosted.org/packages/f5/11/02ebebb09ff2104b690457cb7bc6ed700c9e0ce88cf581486bb0a5d3c88b/faker-37.8.0-py3-none-any.whl", hash = "sha256:b08233118824423b5fc239f7dd51f145e7018082b4164f8da6a9994e1f1ae793", size = 1953940, upload-time = "2025-09-15T20:24:11.482Z" },
 ]
 
 [[package]]
@@ -322,7 +322,7 @@ wheels = [
 
 [[package]]
 name = "huggingface-hub"
-version = "0.34.4"
+version = "0.35.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "filelock" },
@@ -334,9 +334,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/45/c9/bdbe19339f76d12985bc03572f330a01a93c04dffecaaea3061bdd7fb892/huggingface_hub-0.34.4.tar.gz", hash = "sha256:a4228daa6fb001be3f4f4bdaf9a0db00e1739235702848df00885c9b5742c85c", size = 459768, upload-time = "2025-08-08T09:14:52.365Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/37/79/d71d40efa058e8c4a075158f8855bc2998037b5ff1c84f249f34435c1df7/huggingface_hub-0.35.0.tar.gz", hash = "sha256:ccadd2a78eef75effff184ad89401413629fabc52cefd76f6bbacb9b1c0676ac", size = 461486, upload-time = "2025-09-16T13:49:33.282Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/39/7b/bb06b061991107cd8783f300adff3e7b7f284e330fd82f507f2a1417b11d/huggingface_hub-0.34.4-py3-none-any.whl", hash = "sha256:9b365d781739c93ff90c359844221beef048403f1bc1f1c123c191257c3c890a", size = 561452, upload-time = "2025-08-08T09:14:50.159Z" },
+    { url = "https://files.pythonhosted.org/packages/fe/85/a18508becfa01f1e4351b5e18651b06d210dbd96debccd48a452acccb901/huggingface_hub-0.35.0-py3-none-any.whl", hash = "sha256:f2e2f693bca9a26530b1c0b9bcd4c1495644dad698e6a0060f90e22e772c31e9", size = 563436, upload-time = "2025-09-16T13:49:30.627Z" },
 ]
 
 [[package]]
@@ -866,16 +866,15 @@ wheels = [
 
 [[package]]
 name = "rich-click"
-version = "1.8.9"
+version = "1.9.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
     { name = "rich" },
-    { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b7/a8/dcc0a8ec9e91d76ecad9413a84b6d3a3310c6111cfe012d75ed385c78d96/rich_click-1.8.9.tar.gz", hash = "sha256:fd98c0ab9ddc1cf9c0b7463f68daf28b4d0033a74214ceb02f761b3ff2af3136", size = 39378, upload-time = "2025-05-19T21:33:05.569Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/29/c2/f08b5e7c1a33af8a115be640aa0796ba01c4732696da6d2254391376b314/rich_click-1.9.1.tar.gz", hash = "sha256:4f2620589d7287f86265432e6a909de4f281de909fe68d8c835fbba49265d268", size = 73109, upload-time = "2025-09-20T22:40:35.362Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b6/c2/9fce4c8a9587c4e90500114d742fe8ef0fd92d7bad29d136bb9941add271/rich_click-1.8.9-py3-none-any.whl", hash = "sha256:c3fa81ed8a671a10de65a9e20abf642cfdac6fdb882db1ef465ee33919fbcfe2", size = 36082, upload-time = "2025-05-19T21:33:04.195Z" },
+    { url = "https://files.pythonhosted.org/packages/a8/77/e9144dcf68a0b3f3f4386986f97255c3d9f7c659be58bb7a5fe8f26f3efa/rich_click-1.9.1-py3-none-any.whl", hash = "sha256:ea6114a9e081b7d68cc07b315070398f806f01bb0e0c49da56f129e672877817", size = 69759, upload-time = "2025-09-20T22:40:34.099Z" },
 ]
 
 [[package]]
