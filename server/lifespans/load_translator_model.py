@@ -1,34 +1,87 @@
-from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator, Callable
+from contextlib import AbstractAsyncContextManager, asynccontextmanager
+
+from litestar import Litestar
 
 from server.features.translator import get_translator
-from server.lifespans.inject_state import inject_state
-from server.typedefs import AppState
 
 
-@inject_state
 @asynccontextmanager
-async def load_translator_model(_, state: AppState) -> AsyncIterator[None]:
+async def translator_lifespan(
+    app: Litestar,
+    *,
+    translator_repository: str,
+    translator_threads: int,
+    stub: bool,
+    use_cuda: bool,
+) -> AsyncIterator[None]:
     """
     Summary
     -------
-    download and load the NLLB model
+    lifespan to load the translator model
 
     Parameters
     ----------
     app (Litestar)
         the application instance
 
-    state (AppState)
-        the application state
-    """
-    config = state.config
+    translator_repository (str)
+        the repository to download the model from
 
+    translator_threads (int)
+        the number of threads to use for translation
+
+    stub (bool)
+        whether to use a stub object
+
+    use_cuda (bool)
+        whether to use CUDA for translation
+    """
     with get_translator(
-        config.translator_repository,
-        translator_threads=config.translator_threads,
-        stub=config.stub_translator,
-        use_cuda=config.use_cuda,
+        translator_repository,
+        translator_threads=translator_threads,
+        stub=stub,
+        use_cuda=use_cuda,
     ) as translator:
-        state.translator = translator
+        app.state.translator = translator
         yield
+
+
+def load_translator_model(
+    translator_repository: str,
+    *,
+    translator_threads: int,
+    stub: bool,
+    use_cuda: bool,
+) -> Callable[[Litestar], AbstractAsyncContextManager[None]]:
+    """
+    Summary
+    -------
+    the translator lifespan factory
+
+    Parameters
+    ----------
+    translator_repository (str)
+        the repository to download the model from
+
+    translator_threads (int)
+        the number of threads to use for translation
+
+    stub (bool)
+        whether to use a stub object
+
+    use_cuda (bool)
+        whether to use CUDA for translation
+
+    Returns
+    -------
+    lifespan (Callable[[Litestar], AbstractAsyncContextManager[None]])
+        a Litestar-compatible lifespan context manager
+    """
+    return lambda app: translator_lifespan(
+        app,
+        translator_repository=translator_repository,
+        translator_threads=translator_threads,
+        stub=stub,
+        use_cuda=use_cuda,
+    )

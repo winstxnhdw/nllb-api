@@ -1,3 +1,5 @@
+from collections.abc import Callable
+from contextlib import AbstractAsyncContextManager
 from functools import partial
 from logging import Logger, getLogger
 from random import choice
@@ -7,7 +9,6 @@ from typing import Literal
 from litestar import Litestar, Response, Router
 from litestar.config.cors import CORSConfig
 from litestar.contrib.opentelemetry import OpenTelemetryConfig, OpenTelemetryPlugin
-from litestar.datastructures import State
 from litestar.openapi import OpenAPIConfig
 from litestar.openapi.spec import Server
 from litestar.plugins import PluginProtocol
@@ -17,7 +18,7 @@ from litestar.types import Method
 
 from server.api import health, v4
 from server.config import Config
-from server.lifespans import load_fasttext_model, load_translator_model
+from server.lifespans import load_language_detector, load_translator_model
 from server.plugins import ConsulPlugin
 from server.telemetry import get_log_handler, get_meter_provider, get_tracer_provider
 
@@ -121,6 +122,16 @@ def app(config: Config | None = None) -> Litestar:
         max_age=config.access_control_max_age,
     )
 
+    lifespans: tuple[Callable[[Litestar], AbstractAsyncContextManager[None]], ...] = (
+        load_language_detector(config.language_detector_repository, stub=config.stub_language_detector),
+        load_translator_model(
+            config.translator_repository,
+            translator_threads=config.translator_threads,
+            stub=config.stub_translator,
+            use_cuda=config.use_cuda,
+        ),
+    )
+
     if config.otel_exporter_otlp_endpoint:
         handler = get_log_handler(otlp_service_name=app_name, otlp_service_instance_id=app_id)
         logger.addHandler(handler)
@@ -152,8 +163,7 @@ def app(config: Config | None = None) -> Litestar:
         exception_handlers={HTTP_500_INTERNAL_SERVER_ERROR: partial(exception_handler, logger)},
         route_handlers=[PrometheusController, v4_router, health],
         plugins=plugins,
-        lifespan=[load_fasttext_model, load_translator_model],
+        lifespan=lifespans,
         middleware=[PrometheusConfig(app_name).middleware],
-        state=State({'config': config}),
         opt={'auth_token': config.auth_token},
     )
