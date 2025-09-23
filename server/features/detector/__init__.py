@@ -1,0 +1,2 @@
+from server.features.detector.ensemble import get_language_detector as get_language_detector
+from server.features.detector.protocol import LanguageDetectorProtocol as LanguageDetectorProtocol

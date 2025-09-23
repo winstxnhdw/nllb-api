@@ -1,12 +1,12 @@
-from unittest.mock import create_autospec
-
 from fasttext_pybind import fasttext
 
 from language import LanguageDetector
+from server.features.detector.protocol import LanguageDetectorProtocol
+from server.features.detector.stub import LanguageDetectorStub
 from server.utils import huggingface_file_download
 
 
-def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
+def get_language_detector(repository: str, *, stub: bool) -> LanguageDetectorProtocol:
     """
     Summary
     -------
@@ -22,11 +22,11 @@ def get_language_detector(repository: str, *, stub: bool) -> LanguageDetector:
 
     Returns
     -------
-    language_detector (LanguageDetector)
+    language_detector (LanguageDetectorProtocol)
         the language detector
     """
     if stub:
-        return create_autospec(LanguageDetector)
+        return LanguageDetectorStub()
 
     fast_model = fasttext()
     fast_model.loadModel(huggingface_file_download(repository, 'model.bin'))

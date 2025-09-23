@@ -1,2 +1,0 @@
-from server.features.language_detector import get_language_detector as get_language_detector
-from server.features.translator import get_translator as get_translator

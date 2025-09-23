@@ -1,7 +1,7 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from server.features import get_language_detector
+from server.features.detector import get_language_detector
 from server.lifespans.inject_state import inject_state
 from server.typedefs import AppState
 
