@@ -83,6 +83,9 @@ class Config(BaseSettings):
     access_control_max_age (int)
         the maximum age for CORS preflight requests
 
+    otel_exporter_otlp_endpoint (str?)
+        the endpoint for the OTLP exporter
+
     consul_auth_token (str?)
         the auth token for Consul
 
@@ -126,6 +129,8 @@ class Config(BaseSettings):
     access_control_allow_headers: str = '*'
     access_control_expose_headers: str = '*'
     access_control_max_age: int = 600
+
+    otel_exporter_otlp_endpoint: str | None = None
 
     consul_http_addr: str | None = None
     consul_auth_token: str | None = None

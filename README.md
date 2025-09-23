@@ -350,6 +350,21 @@ docker run --rm --gpus all \
   nllb-api
 ```
 
+### Telemetry
+
+You can enable OpenTelemetry support by passing the `OTEL_EXPORTER_OTLP_ENDPOINT` environment variable. This enables exporting of traces, metrics and logs to the specified OTLP endpoint.
+
+```bash
+docker run --rm \
+  -e SERVER_PORT=7860 \
+  -e OTEL_RESOURCE_ATTRIBUTES=service.namespace=huggingface,deployment.environment=production \
+  -e OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp-gateway-prod-ap-southeast-1.grafana.net/otlp \
+  -e OTEL_EXPORTER_OTLP_HEADERS="Authorization: Basic $OTEL_AUTH_TOKEN" \
+  -e OTEL_METRIC_EXPORT_INTERVAL=10000 \
+  -p 7860:7860 \
+  ghcr.io/winstxnhdw/nllb-api:main
+```
+
 ## Development
 
 First, install the required dependencies for your editor with the following.

@@ -15,6 +15,8 @@ dependencies = [
     "prometheus-client>=0.23.1",
     "aiohttp>=3.12.15",
     "language",
+    "opentelemetry-instrumentation-asgi>=0.58b0",
+    "opentelemetry-exporter-otlp-proto-http>=1.37.0",
 ]
 
 [project.optional-dependencies]
