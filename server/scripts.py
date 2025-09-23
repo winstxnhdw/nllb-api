@@ -8,10 +8,25 @@ from server import main
 
 
 def get_oci() -> str:
+    """
+    Summary
+    -------
+    get the available OCI runtime on the host machine
+    """
     return next(runtime for runtime in ('docker', 'podman', 'nerdctl') if which(runtime))
 
 
 def get_unused_port() -> int:
+    """
+    Summary
+    -------
+    get an unused port on the host machine
+
+    Returns
+    -------
+    port (int)
+        an unused port
+    """
     port = 7860
 
     with socket(AF_INET, SOCK_STREAM) as client:
@@ -27,12 +42,22 @@ def get_unused_port() -> int:
 
 
 def stub() -> None:
+    """
+    Summary
+    -------
+    run the server without downloading any models
+    """
     env['STUB_TRANSLATOR'] = 'True'
     env['STUB_LANGUAGE_DETECTOR'] = 'True'
     main()
 
 
 def cpu() -> None:
+    """
+    Summary
+    -------
+    build and run the server with CPU inference
+    """
     oci = get_oci()
     docker_build = [oci, 'build', '-f', 'Dockerfile.build', '-t', 'nllb-api', '.']
 
@@ -58,6 +83,11 @@ def cpu() -> None:
 
 
 def gpu() -> None:
+    """
+    Summary
+    -------
+    build and run the server with GPU inference
+    """
     oci = get_oci()
     docker_build = [oci, 'build', '--build-arg', 'USE_CUDA=1', '-f', 'Dockerfile.build', '-t', 'nllb-api', '.']
 
@@ -85,6 +115,11 @@ def gpu() -> None:
 
 
 def huggingface() -> None:
+    """
+    Summary
+    -------
+    run the production image from the GitHub Container Registry
+    """
     oci = get_oci()
     docker_build = [oci, 'build', '-t', 'nllb-api', '.']
     docker_run = [oci, 'run', '--init', '--rm', '-p', f'7860:{get_unused_port()}', 'nllb-api']
