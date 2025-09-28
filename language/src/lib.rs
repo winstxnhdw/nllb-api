@@ -1,3 +1,5 @@
+#![feature(likely_unlikely)]
+
 use gxhash::HashMap;
 use lingua::LanguageDetector;
 use lingua::LanguageDetectorBuilder;
@@ -15,7 +17,8 @@ use pyo3::types::PyModuleMethods;
 use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
 
-fn python_error<E: std::fmt::Display>(error: E) -> PyErr {
+#[cold]
+fn unlikely_python_error<E: std::fmt::Display>(error: E) -> PyErr {
     pyo3::exceptions::PyRuntimeError::new_err(error.to_string())
 }
 
@@ -311,13 +314,13 @@ impl Detector {
             .downcast_bound::<pyo3::types::PyList>(py)?
             .iter()
             .filter_map(|item| item.extract::<(f64, Bound<'_, PyString>)>().ok())
-            .find(|(_, label)| !is_redundant_label(label))
-            .ok_or_else(|| python_error("No prediction found!"))?;
+            .find(|(_, label)| std::hint::likely(!is_redundant_label(label)))
+            .ok_or_else(|| unlikely_python_error("No prediction found!"))?;
 
         let fasttext_language = self
             .fasttext_map
             .get(fasttext_label.to_str()?)
-            .ok_or_else(|| python_error("Unknown language label!"))?;
+            .ok_or_else(|| unlikely_python_error("Unknown language label!"))?;
 
         let fasttext_prediction = Prediction {
             confidence: fasttext_confidence,
@@ -332,7 +335,7 @@ impl Detector {
             .lingua_model
             .compute_language_confidence_values(text)
             .first()
-            .ok_or_else(|| python_error("Failed to compute language confidence values!"))?;
+            .ok_or_else(|| unlikely_python_error("Failed to predict a language!"))?;
 
         if lingua_confidence <= lingua_confidence_threshold {
             return Ok(fasttext_prediction);
