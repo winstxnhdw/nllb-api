@@ -2,13 +2,13 @@ mod blocking_client;
 mod client;
 mod structs;
 
-use pyo3::prelude::pyclass;
-use pyo3::prelude::pymethods;
 use pyo3::prelude::Bound;
 use pyo3::prelude::Py;
 use pyo3::prelude::PyAny;
 use pyo3::prelude::PyResult;
 use pyo3::prelude::Python;
+use pyo3::prelude::pyclass;
+use pyo3::prelude::pymethods;
 use pyo3::types::PyModuleMethods;
 use pyo3::types::PyString;
 use pyo3_async_runtimes::tokio::future_into_py;
@@ -145,7 +145,7 @@ impl AsyncPyTranslatorClient {
         let client = self.client.clone();
 
         future_into_py(py, async move {
-            let text_str = Python::with_gil(|py| text.to_str(py))?;
+            let text_str = Python::attach(|py| text.to_str(py))?;
             let language = client
                 .detect_language(text_str)
                 .await
@@ -166,7 +166,7 @@ impl AsyncPyTranslatorClient {
         let client = self.client.clone();
 
         future_into_py(py, async move {
-            let (text_str, source_str, target_str) = Python::with_gil(|py| -> PyResult<_> {
+            let (text_str, source_str, target_str) = Python::attach(|py| -> PyResult<_> {
                 let text = text.to_str(py)?;
                 let source = source.to_str(py)?;
                 let target = target.to_str(py)?;
@@ -187,7 +187,7 @@ impl AsyncPyTranslatorClient {
         let client = self.client.clone();
 
         future_into_py(py, async move {
-            let text_str = Python::with_gil(|py| text.to_str(py))?;
+            let text_str = Python::attach(|py| text.to_str(py))?;
             let tokens = client.count_tokens(text_str).await.map_err(python_error)?;
             Ok(tokens)
         })
