@@ -21,6 +21,8 @@ jobs:
     with:
       file: Dockerfile.build
       cache-mode: min
+      build-args: |
+        USE_NATIVE=1
 
   push:
     if: github.ref == 'refs/heads/main'

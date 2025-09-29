@@ -14,21 +14,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5.0.0
-        with:
-          show-progress: false
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3.11.1
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6.18.0
-        with:
-          file: Dockerfile.build
-          tags: cuda
-          build-args: |
-            USE_CUDA=1
+    uses: winstxnhdw/actions/.github/workflows/docker-build.yml@main
+    with:
+      file: Dockerfile.build
+      cache-mode: min
+      build-args: |
+        USE_CUDA=1
+        USE_NATIVE=1
