@@ -1,5 +1,3 @@
-#![feature(likely_unlikely)]
-
 use gxhash::HashMap;
 use lingua::LanguageDetector;
 use lingua::LanguageDetectorBuilder;
@@ -18,10 +16,12 @@ use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
 
 #[cold]
+#[inline(never)]
 fn unlikely_python_error<E: std::fmt::Display>(error: E) -> PyErr {
     pyo3::exceptions::PyRuntimeError::new_err(error.to_string())
 }
 
+#[inline(always)]
 fn is_redundant_label(label: &Bound<'_, PyString>) -> bool {
     label == "__label__ton_Latn"
         || label == "__label__oss_Cyrl"
@@ -314,7 +314,7 @@ impl Detector {
             .downcast_bound::<pyo3::types::PyList>(py)?
             .iter()
             .filter_map(|item| item.extract::<(f64, Bound<'_, PyString>)>().ok())
-            .find(|(_, label)| std::hint::likely(!is_redundant_label(label)))
+            .find(|(_, label)| !is_redundant_label(label))
             .ok_or_else(|| unlikely_python_error("No prediction found!"))?;
 
         let fasttext_language = self
