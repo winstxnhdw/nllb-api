@@ -21,7 +21,7 @@ ENV UV_NO_CACHE=1
 ENV UV_LOCKED=1
 ENV UV_NO_EDITABLE=1
 ENV PYTHONOPTIMIZE=2
-ENV RUSTFLAGS=-C target-cpu=native
+ENV RUSTFLAGS="-C target-cpu=native"
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 COPY pyproject.toml uv.lock ./
