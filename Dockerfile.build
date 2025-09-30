@@ -12,7 +12,6 @@ RUN python -c \
 FROM python:$PYTHON_VERSION_TAG AS python-builder
 
 ARG USE_CUDA=0
-ARG USE_NATIVE=0
 
 WORKDIR /home/user
 
@@ -22,12 +21,13 @@ ENV UV_NO_CACHE=1
 ENV UV_LOCKED=1
 ENV UV_NO_EDITABLE=1
 ENV PYTHONOPTIMIZE=2
+ENV RUSTFLAGS=-C target-cpu=native
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 COPY pyproject.toml uv.lock ./
 COPY language language
 
-RUN RUSTFLAGS=${USE_NATIVE:+-C target-cpu=native} uv sync --no-dev --no-install-project ${USE_CUDA:+--extra cuda}
+RUN uv sync --no-dev --no-install-project ${USE_CUDA:+--extra cuda}
 
 COPY . .
 
