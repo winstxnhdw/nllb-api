@@ -18,6 +18,7 @@ WORKDIR /home/user
 ENV UV_LINK_MODE=copy
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_NO_CACHE=1
+ENV UV_NO_DEV=1
 ENV UV_LOCKED=1
 ENV UV_NO_EDITABLE=1
 ENV PYTHONOPTIMIZE=2
@@ -27,11 +28,11 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 COPY pyproject.toml uv.lock ./
 COPY language language
 
-RUN uv sync --no-dev --no-install-project ${USE_CUDA:+--extra cuda}
+RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}
 
 COPY . .
 
-RUN uv sync --no-dev ${USE_CUDA:+--extra cuda}
+RUN uv sync ${USE_CUDA:+--extra cuda}
 
 
 FROM python:$PYTHON_VERSION_TAG-slim
