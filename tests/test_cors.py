@@ -3,7 +3,7 @@
 from collections.abc import Callable
 
 from litestar import Litestar
-from litestar.status_codes import HTTP_204_NO_CONTENT
+from litestar.status_codes import HTTP_200_OK
 from litestar.testing import AsyncTestClient
 from pytest import mark
 
@@ -44,7 +44,7 @@ async def test_cors(
 
     assert allow_credentials_header == str(is_allowed).lower()
     assert set(extract_cors_values(allow_methods_header)) == methods
-    assert response.status_code == HTTP_204_NO_CONTENT
+    assert response.status_code == HTTP_200_OK
     assert response.headers['Access-Control-Allow-Origin'] == origin
     assert response.headers['Access-Control-Allow-Headers'] == 'upgrade-insecure-requests, x-custom-header'
     assert response.headers['Access-Control-Expose-Headers'] == 'Content-Encoding, Kuma-Revision'
