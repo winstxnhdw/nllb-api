@@ -1,6 +1,6 @@
 # nllb-api
 
-![API](https://img.shields.io/endpoint?url=https%3A%2F%2Fwinstxnhdw-nllb-api.hf.space%2Fapi%2Fhealth&logo=huggingface&labelColor=%230B0F19&color=brightgreen&link=https%3A%2F%2Fhuggingface.co%2Fspaces%2Fwinstxnhdw%2Fnllb-api)
+[![API](https://img.shields.io/endpoint?url=https%3A%2F%2Fwinstxnhdw-nllb-api.hf.space%2Fapi%2Fhealth&logo=huggingface&labelColor=%230B0F19&color=brightgreen)](https://huggingface.co/spaces/winstxnhdw/nllb-api)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![python](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20|%203.11%20|%203.12%20|%203.13-blue)](https://www.python.org/)
 
@@ -10,9 +10,6 @@
 [![clippy.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/clippy.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/clippy.yml)
 [![client.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/client.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/client.yml)
 [![formatter.yml](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml/badge.svg)](https://github.com/winstxnhdw/nllb-api/actions/workflows/formatter.yml)
-
-[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/winstxnhdw/nllb-api)
-[![Open a Pull Request](https://huggingface.co/datasets/huggingface/badges/raw/main/open-a-pr-md-dark.svg)](https://github.com/winstxnhdw/nllb-api/compare)
 
 A fast CPU-based API for Meta's [No Language Left Behind](https://huggingface.co/docs/transformers/model_doc/nllb) distilled 1.3B 8-bit quantised variant, hosted on Hugging Face Spaces. To achieve faster executions, we are using [CTranslate2](https://github.com/OpenNMT/CTranslate2) as our inference engine.
 
