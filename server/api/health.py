@@ -1,12 +1,13 @@
 from litestar import get
-from litestar.status_codes import HTTP_204_NO_CONTENT
+
+from server.schemas import Health
 
 
-@get('/health', sync_to_thread=False, status_code=HTTP_204_NO_CONTENT)
-def health() -> None:
+@get('/health', cache=True, sync_to_thread=False)
+def health() -> Health:
     """
     Summary
     -------
-    the `/health` endpoint will only return a 204 status code
+    the `/health` route will return a shields.io endpoint badge response
     """
-    return
+    return Health()

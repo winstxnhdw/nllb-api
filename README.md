@@ -1,5 +1,6 @@
 # nllb-api
 
+![API](https://img.shields.io/endpoint?url=https%3A%2F%2Fwinstxnhdw-nllb-api.hf.space%2Fapi%2Fhealth&logo=huggingface&labelColor=%230B0F19&color=brightgreen&link=https%3A%2F%2Fhuggingface.co%2Fspaces%2Fwinstxnhdw%2Fnllb-api)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![python](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20|%203.11%20|%203.12%20|%203.13-blue)](https://www.python.org/)
 
