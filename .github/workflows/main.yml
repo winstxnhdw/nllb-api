@@ -11,6 +11,7 @@ on:
       - pyproject.toml
       - server/**
       - language/**
+      - tests/**
 
 jobs:
   test:
