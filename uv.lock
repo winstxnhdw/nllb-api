@@ -575,7 +575,7 @@ requires-dist = [
     { name = "fasttext", specifier = ">=0.9.3" },
     { name = "granian", specifier = ">=2.5.4" },
     { name = "language", directory = "language" },
-    { name = "litestar", specifier = ">=2.17.0" },
+    { name = "litestar", specifier = ">=2.18.0" },
     { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.1.4" },
     { name = "opentelemetry-exporter-otlp-proto-http", specifier = ">=1.37.0" },
     { name = "opentelemetry-instrumentation-asgi", specifier = ">=0.58b0" },
