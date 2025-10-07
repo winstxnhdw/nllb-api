@@ -6,7 +6,7 @@ requires-python = ">=3.13.7, <3.14"
 dependencies = [
     "ctranslate2>=4.6.0",
     "fasttext>=0.9.3",
-    "granian>=2.5.4",
+    "granian>=2.5.5",
     "litestar>=2.18.0",
     "pydantic-settings>=2.11.0",
     "uvloop>=0.21.0; sys_platform != 'win32'",
@@ -36,7 +36,7 @@ dev = [
     "nodejs-wheel-binaries>=22.20.0",
     "pyright>=1.1.406",
     "pytest>=8.4.2",
-    "ruff>=0.13.3",
+    "ruff>=0.14.0",
 ]
 
 [build-system]
