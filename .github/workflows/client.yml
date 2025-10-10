@@ -19,8 +19,6 @@ jobs:
       working-directory: client
       python-version: ${{ matrix.python-version }}
       runs-on: ${{ matrix.runs-on }}-latest
-      disable-lint: true
-      disable-type-check: true
       disable-test: true
       install-project: true
 
