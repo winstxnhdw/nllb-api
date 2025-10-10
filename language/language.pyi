@@ -208,8 +208,10 @@ type Language = Literal[
 ]
 
 class Prediction:
-    language: Language
-    confidence: float
+    @property
+    def language(self) -> Language: ...
+    @property
+    def confidence(self) -> float: ...
 
 class FastTextProtocol(Protocol):
     def predict(self, text: str, k: int, threshold: float, on_unicode_error: str) -> list[tuple[float, str]]: ...
