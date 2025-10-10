@@ -12,7 +12,7 @@ jobs:
   install:
     strategy:
       matrix:
-        python-version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
+        python-version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
         runs-on: [ubuntu, macos, windows]
     uses: winstxnhdw/actions/.github/workflows/uv.yml@main
     with:
