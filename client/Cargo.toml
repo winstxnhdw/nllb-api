@@ -16,7 +16,7 @@ crate-type = ["cdylib"]
 [dependencies]
 pyo3 = "0.26.0"
 pyo3-async-runtimes = { version = "0.26.0", features = ["tokio-runtime"] }
-reqwest = { version = "0.12.23", features = ["http2", "json", "blocking"] }
+reqwest = { version = "0.12.24", features = ["http2", "json", "blocking"] }
 serde = { version = "1.0.228", features = ["derive"] }
 
 [build-dependencies]
