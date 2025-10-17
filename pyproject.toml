@@ -9,7 +9,7 @@ dependencies = [
     "granian>=2.5.5",
     "litestar>=2.18.0",
     "pydantic-settings>=2.11.0",
-    "uvloop>=0.21.0; sys_platform != 'win32'",
+    "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.22.1",
     "prometheus-client>=0.23.1",
