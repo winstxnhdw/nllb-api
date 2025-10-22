@@ -91,4 +91,5 @@ reportPrivateUsage = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+markers = ["flaky: marks tests as flaky (deselect with '-m \"not flaky\"')"]
 
