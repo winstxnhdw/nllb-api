@@ -20,4 +20,3 @@ jobs:
       cache-mode: min
       build-args: |
         USE_CUDA=1
-        USE_NATIVE=1
