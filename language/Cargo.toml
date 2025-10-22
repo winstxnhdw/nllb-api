@@ -14,7 +14,6 @@ name = "language"
 crate-type = ["cdylib"]
 
 [dependencies]
-gxhash = "3.5.0"
 lingua = { version = "1.7.2", default-features = false, features = [
     "afrikaans",
     "albanian",
