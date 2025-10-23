@@ -12,7 +12,6 @@ dependencies = [
     "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.22.1",
-    "prometheus-client>=0.23.1",
     "aiohttp>=3.13.1",
     "language",
     "opentelemetry-instrumentation-asgi>=0.58b0",
@@ -75,9 +74,6 @@ ignore = [
     "PLR0913",
 ]
 
-[tool.ruff.format]
-quote-style = "single"
-
 [tool.pyright]
 stubPath = "server/typings"
 typeCheckingMode = "strict"
@@ -89,4 +85,3 @@ reportPrivateUsage = false
 [tool.pytest.ini_options]
 pythonpath = ["."]
 markers = ["flaky: marks tests as flaky (deselect with '-m \"not flaky\"')"]
-
