@@ -61,5 +61,4 @@ def language(
         fasttext_confidence_threshold=fast_model_confidence_threshold,
         lingua_confidence_threshold=accurate_model_confidence_threshold,
     )
-
     return LanguageResult(language=prediction.language, confidence=prediction.confidence)
