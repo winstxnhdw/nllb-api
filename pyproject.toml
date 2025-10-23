@@ -37,6 +37,7 @@ dev = [
     "nodejs-wheel-binaries>=22.20.0",
     "pyright>=1.1.406",
     "pytest>=8.4.2",
+    "pytest-xdist>=3.8.0",
     "ruff>=0.14.1",
 ]
 
@@ -84,4 +85,4 @@ reportPrivateUsage = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-markers = ["flaky: marks tests as flaky (deselect with '-m \"not flaky\"')"]
+addopts = "-n auto --dist loadscope"

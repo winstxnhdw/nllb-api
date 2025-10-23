@@ -3,5 +3,6 @@
 .env
 cache/
 .vscode/
+.hypothesis/
 *.egg-info/
 **/target
