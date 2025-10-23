@@ -17,5 +17,5 @@ class Tokens(Struct, kw_only=True):
 
     length: Annotated[
         int,
-        Meta(description='the number of tokens in the input text', examples=[512]),
+        Meta(description="the number of tokens in the input text", examples=[512]),
     ]

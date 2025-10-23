@@ -45,8 +45,8 @@ class LanguageDetectorStub(LanguageDetectorProtocol):
             the language prediction result
         """
         language = (
-            f'{text} with fasttext_confidence_threshold@{fasttext_confidence_threshold} and '
-            f'lingua_confidence_threshold@{lingua_confidence_threshold}'
+            f"{text} with fasttext_confidence_threshold@{fasttext_confidence_threshold} and "
+            f"lingua_confidence_threshold@{lingua_confidence_threshold}"
         )
 
-        return SimpleNamespace({'language': language, 'confidence': 1.0})  # pyright: ignore [reportReturnType]
+        return SimpleNamespace({"language": language, "confidence": 1.0})  # pyright: ignore [reportReturnType]

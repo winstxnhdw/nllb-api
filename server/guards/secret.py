@@ -19,5 +19,5 @@ def requires_secret(connection: ASGIConnection[Any, Any, Any, Any], route_handle
     route_handler (BaseRouteHandler)
         the route handler
     """
-    if connection.headers.get('Authorization', '') != route_handler.opt.get('auth_token'):
+    if connection.headers.get("Authorization", "") != route_handler.opt.get("auth_token"):
         raise NotAuthorizedException

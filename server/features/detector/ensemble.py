@@ -29,6 +29,6 @@ def get_language_detector(repository: str, *, stub: bool) -> LanguageDetectorPro
         return LanguageDetectorStub()
 
     fast_model = fasttext()
-    fast_model.loadModel(huggingface_file_download(repository, 'model.bin'))
+    fast_model.loadModel(huggingface_file_download(repository, "model.bin"))
 
     return LanguageDetector(fast_model)

@@ -3,7 +3,7 @@ from typing import Literal, overload
 
 from server.typedefs import ComputeTypes, Devices
 
-type BatchTypes = Literal['examples', 'tokens']
+type BatchTypes = Literal["examples", "tokens"]
 
 class GenerationStepResult:
     batch_id: int
@@ -28,10 +28,10 @@ class Translator:
     def __init__(
         self,
         model_path: str,
-        device: Devices = 'cpu',
+        device: Devices = "cpu",
         *,
-        device_index: str | dict[str, str] = 'default',
-        compute_type: ComputeTypes = 'default',
+        device_index: str | dict[str, str] = "default",
+        compute_type: ComputeTypes = "default",
         inter_threads: int = 1,
         intra_threads: int = 0,
         max_queued_batches: int = 0,
@@ -67,7 +67,7 @@ class Translator:
         target_prefix: Iterable[list[str] | None] | None = None,
         *,
         max_batch_size: int = 0,
-        batch_type: BatchTypes = 'examples',
+        batch_type: BatchTypes = "examples",
         asynchronous: Literal[False] = False,
         beam_size: int = 2,
         patience: float = 1,
@@ -102,7 +102,7 @@ class Translator:
         target_prefix: Iterable[list[str] | None] | None = None,
         *,
         max_batch_size: int = 0,
-        batch_type: BatchTypes = 'examples',
+        batch_type: BatchTypes = "examples",
         asynchronous: Literal[True],
         beam_size: int = 2,
         patience: float = 1,
@@ -135,7 +135,7 @@ class Translator:
         source: Iterable[list[str]],
         target_prefix: Iterable[list[str]] | None = None,
         max_batch_size: int = 32,
-        batch_type: BatchTypes = 'examples',
+        batch_type: BatchTypes = "examples",
         *,
         beam_size: int = 2,
         patience: float = 1,

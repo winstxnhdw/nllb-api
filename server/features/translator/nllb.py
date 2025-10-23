@@ -38,7 +38,7 @@ class Translator(TranslatorProtocol):
         count the number of tokens in the input text
     """
 
-    __slots__ = ('tokeniser', 'translator', 'use_cuda')
+    __slots__ = ("tokeniser", "translator", "use_cuda")
 
     def __init__(self, translator: CTranslator, tokeniser: Tokenizer, *, use_cuda: bool) -> None:
         self.tokeniser = tokeniser
@@ -229,11 +229,11 @@ def get_translator(repository: str, *, translator_threads: int, stub: bool, use_
         return TranslatorStub()
 
     model_path = huggingface_download(repository)
-    tokeniser = Tokenizer.from_file(str(Path(model_path) / 'tokenizer.json'))
+    tokeniser = Tokenizer.from_file(str(Path(model_path) / "tokenizer.json"))
     translator = CTranslator(
         model_path,
-        'cuda' if use_cuda else 'cpu',
-        compute_type='auto',
+        "cuda" if use_cuda else "cpu",
+        compute_type="auto",
         inter_threads=translator_threads,
     )
 

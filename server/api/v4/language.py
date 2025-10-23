@@ -8,45 +8,45 @@ from server.schemas.v1 import LanguageResult
 from server.typedefs import AppState
 
 
-@get('/language', sync_to_thread=False, cache=True)
+@get("/language", sync_to_thread=False, cache=True)
 def language(
     state: AppState,
     text: Annotated[
         str,
         Parameter(
-            description='sample text for language detection',
+            description="sample text for language detection",
             max_length=512,
             min_length=1,
             examples=[
-                Example(summary='English', description='text in English (eng_Latn)', value='She sells seashells!'),
-                Example(summary='Spanish', description='text in Spanish (spa_Latn)', value='Ella vende conchas!'),
+                Example(summary="English", description="text in English (eng_Latn)", value="She sells seashells!"),
+                Example(summary="Spanish", description="text in Spanish (spa_Latn)", value="Ella vende conchas!"),
             ],
         ),
     ],
     fast_model_confidence_threshold: Annotated[
         float,
         Parameter(
-            query='fast-model-confidence-threshold',
-            description='minimum acceptable confidence before using the accurate model results',
+            query="fast-model-confidence-threshold",
+            description="minimum acceptable confidence before using the accurate model results",
             ge=0.0,
             le=1.1,
             examples=[
-                Example(summary='Default', description='hand-tuned threshold for general use', value=0.85),
-                Example(summary='Max Accuracy', description='use the limited but accurate model', value=1.1),
-                Example(summary='Max Throughput', description='use the fast but less accurate model', value=0.0),
+                Example(summary="Default", description="hand-tuned threshold for general use", value=0.85),
+                Example(summary="Max Accuracy", description="use the limited but accurate model", value=1.1),
+                Example(summary="Max Throughput", description="use the fast but less accurate model", value=0.0),
             ],
         ),
     ] = 0.85,
     accurate_model_confidence_threshold: Annotated[
         float,
         Parameter(
-            query='accurate-model-confidence-threshold',
-            description='minimum acceptable confidence before falling back to the faster model results',
+            query="accurate-model-confidence-threshold",
+            description="minimum acceptable confidence before falling back to the faster model results",
             ge=0.0,
             le=1.0,
             examples=[
-                Example(summary='Default', description='hand-tuned threshold for general use', value=0.35),
-                Example(summary='Max Accuracy', description='use the limited but accurate model', value=0.0),
+                Example(summary="Default", description="hand-tuned threshold for general use", value=0.35),
+                Example(summary="Max Accuracy", description="use the limited but accurate model", value=0.0),
             ],
         ),
     ] = 0.35,

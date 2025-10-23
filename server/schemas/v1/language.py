@@ -20,5 +20,5 @@ class LanguageResult(Struct, kw_only=True):
         the confidence score of the detected language
     """
 
-    language: Annotated[Language, Meta(description='language code in the FLORES-200 format', examples=['eng_Latn'])]
-    confidence: Annotated[Confidence, Meta(description='confidence score of the detected language')]
+    language: Annotated[Language, Meta(description="language code in the FLORES-200 format", examples=["eng_Latn"])]
+    confidence: Annotated[Confidence, Meta(description="confidence score of the detected language")]

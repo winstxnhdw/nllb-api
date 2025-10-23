@@ -102,21 +102,21 @@ class Config(BaseSettings):
         the token for the Consul service
     """
 
-    app_name: str = 'nllb-api'
+    app_name: str = "nllb-api"
     server_port: int = 49494
-    server_root_path: str = '/api'
+    server_root_path: str = "/api"
     worker_count: int = 1
     auth_token: str = str(uuid4())
 
-    translator_repository: str = 'winstxnhdw/nllb-200-distilled-1.3B-ct2-int8'
+    translator_repository: str = "winstxnhdw/nllb-200-distilled-1.3B-ct2-int8"
     translator_threads: int = 1
     stub_translator: bool = False
     use_cuda: bool = False
 
-    language_detector_repository: str = 'facebook/fasttext-language-identification'
+    language_detector_repository: str = "facebook/fasttext-language-identification"
     stub_language_detector: bool = False
 
-    access_control_allow_origin: str = '*'
+    access_control_allow_origin: str = "*"
     access_control_allow_method_get: bool = True
     access_control_allow_method_post: bool = True
     access_control_allow_method_options: bool = True
@@ -126,8 +126,8 @@ class Config(BaseSettings):
     access_control_allow_method_head: bool = True
     access_control_allow_method_trace: bool = True
     access_control_allow_credentials: bool = True
-    access_control_allow_headers: str = '*'
-    access_control_expose_headers: str = '*'
+    access_control_allow_headers: str = "*"
+    access_control_expose_headers: str = "*"
     access_control_max_age: int = 600
 
     otel_exporter_otlp_endpoint: str | None = None
@@ -136,4 +136,4 @@ class Config(BaseSettings):
     consul_auth_token: str | None = None
     consul_service_address: str | None = None
     consul_service_port: int = 443
-    consul_service_scheme: str = 'https'
+    consul_service_scheme: str = "https"

@@ -26,22 +26,22 @@ def get_meter_provider(*, otlp_service_name: str, otlp_service_instance_id: str)
         the configured MeterProvider instance
     """
     system_metrics_config = {
-        'process.context_switches': ['involuntary', 'voluntary'],
-        'process.cpu.time': ['user', 'system'],
-        'process.cpu.utilization': None,
-        'process.memory.usage': None,
-        'process.memory.virtual': None,
-        'process.open_file_descriptor.count': None,
-        'process.thread.count': None,
-        'process.runtime.memory': ['rss', 'vms'],
-        'process.runtime.cpu.time': ['user', 'system'],
-        'process.runtime.gc_count': None,
-        'cpython.gc.collections': None,
-        'cpython.gc.collected_objects': None,
-        'cpython.gc.uncollectable_objects': None,
-        'process.runtime.thread_count': None,
-        'process.runtime.cpu.utilization': None,
-        'process.runtime.context_switches': ['involuntary', 'voluntary'],
+        "process.context_switches": ["involuntary", "voluntary"],
+        "process.cpu.time": ["user", "system"],
+        "process.cpu.utilization": None,
+        "process.memory.usage": None,
+        "process.memory.virtual": None,
+        "process.open_file_descriptor.count": None,
+        "process.thread.count": None,
+        "process.runtime.memory": ["rss", "vms"],
+        "process.runtime.cpu.time": ["user", "system"],
+        "process.runtime.gc_count": None,
+        "cpython.gc.collections": None,
+        "cpython.gc.collected_objects": None,
+        "cpython.gc.uncollectable_objects": None,
+        "process.runtime.thread_count": None,
+        "process.runtime.cpu.utilization": None,
+        "process.runtime.context_switches": ["involuntary", "voluntary"],
     }
 
     resource = Resource({SERVICE_NAME: otlp_service_name, SERVICE_INSTANCE_ID: otlp_service_instance_id})

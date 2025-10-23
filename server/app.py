@@ -46,7 +46,7 @@ def exception_handler(logger: Logger, _, exception: Exception) -> Response[dict[
     logger.error(exception, exc_info=exception)
 
     return Response(
-        content={'detail': 'Internal Server Error'},
+        content={"detail": "Internal Server Error"},
         status_code=HTTP_500_INTERNAL_SERVER_ERROR,
     )
 
@@ -67,7 +67,7 @@ def extract_cors_values(string: str) -> list[str]:
     strings (list[str])
         the list of strings
     """
-    return [stripped_chunk for chunk in string.split(',') if (stripped_chunk := chunk.strip())]
+    return [stripped_chunk for chunk in string.split(",") if (stripped_chunk := chunk.strip())]
 
 
 def app(config: Config | None = None) -> Litestar:
@@ -77,39 +77,39 @@ def app(config: Config | None = None) -> Litestar:
     the Litestar application
     """
     config = config or Config()
-    ascii_letters_with_digits = f'{ascii_letters}{digits}'
+    ascii_letters_with_digits = f"{ascii_letters}{digits}"
     app_name = config.app_name
-    app_id = f'{app_name}-{"".join(choice(ascii_letters_with_digits) for _ in range(4))}'  # noqa: S311
+    app_id = f"{app_name}-{''.join(choice(ascii_letters_with_digits) for _ in range(4))}"  # noqa: S311
     logger = getLogger(app_name)
     plugins: list[PluginProtocol] = []
     description = (
         "A performant high-throughput CPU-based API for Meta's No Language Left Behind (NLLB) using CTranslate2, "
-        'hosted on Hugging Face Spaces.'
+        "hosted on Hugging Face Spaces."
     )
 
     openapi_config = OpenAPIConfig(
         title=app_name,
-        version='4.2.0',
+        version="4.2.0",
         description=description,
         use_handler_docstrings=True,
         servers=[Server(url=config.server_root_path)],
     )
 
     v4_router = Router(
-        '/v4',
-        tags=['v4'],
+        "/v4",
+        tags=["v4"],
         route_handlers=[v4.language, v4.TranslatorController],
     )
 
-    allow_methods_dict: dict[Method | Literal['*'], bool] = {
-        'GET': config.access_control_allow_method_get,
-        'POST': config.access_control_allow_method_post,
-        'PUT': config.access_control_allow_method_put,
-        'DELETE': config.access_control_allow_method_delete,
-        'OPTIONS': config.access_control_allow_method_options,
-        'PATCH': config.access_control_allow_method_patch,
-        'HEAD': config.access_control_allow_method_head,
-        'TRACE': config.access_control_allow_method_trace,
+    allow_methods_dict: dict[Method | Literal["*"], bool] = {
+        "GET": config.access_control_allow_method_get,
+        "POST": config.access_control_allow_method_post,
+        "PUT": config.access_control_allow_method_put,
+        "DELETE": config.access_control_allow_method_delete,
+        "OPTIONS": config.access_control_allow_method_options,
+        "PATCH": config.access_control_allow_method_patch,
+        "HEAD": config.access_control_allow_method_head,
+        "TRACE": config.access_control_allow_method_trace,
     }
 
     cors_config = CORSConfig(
@@ -134,7 +134,7 @@ def app(config: Config | None = None) -> Litestar:
     if config.otel_exporter_otlp_endpoint:
         handler = get_log_handler(otlp_service_name=app_name, otlp_service_instance_id=app_id)
         logger.addHandler(handler)
-        getLogger('granian.access').addHandler(handler)
+        getLogger("granian.access").addHandler(handler)
         opentelemetry_config = OpenTelemetryConfig(
             tracer_provider=get_tracer_provider(otlp_service_name=app_name, otlp_service_instance_id=app_id),
             meter_provider=get_meter_provider(otlp_service_name=app_name, otlp_service_instance_id=app_id),
@@ -163,5 +163,5 @@ def app(config: Config | None = None) -> Litestar:
         route_handlers=[v4_router, health],
         plugins=plugins,
         lifespan=lifespans,
-        opt={'auth_token': config.auth_token},
+        opt={"auth_token": config.auth_token},
     )

@@ -18,14 +18,14 @@ class TranslatorController(Controller):
     the `/translator` controller handles translations of an input from a source language to a target
     """
 
-    path = '/translator'
+    path = "/translator"
 
     @delete(guards=[requires_secret], sync_to_thread=True)
     def unload_model(
         self,
         state: AppState,
         *,
-        to_cpu: Annotated[bool, Parameter(description='whether to unload the model to CPU')] = False,
+        to_cpu: Annotated[bool, Parameter(description="whether to unload the model to CPU")] = False,
     ) -> Response[None]:
         """
         Summary
@@ -42,7 +42,7 @@ class TranslatorController(Controller):
         self,
         state: AppState,
         *,
-        keep_cache: Annotated[bool, Parameter(description='whether to keep the model cache in RAM')] = False,
+        keep_cache: Annotated[bool, Parameter(description="whether to keep the model cache in RAM")] = False,
     ) -> Response[None]:
         """
         Summary
@@ -56,11 +56,11 @@ class TranslatorController(Controller):
             else HTTP_304_NOT_MODIFIED,
         )
 
-    @get('/tokens', cache=True, sync_to_thread=True)
+    @get("/tokens", cache=True, sync_to_thread=True)
     def token_count(
         self,
         state: AppState,
-        text: Annotated[str, Parameter(min_length=1, description='source text of a single language')],
+        text: Annotated[str, Parameter(min_length=1, description="source text of a single language")],
     ) -> Tokens:
         """
         Summary
@@ -77,27 +77,27 @@ class TranslatorController(Controller):
             str,
             Parameter(
                 min_length=1,
-                description='source text of a single language',
+                description="source text of a single language",
                 examples=[
-                    Example(summary='English', description='text in English (eng_Latn)', value='Hello, world!'),
-                    Example(summary='Spanish', description='text in Spanish (spa_Latn)', value='¡Hola, mundo!'),
+                    Example(summary="English", description="text in English (eng_Latn)", value="Hello, world!"),
+                    Example(summary="Spanish", description="text in Spanish (spa_Latn)", value="¡Hola, mundo!"),
                 ],
             ),
         ],
         source: Annotated[
             Language,
             Parameter(
-                description='source language in the FLORES-200 code format',
+                description="source language in the FLORES-200 code format",
                 examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
-        ] = 'eng_Latn',
+        ] = "eng_Latn",
         target: Annotated[
             Language,
             Parameter(
-                description='target language in the FLORES-200 code format',
+                description="target language in the FLORES-200 code format",
                 examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
-        ] = 'spa_Latn',
+        ] = "spa_Latn",
     ) -> Translated:
         """
         Summary
@@ -115,7 +115,7 @@ class TranslatorController(Controller):
         """
         return Translated(result=state.translator.translate(data.text, data.source, data.target))
 
-    @get('/stream', sync_to_thread=True)
+    @get("/stream", sync_to_thread=True)
     def translator_stream(
         self,
         state: AppState,
@@ -123,29 +123,29 @@ class TranslatorController(Controller):
             str,
             Parameter(
                 min_length=1,
-                description='source text of a single language',
+                description="source text of a single language",
                 examples=[
-                    Example(summary='English', description='text in English (eng_Latn)', value='Hello, world!'),
-                    Example(summary='Spanish', description='text in Spanish (spa_Latn)', value='¡Hola, mundo!'),
+                    Example(summary="English", description="text in English (eng_Latn)", value="Hello, world!"),
+                    Example(summary="Spanish", description="text in Spanish (spa_Latn)", value="¡Hola, mundo!"),
                 ],
             ),
         ],
         source: Annotated[
             Language,
             Parameter(
-                description='source language in the FLORES-200 code format',
+                description="source language in the FLORES-200 code format",
                 examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
-        ] = 'eng_Latn',
+        ] = "eng_Latn",
         target: Annotated[
             Language,
             Parameter(
-                description='target language in the FLORES-200 code format',
+                description="target language in the FLORES-200 code format",
                 examples=[Example(summary=code, value=code) for code in get_args(Language.__value__)],
             ),
-        ] = 'spa_Latn',
+        ] = "spa_Latn",
         event_type: Annotated[
-            str | None, Parameter(description='the event that an event listener will listen for')
+            str | None, Parameter(description="the event that an event listener will listen for")
         ] = None,
     ) -> ServerSentEvent:
         """

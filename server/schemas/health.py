@@ -21,6 +21,6 @@ class Health(Struct, kw_only=True, gc=False):
         the message to display on the right side of the badge, defaults to `online`
     """
 
-    schema_version: int = field(default=1, name='schemaVersion')
+    schema_version: int = field(default=1, name="schemaVersion")
     label: str = field(default=Config().app_name)
-    message: str = field(default='online')
+    message: str = field(default="online")

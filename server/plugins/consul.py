@@ -56,40 +56,40 @@ async def consul_register(
         an optional auth token for populating the `Authorization` header
     """
     headers: dict[str, str] = {}
-    consul_server = f'https://{consul_http_addr}/v1/agent/service'
+    consul_server = f"https://{consul_http_addr}/v1/agent/service"
 
     health_endpoint = (
-        f'{consul_service_scheme}://{consul_service_address}:{consul_service_port}'
-        f'{server_root_path}{health.paths.pop()}'
+        f"{consul_service_scheme}://{consul_service_address}:{consul_service_port}"
+        f"{server_root_path}{health.paths.pop()}"
     )
 
     health_check = {
-        'HTTP': health_endpoint,
-        'Interval': '10s',
-        'Timeout': '5s',
+        "HTTP": health_endpoint,
+        "Interval": "10s",
+        "Timeout": "5s",
     }
 
     payload = {
-        'Name': app_name,
-        'ID': app_id,
-        'Tags': ['prometheus'],
-        'Address': consul_service_address,
-        'Port': consul_service_port,
-        'Check': health_check,
-        'Meta': {
-            'metrics_port': f'{consul_service_port}',
-            'metrics_path': '/metrics',
+        "Name": app_name,
+        "ID": app_id,
+        "Tags": ["prometheus"],
+        "Address": consul_service_address,
+        "Port": consul_service_port,
+        "Check": health_check,
+        "Meta": {
+            "metrics_port": f"{consul_service_port}",
+            "metrics_path": "/metrics",
         },
     }
 
     if consul_auth_token:
-        headers['Authorization'] = f'Bearer {consul_auth_token}'
+        headers["Authorization"] = f"Bearer {consul_auth_token}"
 
     async with ClientSession(headers=headers) as session:
         async with session.put(
-            f'{consul_server}/register',
+            f"{consul_server}/register",
             json=payload,
-            params={'replace-existing-checks': 'true'},
+            params={"replace-existing-checks": "true"},
         ) as response:
             response.raise_for_status()
 
@@ -97,7 +97,7 @@ async def consul_register(
             yield
 
         finally:
-            async with session.put(f'{consul_server}/deregister/{payload["ID"]}'):
+            async with session.put(f"{consul_server}/deregister/{payload['ID']}"):
                 pass
 
 
@@ -135,14 +135,14 @@ class ConsulPlugin(InitPlugin):
     """
 
     __slots__ = (
-        'app_id',
-        'app_name',
-        'consul_auth_token',
-        'consul_http_addr',
-        'consul_service_address',
-        'consul_service_port',
-        'consul_service_scheme',
-        'server_root_path',
+        "app_id",
+        "app_name",
+        "consul_auth_token",
+        "consul_http_addr",
+        "consul_service_address",
+        "consul_service_port",
+        "consul_service_scheme",
+        "server_root_path",
     )
 
     def __init__(

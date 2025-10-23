@@ -13,7 +13,7 @@ def get_oci() -> str:
     -------
     get the available OCI runtime on the host machine
     """
-    return next(runtime for runtime in ('docker', 'podman', 'nerdctl') if which(runtime))
+    return next(runtime for runtime in ("docker", "podman", "nerdctl") if which(runtime))
 
 
 def get_unused_port() -> int:
@@ -32,7 +32,7 @@ def get_unused_port() -> int:
     with socket(AF_INET, SOCK_STREAM) as client:
         while True:
             try:
-                client.bind(('0.0.0.0', port))
+                client.bind(("0.0.0.0", port))
 
             except OSError:
                 port = randint(7860, 7999)  # noqa: S311
@@ -47,8 +47,8 @@ def stub() -> None:
     -------
     run the server without downloading any models
     """
-    env['STUB_TRANSLATOR'] = 'True'
-    env['STUB_LANGUAGE_DETECTOR'] = 'True'
+    env["STUB_TRANSLATOR"] = "True"
+    env["STUB_LANGUAGE_DETECTOR"] = "True"
     main()
 
 
@@ -59,23 +59,23 @@ def cpu() -> None:
     build and run the server with CPU inference
     """
     oci = get_oci()
-    docker_build = [oci, 'build', '-f', 'Dockerfile.build', '-t', 'nllb-api', '.']
+    docker_build = [oci, "build", "-f", "Dockerfile.build", "-t", "nllb-api", "."]
 
     port = get_unused_port()
     docker_run = [
         oci,
-        'run',
-        '--init',
-        '--rm',
-        '-e',
-        f'SERVER_PORT={port}',
-        '-e',
-        'TRANSLATOR_THREADS=4',
-        '-e',
-        'AUTH_TOKEN=Test',
-        '-p',
-        f'{port}:{port}',
-        'nllb-api',
+        "run",
+        "--init",
+        "--rm",
+        "-e",
+        f"SERVER_PORT={port}",
+        "-e",
+        "TRANSLATOR_THREADS=4",
+        "-e",
+        "AUTH_TOKEN=Test",
+        "-p",
+        f"{port}:{port}",
+        "nllb-api",
     ]
 
     run(docker_build, check=True)
@@ -89,25 +89,25 @@ def gpu() -> None:
     build and run the server with GPU inference
     """
     oci = get_oci()
-    docker_build = [oci, 'build', '--build-arg', 'USE_CUDA=1', '-f', 'Dockerfile.build', '-t', 'nllb-api', '.']
+    docker_build = [oci, "build", "--build-arg", "USE_CUDA=1", "-f", "Dockerfile.build", "-t", "nllb-api", "."]
 
     port = get_unused_port()
     docker_run = [
         oci,
-        'run',
-        '--init',
-        '--rm',
-        '--gpus',
-        'all',
-        '-e',
-        f'SERVER_PORT={port}',
-        '-e',
-        'TRANSLATOR_THREADS=4',
-        '-e',
-        'AUTH_TOKEN=Test',
-        '-p',
-        f'{port}:{port}',
-        'nllb-api',
+        "run",
+        "--init",
+        "--rm",
+        "--gpus",
+        "all",
+        "-e",
+        f"SERVER_PORT={port}",
+        "-e",
+        "TRANSLATOR_THREADS=4",
+        "-e",
+        "AUTH_TOKEN=Test",
+        "-p",
+        f"{port}:{port}",
+        "nllb-api",
     ]
 
     run(docker_build, check=True)
@@ -121,8 +121,8 @@ def huggingface() -> None:
     run the production image from the GitHub Container Registry
     """
     oci = get_oci()
-    docker_build = [oci, 'build', '-t', 'nllb-api', '.']
-    docker_run = [oci, 'run', '--init', '--rm', '-p', f'7860:{get_unused_port()}', 'nllb-api']
+    docker_build = [oci, "build", "-t", "nllb-api", "."]
+    docker_run = [oci, "run", "--init", "--rm", "-p", f"7860:{get_unused_port()}", "nllb-api"]
 
     run(docker_build, check=True)
     run(docker_run, check=True)

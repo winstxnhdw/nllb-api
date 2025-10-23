@@ -114,7 +114,7 @@ class TranslatorStub(TranslatorProtocol):
         translated_text (str)
             the translated text
         """
-        return f'{text} from {source_language} to {target_language}'
+        return f"{text} from {source_language} to {target_language}"
 
     def translate_stream(self, text: str, source_language: Language, target_language: Language) -> Iterator[str]:
         """
@@ -138,4 +138,4 @@ class TranslatorStub(TranslatorProtocol):
         translated_text (Iterator[str])
             the translated text
         """
-        yield from (f'{word} from {source_language} to {target_language}' for word in text.split())
+        yield from (f"{word} from {source_language} to {target_language}" for word in text.split())
