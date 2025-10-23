@@ -142,7 +142,6 @@ class Translator(TranslatorProtocol):
             max_decoding_length=4096,
             sampling_temperature=0,
             no_repeat_ngram_size=3,
-            max_input_length=0,
             suppress_sequences=(target_prefix,),
         )
 
