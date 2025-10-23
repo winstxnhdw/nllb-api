@@ -274,6 +274,18 @@ async def main():
 asyncio.run(main())
 ```
 
+Ideally, you would want to chunk your texts in batches under 512 tokens.
+
+```python
+client = AsyncTranslatorClient("http://localhost:7860")
+language_prediction = await client.detect_language(' '.join(words[:10]))
+
+while (await client.count_tokens(' '.join(words))) > 512:
+    words.pop()
+
+response = await client.translate(' '.join(words), source=language_prediction.language, target="spa_Latn")
+```
+
 ## Self-Hosting
 
 You can self-host the API and access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) with the following minimal configuration
