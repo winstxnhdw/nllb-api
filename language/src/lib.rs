@@ -90,7 +90,6 @@ impl Detector {
         Ok(detector)
     }
 
-    #[pyo3(signature = (text, *, fasttext_confidence_threshold, lingua_confidence_threshold))]
     fn detect(
         &self,
         py: Python,
