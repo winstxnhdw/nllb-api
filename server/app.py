@@ -127,6 +127,7 @@ def app(config: Config | None = None) -> Litestar:
             config.translator_repository,
             translator_threads=config.translator_threads,
             stub=config.stub_translator,
+            testing=config.testing,
             use_cuda=config.use_cuda,
         ),
     )

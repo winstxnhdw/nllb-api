@@ -111,6 +111,7 @@ class Config(BaseSettings):
     translator_repository: str = "winstxnhdw/nllb-200-distilled-1.3B-ct2-int8"
     translator_threads: int = 1
     stub_translator: bool = False
+    testing: bool = False
     use_cuda: bool = False
 
     language_detector_repository: str = "facebook/fasttext-language-identification"

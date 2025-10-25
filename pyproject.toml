@@ -18,6 +18,7 @@ dependencies = [
     "opentelemetry-exporter-otlp-proto-http>=1.38.0",
     "fast-query-parsers>=1.0.3",
     "opentelemetry-instrumentation-system-metrics>=0.58b0",
+    "pytest-env>=1.2.0",
 ]
 
 [project.optional-dependencies]
@@ -86,3 +87,6 @@ reportPrivateUsage = false
 [tool.pytest.ini_options]
 pythonpath = ["."]
 addopts = "-n auto --dist loadscope"
+
+[tool.pytest_env]
+TESTING = "True"

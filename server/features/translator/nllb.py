@@ -200,7 +200,14 @@ class Translator(TranslatorProtocol):
         )
 
 
-def get_translator(repository: str, *, translator_threads: int, stub: bool, use_cuda: bool) -> TranslatorProtocol:
+def get_translator(
+    repository: str,
+    *,
+    translator_threads: int,
+    stub: bool,
+    testing: bool,
+    use_cuda: bool,
+) -> TranslatorProtocol:
     """
     Summary
     -------
@@ -216,6 +223,9 @@ def get_translator(repository: str, *, translator_threads: int, stub: bool, use_
 
     stub (bool)
         whether to return a stub object
+
+    testing (bool)
+        whether the application is running in testing mode
 
     use_cuda (bool)
         whether to use CUDA for inference
@@ -233,7 +243,7 @@ def get_translator(repository: str, *, translator_threads: int, stub: bool, use_
     translator = CTranslator(
         model_path,
         "cuda" if use_cuda else "cpu",
-        compute_type="auto",
+        compute_type="default" if testing else "auto",
         inter_threads=translator_threads,
     )
 

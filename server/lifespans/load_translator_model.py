@@ -13,6 +13,7 @@ async def translator_lifespan(
     translator_repository: str,
     translator_threads: int,
     stub: bool,
+    testing: bool,
     use_cuda: bool,
 ) -> AsyncIterator[None]:
     """
@@ -34,12 +35,16 @@ async def translator_lifespan(
     stub (bool)
         whether to use a stub object
 
+    testing (bool)
+        whether the application is running in testing mode
+
     use_cuda (bool)
         whether to use CUDA for translation
     """
     with get_translator(
         translator_repository,
         translator_threads=translator_threads,
+        testing=testing,
         stub=stub,
         use_cuda=use_cuda,
     ) as translator:
@@ -52,6 +57,7 @@ def load_translator_model(
     *,
     translator_threads: int,
     stub: bool,
+    testing: bool,
     use_cuda: bool,
 ) -> Callable[[Litestar], AbstractAsyncContextManager[None]]:
     """
@@ -70,6 +76,9 @@ def load_translator_model(
     stub (bool)
         whether to use a stub object
 
+    testing (bool)
+        whether the application is running in testing mode
+
     use_cuda (bool)
         whether to use CUDA for translation
 
@@ -83,5 +92,6 @@ def load_translator_model(
         translator_repository=translator_repository,
         translator_threads=translator_threads,
         stub=stub,
+        testing=testing,
         use_cuda=use_cuda,
     )

@@ -89,7 +89,6 @@ async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str)
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
 
-@mark.flaky
 @mark.anyio
 @mark.parametrize("translate", [translate_post, translate_get])
 @mark.parametrize(
