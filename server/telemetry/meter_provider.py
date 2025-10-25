@@ -1,9 +1,28 @@
+from collections.abc import Iterable
+
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.instrumentation.system_metrics import SystemMetricsInstrumentor
-from opentelemetry.metrics import set_meter_provider
+from opentelemetry.metrics import CallbackOptions, Meter, Observation, set_meter_provider
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import SERVICE_INSTANCE_ID, SERVICE_NAME, OTELResourceDetector, Resource
+from psutil import disk_partitions, disk_usage
+
+
+def get_system_filesystem_usage(_: CallbackOptions) -> Iterable[Observation]:
+    for partition in disk_partitions(all=False):
+        labels = {
+            "system.device": partition.device,
+            "system.filesystem.mountpoint": partition.mountpoint,
+            "system.filesystem.type": partition.fstype,
+            "system.filesystem.mode": partition.opts,
+            "system.filesystem.state": "used",
+        }
+
+        usage = disk_usage(partition.mountpoint)
+        yield Observation(usage.used, labels)
+        labels["system.filesystem.state"] = "free"
+        yield Observation(usage.free, labels)
 
 
 def get_meter_provider(*, otlp_service_name: str, otlp_service_instance_id: str) -> MeterProvider:
@@ -48,7 +67,17 @@ def get_meter_provider(*, otlp_service_name: str, otlp_service_instance_id: str)
     resource = Resource({SERVICE_NAME: otlp_service_name, SERVICE_INSTANCE_ID: otlp_service_instance_id})
     merged_resource = resource.merge(OTELResourceDetector().detect())
     meter_provider = MeterProvider([PeriodicExportingMetricReader(OTLPMetricExporter())], merged_resource)
-    SystemMetricsInstrumentor(config=system_metrics_config).instrument(meter_provider=meter_provider)
+    system_metrics_instrumentor = SystemMetricsInstrumentor(config=system_metrics_config)
+    system_metrics_instrumentor.instrument(meter_provider=meter_provider)
+
+    if isinstance(meter := system_metrics_instrumentor._meter, Meter):
+        meter.create_observable_up_down_counter(
+            "system.filesystem.usage",
+            [get_system_filesystem_usage],
+            "By",
+            "System filesystem usage",
+        )
+
     set_meter_provider(meter_provider)
 
     return meter_provider
