@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+from os import statvfs
 
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.instrumentation.system_metrics import SystemMetricsInstrumentor
@@ -6,23 +7,20 @@ from opentelemetry.metrics import CallbackOptions, Meter, Observation, set_meter
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import SERVICE_INSTANCE_ID, SERVICE_NAME, OTELResourceDetector, Resource
-from psutil import disk_partitions, disk_usage
 
 
 def get_system_filesystem_usage(_: CallbackOptions) -> Iterable[Observation]:
-    for partition in disk_partitions(all=False):
-        labels = {
-            "system.device": partition.device,
-            "system.filesystem.mountpoint": partition.mountpoint,
-            "system.filesystem.type": partition.fstype,
-            "system.filesystem.mode": partition.opts,
-            "system.filesystem.state": "used",
-        }
+    labels = {
+        "system.filesystem.mountpoint": "/",
+        "system.filesystem.state": "used",
+    }
 
-        usage = disk_usage(partition.mountpoint)
-        yield Observation(usage.used, labels)
-        labels["system.filesystem.state"] = "free"
-        yield Observation(usage.free, labels)
+    usage = statvfs("/")
+    yield Observation(usage.f_bfree, labels)
+    labels["system.filesystem.state"] = "free"
+    yield Observation(usage.f_bavail, labels)
+    labels["system.filesystem.state"] = "reserved"
+    yield Observation(usage.f_bsize * (usage.f_blocks - usage.f_bfree - usage.f_bavail), labels)
 
 
 def get_meter_provider(*, otlp_service_name: str, otlp_service_instance_id: str) -> MeterProvider:
