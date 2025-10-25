@@ -11,7 +11,7 @@ classifiers = [
 [dependency-groups]
 dev = [
     "maturin>=1.9.6",
-    "pyright>=1.1.406",
+    "pyright>=1.1.407",
     "ruff>=0.14.2",
 ]
 
