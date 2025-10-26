@@ -27,25 +27,23 @@ def get_system_filesystem_usage(_: CallbackOptions) -> Iterable[Observation]:
         an observation of filesystem usage with associated labels
     """
     with Path("/proc/mounts").open() as mounts:
-        mount = next(root_mount for mount in mounts if (root_mount := mount.split())[1] == "/")
+        for device, mountpoint, filesystem_type, filesystem_mode, *__ in (mount.split() for mount in mounts):
+            usage = statvfs(mountpoint)
+            labels_base = {
+                "system.filesystem.device": device,
+                "system.filesystem.mountpoint": mountpoint,
+                "system.filesystem.type": filesystem_type,
+                "system.filesystem.mode": filesystem_mode,
+            }
 
-    usage = statvfs("/")
-    device, mountpoint, filesystem_type, filesystem_mode, *__ = mount
-    labels_base = {
-        "system.filesystem.device": device,
-        "system.filesystem.mountpoint": mountpoint,
-        "system.filesystem.type": filesystem_type,
-        "system.filesystem.mode": filesystem_mode,
-    }
+            labels_used = {**labels_base, "system.filesystem.state": "used"}
+            yield Observation(usage.f_bfree, labels_used)
 
-    labels_used = {**labels_base, "system.filesystem.state": "used"}
-    yield Observation(usage.f_bfree, labels_used)
+            labels_free = {**labels_base, "system.filesystem.state": "free"}
+            yield Observation(usage.f_bavail, labels_free)
 
-    labels_free = {**labels_base, "system.filesystem.state": "free"}
-    yield Observation(usage.f_bavail, labels_free)
-
-    labels_reserved = {**labels_base, "system.filesystem.state": "reserved"}
-    yield Observation(usage.f_bsize * (usage.f_blocks - usage.f_bfree - usage.f_bavail), labels_reserved)
+            labels_reserved = {**labels_base, "system.filesystem.state": "reserved"}
+            yield Observation(usage.f_bsize * (usage.f_blocks - usage.f_bfree - usage.f_bavail), labels_reserved)
 
 
 def get_meter_provider(*, otlp_service_name: str, otlp_service_instance_id: str) -> MeterProvider:
