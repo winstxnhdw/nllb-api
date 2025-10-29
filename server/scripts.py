@@ -12,8 +12,27 @@ def get_oci() -> str:
     Summary
     -------
     get the available OCI runtime on the host machine
+
+    Returns
+    -------
+    runtime (str)
+        an available OCI runtime
     """
     return next(runtime for runtime in ("docker", "podman", "nerdctl") if which(runtime))
+
+
+def run_args() -> tuple[str, ...]:
+    """
+    Summary
+    -------
+    get common arguments for running an OCI container
+
+    Returns
+    -------
+    args (tuple[str, ...])
+        common arguments for running an OCI container
+    """
+    return ("run", "--init", "--rm", "--gpus", "all")
 
 
 def get_unused_port() -> int:
@@ -64,9 +83,7 @@ def cpu() -> None:
     port = get_unused_port()
     docker_run = [
         oci,
-        "run",
-        "--init",
-        "--rm",
+        *run_args(),
         "-e",
         f"SERVER_PORT={port}",
         "-e",
@@ -94,11 +111,7 @@ def gpu() -> None:
     port = get_unused_port()
     docker_run = [
         oci,
-        "run",
-        "--init",
-        "--rm",
-        "--gpus",
-        "all",
+        *run_args(),
         "-e",
         f"SERVER_PORT={port}",
         "-e",
@@ -122,7 +135,7 @@ def huggingface() -> None:
     """
     oci = get_oci()
     docker_build = [oci, "build", "-t", "nllb-api", "."]
-    docker_run = [oci, "run", "--init", "--rm", "-p", f"7860:{get_unused_port()}", "nllb-api"]
+    docker_run = [oci, *run_args(), "-p", f"7860:{get_unused_port()}", "nllb-api"]
 
     run(docker_build, check=True)
     run(docker_run, check=True)
