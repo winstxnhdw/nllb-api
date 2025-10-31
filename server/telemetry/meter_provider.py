@@ -9,6 +9,7 @@ from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import SERVICE_INSTANCE_ID, SERVICE_NAME, OTELResourceDetector, Resource
 
+
 def get_system_filesystem_usage(_: CallbackOptions) -> Iterable[Observation]:
     """
     Summary
