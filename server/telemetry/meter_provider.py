@@ -9,7 +9,6 @@ from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import SERVICE_INSTANCE_ID, SERVICE_NAME, OTELResourceDetector, Resource
 
-
 def get_system_filesystem_usage(_: CallbackOptions) -> Iterable[Observation]:
     """
     Summary
@@ -27,23 +26,25 @@ def get_system_filesystem_usage(_: CallbackOptions) -> Iterable[Observation]:
         an observation of filesystem usage with associated labels
     """
     with Path("/proc/mounts").open() as mounts:
-        for device, mountpoint, filesystem_type, filesystem_mode, *__ in (mount.split() for mount in mounts):
-            usage = statvfs(mountpoint)
-            labels_base = {
-                "system.filesystem.device": device,
-                "system.filesystem.mountpoint": mountpoint,
-                "system.filesystem.type": filesystem_type,
-                "system.filesystem.mode": filesystem_mode,
-            }
+        mount = next(root_mount for mount in mounts if (root_mount := mount.split())[1] == "/")
 
-            labels_used = {**labels_base, "system.filesystem.state": "used"}
-            yield Observation(usage.f_bfree, labels_used)
+    usage = statvfs("/")
+    device, mountpoint, filesystem_type, filesystem_mode, *__ = mount
+    labels_base = {
+        "system.filesystem.device": device,
+        "system.filesystem.mountpoint": mountpoint,
+        "system.filesystem.type": filesystem_type,
+        "system.filesystem.mode": filesystem_mode,
+    }
 
-            labels_free = {**labels_base, "system.filesystem.state": "free"}
-            yield Observation(usage.f_bavail, labels_free)
+    labels_used = {**labels_base, "system.filesystem.state": "used"}
+    yield Observation(usage.f_bfree, labels_used)
 
-            labels_reserved = {**labels_base, "system.filesystem.state": "reserved"}
-            yield Observation(usage.f_bsize * (usage.f_blocks - usage.f_bfree - usage.f_bavail), labels_reserved)
+    labels_free = {**labels_base, "system.filesystem.state": "free"}
+    yield Observation(usage.f_bavail, labels_free)
+
+    labels_reserved = {**labels_base, "system.filesystem.state": "reserved"}
+    yield Observation(usage.f_bsize * (usage.f_blocks - usage.f_bfree - usage.f_bavail), labels_reserved)
 
 
 def get_meter_provider(*, otlp_service_name: str, otlp_service_instance_id: str) -> MeterProvider:
