@@ -4,7 +4,7 @@ version = "4.2.0"
 description = "A fast CPU-based API for NLLB"
 requires-python = ">=3.13.7, <3.14"
 dependencies = [
-    "ctranslate2>=4.6.0",
+    "ctranslate2>=4.6.1",
     "fasttext>=0.9.3",
     "granian>=2.5.7",
     "litestar>=2.18.0",
