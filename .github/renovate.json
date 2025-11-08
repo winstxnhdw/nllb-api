@@ -1,4 +1,3 @@
 {
-	"extends": ["github>winstxnhdw/renovate"],
-	"ignoreDeps": ["python"]
+	"extends": ["github>winstxnhdw/renovate"]
 }
