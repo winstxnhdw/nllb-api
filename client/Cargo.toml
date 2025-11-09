@@ -14,10 +14,10 @@ name = "nllb"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.27.1"
-pyo3-async-runtimes = { version = "0.27.0", features = ["tokio-runtime"] }
-reqwest = { version = "0.12.24", features = ["http2", "json", "blocking"] }
-serde = { version = "1.0.228", features = ["derive"] }
+pyo3 = { version = "0.27.1", default-features = false }
+pyo3-async-runtimes = { version = "0.27.0", default-features = false, features = ["tokio-runtime"] }
+reqwest = { version = "0.12.24", default-features = false, features = ["http2", "json", "blocking", "rustls-tls"] }
+serde = { version = "1.0.228", default-features = false, features = ["derive"] }
 
 [build-dependencies]
-pyo3-build-config = { version = "0.27.1", features = ["resolve-config"] }
+pyo3-build-config = { version = "0.27.1", default-features = false, features = ["resolve-config"] }
