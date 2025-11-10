@@ -5,7 +5,7 @@ from msgspec import Meta, Struct
 from server.typedefs import Confidence, Language
 
 
-class LanguageResult(Struct, kw_only=True):
+class LanguageResult(Struct, kw_only=True, frozen=True, gc=False):
     """
     Summary
     -------

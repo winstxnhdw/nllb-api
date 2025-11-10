@@ -3,7 +3,7 @@ from typing import Annotated
 from msgspec import Meta, Struct
 
 
-class Tokens(Struct, kw_only=True):
+class Tokens(Struct, kw_only=True, frozen=True, gc=False):
     """
     Summary
     -------

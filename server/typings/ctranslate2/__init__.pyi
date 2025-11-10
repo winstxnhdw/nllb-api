@@ -63,8 +63,8 @@ class Translator:
     @overload
     def translate_batch(
         self,
-        source: Iterable[list[str]],
-        target_prefix: Iterable[list[str] | None] | None = None,
+        source: Iterable[Sequence[str]],
+        target_prefix: Iterable[Sequence[str] | None] | None = None,
         *,
         max_batch_size: int = 0,
         batch_type: BatchTypes = "examples",
@@ -77,7 +77,7 @@ class Translator:
         repetition_penalty: float = 1,
         no_repeat_ngram_size: int = 0,
         disable_unks: bool = False,
-        supress_sequences: list[list[str]] | None = None,
+        suppress_sequences: Sequence[Sequence[str]] | None = None,
         end_token: str | list[str] | list[int] | None = None,
         return_end_token: bool = False,
         prefix_bias_beta: float = 0,
@@ -98,8 +98,8 @@ class Translator:
     @overload
     def translate_batch(
         self,
-        source: Iterable[list[str]],
-        target_prefix: Iterable[list[str] | None] | None = None,
+        source: Iterable[Sequence[str]],
+        target_prefix: Iterable[Sequence[str] | None] | None = None,
         *,
         max_batch_size: int = 0,
         batch_type: BatchTypes = "examples",
@@ -112,7 +112,7 @@ class Translator:
         repetition_penalty: float = 1,
         no_repeat_ngram_size: int = 0,
         disable_unks: bool = False,
-        supress_sequences: list[list[str]] | None = None,
+        suppress_sequences: Sequence[Sequence[str]] | None = None,
         end_token: str | list[str] | list[int] | None = None,
         return_end_token: bool = False,
         prefix_bias_beta: float = 0,
@@ -132,8 +132,8 @@ class Translator:
     ) -> list[AsyncTranslationResult]: ...
     def translate_iterable(
         self,
-        source: Iterable[list[str]],
-        target_prefix: Iterable[list[str]] | None = None,
+        source: Iterable[Sequence[str]],
+        target_prefix: Iterable[Sequence[str]] | None = None,
         max_batch_size: int = 32,
         batch_type: BatchTypes = "examples",
         *,
@@ -145,7 +145,7 @@ class Translator:
         repetition_penalty: float = 1,
         no_repeat_ngram_size: int = 0,
         disable_unks: bool = False,
-        supress_sequences: list[list[str]] | None = None,
+        suppress_sequences: list[list[str]] | None = None,
         end_token: str | list[str] | list[int] | None = None,
         return_end_token: bool = False,
         prefix_bias_beta: float = 0,

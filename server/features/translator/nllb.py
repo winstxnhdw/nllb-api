@@ -139,7 +139,7 @@ class Translator(TranslatorProtocol):
         results = self.translator.generate_tokens(
             (source_language, *self.tokeniser.encode(text).tokens),
             target_prefix,
-            max_decoding_length=4096,
+            max_decoding_length=1024,
             sampling_temperature=0,
             no_repeat_ngram_size=3,
             suppress_sequences=(target_prefix,),
@@ -169,7 +169,7 @@ class Translator(TranslatorProtocol):
         translated_text (str)
             the translated text
         """
-        return self.tokeniser.decode(list(self.translate_generator(text, source_language, target_language)))
+        return self.tokeniser.decode(tuple(self.translate_generator(text, source_language, target_language)))
 
     def translate_stream(self, text: str, source_language: Language, target_language: Language) -> Iterator[str]:
         """

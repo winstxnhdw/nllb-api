@@ -3,7 +3,7 @@ from typing import Annotated
 from msgspec import Meta, Struct
 
 
-class Translated(Struct, kw_only=True):
+class Translated(Struct, kw_only=True, frozen=True, gc=False):
     """
     Summary
     -------

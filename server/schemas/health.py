@@ -3,7 +3,7 @@ from msgspec import Struct, field
 from server.config import Config
 
 
-class Health(Struct, kw_only=True, gc=False):
+class Health(Struct, kw_only=True, frozen=True, gc=False):
     """
     Summary
     -------
