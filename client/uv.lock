@@ -45,9 +45,9 @@ dev = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "maturin", specifier = ">=1.9.6" },
+    { name = "maturin", specifier = ">=1.10.2" },
     { name = "pyright", specifier = ">=1.1.407" },
-    { name = "ruff", specifier = ">=0.14.4" },
+    { name = "ruff", specifier = ">=0.14.6" },
 ]
 
 [[package]]
