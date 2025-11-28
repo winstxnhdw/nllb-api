@@ -12,7 +12,7 @@ classifiers = [
 dev = [
     "maturin>=1.10.2",
     "pyright>=1.1.407",
-    "ruff>=0.14.6",
+    "ruff>=0.14.7",
 ]
 
 [build-system]
