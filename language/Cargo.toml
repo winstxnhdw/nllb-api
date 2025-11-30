@@ -90,4 +90,4 @@ lingua = { version = "1.7.2", default-features = false, features = [
     "yoruba",
     "zulu",
 ] }
-pyo3 = { version = "0.27.1", default-features = false, features = ["macros"] }
+pyo3 = { version = "0.27.2", default-features = false, features = ["macros"] }
