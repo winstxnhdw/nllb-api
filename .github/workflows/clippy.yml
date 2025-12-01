@@ -10,36 +10,11 @@ on:
       - language/**
 
 jobs:
-  lint:
+  clippy:
     strategy:
       matrix:
         working-directory: [client, language]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ matrix.working-directory }}
+    uses: winstxnhdw/actions/.github/workflows/clippy.yml@main
+    with:
+      working-directory: ${{ matrix.working-directory }}
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.0.0
-        with:
-          show-progress: false
-
-      - name: Cache Cargo
-        uses: actions/cache@v4.3.0
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            ${{ matrix.working-directory }}/target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@nightly
-        with:
-          components: clippy
-
-      - name: Lint
-        run: cargo clippy
