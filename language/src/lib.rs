@@ -11,7 +11,6 @@ use pyo3::prelude::pyclass;
 use pyo3::prelude::pymethods;
 use pyo3::types::PyAnyMethods;
 use pyo3::types::PyListMethods;
-use pyo3::types::PyModuleMethods;
 use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
 
@@ -141,9 +140,10 @@ impl Detector {
     }
 }
 
-#[pyo3::prelude::pymodule()]
-fn language(m: &Bound<'_, pyo3::prelude::PyModule>) -> PyResult<()> {
-    m.add_class::<Detector>()?;
-    m.add_class::<Prediction>()?;
-    Ok(())
+#[pyo3::prelude::pymodule(gil_used = false)]
+mod language {
+    #[pymodule_export]
+    use super::Detector;
+    #[pymodule_export]
+    use super::Prediction;
 }
