@@ -207,6 +207,9 @@ type Language = Literal[
     "zul_Latn",
 ]
 
+class ClientError(Exception): ...
+class ApiError(Exception): ...
+
 class LanguagePrediction:
     @property
     def language(self) -> Language: ...

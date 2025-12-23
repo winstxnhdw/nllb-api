@@ -7,10 +7,10 @@ use crate::structs::TranslateQuery;
 use crate::structs::TranslateResponse;
 use crate::structs::UnloadQuery;
 
-use reqwest::blocking::Client;
-use reqwest::header;
 use reqwest::Error;
 use reqwest::Proxy;
+use reqwest::blocking::Client;
+use reqwest::header;
 
 use std::env;
 
