@@ -7,11 +7,10 @@ use crate::structs::TranslateQuery;
 use crate::structs::TranslateResponse;
 use crate::structs::UnloadQuery;
 
-use reqwest::header;
 use reqwest::Client;
 use reqwest::Error;
 use reqwest::Proxy;
-
+use reqwest::header;
 use std::env;
 
 pub struct TranslatorClient {

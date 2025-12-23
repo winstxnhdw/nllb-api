@@ -11,7 +11,6 @@ use reqwest::Error;
 use reqwest::Proxy;
 use reqwest::blocking::Client;
 use reqwest::header;
-
 use std::env;
 
 pub struct TranslatorBlockingClient {
