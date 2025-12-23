@@ -10,8 +10,8 @@ use crate::blocking_client::TranslatorBlockingClient;
 use crate::client::TranslatorClient;
 use crate::structs::LanguageResponse;
 
-pyo3::create_exception!(nllb, ClientError, pyo3::exceptions::PyRuntimeError);
-pyo3::create_exception!(nllb, ApiError, pyo3::exceptions::PyRuntimeError);
+pyo3::create_exception!(nllb, ClientError, pyo3::exceptions::PyException);
+pyo3::create_exception!(nllb, ApiError, pyo3::exceptions::PyException);
 
 #[cfg_attr(
     not(any(Py_3_8, Py_3_9)),
