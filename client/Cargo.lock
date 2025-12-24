@@ -519,6 +519,7 @@ dependencies = [
  "pyo3-build-config",
  "reqwest",
  "serde",
+ "tokio",
 ]
 
 [[package]]

@@ -16,10 +16,7 @@ use crate::structs::LanguageResponse;
 pyo3::create_exception!(nllb, ClientError, pyo3::exceptions::PyException);
 pyo3::create_exception!(nllb, ApiError, pyo3::exceptions::PyException);
 
-#[cfg_attr(
-    not(any(Py_3_8, Py_3_9)),
-    pyclass(name = "TranslatorClient", frozen, immutable_type)
-)]
+#[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(name = "TranslatorClient", frozen, immutable_type))]
 #[cfg_attr(any(Py_3_8, Py_3_9), pyclass(name = "TranslatorClient", frozen))]
 struct PyTranslatorClient {
     client: TranslatorBlockingClient,
@@ -36,9 +33,8 @@ impl PyTranslatorClient {
         https_proxy: Option<&str>,
         no_proxy: Option<&str>,
     ) -> PyResult<Self> {
-        let client =
-            TranslatorBlockingClient::new(base_url, auth_token, http_proxy, https_proxy, no_proxy)
-                .map_err(|e| ClientError::new_err(e.to_string()))?;
+        let client = TranslatorBlockingClient::new(base_url, auth_token, http_proxy, https_proxy, no_proxy)
+            .map_err(|e| ClientError::new_err(e.to_string()))?;
 
         Ok(Self { client })
     }
@@ -127,12 +123,7 @@ impl AsyncPyTranslatorClient {
     }
 
     #[pyo3(signature = (text, *, source, target))]
-    async fn translate(
-        &self,
-        text: Py<PyString>,
-        source: Py<PyString>,
-        target: Py<PyString>,
-    ) -> PyResult<String> {
+    async fn translate(&self, text: Py<PyString>, source: Py<PyString>, target: Py<PyString>) -> PyResult<String> {
         let args = Python::attach(|py| (text.to_str(py), source.to_str(py), target.to_str(py)));
 
         self.client
@@ -161,4 +152,17 @@ mod nllb {
     use super::LanguageResponse;
     #[pymodule_export]
     use super::PyTranslatorClient;
+
+    #[pymodule_init]
+    fn init(_: &pyo3::Bound<'_, pyo3::types::PyModule>) -> pyo3::PyResult<()> {
+        let runtime = Box::leak(Box::new(
+            tokio::runtime::Builder::new_multi_thread()
+                .enable_all()
+                .build()
+                .expect("Failed to create async runtime!"),
+        ));
+
+        Box::leak(Box::new(runtime.enter()));
+        Ok(())
+    }
 }
