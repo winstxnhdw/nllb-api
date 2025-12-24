@@ -2,9 +2,12 @@ mod blocking_client;
 mod client;
 mod structs;
 
+use pyo3::Python;
+use pyo3::prelude::Py;
 use pyo3::prelude::PyResult;
 use pyo3::prelude::pyclass;
 use pyo3::prelude::pymethods;
+use pyo3::types::PyString;
 
 use crate::blocking_client::TranslatorBlockingClient;
 use crate::client::TranslatorClient;
@@ -116,24 +119,31 @@ impl AsyncPyTranslatorClient {
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
 
-    async fn detect_language(&self, text: String) -> PyResult<LanguageResponse> {
+    async fn detect_language(&self, text: Py<PyString>) -> PyResult<LanguageResponse> {
         self.client
-            .detect_language(&text)
+            .detect_language(Python::attach(|py| text.to_str(py))?)
             .await
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
 
     #[pyo3(signature = (text, *, source, target))]
-    async fn translate(&self, text: String, source: String, target: String) -> PyResult<String> {
+    async fn translate(
+        &self,
+        text: Py<PyString>,
+        source: Py<PyString>,
+        target: Py<PyString>,
+    ) -> PyResult<String> {
+        let args = Python::attach(|py| (text.to_str(py), source.to_str(py), target.to_str(py)));
+
         self.client
-            .translate(&text, &source, &target)
+            .translate(args.0?, args.1?, args.2?)
             .await
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
 
-    async fn count_tokens(&self, text: String) -> PyResult<u32> {
+    async fn count_tokens(&self, text: Py<PyString>) -> PyResult<u32> {
         self.client
-            .count_tokens(&text)
+            .count_tokens(Python::attach(|py| text.to_str(py))?)
             .await
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
