@@ -1,6 +1,5 @@
 from litestar.datastructures import State
 
-from server.config import Config
 from server.features.detector import LanguageDetectorProtocol
 from server.features.translator import TranslatorProtocol
 
@@ -13,9 +12,6 @@ class AppState(State):
 
     Attributes
     ----------
-    config (Config)
-        the application configuration
-
     language_detector (LanguageDetectorProtocol)
         the language detector
 
@@ -23,6 +19,5 @@ class AppState(State):
         the translator
     """
 
-    config: Config
     language_detector: LanguageDetectorProtocol
     translator: TranslatorProtocol
