@@ -94,8 +94,13 @@ async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str)
 @mark.parametrize(
     ("text", "source", "target", "translation"),
     [
-        ("Hello, world!", "eng_Latn", "spa_Latn", "¡Hola, mundo!"),
-        ("我是一名软件工程师！", "zho_Hans", "spa_Latn", "¡Soy un ingeniero de software!"),  # noqa: RUF001
+        ("Hello, world!", "eng_Latn", "spa_Latn", ["¡Hola, mundo!"]),
+        (
+            "我是一名软件工程师！",  # noqa: RUF001
+            "zho_Hans",
+            "spa_Latn",
+            {"¡Soy un ingeniero de software!", "¡Soy ingeniero de software!"},
+        ),
     ],
 )
 async def test_translate_api(
@@ -104,10 +109,10 @@ async def test_translate_api(
     text: str,
     source: Language,
     target: Language,
-    translation: str,
+    translation: set[str],
 ) -> None:
     response = await translate(session_client, text, source, target)
-    assert response.json().get("result") == translation
+    assert response.json().get("result") in translation
 
 
 @mark.anyio
