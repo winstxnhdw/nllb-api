@@ -38,9 +38,7 @@ impl TranslatorClient {
             headers.insert(header::AUTHORIZATION, header);
         }
 
-        let mut client_builder = Client::builder()
-            .default_headers(headers)
-            .http2_adaptive_window(true);
+        let mut client_builder = Client::builder().default_headers(headers).http2_adaptive_window(true);
 
         let no_proxy_maybe = no_proxy
             .or(env::var("NO_PROXY").ok().as_deref())
@@ -77,14 +75,7 @@ impl TranslatorClient {
     pub async fn load_model(&self, keep_cache: bool) -> Result<bool, Error> {
         let url = format!("{}/v4/translator", self.base_url);
         let request = LoadQuery { keep_cache };
-        let success = self
-            .client
-            .put(url)
-            .query(&request)
-            .send()
-            .await?
-            .status()
-            .is_success();
+        let success = self.client.put(url).query(&request).send().await?.status().is_success();
 
         Ok(success)
     }
@@ -121,11 +112,7 @@ impl TranslatorClient {
 
     pub async fn translate(&self, text: &str, source: &str, target: &str) -> Result<String, Error> {
         let url = format!("{}/v4/translator", self.base_url);
-        let request = TranslateQuery {
-            text,
-            source,
-            target,
-        };
+        let request = TranslateQuery { text, source, target };
 
         let response = self
             .client

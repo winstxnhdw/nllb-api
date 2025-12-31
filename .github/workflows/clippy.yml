@@ -11,10 +11,9 @@ on:
 
 jobs:
   clippy:
-    strategy:
-      matrix:
-        working-directory: [client, language]
     uses: winstxnhdw/actions/.github/workflows/clippy.yml@main
     with:
       working-directory: ${{ matrix.working-directory }}
-
+    strategy:
+      matrix:
+        working-directory: [client, language]
