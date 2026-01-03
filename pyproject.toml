@@ -12,7 +12,7 @@ dependencies = [
     "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.22.1",
-    "aiohttp>=3.13.2",
+    "aiohttp>=3.13.3",
     "language",
     "opentelemetry-instrumentation-asgi>=0.58b0",
     "opentelemetry-exporter-otlp-proto-http>=1.39.1",
