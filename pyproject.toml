@@ -4,9 +4,9 @@ version = "4.2.0"
 description = "A fast CPU-based API for NLLB"
 requires-python = ">=3.14.2, <3.15"
 dependencies = [
-    "ctranslate2>=4.6.2",
+    "ctranslate2>=4.6.3",
     "fasttext>=0.9.3",
-    "granian>=2.6.0",
+    "granian>=2.6.1",
     "litestar>=2.19.0",
     "pydantic-settings>=2.12.0",
     "uvloop>=0.22.1; sys_platform != 'win32'",
