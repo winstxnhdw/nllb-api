@@ -10,13 +10,13 @@ classifiers = [
 
 [dependency-groups]
 dev = [
-    "maturin>=1.11.4",
+    "maturin>=1.11.5",
     "pyright>=1.1.408",
     "ruff>=0.14.11",
 ]
 
 [build-system]
-requires = ["maturin>=1.11.4,<2.0"]
+requires = ["maturin>=1.11.5,<2.0"]
 build-backend = "maturin"
 
 [tool.maturin]
