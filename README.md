@@ -291,7 +291,7 @@ response = await client.translate(' '.join(words), source=language_prediction.la
 You can self-host the API and access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) with the following minimal configuration
 
 ```bash
-docker run --rm \
+docker run --init --rm \
   -e SERVER_PORT=7860 \
   -p 7860:7860 \
   ghcr.io/winstxnhdw/nllb-api:main
@@ -302,7 +302,7 @@ docker run --rm \
 You can configure CORS by passing the following environment variables.
 
 ```bash
-docker run --rm \
+docker run --init --rm \
   -e SERVER_PORT=7860 \
   -e ACCESS_CONTROL_ALLOW_ORIGIN=localhost,example.com \
   -e ACCESS_CONTROL_ALLOW_CREDENTIALS=true \
@@ -329,7 +329,7 @@ You can pass the following environment variables to optimise the API for your ow
 > `OMP_NUM_THREADS` $\times$ `TRANSLATOR_THREADS` should not exceed the physical number of cores on your machine.
 
 ```bash
-docker run --rm \
+docker run --init --rm \
   -e SERVER_PORT=7860 \
   -e OMP_NUM_THREADS=6 \
   -e TRANSLATOR_THREADS=2 \
@@ -352,7 +352,7 @@ After building the image, you can run the image with the following.
 > `OMP_NUM_THREADS` has no effect when CUDA is enabled.
 
 ```bash
-docker run --rm --gpus all \
+docker run --init --rm --gpus all \
   -e SERVER_PORT=7860 \
   -e WORKER_COUNT=1 \
   -p 7860:7860 \
@@ -364,7 +364,7 @@ docker run --rm --gpus all \
 You can enable OpenTelemetry support by passing the `OTEL_EXPORTER_OTLP_ENDPOINT` environment variable. This enables exporting of traces, metrics and logs to the specified OTLP endpoint.
 
 ```bash
-docker run --rm \
+docker run --init --rm \
   -e SERVER_PORT=7860 \
   -e OTEL_RESOURCE_ATTRIBUTES=service.namespace=huggingface,deployment.environment=production \
   -e OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp-gateway-prod-ap-southeast-1.grafana.net/otlp \
@@ -383,6 +383,10 @@ uv sync
 ```
 
 Now, you can access the Swagger UI at [localhost:7860/api/schema/swagger](http://localhost:7860/api/schema/swagger) after spinning the server up locally with the following.
+
+```bash
+uv run docker-cpu
+```
 
 ```bash
 uv run docker-cpu
