@@ -15,9 +15,14 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = { version = "0.27.2", default-features = false, features = ["macros", "experimental-async"] }
-reqwest = { version = "0.13.1", default-features = false, features = ["http2", "json", "blocking", "query"] }
 serde = { version = "1.0.228", default-features = false, features = ["derive"] }
 tokio = { version = "1.49.0", default-features = false, features = ["rt-multi-thread"] }
+
+[dependencies.reqwest]
+version = "0.13.1"
+default-features = false
+features = ["default-tls", "http2", "json", "blocking", "query"]
+
 
 [build-dependencies]
 pyo3-build-config = { version = "0.27.2", default-features = false, features = ["resolve-config"] }
