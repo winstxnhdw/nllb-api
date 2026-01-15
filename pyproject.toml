@@ -18,7 +18,6 @@ dependencies = [
     "opentelemetry-exporter-otlp-proto-http>=1.39.1",
     "fast-query-parsers>=1.0.3",
     "opentelemetry-instrumentation-system-metrics>=0.58b0",
-    "pytest-env>=1.2.0",
 ]
 
 [project.optional-dependencies]
@@ -38,6 +37,7 @@ dev = [
     "nodejs-wheel-binaries>=24.13.0",
     "pyright>=1.1.408",
     "pytest>=9.0.2",
+    "pytest-env>=1.2.0",
     "pytest-xdist>=3.8.0",
     "ruff>=0.14.12",
 ]
