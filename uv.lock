@@ -657,7 +657,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "maturin", specifier = ">=1.11.5" },
-    { name = "nllb-api", directory = "." },
+    { name = "nllb-api", editable = "." },
     { name = "pyright", specifier = ">=1.1.408" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-env", specifier = ">=1.1.5" },
@@ -668,7 +668,7 @@ dev = [
 [[package]]
 name = "nllb-api"
 version = "4.2.0"
-source = { directory = "." }
+source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
     { name = "ctranslate2" },

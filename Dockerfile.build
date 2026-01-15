@@ -26,6 +26,7 @@ ENV RUSTFLAGS="-C target-cpu=native"
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 COPY pyproject.toml uv.lock ./
+COPY client client
 COPY language language
 
 RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}

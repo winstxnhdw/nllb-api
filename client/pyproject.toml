@@ -28,7 +28,7 @@ features = ["pyo3/extension-module"]
 exclude = ["**/uv.lock"]
 
 [tool.uv.sources]
-nllb-api = { workspace = true, editable = false }
+nllb-api = { workspace = true }
 
 [tool.ruff]
 line-length = 120
