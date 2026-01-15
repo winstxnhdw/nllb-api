@@ -1,10 +1,12 @@
 from os import environ as env
-from random import randint
 from shutil import which
 from socket import AF_INET, SOCK_STREAM, socket
 from subprocess import run
 
 from server import main
+
+
+class PortsNotAvailableError(Exception): ...
 
 
 def get_oci() -> str:
@@ -46,18 +48,14 @@ def get_unused_port() -> int:
     port (int)
         an unused port
     """
-    port = 7860
-
     with socket(AF_INET, SOCK_STREAM) as client:
-        while True:
-            try:
-                client.bind(("0.0.0.0", port))
+        try:
+            client.bind(("localhost", 0))
 
-            except OSError:
-                port = randint(7860, 7999)  # noqa: S311
+        except OSError as error:
+            raise PortsNotAvailableError from error
 
-            else:
-                return port
+        return client.getsockname()[1]
 
 
 def stub() -> None:
