@@ -54,6 +54,9 @@ source-exclude = ["**/typings"]
 [tool.uv.sources]
 language = { path = "language" }
 
+[tool.uv.workspace]
+members = [".", "client"]
+
 [tool.ruff]
 line-length = 120
 

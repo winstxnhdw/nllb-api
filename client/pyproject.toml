@@ -11,8 +11,12 @@ classifiers = [
 [dependency-groups]
 dev = [
     "maturin>=1.11.5",
+    "nllb-api",
     "pyright>=1.1.408",
     "ruff>=0.14.12",
+    "pytest>=8.3.5",
+    "pytest-env>=1.1.5",
+    "uvicorn>=0.40.0",
 ]
 
 [build-system]
@@ -22,3 +26,43 @@ build-backend = "maturin"
 [tool.maturin]
 features = ["pyo3/extension-module"]
 exclude = ["**/uv.lock"]
+
+[tool.uv.sources]
+nllb-api = { workspace = true, editable = false }
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D",
+    "Q",
+    "TC",
+    "ANN001",
+    "ANN002",
+    "PLC0414",
+    "INP001",
+    "S104",
+    "S603",
+    "PYI001",
+    "COM812",
+    "SLF001",
+    "PT013",
+    "PLR0913",
+]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportUnknownVariableType = false
+reportUnknownMemberType = false
+reportMissingTypeStubs = false
+reportPrivateUsage = false
+reportMissingModuleSource = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.pytest_env]
+TESTING = "True"
+AUTH_TOKEN = "testtoken"
