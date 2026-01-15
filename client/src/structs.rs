@@ -16,6 +16,8 @@ pub struct LanguageResponse {
 #[derive(Serialize)]
 pub struct LanguageQuery<'a> {
     pub text: &'a str,
+    pub fast_model_confidence_threshold: Option<f32>,
+    pub accurate_model_confidence_threshold: Option<f32>,
 }
 
 #[derive(Deserialize)]

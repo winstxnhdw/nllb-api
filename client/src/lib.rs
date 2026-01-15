@@ -16,6 +16,10 @@ use crate::structs::LanguageResponse;
 pyo3::create_exception!(nllb, ClientError, pyo3::exceptions::PyException);
 pyo3::create_exception!(nllb, ApiError, pyo3::exceptions::PyException);
 
+#[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(frozen, immutable_type))]
+#[cfg_attr(any(Py_3_8, Py_3_9), pyclass(frozen))]
+struct Language;
+
 #[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(name = "TranslatorClient", frozen, immutable_type))]
 #[cfg_attr(any(Py_3_8, Py_3_9), pyclass(name = "TranslatorClient", frozen))]
 struct PyTranslatorClient {
@@ -53,10 +57,20 @@ impl PyTranslatorClient {
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
 
-    fn detect_language(&self, text: &str) -> PyResult<LanguageResponse> {
-        self.client
-            .detect_language(text)
-            .map_err(|e| ApiError::new_err(e.to_string()))
+    #[pyo3(signature = (text, *, fast_model_confidence_threshold = 0.85, accurate_model_confidence_threshold = 0.35))]
+    fn detect_language(
+        &self,
+        text: &str,
+        fast_model_confidence_threshold: Option<f32>,
+        accurate_model_confidence_threshold: Option<f32>,
+    ) -> PyResult<LanguageResponse> {
+        let prediction_result = self.client.detect_language(
+            text,
+            fast_model_confidence_threshold,
+            accurate_model_confidence_threshold,
+        );
+
+        prediction_result.map_err(|e| ApiError::new_err(e.to_string()))
     }
 
     #[pyo3(signature = (text, *, source, target))]
@@ -115,9 +129,20 @@ impl AsyncPyTranslatorClient {
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
 
-    async fn detect_language(&self, text: Py<PyString>) -> PyResult<LanguageResponse> {
-        self.client
-            .detect_language(Python::attach(|py| text.to_str(py))?)
+    #[pyo3(signature = (text, *, fast_model_confidence_threshold = None, accurate_model_confidence_threshold = None))]
+    async fn detect_language(
+        &self,
+        text: Py<PyString>,
+        fast_model_confidence_threshold: Option<f32>,
+        accurate_model_confidence_threshold: Option<f32>,
+    ) -> PyResult<LanguageResponse> {
+        let detect_language_future = self.client.detect_language(
+            Python::attach(|py| text.to_str(py))?,
+            fast_model_confidence_threshold,
+            accurate_model_confidence_threshold,
+        );
+
+        detect_language_future
             .await
             .map_err(|e| ApiError::new_err(e.to_string()))
     }
@@ -148,6 +173,8 @@ mod nllb {
     use super::AsyncPyTranslatorClient;
     #[pymodule_export]
     use super::ClientError;
+    #[pymodule_export]
+    use super::Language;
     #[pymodule_export]
     use super::LanguageResponse;
     #[pymodule_export]

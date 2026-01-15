@@ -66,27 +66,17 @@ impl TranslatorClient {
         let client = client_builder.build()?;
         let translator_client = Self {
             client,
-            base_url: format!("{base_url}/api"),
+            base_url: base_url.to_string(),
         };
 
         Ok(translator_client)
     }
 
     pub async fn load_model(&self, keep_cache: bool) -> Result<bool, Error> {
-        let url = format!("{}/v4/translator", self.base_url);
-        let request = LoadQuery { keep_cache };
-        let success = self.client.put(url).query(&request).send().await?.status().is_success();
-
-        Ok(success)
-    }
-
-    pub async fn unload_model(&self, to_cpu: bool) -> Result<bool, Error> {
-        let url = format!("{}/v4/translator", self.base_url);
-        let request = UnloadQuery { to_cpu };
         let success = self
             .client
-            .delete(url)
-            .query(&request)
+            .put(format!("{}/v4/translator", self.base_url))
+            .query(&LoadQuery { keep_cache })
             .send()
             .await?
             .status()
@@ -95,51 +85,65 @@ impl TranslatorClient {
         Ok(success)
     }
 
-    pub async fn detect_language(&self, text: &str) -> Result<LanguageResponse, Error> {
-        let url = format!("{}/v4/language", self.base_url);
-        let query = LanguageQuery { text };
-        let response = self
+    pub async fn unload_model(&self, to_cpu: bool) -> Result<bool, Error> {
+        let success = self
             .client
-            .get(url)
+            .delete(format!("{}/v4/translator", self.base_url))
+            .query(&UnloadQuery { to_cpu })
+            .send()
+            .await?
+            .status()
+            .is_success();
+
+        Ok(success)
+    }
+
+    pub async fn detect_language(
+        &self,
+        text: &str,
+        fast_model_confidence_threshold: Option<f32>,
+        accurate_model_confidence_threshold: Option<f32>,
+    ) -> Result<LanguageResponse, Error> {
+        let query = LanguageQuery {
+            text,
+            fast_model_confidence_threshold,
+            accurate_model_confidence_threshold,
+        };
+
+        self.client
+            .get(format!("{}/v4/language", self.base_url))
             .query(&query)
             .send()
             .await?
             .json::<LanguageResponse>()
-            .await?;
-
-        Ok(response)
+            .await
     }
 
     pub async fn translate(&self, text: &str, source: &str, target: &str) -> Result<String, Error> {
-        let url = format!("{}/v4/translator", self.base_url);
-        let request = TranslateQuery { text, source, target };
-
-        let response = self
+        let translation = self
             .client
-            .get(url)
-            .query(&request)
+            .get(format!("{}/v4/translator", self.base_url))
+            .query(&TranslateQuery { text, source, target })
             .send()
             .await?
             .json::<TranslateResponse>()
             .await?
             .result;
 
-        Ok(response)
+        Ok(translation)
     }
 
     pub async fn count_tokens(&self, text: &str) -> Result<u32, Error> {
-        let url = format!("{}/v4/translator/tokens", self.base_url);
-        let request = TokenQuery { text };
-        let response = self
+        let tokens = self
             .client
-            .get(url)
-            .query(&request)
+            .get(format!("{}/v4/translator/tokens", self.base_url))
+            .query(&TokenQuery { text })
             .send()
             .await?
             .json::<TokenResponse>()
             .await?
             .length;
 
-        Ok(response)
+        Ok(tokens)
     }
 }

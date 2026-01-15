@@ -66,62 +66,76 @@ impl TranslatorBlockingClient {
         let client = client_builder.build()?;
         let translator_client = Self {
             client,
-            base_url: format!("{base_url}/api"),
+            base_url: base_url.to_string(),
         };
 
         Ok(translator_client)
     }
 
     pub fn load_model(&self, keep_cache: bool) -> Result<bool, Error> {
-        let url = format!("{}/v4/translator", self.base_url);
-        let request = LoadQuery { keep_cache };
-        let success = self.client.put(url).query(&request).send()?.status().is_success();
+        let success = self
+            .client
+            .put(format!("{}/v4/translator", self.base_url))
+            .query(&LoadQuery { keep_cache })
+            .send()?
+            .status()
+            .is_success();
 
         Ok(success)
     }
 
     pub fn unload_model(&self, to_cpu: bool) -> Result<bool, Error> {
-        let url = format!("{}/v4/translator", self.base_url);
-        let request = UnloadQuery { to_cpu };
-        let success = self.client.delete(url).query(&request).send()?.status().is_success();
+        let success = self
+            .client
+            .delete(format!("{}/v4/translator", self.base_url))
+            .query(&UnloadQuery { to_cpu })
+            .send()?
+            .status()
+            .is_success();
 
         Ok(success)
     }
 
-    pub fn detect_language(&self, text: &str) -> Result<LanguageResponse, Error> {
-        let url = format!("{}/v4/language", self.base_url);
-        let query = LanguageQuery { text };
-        let response = self.client.get(url).query(&query).send()?.json::<LanguageResponse>()?;
+    pub fn detect_language(
+        &self,
+        text: &str,
+        fast_model_confidence_threshold: Option<f32>,
+        accurate_model_confidence_threshold: Option<f32>,
+    ) -> Result<LanguageResponse, Error> {
+        let query = LanguageQuery {
+            text,
+            fast_model_confidence_threshold,
+            accurate_model_confidence_threshold,
+        };
 
-        Ok(response)
+        self.client
+            .get(format!("{}/v4/language", self.base_url))
+            .query(&query)
+            .send()?
+            .json::<LanguageResponse>()
     }
 
     pub fn translate(&self, text: &str, source: &str, target: &str) -> Result<String, Error> {
-        let url = format!("{}/v4/translator", self.base_url);
-        let request = TranslateQuery { text, source, target };
-
-        let response = self
+        let translation = self
             .client
-            .get(url)
-            .query(&request)
+            .get(format!("{}/v4/translator", self.base_url))
+            .query(&TranslateQuery { text, source, target })
             .send()?
             .json::<TranslateResponse>()?
             .result;
 
-        Ok(response)
+        Ok(translation)
     }
 
     pub fn count_tokens(&self, text: &str) -> Result<u32, Error> {
-        let url = format!("{}/v4/translator/tokens", self.base_url);
-        let request = TokenQuery { text };
-        let response = self
+        let tokens = self
             .client
-            .get(url)
-            .query(&request)
+            .get(format!("{}/v4/translator/tokens", self.base_url))
+            .query(&TokenQuery { text })
             .send()?
             .json::<TokenResponse>()?
             .length;
 
-        Ok(response)
+        Ok(tokens)
     }
 }
