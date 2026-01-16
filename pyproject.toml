@@ -40,7 +40,7 @@ dev = [
     "pytest>=9.0.2",
     "pytest-env>=1.2.0",
     "pytest-xdist>=3.8.0",
-    "ruff>=0.14.12",
+    "ruff>=0.14.13",
 ]
 
 [build-system]
