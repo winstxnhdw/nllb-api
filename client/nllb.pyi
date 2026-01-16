@@ -1,4 +1,6 @@
-from typing import Literal, TypeAlias
+from typing import Literal
+
+from typing_extensions import TypeAlias
 
 Language: TypeAlias = Literal[
     "ace_Arab",
