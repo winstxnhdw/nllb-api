@@ -11,7 +11,6 @@ from server.app import extract_cors_values
 from server.config import Config
 
 
-@mark.anyio
 @mark.parametrize("is_allowed", [True, False])
 async def test_cors(
     client_factory_without_lifespans: Callable[[Config], AsyncTestClient[Litestar]],
@@ -50,7 +49,6 @@ async def test_cors(
     assert response.headers["Access-Control-Expose-Headers"] == "Content-Encoding, Kuma-Revision"
 
 
-@mark.anyio
 async def test_cors_max_age(client_factory_without_lifespans: Callable[[Config], AsyncTestClient[Litestar]]) -> None:
     config = Config()
     config.access_control_allow_origin = "*"

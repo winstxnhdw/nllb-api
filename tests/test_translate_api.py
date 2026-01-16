@@ -52,14 +52,12 @@ async def unload_model(client: AsyncTestClient[Litestar], *, auth_token: str, to
     )
 
 
-@mark.anyio
 async def test_token_count(session_client: AsyncTestClient[Litestar]) -> None:
     response = await count_tokens(session_client, "Hello, world!")
     assert response.status_code == HTTP_200_OK
     assert response.json() == {"length": 7}
 
 
-@mark.anyio
 @given(text=hypothesis_text(min_size=1))
 async def test_token_count_input(session_client: AsyncTestClient[Litestar], text: str) -> None:
     response = await count_tokens(session_client, text)
@@ -67,13 +65,11 @@ async def test_token_count_input(session_client: AsyncTestClient[Litestar], text
     assert isinstance(response.json().get("length"), int)
 
 
-@mark.anyio
 async def test_token_count_empty_input(session_client: AsyncTestClient[Litestar]) -> None:
     response = await count_tokens(session_client, "")
     assert response.status_code == HTTP_400_BAD_REQUEST
 
 
-@mark.anyio
 async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str) -> None:
     response = await load_model(client, auth_token=auth_token, keep_cache=False)
     assert response.status_code == HTTP_304_NOT_MODIFIED
@@ -89,7 +85,6 @@ async def test_model_loading(client: AsyncTestClient[Litestar], auth_token: str)
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
 
-@mark.anyio
 @mark.parametrize("translate", [translate_post, translate_get])
 @mark.parametrize(
     ("text", "source", "target", "translation"),
@@ -115,13 +110,11 @@ async def test_translate_api(
     assert response.json().get("result") in translation
 
 
-@mark.anyio
 async def test_translate_stream_api(session_client: AsyncTestClient[Litestar]) -> None:
     response = await translate_stream(session_client, "Hello, world!", "eng_Latn", "spa_Latn")
     assert response.headers["Content-Type"] == "text/event-stream; charset=utf-8"
 
 
-@mark.anyio
 @mark.parametrize("translate", [translate_post, translate_get, translate_stream])
 @mark.parametrize(
     ("text", "source", "target"),
@@ -138,7 +131,6 @@ async def test_translate_with_empty_fields(
     assert response.status_code == HTTP_400_BAD_REQUEST
 
 
-@mark.anyio
 async def test_parallelism(session_client: AsyncTestClient[Litestar]) -> None:
     async with TaskGroup() as task_group:
         tasks = [

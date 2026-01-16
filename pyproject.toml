@@ -34,6 +34,7 @@ docker-hf = "server.scripts:huggingface"
 dev = [
     "httpx>=0.28.1",
     "hypothesis>=6.150.2",
+    "nllb",
     "nodejs-wheel-binaries>=24.13.0",
     "pyright>=1.1.408",
     "pytest>=9.0.2",
@@ -53,9 +54,7 @@ source-exclude = ["**/typings"]
 
 [tool.uv.sources]
 language = { path = "language" }
-
-[tool.uv.workspace]
-members = [".", "client"]
+nllb = { path = "client" }
 
 [tool.ruff]
 line-length = 120
@@ -89,7 +88,8 @@ reportPrivateUsage = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-addopts = "-n auto --dist loadscope"
+# addopts = "-n auto --dist loads cope"
 
 [tool.pytest_env]
 TESTING = "True"
+AUTH_TOKEN = "testtoken"

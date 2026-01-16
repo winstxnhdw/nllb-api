@@ -1,8 +1,14 @@
+from asyncio import create_subprocess_exec
+from asyncio.subprocess import PIPE
 from collections.abc import AsyncIterator, Callable
+from os import environ
+from sys import executable
 from typing import Literal
 
+from httpx import get
 from litestar import Litestar
 from litestar.testing import AsyncTestClient
+from nllb import AsyncTranslatorClient, TranslatorClient
 from pytest import fixture
 
 from server.app import app
@@ -23,7 +29,7 @@ def auth_token() -> str:
     return "test_token"
 
 
-@fixture(scope="session")
+@fixture(scope="session", autouse=True)
 def anyio_backend() -> tuple[Literal["asyncio", "trio"], dict[str, bool]]:
     return "asyncio", {"use_uvloop": True}
 
@@ -49,3 +55,45 @@ async def session_client(auth_token: str) -> AsyncIterator[AsyncTestClient[Lites
 
     async with AsyncTestClient(app=app(config), backend_options={"use_uvloop": True}) as client:
         yield client
+
+
+@fixture(scope="session")
+async def app_url() -> AsyncIterator[str]:
+    config = Config()
+    url = f"http://localhost:{config.server_port}"
+    process = await create_subprocess_exec(
+        executable,
+        "-c",
+        "from server import main; main()",
+        stdout=PIPE,
+        stderr=PIPE,
+        env=environ.copy(),
+    )
+
+    try:
+        get(f"{url}/api/health", timeout=None)  # noqa: ASYNC210, S113
+        yield url
+
+    finally:
+        process.kill()
+        await process.wait()
+
+
+@fixture(scope="session")
+def subprocess_client(app_url: str) -> TranslatorClient:
+    return TranslatorClient(base_url=app_url)
+
+
+@fixture(scope="session")
+def subprocess_async_client(app_url: str) -> AsyncTranslatorClient:
+    return AsyncTranslatorClient(base_url=app_url)
+
+
+@fixture
+def subprocess_client_with_auth(app_url: str) -> TranslatorClient:
+    return TranslatorClient(base_url=app_url, auth_token="testtoken")  # noqa: S106
+
+
+@fixture
+def subprocess_async_client_with_auth(app_url: str) -> AsyncTranslatorClient:
+    return AsyncTranslatorClient(base_url=app_url, auth_token="testtoken")  # noqa: S106
