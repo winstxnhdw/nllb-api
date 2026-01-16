@@ -1,11 +1,11 @@
-from asyncio import create_subprocess_exec
+from asyncio import create_subprocess_exec, sleep
 from asyncio.subprocess import PIPE
 from collections.abc import AsyncIterator, Callable
 from os import environ
 from sys import executable
 from typing import Literal
 
-from httpx import get
+from httpx import ConnectError, get
 from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from nllb import AsyncTranslatorClient, TranslatorClient
@@ -71,7 +71,14 @@ async def app_url() -> AsyncIterator[str]:
     )
 
     try:
-        get(f"{url}/api/health", timeout=None)  # noqa: ASYNC210, S113
+        while True:
+            try:
+                get(f"{url}/api/health", timeout=None)  # noqa: ASYNC210, S113
+                break
+
+            except ConnectError:
+                await sleep(1)
+
         yield url
 
     finally:
