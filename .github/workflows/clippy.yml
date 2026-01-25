@@ -11,9 +11,10 @@ on:
 
 jobs:
   clippy:
-    uses: winstxnhdw/actions/.github/workflows/clippy.yml@main
+    uses: winstxnhdw/actions/.github/workflows/rust.yml@main
     with:
       working-directory: ${{ matrix.working-directory }}
+      disable-test: true
     strategy:
       matrix:
         working-directory: [client, language]
