@@ -27,6 +27,32 @@ const LINGUAGE_LANGUAGES: [&str; 74] = [
     "yor_Latn", "zul_Latn",
 ];
 
+const REDUNDANT_LABELS: [&str; 23] = [
+    "__label__ton_Latn",
+    "__label__oss_Cyrl",
+    "__label__che_Cyrl",
+    "__label__ady_Cyrl",
+    "__label__tah_Latn",
+    "__label__diq_Latn",
+    "__label__nia_Latn",
+    "__label__nav_Latn",
+    "__label__abk_Cyrl",
+    "__label__bxr_Cyrl",
+    "__label__wes_Latn",
+    "__label__gom_Deva",
+    "__label__udm_Cyrl",
+    "__label__roh_Latn",
+    "__label__alt_Cyrl",
+    "__label__arn_Latn",
+    "__label__ewo_Latn",
+    "__label__xmf_Geor",
+    "__label__pcm_Latn",
+    "__label__bis_Latn",
+    "__label__krc_Cyrl",
+    "__label__chv_Cyrl",
+    "__label__kal_Latn",
+];
+
 #[cold]
 #[inline(never)]
 fn unlikely_python_error<E: std::fmt::Display>(error: E) -> PyErr {
@@ -35,29 +61,9 @@ fn unlikely_python_error<E: std::fmt::Display>(error: E) -> PyErr {
 
 #[inline(always)]
 fn is_redundant_label(label: &Bound<'_, PyString>) -> bool {
-    label == "__label__ton_Latn"
-        || label == "__label__oss_Cyrl"
-        || label == "__label__che_Cyrl"
-        || label == "__label__ady_Cyrl"
-        || label == "__label__tah_Latn"
-        || label == "__label__diq_Latn"
-        || label == "__label__nia_Latn"
-        || label == "__label__nav_Latn"
-        || label == "__label__abk_Cyrl"
-        || label == "__label__bxr_Cyrl"
-        || label == "__label__wes_Latn"
-        || label == "__label__gom_Deva"
-        || label == "__label__udm_Cyrl"
-        || label == "__label__roh_Latn"
-        || label == "__label__alt_Cyrl"
-        || label == "__label__arn_Latn"
-        || label == "__label__ewo_Latn"
-        || label == "__label__xmf_Geor"
-        || label == "__label__pcm_Latn"
-        || label == "__label__bis_Latn"
-        || label == "__label__krc_Cyrl"
-        || label == "__label__chv_Cyrl"
-        || label == "__label__kal_Latn"
+    label
+        .to_str()
+        .is_ok_and(|label| REDUNDANT_LABELS.contains(&label))
 }
 
 #[pyclass(frozen, get_all, immutable_type)]
