@@ -14,6 +14,19 @@ use pyo3::types::PyListMethods;
 use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
 
+const LINGUAGE_LANGUAGES: [&str; 74] = [
+    "afr_Latn", "als_Latn", "arb_Latn", "hye_Armn", "azj_Latn", "eus_Latn", "bel_Cyrl", "ben_Beng",
+    "nob_Latn", "bos_Latn", "bul_Cyrl", "cat_Latn", "zho_Hans", "hrv_Latn", "ces_Latn", "dan_Latn",
+    "nld_Latn", "eng_Latn", "epo_Latn", "est_Latn", "fin_Latn", "fra_Latn", "lug_Latn", "kat_Geor",
+    "deu_Latn", "ell_Grek", "guj_Gujr", "heb_Hebr", "hin_Deva", "hun_Latn", "isl_Latn", "ind_Latn",
+    "gle_Latn", "ita_Latn", "jpn_Jpan", "kaz_Cyrl", "kor_Hang", "lvs_Latn", "lit_Latn", "mkd_Cyrl",
+    "msa_Latn", "mri_Latn", "mar_Deva", "mon_Cyrl", "nno_Latn", "pes_Arab", "pol_Latn", "por_Latn",
+    "pan_Guru", "ron_Latn", "rus_Cyrl", "srp_Cyrl", "sna_Latn", "slk_Latn", "slv_Latn", "som_Latn",
+    "sot_Latn", "spa_Latn", "swh_Latn", "swe_Latn", "tgl_Latn", "tam_Taml", "tel_Telu", "tha_Thai",
+    "tso_Latn", "tsn_Latn", "tur_Latn", "ukr_Cyrl", "urd_Arab", "vie_Latn", "cym_Latn", "xho_Latn",
+    "yor_Latn", "zul_Latn",
+];
+
 #[cold]
 #[inline(never)]
 fn unlikely_python_error<E: std::fmt::Display>(error: E) -> PyErr {
@@ -55,35 +68,17 @@ struct Prediction {
 
 #[pyclass(name = "LanguageDetector", frozen, immutable_type)]
 struct Detector {
-    lingua_languages: [&'static str; 74],
     fasttext_model_call: Py<PyAny>,
     lingua_model: LanguageDetector,
-    fasttext_k: u8,
 }
 
 #[pymethods]
 impl Detector {
     #[new]
     fn new(py: Python, fasttext_model: Py<PyAny>) -> PyResult<Self> {
-        let lingua_languages: [&'static str; 74] = [
-            "afr_Latn", "als_Latn", "arb_Latn", "hye_Armn", "azj_Latn", "eus_Latn", "bel_Cyrl",
-            "ben_Beng", "nob_Latn", "bos_Latn", "bul_Cyrl", "cat_Latn", "zho_Hans", "hrv_Latn",
-            "ces_Latn", "dan_Latn", "nld_Latn", "eng_Latn", "epo_Latn", "est_Latn", "fin_Latn",
-            "fra_Latn", "lug_Latn", "kat_Geor", "deu_Latn", "ell_Grek", "guj_Gujr", "heb_Hebr",
-            "hin_Deva", "hun_Latn", "isl_Latn", "ind_Latn", "gle_Latn", "ita_Latn", "jpn_Jpan",
-            "kaz_Cyrl", "kor_Hang", "lvs_Latn", "lit_Latn", "mkd_Cyrl", "msa_Latn", "mri_Latn",
-            "mar_Deva", "mon_Cyrl", "nno_Latn", "pes_Arab", "pol_Latn", "por_Latn", "pan_Guru",
-            "ron_Latn", "rus_Cyrl", "srp_Cyrl", "sna_Latn", "slk_Latn", "slv_Latn", "som_Latn",
-            "sot_Latn", "spa_Latn", "swh_Latn", "swe_Latn", "tgl_Latn", "tam_Taml", "tel_Telu",
-            "tha_Thai", "tso_Latn", "tsn_Latn", "tur_Latn", "ukr_Cyrl", "urd_Arab", "vie_Latn",
-            "cym_Latn", "xho_Latn", "yor_Latn", "zul_Latn",
-        ];
-
         let detector = Self {
             lingua_model: LanguageDetectorBuilder::from_all_languages().build(),
             fasttext_model_call: fasttext_model.getattr(py, "predict")?,
-            fasttext_k: 24,
-            lingua_languages,
         };
 
         Ok(detector)
@@ -96,7 +91,7 @@ impl Detector {
         fasttext_confidence_threshold: f64,
         lingua_confidence_threshold: f64,
     ) -> PyResult<Prediction> {
-        let fasttext_arguments = (text, self.fasttext_k, 0.0, pyo3::intern!(py, "strict"));
+        let fasttext_arguments = (text, 24, 0.0, pyo3::intern!(py, "strict"));
         let (fasttext_confidence, fasttext_label) = self
             .fasttext_model_call
             .call1(py, fasttext_arguments)?
@@ -130,10 +125,13 @@ impl Detector {
             return Ok(fasttext_prediction);
         }
 
-        let language = self.lingua_languages[lingua_language as usize].into_pyobject(py)?;
+        let language = LINGUAGE_LANGUAGES[lingua_language as usize]
+            .into_pyobject(py)?
+            .unbind();
+
         let lingua_prediction = Prediction {
             confidence: lingua_confidence,
-            language: language.into(),
+            language,
         };
 
         Ok(lingua_prediction)

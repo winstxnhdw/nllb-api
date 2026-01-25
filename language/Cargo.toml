@@ -14,7 +14,12 @@ name = "language"
 crate-type = ["cdylib"]
 
 [dependencies]
-lingua = { version = "1.7.2", default-features = false, features = [
+pyo3 = { version = "0.27.2", default-features = false, features = ["macros"] }
+
+[dependencies.lingua]
+version = "1.7.2"
+default-features = false
+features = [
     "afrikaans",
     "albanian",
     "arabic",
@@ -89,5 +94,4 @@ lingua = { version = "1.7.2", default-features = false, features = [
     "xhosa",
     "yoruba",
     "zulu",
-] }
-pyo3 = { version = "0.27.2", default-features = false, features = ["macros"] }
+]
