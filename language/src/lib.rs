@@ -14,7 +14,7 @@ use pyo3::types::PyListMethods;
 use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
 
-const LINGUAGE_LANGUAGES: [&str; 74] = [
+const LINGUAGES: [&str; 74] = [
     "afr_Latn", "als_Latn", "arb_Latn", "hye_Armn", "azj_Latn", "eus_Latn", "bel_Cyrl", "ben_Beng",
     "nob_Latn", "bos_Latn", "bul_Cyrl", "cat_Latn", "zho_Hans", "hrv_Latn", "ces_Latn", "dan_Latn",
     "nld_Latn", "eng_Latn", "epo_Latn", "est_Latn", "fin_Latn", "fra_Latn", "lug_Latn", "kat_Geor",
@@ -131,7 +131,7 @@ impl Detector {
             return Ok(fasttext_prediction);
         }
 
-        let language = LINGUAGE_LANGUAGES[lingua_language as usize]
+        let language = LINGUAGES[lingua_language as usize]
             .into_pyobject(py)?
             .unbind();
 
