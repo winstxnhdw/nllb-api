@@ -57,7 +57,7 @@ class TranslatorController(Controller):
         )
 
     @get("/tokens", cache=True, sync_to_thread=True)
-    def token_count(
+    def tokens(
         self,
         state: AppState,
         text: Annotated[str, Parameter(min_length=1, description="source text of a single language")],

@@ -88,7 +88,7 @@ reportPrivateUsage = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-# addopts = "-n auto --dist loads cope"
+addopts = "-n auto --dist loadscope"
 
 [tool.pytest_env]
 TESTING = "True"
