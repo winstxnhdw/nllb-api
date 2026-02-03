@@ -39,7 +39,6 @@ dev = [
     "pyright>=1.1.408",
     "pytest>=9.0.2",
     "pytest-env>=1.2.0",
-    "pytest-xdist>=3.8.0",
     "ruff>=0.14.14",
 ]
 
@@ -88,7 +87,6 @@ reportPrivateUsage = false
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-addopts = "-n auto --dist loadscope"
 
 [tool.pytest_env]
 TESTING = "True"
