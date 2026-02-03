@@ -2,11 +2,11 @@ mod blocking_client;
 mod client;
 mod structs;
 
+use pyo3::Py;
+use pyo3::PyResult;
 use pyo3::Python;
-use pyo3::prelude::Py;
-use pyo3::prelude::PyResult;
-use pyo3::prelude::pyclass;
-use pyo3::prelude::pymethods;
+use pyo3::pyclass;
+use pyo3::pymethods;
 use pyo3::types::PyString;
 
 use crate::blocking_client::TranslatorBlockingClient;

@@ -1,14 +1,13 @@
 use lingua::LanguageDetector;
 use lingua::LanguageDetectorBuilder;
+use pyo3::Bound;
 use pyo3::IntoPyObject;
+use pyo3::Py;
+use pyo3::PyAny;
 use pyo3::PyErr;
-use pyo3::prelude::Bound;
-use pyo3::prelude::Py;
-use pyo3::prelude::PyAny;
-use pyo3::prelude::PyResult;
-use pyo3::prelude::Python;
-use pyo3::prelude::pyclass;
-use pyo3::prelude::pymethods;
+use pyo3::PyResult;
+use pyo3::Python;
+use pyo3::pyclass;
 use pyo3::types::PyAnyMethods;
 use pyo3::types::PyListMethods;
 use pyo3::types::PyString;
@@ -78,7 +77,7 @@ struct Detector {
     lingua_model: LanguageDetector,
 }
 
-#[pymethods]
+#[pyo3::pymethods]
 impl Detector {
     #[new]
     fn new(py: Python, fasttext_model: Py<PyAny>) -> PyResult<Self> {

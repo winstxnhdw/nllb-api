@@ -1,4 +1,4 @@
-use pyo3::prelude::pyclass;
+use pyo3::pyclass;
 use serde::Deserialize;
 use serde::Serialize;
 

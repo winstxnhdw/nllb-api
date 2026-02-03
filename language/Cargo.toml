@@ -13,8 +13,10 @@ edition = "2024"
 name = "language"
 crate-type = ["cdylib"]
 
-[dependencies]
-pyo3 = { version = "0.28.0", default-features = false, features = ["macros"] }
+[dependencies.pyo3]
+version = "0.28.0"
+default-features = false
+features = ["macros"]
 
 [dependencies.lingua]
 version = "1.7.2"
