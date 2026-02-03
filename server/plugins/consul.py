@@ -56,7 +56,7 @@ async def consul_register(
         an optional auth token for populating the `Authorization` header
     """
     headers: dict[str, str] = {}
-    consul_server = f"https://{consul_http_addr}/v1/agent/service"
+    consul_server = f"{consul_http_addr}/v1/agent/service"
 
     health_endpoint = (
         f"{consul_service_scheme}://{consul_service_address}:{consul_service_port}"
