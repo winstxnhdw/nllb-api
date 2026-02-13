@@ -222,10 +222,10 @@ def get_translator(
         the number of threads to use for the translator
 
     stub (bool)
-        whether to return a stub object
+        whether to return a stub translator for testing
 
     testing (bool)
-        whether the application is running in testing mode
+        whether the application is running in integration testing mode
 
     use_cuda (bool)
         whether to use CUDA for inference
