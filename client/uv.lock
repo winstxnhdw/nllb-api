@@ -47,7 +47,7 @@ dev = [
 dev = [
     { name = "maturin", specifier = ">=1.11.5" },
     { name = "pyright", specifier = ">=1.1.408" },
-    { name = "ruff", specifier = ">=0.14.14" },
+    { name = "ruff", specifier = ">=0.15.1" },
 ]
 
 [[package]]
