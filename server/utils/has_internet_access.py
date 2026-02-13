@@ -20,7 +20,7 @@ def has_internet_access(repository: str) -> bool:
     try:
         connection.request("HEAD", f"/{repository}")
 
-    except (TimeoutError, OSError):
+    except TimeoutError, OSError:
         return False
 
     else:
