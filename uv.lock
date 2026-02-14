@@ -476,11 +476,11 @@ source = { directory = "language" }
 [package.metadata]
 
 [package.metadata.requires-dev]
-dev = [{ name = "maturin", specifier = ">=1.11.5" }]
+dev = [{ name = "maturin", specifier = ">=1.12.0" }]
 
 [[package]]
 name = "litestar"
-version = "2.20.0"
+version = "2.21.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -497,9 +497,9 @@ dependencies = [
     { name = "sniffio" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b5/6b/e13ecd78bec61e644b5e3442e86767ca413bf74a8f68e4a816451c34e74c/litestar-2.20.0.tar.gz", hash = "sha256:0f07f22b9a554b4b1af7bc5822e91daebfbc41ed28267a8e479d2731206d2d7f", size = 375299, upload-time = "2026-02-08T13:37:35.983Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f1/96/86dd853ea6b3570e699515b24e8476e00f554e9038f48d3bc84eb4d55429/litestar-2.21.0.tar.gz", hash = "sha256:3bde5e97ae9054db83d0fb8738c57871be5257e3a4a27d8109f914302681ec02", size = 375390, upload-time = "2026-02-14T15:16:10.049Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ba/bf/1f893ca004ad5ffdcb46505cb534158f7c138a5df81a2a80c4c9655df7e9/litestar-2.20.0-py3-none-any.whl", hash = "sha256:2ff3dd17e42ab1c500ede8220bf5280f57e64530a74c57d4216ca140e689e9ca", size = 567488, upload-time = "2026-02-08T13:37:33.572Z" },
+    { url = "https://files.pythonhosted.org/packages/25/e9/35bc58351570bd08e134fb53c93e5d88558c4bc31ce6568574bbb60dca42/litestar-2.21.0-py3-none-any.whl", hash = "sha256:b8bd76cb7f4b6585f3bb9b952a42e5a8bfbf0256d52bf2cfb9b4fe7fd5534a35", size = 567574, upload-time = "2026-02-14T15:16:07.718Z" },
 ]
 
 [[package]]
@@ -618,7 +618,7 @@ source = { directory = "client" }
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "maturin", specifier = ">=1.11.5" },
+    { name = "maturin", specifier = ">=1.12.0" },
     { name = "pyright", specifier = ">=1.1.408" },
     { name = "ruff", specifier = ">=0.15.1" },
 ]
@@ -668,7 +668,7 @@ requires-dist = [
     { name = "fasttext", specifier = ">=0.9.3" },
     { name = "granian", specifier = ">=2.7.1" },
     { name = "language", directory = "language" },
-    { name = "litestar", specifier = ">=2.20.0" },
+    { name = "litestar", specifier = ">=2.21.0" },
     { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.1.4" },
     { name = "opentelemetry-exporter-otlp-proto-http", specifier = ">=1.39.1" },
     { name = "opentelemetry-instrumentation-asgi", specifier = ">=0.58b0" },
