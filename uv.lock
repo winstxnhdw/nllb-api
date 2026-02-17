@@ -688,7 +688,7 @@ dev = [
     { name = "nodejs-wheel-binaries", specifier = ">=24.13.1" },
     { name = "pyright", specifier = ">=1.1.408" },
     { name = "pytest", specifier = ">=9.0.2" },
-    { name = "pytest-env", specifier = ">=1.4.0" },
+    { name = "pytest-env", specifier = ">=1.5.0" },
     { name = "ruff", specifier = ">=0.15.1" },
 ]
 
@@ -1116,15 +1116,15 @@ wheels = [
 
 [[package]]
 name = "pytest-env"
-version = "1.4.0"
+version = "1.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pytest" },
     { name = "python-dotenv" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/10/8e/490e0d9470d475d4f05dc841df47fb724585a5ca085b214c3ed34a3e1df0/pytest_env-1.4.0.tar.gz", hash = "sha256:713e19187538c7286a30d3fddd08dcf27f2f979eafb2948c6f114b11b33f70d9", size = 13869, upload-time = "2026-02-17T15:39:39.462Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e6/56/a931c6f6194917ff44be41b8586e2ffd13a18fa70fb28d9800a4695befa5/pytest_env-1.5.0.tar.gz", hash = "sha256:db8994b9ce170f135a37acc09ac753a6fc697d15e691b576ed8d8ca261c40246", size = 15271, upload-time = "2026-02-17T18:31:39.095Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e8/5c/fd067763441f536cecb4de58169404c95d8f3515106a001be11d9aa2b8da/pytest_env-1.4.0-py3-none-any.whl", hash = "sha256:bbad94133b7ac4155061a18e44b476de4f3514ee7b0c7d1a4af3bd8f8053e43e", size = 9278, upload-time = "2026-02-17T15:39:38.371Z" },
+    { url = "https://files.pythonhosted.org/packages/61/af/99b52a8524983bfece35e51e65a0b517b22920c023e57855c95e744e19e4/pytest_env-1.5.0-py3-none-any.whl", hash = "sha256:89a15686ac837c9cd009a8a2d52bd55865e2f23c82094247915dae4540c87161", size = 10122, upload-time = "2026-02-17T18:31:37.496Z" },
 ]
 
 [[package]]
