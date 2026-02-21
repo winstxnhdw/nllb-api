@@ -8,7 +8,7 @@ dependencies = [
     "fasttext>=0.9.3",
     "granian>=2.7.1",
     "litestar>=2.21.0",
-    "pydantic-settings>=2.13.0",
+    "pydantic-settings>=2.13.1",
     "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.22.2",
@@ -39,7 +39,7 @@ dev = [
     "pyright>=1.1.408",
     "pytest>=9.0.2",
     "pytest-env>=1.5.0",
-    "ruff>=0.15.1",
+    "ruff>=0.15.2",
 ]
 
 [build-system]
