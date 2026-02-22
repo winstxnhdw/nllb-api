@@ -13,7 +13,7 @@ FROM python:$PYTHON_VERSION_TAG AS python-builder
 
 ARG USE_CUDA=0
 
-WORKDIR /home/user
+WORKDIR /home/nonroot
 
 ENV UV_LINK_MODE=copy
 ENV UV_COMPILE_BYTECODE=1
@@ -36,27 +36,26 @@ COPY . .
 RUN uv sync ${USE_CUDA:+--extra cuda}
 
 
-FROM python:$PYTHON_VERSION_TAG-slim
+FROM gcr.io/distroless/python3-debian13:nonroot
 
-ARG PYTHON_VERSION_TAG
+ARG PYTHON_VERSION_TAG=3.14
 ARG USE_CUDA=False
 
-ENV HOME=/home/user
-ENV PATH=$HOME/.venv/bin:$PATH
+ENV HOME=/home/nonroot
+ENV PATH=$HOME/.venv/bin:/usr/local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV HF_HUB_OFFLINE=1
 ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
 ENV USE_CUDA=$USE_CUDA
-ENV LD_LIBRARY_PATH=$HOME/.venv/lib/python$PYTHON_VERSION_TAG/site-packages/nvidia/cublas/lib
+ENV LD_LIBRARY_PATH=/usr/local/lib:$HOME/.venv/lib/python$PYTHON_VERSION_TAG/site-packages/nvidia/cublas/lib
 
-RUN useradd -m -u 1000 user
+COPY --from=model-builder  /root/.cache/huggingface $HOME/.cache/huggingface
+COPY --from=python-builder /usr/local/lib/libpython* /usr/local/lib/
+COPY --from=python-builder /usr/local/lib/python3.14 /usr/local/lib/python3.14
+COPY --from=python-builder /usr/local/bin/python3.14 /usr/local/bin/
+COPY --from=python-builder /usr/local/bin/python3 /usr/local/bin/
+COPY --from=python-builder $HOME/.venv $HOME/.venv
 
-USER user
-
-WORKDIR $HOME
-
-COPY --chown=user --from=model-builder  /root/.cache/huggingface $HOME/.cache/huggingface
-COPY --chown=user --from=python-builder $HOME/.venv .venv
-
+ENTRYPOINT []
 CMD ["nllb-api"]
