@@ -16,7 +16,6 @@ ARG USE_CUDA=0
 WORKDIR /home/nonroot
 
 ENV UV_LINK_MODE=copy
-ENV UV_COMPILE_BYTECODE=1
 ENV UV_NO_CACHE=1
 ENV UV_NO_DEV=1
 ENV UV_LOCKED=1
@@ -34,6 +33,7 @@ RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}
 COPY . .
 
 RUN uv sync ${USE_CUDA:+--extra cuda}
+RUN find .venv /usr/local/lib -name '*.so*' -type f -exec strip --strip-unneeded {} + 2>/dev/null || true
 
 
 FROM gcr.io/distroless/python3-debian13:nonroot AS distroless
