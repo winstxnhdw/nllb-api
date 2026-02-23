@@ -33,7 +33,7 @@ RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}
 COPY . .
 
 RUN uv sync ${USE_CUDA:+--extra cuda}
-RUN find .venv /usr/local/lib -name '*.so*' -type f -exec strip --strip-unneeded {} + 2>/dev/null || true
+RUN find .venv /usr/local/lib -name '*.so*' -type f -exec strip --strip-unneeded {} + 2>/dev/null
 
 
 FROM gcr.io/distroless/python3-debian13:nonroot AS distroless

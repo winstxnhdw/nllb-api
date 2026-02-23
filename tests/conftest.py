@@ -1,5 +1,4 @@
 from asyncio import create_subprocess_exec, sleep
-from asyncio.subprocess import PIPE
 from collections.abc import AsyncIterator, Callable
 from os import environ
 from sys import executable
@@ -65,8 +64,6 @@ async def app_url() -> AsyncIterator[str]:
         executable,
         "-c",
         "from server import main; main()",
-        stdout=PIPE,
-        stderr=PIPE,
         env=environ.copy(),
     )
 
