@@ -36,7 +36,14 @@ COPY . .
 RUN uv sync ${USE_CUDA:+--extra cuda}
 
 
-FROM gcr.io/distroless/python3-debian13:nonroot
+FROM gcr.io/distroless/python3-debian13:nonroot AS distroless
+FROM busybox AS distroless-trimmed
+
+COPY --from=distroless / /distroless/
+RUN rm -rf /distroless/usr/bin/python3* /distroless/usr/lib/python3*
+
+
+FROM scratch
 
 ARG PYTHON_VERSION_TAG=3.14
 ARG USE_CUDA=False
@@ -50,12 +57,13 @@ ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
 ENV USE_CUDA=$USE_CUDA
 ENV LD_LIBRARY_PATH=/usr/local/lib:$HOME/.venv/lib/python$PYTHON_VERSION_TAG/site-packages/nvidia/cublas/lib
 
-COPY --from=model-builder  /root/.cache/huggingface $HOME/.cache/huggingface
-COPY --from=python-builder /usr/local/lib/libpython* /usr/local/lib/
-COPY --from=python-builder /usr/local/lib/python3.14 /usr/local/lib/python3.14
-COPY --from=python-builder /usr/local/bin/python3.14 /usr/local/bin/
-COPY --from=python-builder /usr/local/bin/python3 /usr/local/bin/
-COPY --from=python-builder $HOME/.venv $HOME/.venv
+COPY --from=distroless-trimmed /distroless/ /
+COPY --from=model-builder      /root/.cache/huggingface $HOME/.cache/huggingface
+COPY --from=python-builder     /usr/local/lib/libpython* /usr/local/lib/
+COPY --from=python-builder     /usr/local/lib/python$PYTHON_VERSION_TAG /usr/local/lib/python$PYTHON_VERSION_TAG
+COPY --from=python-builder     /usr/local/bin/python$PYTHON_VERSION_TAG /usr/local/bin/
+COPY --from=python-builder     /usr/local/bin/python3 /usr/local/bin/
+COPY --from=python-builder     $HOME/.venv $HOME/.venv
 
-ENTRYPOINT []
+USER nonroot
 CMD ["nllb-api"]
