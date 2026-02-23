@@ -45,7 +45,7 @@ RUN rm -rf /distroless/usr/bin/python3* /distroless/usr/lib/python3*
 
 FROM scratch
 
-ARG PYTHON_VERSION_TAG=3.14
+ARG PYTHON_VERSION_TAG
 ARG USE_CUDA=False
 
 ENV HOME=/home/nonroot
