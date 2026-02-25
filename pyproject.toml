@@ -6,7 +6,7 @@ requires-python = ">=3.14.3, <3.15"
 dependencies = [
     "ctranslate2>=4.7.1",
     "fasttext>=0.9.3",
-    "granian>=2.7.1",
+    "granian>=2.7.2",
     "litestar>=2.21.0",
     "pydantic-settings>=2.13.1",
     "uvloop>=0.22.1; sys_platform != 'win32'",
