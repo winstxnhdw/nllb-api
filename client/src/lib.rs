@@ -16,12 +16,12 @@ use crate::structs::LanguageResponse;
 pyo3::create_exception!(nllb, ClientError, pyo3::exceptions::PyException);
 pyo3::create_exception!(nllb, ApiError, pyo3::exceptions::PyException);
 
-#[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(frozen, immutable_type))]
-#[cfg_attr(any(Py_3_8, Py_3_9), pyclass(frozen))]
+#[cfg_attr(Py_3_10, pyclass(frozen, immutable_type))]
+#[cfg_attr(not(Py_3_10), pyclass(frozen))]
 struct Language;
 
-#[cfg_attr(not(any(Py_3_8, Py_3_9)), pyclass(name = "TranslatorClient", frozen, immutable_type))]
-#[cfg_attr(any(Py_3_8, Py_3_9), pyclass(name = "TranslatorClient", frozen))]
+#[cfg_attr(Py_3_10, pyclass(name = "TranslatorClient", frozen, immutable_type))]
+#[cfg_attr(not(Py_3_10), pyclass(name = "TranslatorClient", frozen))]
 struct PyTranslatorClient {
     client: TranslatorBlockingClient,
 }
@@ -87,11 +87,8 @@ impl PyTranslatorClient {
     }
 }
 
-#[cfg_attr(
-    not(any(Py_3_8, Py_3_9)),
-    pyclass(name = "AsyncTranslatorClient", frozen, immutable_type)
-)]
-#[cfg_attr(any(Py_3_8, Py_3_9), pyclass(name = "AsyncTranslatorClient", frozen))]
+#[cfg_attr(Py_3_10, pyclass(name = "AsyncTranslatorClient", frozen, immutable_type))]
+#[cfg_attr(not(Py_3_10), pyclass(name = "AsyncTranslatorClient", frozen))]
 struct AsyncPyTranslatorClient {
     client: TranslatorClient,
 }
