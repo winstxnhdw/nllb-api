@@ -12,6 +12,7 @@ on:
       - server/**
       - language/**
       - tests/**
+      - "**/rust-toolchain.toml"
 
 jobs:
   test:
