@@ -23,9 +23,12 @@ jobs:
       install-project: true
 
   complete:
+    if: always()
     needs: install
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     steps:
-      - name: Complete
-        run: echo "All jobs completed successfully."
+      - name: Fail if any dependency failed or was cancelled
+        if: needs.install.result == 'failure' || needs.install.result == 'cancelled'
+        run: exit 1
+
