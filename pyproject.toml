@@ -7,7 +7,7 @@ dependencies = [
     "ctranslate2>=4.7.1",
     "fasttext>=0.9.3",
     "granian>=2.7.2",
-    "litestar>=2.21.0",
+    "litestar>=2.21.1",
     "pydantic-settings>=2.13.1",
     "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
