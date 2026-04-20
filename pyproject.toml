@@ -8,7 +8,7 @@ dependencies = [
     "fasttext>=0.9.3",
     "granian>=2.7.3",
     "litestar>=2.21.1",
-    "pydantic-settings>=2.13.1",
+    "pydantic-settings>=2.14.0",
     "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.22.2",
