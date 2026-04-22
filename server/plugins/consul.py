@@ -65,8 +65,8 @@ async def consul_register(
 
     health_check = {
         "HTTP": health_endpoint,
-        "Interval": "10s",
-        "Timeout": "5s",
+        "Interval": "30s",
+        "Timeout": "10s",
     }
 
     payload = {
