@@ -1,4 +1,4 @@
-from collections.abc import AsyncIterator, Callable
+from collections.abc import AsyncGenerator, Callable
 from contextlib import AbstractAsyncContextManager, asynccontextmanager
 
 from litestar import Litestar
@@ -12,7 +12,7 @@ async def language_detector_lifespan(
     *,
     language_detector_repository: str,
     stub: bool,
-) -> AsyncIterator[None]:
+) -> AsyncGenerator[None]:
     """
     Summary
     -------

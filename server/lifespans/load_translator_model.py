@@ -1,4 +1,4 @@
-from collections.abc import AsyncIterator, Callable
+from collections.abc import AsyncGenerator, Callable
 from contextlib import AbstractAsyncContextManager, asynccontextmanager
 
 from litestar import Litestar
@@ -15,7 +15,7 @@ async def translator_lifespan(
     stub: bool,
     testing: bool,
     use_cuda: bool,
-) -> AsyncIterator[None]:
+) -> AsyncGenerator[None]:
     """
     Summary
     -------
