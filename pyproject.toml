@@ -4,7 +4,7 @@ version = "4.2.0"
 description = "A fast CPU-based API for NLLB"
 requires-python = ">=3.14.5, <3.15"
 dependencies = [
-    "ctranslate2>=4.7.1",
+    "ctranslate2>=4.7.2",
     "fasttext>=0.9.3",
     "granian>=2.7.4",
     "litestar>=2.21.1",
@@ -33,7 +33,7 @@ docker-hf = "server.scripts:huggingface"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
-    "hypothesis>=6.152.8",
+    "hypothesis>=6.152.9",
     "nllb",
     "nodejs-wheel-binaries>=24.15.0",
     "pyright>=1.1.409",
