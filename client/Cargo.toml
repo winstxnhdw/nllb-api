@@ -24,4 +24,4 @@ default-features = false
 features = ["default-tls", "http2", "json", "blocking", "query"]
 
 [build-dependencies]
-pyo3-build-config = { version = "0.28.3", default-features = false, features = ["resolve-config"] }
+pyo3-build-config = { version = "0.29.0", default-features = false, features = ["resolve-config"] }
