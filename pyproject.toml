@@ -33,7 +33,7 @@ docker-hf = "server.scripts:huggingface"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
-    "hypothesis>=6.155.6",
+    "hypothesis>=6.155.7",
     "nllb",
     "nodejs-wheel-binaries>=24.16.0",
     "pyright>=1.1.410",
