@@ -36,7 +36,7 @@ dev = [
     "hypothesis>=6.155.7",
     "nllb",
     "nodejs-wheel-binaries>=24.16.0",
-    "pyright>=1.1.410",
+    "pyright>=1.1.411",
     "pytest>=9.1.1",
     "pytest-env>=1.6.0",
     "ruff>=0.15.19",
