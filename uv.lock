@@ -679,10 +679,10 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aiohttp", specifier = ">=3.14.1" },
-    { name = "ctranslate2", specifier = ">=4.8.0" },
+    { name = "ctranslate2", specifier = ">=4.8.1" },
     { name = "fast-query-parsers", specifier = ">=1.0.3" },
     { name = "fasttext", specifier = ">=0.9.3" },
-    { name = "granian", specifier = ">=2.7.8" },
+    { name = "granian", specifier = ">=2.7.9" },
     { name = "language", directory = "language" },
     { name = "litestar", specifier = ">=2.24.0" },
     { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.2.10" },
@@ -699,7 +699,7 @@ provides-extras = ["cuda"]
 [package.metadata.requires-dev]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "hypothesis", specifier = ">=6.155.7" },
+    { name = "hypothesis", specifier = ">=6.156.1" },
     { name = "nllb", directory = "client" },
     { name = "nodejs-wheel-binaries", specifier = ">=24.16.0" },
     { name = "pyright", specifier = ">=1.1.411" },
