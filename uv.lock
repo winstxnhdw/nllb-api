@@ -1,6 +1,6 @@
 version = 1
 revision = 3
-requires-python = ">=3.14.6, <3.15"
+requires-python = ">=3.14.7, <3.15"
 
 [[package]]
 name = "aiohappyeyeballs"
@@ -690,7 +690,7 @@ source = { directory = "client" }
 dev = [
     { name = "maturin", specifier = ">=1.14.1" },
     { name = "pyright", specifier = ">=1.1.411" },
-    { name = "ruff", specifier = ">=0.16.0" },
+    { name = "ruff", specifier = ">=0.16.3" },
 ]
 
 [[package]]
@@ -736,7 +736,7 @@ requires-dist = [
     { name = "ctranslate2", specifier = ">=4.8.1" },
     { name = "fast-query-parsers", specifier = ">=1.0.3" },
     { name = "fasttext", specifier = ">=0.9.3" },
-    { name = "granian", specifier = ">=2.7.9" },
+    { name = "granian", specifier = ">=2.8.1" },
     { name = "language", directory = "language" },
     { name = "litestar", specifier = ">=2.24.0" },
     { name = "nvidia-cublas-cu12", marker = "extra == 'cuda'", specifier = ">=12.9.2.10" },
@@ -744,7 +744,7 @@ requires-dist = [
     { name = "opentelemetry-instrumentation-asgi", specifier = ">=0.58b0" },
     { name = "opentelemetry-instrumentation-system-metrics", specifier = ">=0.58b0" },
     { name = "picologging", marker = "python_full_version < '3.13'", specifier = ">=0.9.3" },
-    { name = "pydantic-settings", specifier = ">=2.14.2" },
+    { name = "pydantic-settings", specifier = ">=2.15.0" },
     { name = "tokenizers", specifier = ">=0.23.1" },
     { name = "uvloop", marker = "sys_platform != 'win32'", specifier = ">=0.22.1" },
 ]
@@ -753,13 +753,13 @@ provides-extras = ["cuda"]
 [package.metadata.requires-dev]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "hypothesis", specifier = ">=6.161.1" },
+    { name = "hypothesis", specifier = ">=6.165.10" },
     { name = "nllb", directory = "client" },
     { name = "nodejs-wheel-binaries", specifier = ">=24.16.0" },
     { name = "pyright", specifier = ">=1.1.411" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "pytest-env", specifier = ">=1.7.0" },
-    { name = "ruff", specifier = ">=0.16.0" },
+    { name = "ruff", specifier = ">=0.16.3" },
 ]
 
 [[package]]
