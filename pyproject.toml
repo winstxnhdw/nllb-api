@@ -33,13 +33,13 @@ docker-hf = "server.scripts:huggingface"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
-    "hypothesis>=6.161.0",
+    "hypothesis>=6.161.1",
     "nllb",
     "nodejs-wheel-binaries>=24.16.0",
     "pyright>=1.1.411",
     "pytest>=9.1.1",
     "pytest-env>=1.7.0",
-    "ruff>=0.15.22",
+    "ruff>=0.16.0",
 ]
 
 [build-system]

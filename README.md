@@ -265,11 +265,13 @@ Then, you can use the `AsyncTranslatorClient` to interact with the API.
 ```python
 from nllb import AsyncTranslatorClient
 
+
 async def main():
     text = "Hello, world!"
     client = AsyncTranslatorClient("http://localhost:7860")
     language_prediction = await client.detect_language(text)
     response = await client.translate(text, source=language_prediction.language, target="spa_Latn")
+
 
 asyncio.run(main())
 ```
@@ -278,12 +280,12 @@ Ideally, you would want to chunk your texts in batches under 512 tokens.
 
 ```python
 client = AsyncTranslatorClient("http://localhost:7860")
-language_prediction = await client.detect_language(' '.join(words[:10]))
+language_prediction = await client.detect_language(" ".join(words[:10]))
 
-while (await client.count_tokens(' '.join(words))) > 512:
+while (await client.count_tokens(" ".join(words))) > 512:
     words.pop()
 
-response = await client.translate(' '.join(words), source=language_prediction.language, target="spa_Latn")
+response = await client.translate(" ".join(words), source=language_prediction.language, target="spa_Latn")
 ```
 
 ## Self-Hosting
