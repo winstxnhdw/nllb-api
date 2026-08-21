@@ -21,11 +21,10 @@ ENV UV_NO_DEV=1
 ENV UV_LOCKED=1
 ENV UV_NO_EDITABLE=1
 ENV PYTHONOPTIMIZE=2
-ENV RUSTFLAGS="-C target-cpu=native"
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 COPY pyproject.toml uv.lock ./
-COPY client client
+COPY client/pyproject.toml ./client/pyproject.toml
 COPY language language
 
 RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}

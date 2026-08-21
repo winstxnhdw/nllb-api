@@ -8,6 +8,8 @@ Makefile
 **/Dockerfile*
 **/typings
 **/target
+client/**
+!client/pyproject.toml
 
 __pycache__/
 tests/

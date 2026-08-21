@@ -61,22 +61,22 @@ line-length = 120
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "D",
-    "Q",
-    "TC",
-    "ANN001",
-    "ANN002",
-    "PLC0414",
-    "INP001",
-    "S104",
-    "S603",
-    "PYI001",
-    "COM812",
-    "SLF001",
-    "PT013",
-    "PLR0913",
-    "D203",
-    "D212",
+    "D",      # pydocstyle docstring rules
+    "Q",      # flake8-quotes rules
+    "TC",     # flake8-type-checking rules
+    "ANN001", # missing-type-function-argument
+    "ANN002", # missing-type-args
+    "PLC0414", # useless-import-alias
+    "INP001", # implicit-namespace-package
+    "S104",   # hardcoded-bind-all-interfaces
+    "S603",   # subprocess-without-shell-equals-true
+    "PYI001", # unprefixed-type-param
+    "COM812", # missing-trailing-comma
+    "SLF001", # private-member-access
+    "PT013",  # pytest-incorrect-pytest-import
+    "PLR0913", # too-many-arguments
+    "D203",   # one-blank-line-before-class
+    "D212",   # multi-line-summary-first-line
 ]
 
 [tool.pyright]
