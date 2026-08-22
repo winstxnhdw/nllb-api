@@ -2,9 +2,8 @@ from collections.abc import Callable
 from contextlib import AbstractAsyncContextManager
 from functools import partial
 from logging import Logger, getLogger
-from random import choice
-from string import ascii_letters, digits
 from typing import Literal
+from uuid import uuid4
 
 from litestar import Litestar, Response, Router
 from litestar.config.cors import CORSConfig
@@ -77,9 +76,8 @@ def app(config: Config | None = None) -> Litestar:
     the Litestar application
     """
     config = config or Config()
-    ascii_letters_with_digits = f"{ascii_letters}{digits}"
     app_name = config.app_name
-    app_id = f"{app_name}-{''.join(choice(ascii_letters_with_digits) for _ in range(4))}"  # noqa: S311
+    app_id = f"{app_name}-{uuid4().hex[:4]}"
     logger = getLogger(app_name)
     plugins: list[PluginProtocol] = []
     description = (
