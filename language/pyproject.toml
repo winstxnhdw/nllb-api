@@ -2,6 +2,7 @@
 name = "language"
 requires-python = ">=3.14.7, <3.15"
 dynamic = ["version"]
+dependencies = ["fasttext>=0.9.3"]
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",

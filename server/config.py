@@ -38,9 +38,6 @@ class Config(BaseSettings):
     use_cuda (bool)
         whether to use CUDA for inference
 
-    language_detector_repository (str)
-        the repository to download the language detector from
-
     stub_language_detector (bool)
         whether to use a stub for the language detector
 
@@ -114,7 +111,6 @@ class Config(BaseSettings):
     testing: bool = False
     use_cuda: bool = False
 
-    language_detector_repository: str = "facebook/fasttext-language-identification"
     stub_language_detector: bool = False
 
     access_control_allow_origin: str = "*"

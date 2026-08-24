@@ -1,4 +1,4 @@
-from typing import Literal, Protocol
+from typing import Literal
 
 type Language = Literal[
     "ace_Arab",
@@ -213,14 +213,8 @@ class Prediction:
     @property
     def confidence(self) -> float: ...
 
-class FastTextProtocol(Protocol):
-    def predict(self, text: str, k: int, threshold: float, on_unicode_error: str) -> list[tuple[float, str]]: ...
-
 class LanguageDetector:
-    def __init__(
-        self,
-        fasttext_model: FastTextProtocol,
-    ) -> None: ...
+    def __init__(self) -> None: ...
     def detect(
         self,
         text: str,

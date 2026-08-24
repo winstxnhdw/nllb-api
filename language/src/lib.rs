@@ -12,6 +12,7 @@ use pyo3::types::PyAnyMethods;
 use pyo3::types::PyListMethods;
 use pyo3::types::PyString;
 use pyo3::types::PyStringMethods;
+use std::fs;
 
 const LINGUAGES: [&str; 74] = [
     "afr_Latn", "als_Latn", "arb_Latn", "hye_Armn", "azj_Latn", "eus_Latn", "bel_Cyrl", "ben_Beng",
@@ -80,10 +81,37 @@ struct Detector {
 #[pyo3::pymethods]
 impl Detector {
     #[new]
-    fn new(py: Python, fasttext_model: Py<PyAny>) -> PyResult<Self> {
+    fn new(py: Python) -> PyResult<Self> {
+        let fasttext_model_path = hf_hub::resolve_cache_dir()
+            .join("models--facebook--fasttext-language-identification")
+            .join("embedded")
+            .join("model.bin");
+
+        fs::create_dir_all(
+            fasttext_model_path
+                .parent()
+                .ok_or_else(|| unlikely_python_error("The model path has no parent directory!"))?,
+        )?;
+
+        fs::write(
+            &fasttext_model_path,
+            include_bytes!(env!("FASTTEXT_MODEL_PATH")),
+        )?;
+
+        let fasttext_model_path = fasttext_model_path
+            .to_str()
+            .ok_or_else(|| unlikely_python_error("The model path is not valid UTF-8!"))?;
+
+        let fasttext_model = py.import("fasttext_pybind")?.getattr("fasttext")?.call0()?;
+        fasttext_model.call_method1("loadModel", (fasttext_model_path,))?;
+
+        let lingua_model = LanguageDetectorBuilder::from_all_languages()
+            .with_preloaded_language_models()
+            .build();
+
         let detector = Self {
-            lingua_model: LanguageDetectorBuilder::from_all_languages().build(),
-            fasttext_model_call: fasttext_model.getattr(py, "predict")?,
+            lingua_model,
+            fasttext_model_call: fasttext_model.getattr("predict")?.unbind(),
         };
 
         Ok(detector)

@@ -18,6 +18,10 @@ version = "0.29.2"
 default-features = false
 features = ["macros"]
 
+[dependencies.hf-hub]
+version = "1.0.0"
+default-features = false
+
 [dependencies.lingua]
 version = "1.8.0"
 default-features = false
@@ -97,3 +101,8 @@ features = [
     "yoruba",
     "zulu",
 ]
+
+[build-dependencies.hf-hub]
+version = "1.0.0"
+default-features = false
+features = ["blocking"]

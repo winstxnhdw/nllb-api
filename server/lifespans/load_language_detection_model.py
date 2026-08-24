@@ -10,7 +10,6 @@ from server.features.detector import get_language_detector
 async def language_detector_lifespan(
     app: Litestar,
     *,
-    language_detector_repository: str,
     stub: bool,
 ) -> AsyncGenerator[None]:
     """
@@ -23,16 +22,10 @@ async def language_detector_lifespan(
     app (Litestar)
         the application instance
 
-    language_detector_repository (str)
-        the repository to download the model from
-
     stub (bool)
         whether to use a stub object
     """
-    app.state.language_detector = get_language_detector(
-        language_detector_repository,
-        stub=stub,
-    )
+    app.state.language_detector = get_language_detector(stub=stub)
 
     try:
         yield
@@ -42,7 +35,6 @@ async def language_detector_lifespan(
 
 
 def load_language_detector(
-    language_detector_repository: str,
     *,
     stub: bool,
 ) -> Callable[[Litestar], AbstractAsyncContextManager[None]]:
@@ -53,9 +45,6 @@ def load_language_detector(
 
     Parameters
     ----------
-    language_detector_repository (str)
-        the repository to download the model from
-
     stub (bool)
         whether to use a stub object
 
@@ -66,6 +55,5 @@ def load_language_detector(
     """
     return lambda app: language_detector_lifespan(
         app,
-        language_detector_repository=language_detector_repository,
         stub=stub,
     )

@@ -542,8 +542,12 @@ wheels = [
 [[package]]
 name = "language"
 source = { directory = "language" }
+dependencies = [
+    { name = "fasttext" },
+]
 
 [package.metadata]
+requires-dist = [{ name = "fasttext", specifier = ">=0.9.3" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "maturin", specifier = ">=1.14.1" }]
@@ -701,7 +705,6 @@ dependencies = [
     { name = "aiohttp" },
     { name = "ctranslate2" },
     { name = "fast-query-parsers" },
-    { name = "fasttext" },
     { name = "granian" },
     { name = "language" },
     { name = "litestar" },
@@ -735,7 +738,6 @@ requires-dist = [
     { name = "aiohttp", specifier = ">=3.14.3" },
     { name = "ctranslate2", specifier = ">=4.8.1" },
     { name = "fast-query-parsers", specifier = ">=1.0.3" },
-    { name = "fasttext", specifier = ">=0.9.3" },
     { name = "granian", specifier = ">=2.8.2" },
     { name = "language", directory = "language" },
     { name = "litestar", specifier = ">=2.24.0" },

@@ -120,7 +120,7 @@ def app(config: Config | None = None) -> Litestar:
     )
 
     lifespans: tuple[Callable[[Litestar], AbstractAsyncContextManager[None]], ...] = (
-        load_language_detector(config.language_detector_repository, stub=config.stub_language_detector),
+        load_language_detector(stub=config.stub_language_detector),
         load_translator_model(
             config.translator_repository,
             translator_threads=config.translator_threads,
