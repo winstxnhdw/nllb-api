@@ -82,16 +82,7 @@ struct Detector {
 impl Detector {
     #[new]
     fn new(py: Python) -> PyResult<Self> {
-        let fasttext_model_path = hf_hub::resolve_cache_dir()
-            .join("models--facebook--fasttext-language-identification")
-            .join("embedded")
-            .join("model.bin");
-
-        fs::create_dir_all(
-            fasttext_model_path
-                .parent()
-                .ok_or_else(|| unlikely_python_error("The model path has no parent directory!"))?,
-        )?;
+        let fasttext_model_path = std::env::temp_dir().join("fasttext-language-identification.bin");
 
         fs::write(
             &fasttext_model_path,
