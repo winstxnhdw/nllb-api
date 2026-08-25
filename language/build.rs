@@ -1,8 +1,5 @@
-use hf_hub::HFClientSync;
-use hf_hub::HFError;
-
-fn main() -> Result<(), HFError> {
-    let model_path = HFClientSync::new()?
+fn main() -> Result<(), hf_hub::HFError> {
+    let model_path = hf_hub::HFClientSync::new()?
         .model("facebook", "fasttext-language-identification")
         .download_file()
         .filename("model.bin")
