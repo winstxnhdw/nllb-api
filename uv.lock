@@ -550,7 +550,7 @@ dependencies = [
 requires-dist = [{ name = "fasttext", specifier = ">=0.9.3" }]
 
 [package.metadata.requires-dev]
-dev = [{ name = "maturin", specifier = ">=1.14.1" }]
+dev = [{ name = "maturin", specifier = ">=1.15.0" }]
 
 [[package]]
 name = "litestar"
@@ -692,7 +692,7 @@ source = { directory = "client" }
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "maturin", specifier = ">=1.14.1" },
+    { name = "maturin", specifier = ">=1.15.0" },
     { name = "pyright", specifier = ">=1.1.411" },
     { name = "ruff", specifier = ">=0.16.4" },
 ]
