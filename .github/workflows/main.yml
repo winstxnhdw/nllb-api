@@ -16,12 +16,12 @@ on:
 
 jobs:
   test:
-    uses: winstxnhdw/actions/.github/workflows/uv.yml@main
+    uses: winstxnhdw/actions/.github/workflows/uv.yml@f43de6b5804c7609cb6f13864e2d18a70301469e # main
     with:
       install-project: true
 
   build:
-    uses: winstxnhdw/actions/.github/workflows/docker-build.yml@main
+    uses: winstxnhdw/actions/.github/workflows/docker-build.yml@f43de6b5804c7609cb6f13864e2d18a70301469e # main
     with:
       file: Dockerfile.build
       cache-mode: min
@@ -29,7 +29,7 @@ jobs:
   push:
     if: github.ref == 'refs/heads/main'
     needs: [test, build]
-    uses: winstxnhdw/actions/.github/workflows/docker-push.yml@main
+    uses: winstxnhdw/actions/.github/workflows/docker-push.yml@f43de6b5804c7609cb6f13864e2d18a70301469e # main
     with:
       file: Dockerfile.build
     secrets:
@@ -40,6 +40,6 @@ jobs:
   restart:
     if: github.ref == 'refs/heads/main'
     needs: push
-    uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@main
+    uses: winstxnhdw/actions/.github/workflows/spaces-restart.yml@f43de6b5804c7609cb6f13864e2d18a70301469e # main
     secrets:
       token: ${{ secrets.HF_TOKEN }}

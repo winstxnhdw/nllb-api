@@ -14,7 +14,7 @@ jobs:
       matrix:
         python-version: [3.8, 3.9, "3.10", 3.11, 3.12, 3.13, 3.14]
         runs-on: [ubuntu, macos, windows]
-    uses: winstxnhdw/actions/.github/workflows/uv.yml@main
+    uses: winstxnhdw/actions/.github/workflows/uv.yml@f43de6b5804c7609cb6f13864e2d18a70301469e # main
     with:
       working-directory: client
       python-version: ${{ matrix.python-version }}

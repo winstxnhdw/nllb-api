@@ -13,4 +13,4 @@ permissions:
 
 jobs:
   format:
-    uses: winstxnhdw/actions/.github/workflows/format-python.yml@main
+    uses: winstxnhdw/actions/.github/workflows/format-python.yml@f43de6b5804c7609cb6f13864e2d18a70301469e # main
