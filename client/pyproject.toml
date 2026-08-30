@@ -9,7 +9,7 @@ classifiers = [
 ]
 
 [dependency-groups]
-dev = ["maturin>=1.15.0", "pyright>=1.1.411", "ruff>=0.16.4"]
+dev = ["maturin>=1.15.0", "pyright>=1.1.411", "ruff>=0.16.5"]
 
 [build-system]
 requires = ["maturin>=1.15.0,<2.0"]
