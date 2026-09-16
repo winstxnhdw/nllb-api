@@ -7,7 +7,7 @@ dependencies = [
     "ctranslate2>=4.8.2",
     "granian>=2.8.3",
     "litestar>=2.24.0",
-    "pydantic-settings>=2.15.0",
+    "msgspec>=0.21.1",
     "uvloop>=0.22.1; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.23.2",
@@ -71,11 +71,13 @@ ignore = [
     "PYI001", # unprefixed-type-param
     "COM812", # missing-trailing-comma
     "SLF001", # private-member-access
-    "PT013",  # pytest-incorrect-pytest-import
     "PLR0913", # too-many-arguments
     "D203",   # one-blank-line-before-class
     "D212",   # multi-line-summary-first-line
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["PLR2004", "PT013", "S101"]
 
 [tool.pyright]
 stubPath = "server/typings"

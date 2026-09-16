@@ -22,5 +22,5 @@ class Health(Struct, kw_only=True, frozen=True, gc=False):
     """
 
     schema_version: int = field(default=1, name="schemaVersion")
-    label: str = field(default=Config().app_name)
+    label: str = field(default=Config.from_os().app_name)
     message: str = field(default="online")

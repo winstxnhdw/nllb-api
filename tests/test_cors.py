@@ -1,5 +1,3 @@
-# ruff: noqa: S101
-
 from collections.abc import Callable
 
 from litestar import Litestar
@@ -17,20 +15,21 @@ async def test_cors(
     *,
     is_allowed: bool,
 ) -> None:
-    config = Config()
-    config.access_control_allow_origin = "http://localhost:3000, example.com"
-    config.access_control_allow_method_get = is_allowed
-    config.access_control_allow_method_post = is_allowed
-    config.access_control_allow_method_options = is_allowed
-    config.access_control_allow_method_delete = is_allowed
-    config.access_control_allow_method_put = is_allowed
-    config.access_control_allow_method_patch = is_allowed
-    config.access_control_allow_method_head = is_allowed
-    config.access_control_allow_method_trace = is_allowed
-    config.access_control_allow_credentials = is_allowed
-    config.access_control_allow_headers = "X-Custom-Header,Upgrade-Insecure-Requests"
-    config.access_control_expose_headers = "Content-Encoding,Kuma-Revision"
-    config.access_control_max_age = 3600
+    config = Config(
+        access_control_allow_origin="http://localhost:3000, example.com",
+        access_control_allow_method_get=is_allowed,
+        access_control_allow_method_post=is_allowed,
+        access_control_allow_method_options=is_allowed,
+        access_control_allow_method_delete=is_allowed,
+        access_control_allow_method_put=is_allowed,
+        access_control_allow_method_patch=is_allowed,
+        access_control_allow_method_head=is_allowed,
+        access_control_allow_method_trace=is_allowed,
+        access_control_allow_credentials=is_allowed,
+        access_control_allow_headers="X-Custom-Header,Upgrade-Insecure-Requests",
+        access_control_expose_headers="Content-Encoding,Kuma-Revision",
+        access_control_max_age=3600,
+    )
 
     origin = "http://localhost:3000"
 
@@ -50,9 +49,7 @@ async def test_cors(
 
 
 async def test_cors_max_age(client_factory_without_lifespans: Callable[[Config], AsyncTestClient[Litestar]]) -> None:
-    config = Config()
-    config.access_control_allow_origin = "*"
-    config.access_control_max_age = 3600
+    config = Config(access_control_allow_origin="*", access_control_max_age=3600)
 
     async with client_factory_without_lifespans(config) as client:
         response = await client.options("/health", headers={"Origin": "http://localhost:3000"})

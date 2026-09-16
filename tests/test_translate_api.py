@@ -1,5 +1,3 @@
-# ruff: noqa: S101
-
 from asyncio import TaskGroup
 from collections.abc import Awaitable, Callable
 

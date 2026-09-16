@@ -1,5 +1,3 @@
-# ruff: noqa: S101
-
 from nllb import AsyncTranslatorClient
 
 
@@ -39,4 +37,4 @@ async def test_detect_language_with_confidence(subprocess_async_client: AsyncTra
 
 
 async def test_count_tokens(subprocess_async_client: AsyncTranslatorClient) -> None:
-    assert await subprocess_async_client.count_tokens("Hello, world!") == 7  # noqa: PLR2004
+    assert await subprocess_async_client.count_tokens("Hello, world!") == 7

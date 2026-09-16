@@ -1,5 +1,3 @@
-# ruff: noqa: S101
-
 from pytest import mark
 
 from server.utils.has_internet_access import has_internet_access

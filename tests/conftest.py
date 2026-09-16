@@ -35,8 +35,7 @@ def anyio_backend() -> tuple[Literal["asyncio", "trio"], dict[str, bool]]:
 
 @fixture
 async def client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
-    config = Config()
-    config.auth_token = auth_token
+    config = Config(auth_token=auth_token)
 
     async with AsyncTestClient(app=app(config), backend_options={"use_uvloop": True}) as client:
         yield client
@@ -49,8 +48,7 @@ async def client_factory_without_lifespans() -> Callable[[Config], AsyncTestClie
 
 @fixture(scope="session")
 async def session_client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
-    config = Config()
-    config.auth_token = auth_token
+    config = Config(auth_token=auth_token)
 
     async with AsyncTestClient(app=app(config), backend_options={"use_uvloop": True}) as client:
         yield client

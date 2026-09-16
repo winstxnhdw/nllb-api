@@ -1,6 +1,3 @@
-# ruff: noqa: S101
-
-
 from httpx import Response
 from litestar import Litestar
 from litestar.status_codes import HTTP_400_BAD_REQUEST

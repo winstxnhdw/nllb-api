@@ -11,7 +11,7 @@ def main() -> None:
     -------
     programmatically run the server with Granian
     """
-    config = Config()
+    config = Config.from_os()
     granian = Server(
         f"{app.__module__}:{app.__name__}",
         address="0.0.0.0",

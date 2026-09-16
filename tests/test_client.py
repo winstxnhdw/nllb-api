@@ -1,5 +1,3 @@
-# ruff: noqa: S101
-
 from nllb import LanguagePrediction, TranslatorClient
 
 
@@ -41,4 +39,4 @@ def test_detect_language_with_confidence(subprocess_client: TranslatorClient) ->
 
 
 def test_count_tokens(subprocess_client: TranslatorClient) -> None:
-    assert subprocess_client.count_tokens("Hello, world!") == 7  # noqa: PLR2004
+    assert subprocess_client.count_tokens("Hello, world!") == 7

@@ -75,7 +75,7 @@ def app(config: Config | None = None) -> Litestar:
     -------
     the Litestar application
     """
-    config = config or Config()
+    config = config or Config.from_os()
     app_name = config.app_name
     app_id = f"{app_name}-{uuid4().hex[:4]}"
     logger = getLogger(app_name)
