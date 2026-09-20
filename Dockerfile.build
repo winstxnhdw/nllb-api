@@ -1,8 +1,8 @@
 ARG PYTHON_VERSION_TAG=3.14
 
-FROM python:$PYTHON_VERSION_TAG-slim AS model-builder
+FROM python:$PYTHON_VERSION_TAG AS model-builder
 
-RUN pip install huggingface-hub
+RUN pip install --no-cache-dir huggingface-hub
 RUN python -c \
     "from huggingface_hub import snapshot_download; \
     snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')"
@@ -31,7 +31,7 @@ RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}
 COPY . .
 
 RUN uv sync ${USE_CUDA:+--extra cuda}
-RUN find .venv /usr/local/lib -name '*.so*' -type f -exec strip --strip-unneeded {} + 2>/dev/null
+RUN find .venv /usr/local/lib -name '*.so*' -type f -exec strip --strip-unneeded {} +
 
 
 FROM gcr.io/distroless/python3-debian13:nonroot AS distroless
@@ -55,14 +55,14 @@ ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
 ENV USE_CUDA=$USE_CUDA
 ENV LD_LIBRARY_PATH=/usr/local/lib:$HOME/.venv/lib/python$PYTHON_VERSION_TAG/site-packages/nvidia/cublas/lib
 
-COPY --from=distroless-trimmed /distroless/ /
-COPY --from=model-builder /root/.cache/huggingface $HOME/.cache/huggingface
-COPY --from=model-builder      /usr/local/lib/libpython* /usr/local/lib/
+COPY --from=distroless-trimmed /distroless/                             /
+COPY --from=model-builder      /root/.cache/huggingface                 $HOME/.cache/huggingface
+COPY --from=python-builder     /usr/local/lib/libpython*                /usr/local/lib/
 COPY --from=python-builder     /usr/local/lib/python$PYTHON_VERSION_TAG /usr/local/lib/python$PYTHON_VERSION_TAG
 COPY --from=python-builder     /usr/local/bin/python$PYTHON_VERSION_TAG /usr/local/bin/
-COPY --from=python-builder     /usr/local/bin/python3 /usr/local/bin/
-COPY --from=python-builder     /usr/lib/ssl /usr/lib/ssl
-COPY --from=python-builder     $HOME/.venv $HOME/.venv
+COPY --from=python-builder     /usr/local/bin/python3                   /usr/local/bin/
+COPY --from=python-builder     /usr/lib/ssl                             /usr/lib/ssl
+COPY --from=python-builder     $HOME/.venv                              $HOME/.venv
 
 USER nonroot
 CMD ["nllb-api"]
