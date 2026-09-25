@@ -14,7 +14,7 @@ dependencies = [
     "aiohttp>=3.14.3",
     "language",
     "opentelemetry-instrumentation-asgi>=0.58b0",
-    "opentelemetry-exporter-otlp-proto-http>=1.44.0",
+    "opentelemetry-exporter-otlp-proto-http>=1.45.0",
     "opentelemetry-instrumentation-system-metrics>=0.58b0",
 ]
 
