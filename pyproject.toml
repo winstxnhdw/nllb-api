@@ -11,7 +11,7 @@ dependencies = [
     "uvloop>=0.23.0; sys_platform != 'win32'",
     "picologging>=0.9.3; python_version < '3.13'",
     "tokenizers>=0.23.2",
-    "aiohttp>=3.14.3",
+    "aiohttp>=3.14.4",
     "language",
     "opentelemetry-instrumentation-asgi>=0.58b0",
     "opentelemetry-exporter-otlp-proto-http>=1.45.0",
@@ -31,7 +31,7 @@ docker-hf = "server.scripts:huggingface"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
-    "hypothesis>=6.168.4",
+    "hypothesis>=6.168.5",
     "nllb",
     "nodejs-wheel-binaries>=24.19.0",
     "pyright>=1.1.414",
