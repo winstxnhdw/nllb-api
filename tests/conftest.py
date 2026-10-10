@@ -1,4 +1,4 @@
-from asyncio import create_subprocess_exec, sleep
+from asyncio import AbstractEventLoop, create_subprocess_exec, sleep
 from collections.abc import AsyncIterator, Callable
 from os import environ
 from sys import executable
@@ -9,6 +9,7 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from nllb import AsyncTranslatorClient, TranslatorClient
 from pytest import fixture
+from rloop import new_event_loop
 
 from server.app import app
 from server.config import Config
@@ -20,7 +21,7 @@ def client_factory(config: Config, *, no_lifespans: bool) -> AsyncTestClient[Lit
     if no_lifespans:
         litestar._lifespan_managers.clear()
 
-    return AsyncTestClient(app=litestar, backend_options={"use_uvloop": True})
+    return AsyncTestClient(app=litestar, backend_options={"loop_factory": new_event_loop})
 
 
 @fixture(scope="session")
@@ -29,15 +30,15 @@ def auth_token() -> str:
 
 
 @fixture(scope="session", autouse=True)
-def anyio_backend() -> tuple[Literal["asyncio", "trio"], dict[str, bool]]:
-    return "asyncio", {"use_uvloop": True}
+def anyio_backend() -> tuple[Literal["asyncio", "trio"], dict[str, Callable[[], AbstractEventLoop]]]:
+    return "asyncio", {"loop_factory": new_event_loop}
 
 
 @fixture
 async def client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
     config = Config(auth_token=auth_token)
 
-    async with AsyncTestClient(app=app(config), backend_options={"use_uvloop": True}) as client:
+    async with AsyncTestClient(app=app(config), backend_options={"loop_factory": new_event_loop}) as client:
         yield client
 
 
@@ -50,7 +51,7 @@ async def client_factory_without_lifespans() -> Callable[[Config], AsyncTestClie
 async def session_client(auth_token: str) -> AsyncIterator[AsyncTestClient[Litestar]]:
     config = Config(auth_token=auth_token)
 
-    async with AsyncTestClient(app=app(config), backend_options={"use_uvloop": True}) as client:
+    async with AsyncTestClient(app=app(config), backend_options={"loop_factory": new_event_loop}) as client:
         yield client
 
 

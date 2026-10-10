@@ -8,7 +8,7 @@ from server.schemas.v1 import LanguageResult
 from server.typedefs import AppState
 
 
-@get("/language", sync_to_thread=False, cache=True)
+@get("/language", sync_to_thread=True, cache=True)
 def language(
     state: AppState,
     text: Annotated[
