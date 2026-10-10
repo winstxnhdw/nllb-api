@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    uses: winstxnhdw/actions/.github/workflows/docker-build.yml@10339f0c31654e18c00d8c7256351ba78bcb2ef7 # main
+    uses: winstxnhdw/actions/.github/workflows/docker-build.yml@main
     with:
       file: Dockerfile.build
       cache-mode: min

@@ -12,9 +12,9 @@ jobs:
   install:
     strategy:
       matrix:
-        python-version: [3.8, 3.9, "3.10", 3.11, 3.12, 3.13, 3.14]
+        python-version: [3.8, 3.9, "3.10", 3.11, 3.12, 3.13, 3.14, 3.15]
         runs-on: [ubuntu, macos, windows]
-    uses: winstxnhdw/actions/.github/workflows/uv.yml@10339f0c31654e18c00d8c7256351ba78bcb2ef7 # main
+    uses: winstxnhdw/actions/.github/workflows/uv.yml@main
     with:
       working-directory: client
       python-version: ${{ matrix.python-version }}
@@ -31,4 +31,3 @@ jobs:
       - name: Fail if any dependency failed or was cancelled
         if: needs.install.result == 'failure' || needs.install.result == 'cancelled'
         run: exit 1
-
