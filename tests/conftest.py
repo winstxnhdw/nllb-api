@@ -9,7 +9,7 @@ from litestar import Litestar
 from litestar.testing import AsyncTestClient
 from nllb import AsyncTranslatorClient, TranslatorClient
 from pytest import fixture
-from rloop import new_event_loop
+from uvloop import new_event_loop
 
 from server.app import app
 from server.config import Config
