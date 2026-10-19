@@ -5,6 +5,11 @@
 			"matchFileNames": ["client/**"],
 			"matchPackageNames": ["python"],
 			"enabled": false
+		},
+		{
+			"matchDatasources": ["docker"],
+			"matchPackageNames": ["python"],
+			"enabled": false
 		}
 	]
 }
