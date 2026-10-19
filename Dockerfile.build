@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION_TAG=3.14
+ARG USE_CUDA=
 
-FROM python:$PYTHON_VERSION_TAG AS model-builder
+FROM python:latest AS model-builder
 
 RUN pip install --no-cache-dir huggingface-hub
 RUN python -c \
@@ -8,12 +8,14 @@ RUN python -c \
     snapshot_download('winstxnhdw/nllb-200-distilled-1.3B-ct2-int8')"
 
 
-FROM python:$PYTHON_VERSION_TAG AS python-builder
+FROM python:latest AS python-builder
 
-ARG USE_CUDA=0
+ARG USE_CUDA
 
 WORKDIR /home/nonroot
 
+ENV UV_MANAGED_PYTHON=1
+ENV UV_PYTHON_INSTALL_DIR=/opt/python
 ENV UV_LINK_MODE=copy
 ENV UV_NO_CACHE=1
 ENV UV_NO_DEV=1
@@ -31,38 +33,27 @@ RUN uv sync --no-install-project ${USE_CUDA:+--extra cuda}
 COPY . .
 
 RUN uv sync ${USE_CUDA:+--extra cuda}
-RUN find .venv /usr/local/lib -name '*.so*' -type f -exec strip --strip-unneeded {} +
+RUN find .venv -name '*.so*' -type f -exec strip --strip-unneeded {} +
+RUN cd .venv && ln -s lib/python*/site-packages site-packages
 
 
-FROM gcr.io/distroless/python3-debian13:nonroot AS distroless
-FROM busybox AS distroless-trimmed
+FROM gcr.io/distroless/cc:nonroot
 
-COPY --from=distroless / /distroless/
-RUN rm -rf /distroless/usr/bin/python3* /distroless/usr/lib/python3*
-
-
-FROM scratch
-
-ARG PYTHON_VERSION_TAG
-ARG USE_CUDA=False
+ARG USE_CUDA
 
 ENV HOME=/home/nonroot
-ENV PATH=$HOME/.venv/bin:/usr/local/bin:$PATH
+ENV PATH=$HOME/.venv/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV HF_HUB_OFFLINE=1
 ENV TRANSFORMERS_NO_ADVISORY_WARNINGS=1
-ENV USE_CUDA=$USE_CUDA
-ENV LD_LIBRARY_PATH=/usr/local/lib:$HOME/.venv/lib/python$PYTHON_VERSION_TAG/site-packages/nvidia/cublas/lib
+ENV USE_CUDA=${USE_CUDA:-False}
+ENV LD_LIBRARY_PATH=$HOME/.venv/site-packages/nvidia/cublas/lib
 
-COPY --from=distroless-trimmed /distroless/                             /
-COPY --from=model-builder      /root/.cache/huggingface                 $HOME/.cache/huggingface
-COPY --from=python-builder     /usr/local/lib/libpython*                /usr/local/lib/
-COPY --from=python-builder     /usr/local/lib/python$PYTHON_VERSION_TAG /usr/local/lib/python$PYTHON_VERSION_TAG
-COPY --from=python-builder     /usr/local/bin/python$PYTHON_VERSION_TAG /usr/local/bin/
-COPY --from=python-builder     /usr/local/bin/python3                   /usr/local/bin/
-COPY --from=python-builder     /usr/lib/ssl                             /usr/lib/ssl
-COPY --from=python-builder     $HOME/.venv                              $HOME/.venv
+COPY --from=model-builder  /root/.cache/huggingface $HOME/.cache/huggingface
+COPY --from=python-builder /opt/python              /opt/python
+COPY --from=python-builder /usr/lib/ssl             /usr/lib/ssl
+COPY --from=python-builder $HOME/.venv              $HOME/.venv
 
 USER nonroot
 CMD ["nllb-api"]
