@@ -652,7 +652,7 @@ source = { directory = "client" }
 dev = [
     { name = "maturin", specifier = ">=1.16.0" },
     { name = "pyright", specifier = ">=1.1.414" },
-    { name = "ruff", specifier = ">=0.17.3" },
+    { name = "ruff", specifier = ">=0.17.4" },
 ]
 
 [[package]]
@@ -711,13 +711,13 @@ provides-extras = ["cuda"]
 [package.metadata.requires-dev]
 dev = [
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "hypothesis", specifier = ">=6.170.14" },
+    { name = "hypothesis", specifier = ">=6.170.15" },
     { name = "nllb", directory = "client" },
     { name = "nodejs-wheel-binaries", specifier = ">=24.19.0" },
     { name = "pyright", specifier = ">=1.1.414" },
     { name = "pytest", specifier = ">=9.2.0" },
     { name = "pytest-env", specifier = ">=1.8.5" },
-    { name = "ruff", specifier = ">=0.17.3" },
+    { name = "ruff", specifier = ">=0.17.4" },
 ]
 
 [[package]]
