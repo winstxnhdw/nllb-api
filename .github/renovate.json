@@ -5,6 +5,12 @@
 			"matchFileNames": ["client/pyproject.toml"],
 			"matchDepTypes": ["requires-python"],
 			"enabled": false
+		},
+		{
+			"description": "PyO3 0.30 drops support for the client's Python 3.8 minimum",
+			"matchFileNames": ["client/Cargo.toml"],
+			"matchPackageNames": ["pyo3", "pyo3-build-config"],
+			"allowedVersions": "<0.30.0"
 		}
 	]
 }
