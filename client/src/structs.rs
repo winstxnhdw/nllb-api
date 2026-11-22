@@ -2,11 +2,8 @@ use pyo3::pyclass;
 use serde::Deserialize;
 use serde::Serialize;
 
-#[cfg_attr(
-    not(any(Py_3_8, Py_3_9)),
-    pyclass(name = "LanguagePrediction", frozen, get_all, immutable_type)
-)]
-#[cfg_attr(any(Py_3_8, Py_3_9), pyclass(name = "LanguagePrediction", frozen, get_all))]
+#[cfg_attr(Py_3_10, pyclass(name = "LanguagePrediction", frozen, get_all, immutable_type))]
+#[cfg_attr(not(Py_3_10), pyclass(name = "LanguagePrediction", frozen, get_all))]
 #[derive(Deserialize)]
 pub struct LanguageResponse {
     language: String,

@@ -178,7 +178,7 @@ mod nllb {
     use super::PyTranslatorClient;
 
     #[pymodule_init]
-    fn init(_: &pyo3::Bound<'_, pyo3::types::PyModule>) -> pyo3::PyResult<()> {
+    fn init(_module: &pyo3::Bound<'_, pyo3::types::PyModule>) -> pyo3::PyResult<()> {
         let runtime = Box::leak(Box::new(
             tokio::runtime::Builder::new_multi_thread()
                 .enable_all()
